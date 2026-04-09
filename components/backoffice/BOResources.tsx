@@ -229,8 +229,8 @@ function ProductiviteTab({ users }: { users: User[] }) {
                       {u.name.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <p className="font-semibold text-sm text-foreground">{u.name}</p>
-                      <p className="text-xs text-muted-foreground capitalize">{u.role.replace(/_/g, " ")}</p>
+                      <p className="font-semibold" className="font-semibold text-sm text-foreground">{u.name}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground capitalize">{u.role.replace(/_/g, " ")}</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
@@ -240,12 +240,12 @@ function ProductiviteTab({ users }: { users: User[] }) {
                         (k as any).good ? "bg-emerald-50 border border-emerald-200" :
                         "bg-muted/50"
                       }`}>
-                        <p className="text-[10px] text-muted-foreground">{k.label}</p>
-                        <p className={`text-base font-bold ${(k as any).bad ? "text-red-600" : (k as any).good ? "text-emerald-600" : "text-foreground"}`}>{k.value}</p>
+                        <p className="font-semibold" className="text-[10px] text-muted-foreground">{k.label}</p>
+                        <p className="font-semibold" className={`text-base font-bold ${(k as any).bad ? "text-red-600" : (k as any).good ? "text-emerald-600" : "text-foreground"}`}>{k.value}</p>
                       </div>
                     ))}
                     {kpis.length === 0 && (
-                      <p className="col-span-2 text-xs text-muted-foreground italic">Pas de KPI configuré pour ce rôle</p>
+                      <p className="font-semibold" className="col-span-2 text-xs text-muted-foreground italic">Pas de KPI configuré pour ce rôle</p>
                     )}
                   </div>
                 </div>
@@ -373,13 +373,13 @@ function ReglesTab({ isAdmin }: { isAdmin: boolean }) {
             <Badge label={g.label} color={g.color} />
             <div className="space-y-2">
               {gr.map(r => (
-                <div key={r.id} className={`flex items-center gap-3 bg-card border rounded-lg px-4 py-3 ${r.actif ? "border-border" : "border-border/40 opacity-60"}`}>
+                <div key={r.id} className={`flex items-center gap-3 bg-card border rounded-lg px-4 py-3 ${r.actif ? "border-border" : "border-border/40 "}`}>
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${r.signe === "bonus" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
                     {r.signe === "bonus" ? "+" : "-"}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground">{r.nom}</p>
-                    <p className="text-xs text-muted-foreground">{r.valeur} {r.unite.replace(/_/g, " ")} {r.description ? `— ${r.description}` : ""}</p>
+                    <p className="font-semibold" className="text-sm font-medium text-foreground">{r.nom}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">{r.valeur} {r.unite.replace(/_/g, " ")} {r.description ? `— ${r.description}` : ""}</p>
                   </div>
                   {isAdmin && (
                     <div className="flex items-center gap-2">
@@ -460,14 +460,14 @@ function GrillesTab({ users, isAdmin }: { users: User[]; isAdmin: boolean }) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="font-semibold text-sm text-foreground">{u.name}</p>
+                    <p className="font-semibold" className="font-semibold text-sm text-foreground">{u.name}</p>
                     {g?.actionnaire && <Badge label="Actionnaire" color="bg-purple-100 text-purple-700" />}
                   </div>
-                  <p className="text-xs text-muted-foreground">{u.role.replace(/_/g, " ")} · {groupe?.label}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{u.role.replace(/_/g, " ")} · {groupe?.label}</p>
                 </div>
                 <div className="text-right mr-2">
-                  <p className="text-sm font-bold text-foreground">{g ? `${g.salaireFixe.toLocaleString()} DH` : "—"}</p>
-                  <p className="text-[10px] text-muted-foreground">Fixe</p>
+                  <p className="font-semibold" className="text-sm font-bold text-foreground">{g ? `${g.salaireFixe.toLocaleString()} DH` : "—"}</p>
+                  <p className="font-semibold" className="text-[10px] text-muted-foreground">Fixe</p>
                 </div>
                 {isAdmin && (
                   <button
@@ -724,7 +724,7 @@ function CalculSalaireTab({ users }: { users: User[] }) {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <p className="font-semibold text-sm text-foreground">{f.userName}</p>
+                  <p className="font-semibold" className="font-semibold text-sm text-foreground">{f.userName}</p>
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
                     f.statut === "payé" ? "bg-emerald-100 text-emerald-700" :
                     f.statut === "transmis_azmi" ? "bg-blue-100 text-blue-700" :
@@ -732,11 +732,11 @@ function CalculSalaireTab({ users }: { users: User[] }) {
                     "bg-slate-100 text-slate-600"
                   }`}>{f.statut.replace(/_/g, " ")}</span>
                 </div>
-                <p className="text-xs text-muted-foreground">{f.userRole.replace(/_/g, " ")}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">{f.userRole.replace(/_/g, " ")}</p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold text-foreground">{f.salaireBrut.toLocaleString()} <span className="text-sm font-normal">DH</span></p>
-                <p className="text-[10px] text-muted-foreground">Fixe: {f.salaireFixe.toLocaleString()} + Var: <span className={f.salaireVarible >= 0 ? "text-emerald-600" : "text-red-600"}>{f.salaireVarible >= 0 ? "+" : ""}{f.salaireVarible.toLocaleString()}</span></p>
+                <p className="font-semibold" className="text-lg font-bold text-foreground">{f.salaireBrut.toLocaleString()} <span className="text-sm font-normal">DH</span></p>
+                <p className="font-semibold" className="text-[10px] text-muted-foreground">Fixe: {f.salaireFixe.toLocaleString()} + Var: <span className={f.salaireVarible >= 0 ? "text-emerald-600" : "text-red-600"}>{f.salaireVarible >= 0 ? "+" : ""}{f.salaireVarible.toLocaleString()}</span></p>
               </div>
             </div>
 
@@ -813,9 +813,9 @@ function RecrutementTab({ users }: { users: User[] }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tonnageMensuel.map(t => (
           <div key={t.periode} className="bg-card border border-border rounded-xl p-4">
-            <p className="text-xs text-muted-foreground font-medium">{t.periode}</p>
-            <p className="text-2xl font-bold text-foreground mt-1">{t.tonnage.toFixed(0)} <span className="text-sm font-normal">kg</span></p>
-            <p className="text-xs text-muted-foreground">{t.commandes} commandes</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground font-medium">{t.periode}</p>
+            <p className="font-semibold" className="text-2xl font-bold text-foreground mt-1">{t.tonnage.toFixed(0)} <span className="text-sm font-normal">kg</span></p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{t.commandes} commandes</p>
           </div>
         ))}
       </div>
@@ -823,37 +823,37 @@ function RecrutementTab({ users }: { users: User[] }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className={`rounded-xl p-5 border ${recoPrev > 0 ? "bg-amber-50 border-amber-200" : "bg-emerald-50 border-emerald-200"}`}>
           <div className="flex items-center justify-between mb-3">
-            <p className="font-semibold text-foreground">Prévendeurs</p>
+            <p className="font-semibold" className="font-semibold text-foreground">Prévendeurs</p>
             <Badge label={`${prevendeurs.length} en poste`} color="bg-white text-foreground border border-border" />
           </div>
-          <p className="text-3xl font-bold text-foreground mb-1">{besoingPrev}</p>
-          <p className="text-sm text-muted-foreground">nécessaires (base: 1 / 500kg)</p>
-          <p className={`mt-3 text-sm font-semibold ${recoPrev > 0 ? "text-amber-700" : "text-emerald-700"}`}>
+          <p className="font-semibold" className="text-3xl font-bold text-foreground mb-1">{besoingPrev}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">nécessaires (base: 1 / 500kg)</p>
+          <p className="font-semibold" className={`mt-3 text-sm font-semibold ${recoPrev > 0 ? "text-amber-700" : "text-emerald-700"}`}>
             {recoPrev > 0 ? `Recruter ${recoPrev} prévendeur${recoPrev > 1 ? "s" : ""}` : "Effectif suffisant"}
           </p>
         </div>
 
         <div className={`rounded-xl p-5 border ${recoLiv > 0 ? "bg-amber-50 border-amber-200" : "bg-emerald-50 border-emerald-200"}`}>
           <div className="flex items-center justify-between mb-3">
-            <p className="font-semibold text-foreground">Livreurs</p>
+            <p className="font-semibold" className="font-semibold text-foreground">Livreurs</p>
             <Badge label={`${livreurs.length} en poste`} color="bg-white text-foreground border border-border" />
           </div>
-          <p className="text-3xl font-bold text-foreground mb-1">{besoingLiv}</p>
-          <p className="text-sm text-muted-foreground">nécessaires (base: 1 / 30 cmd)</p>
-          <p className={`mt-3 text-sm font-semibold ${recoLiv > 0 ? "text-amber-700" : "text-emerald-700"}`}>
+          <p className="font-semibold" className="text-3xl font-bold text-foreground mb-1">{besoingLiv}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">nécessaires (base: 1 / 30 cmd)</p>
+          <p className="font-semibold" className={`mt-3 text-sm font-semibold ${recoLiv > 0 ? "text-amber-700" : "text-emerald-700"}`}>
             {recoLiv > 0 ? `Recruter ${recoLiv} livreur${recoLiv > 1 ? "s" : ""}` : "Effectif suffisant"}
           </p>
         </div>
       </div>
 
       <div className="bg-card border border-border rounded-xl p-5 space-y-3">
-        <p className="font-semibold text-foreground text-sm">Synthèse RH — Recommandations Ourai</p>
+        <p className="font-semibold" className="font-semibold text-foreground text-sm">Synthèse RH — Recommandations Ourai</p>
         <div className="space-y-2 text-sm text-muted-foreground">
           <p>• Tonnage moyen sur 3 mois : <strong className="text-foreground">{avgTonnage.toFixed(0)} kg / mois</strong></p>
           <p>• Commandes moyennes : <strong className="text-foreground">{avgCmds.toFixed(0)} cmd / mois</strong></p>
-          {recoPrev > 0 && <p className="text-amber-700 font-medium">• Besoin identifié : +{recoPrev} prévendeur{recoPrev > 1 ? "s" : ""} pour absorber le flux actuel</p>}
-          {recoLiv > 0 && <p className="text-amber-700 font-medium">• Besoin identifié : +{recoLiv} livreur{recoLiv > 1 ? "s" : ""} pour couvrir les tournées</p>}
-          {recoPrev <= 0 && recoLiv <= 0 && <p className="text-emerald-700 font-medium">• Les effectifs actuels couvrent les besoins opérationnels</p>}
+          {recoPrev > 0 && <p className="font-semibold" className="text-amber-700 font-medium">• Besoin identifié : +{recoPrev} prévendeur{recoPrev > 1 ? "s" : ""} pour absorber le flux actuel</p>}
+          {recoLiv > 0 && <p className="font-semibold" className="text-amber-700 font-medium">• Besoin identifié : +{recoLiv} livreur{recoLiv > 1 ? "s" : ""} pour couvrir les tournées</p>}
+          {recoPrev <= 0 && recoLiv <= 0 && <p className="font-semibold" className="text-emerald-700 font-medium">• Les effectifs actuels couvrent les besoins opérationnels</p>}
         </div>
       </div>
     </div>
@@ -900,7 +900,7 @@ export default function BOResources({ user }: { user: User }) {
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-[10px] text-emerald-400 font-semibold">Actif</span>
           </div>
-          <p className="text-sm mt-1" style={{ color: "oklch(0.75 0.06 280)" }}>
+          <p className="font-semibold" className="text-sm mt-1" style={{ color: "oklch(0.75 0.06 280)" }}>
             Expert IA en Ressources Humaines, optimisation des coûts de manutention et tracking de rendement.
           </p>
           <div className="flex flex-wrap gap-3 mt-2">

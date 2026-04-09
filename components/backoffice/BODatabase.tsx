@@ -66,8 +66,8 @@ function AccessDenied() {
         </svg>
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-foreground">Acces restreint</p>
-        <p className="text-sm text-muted-foreground mt-1">Cette section est reservee aux administrateurs.</p>
+        <p className="font-semibold" className="text-lg font-bold text-foreground">Acces restreint</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground mt-1">Cette section est reservee aux administrateurs.</p>
       </div>
     </div>
   )
@@ -286,7 +286,7 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
           <h2 className="text-xl font-bold text-foreground">Base de données <span className="text-muted-foreground font-normal text-base mr-1">/ قاعدة البيانات</span></h2>
-          <p className="text-sm text-muted-foreground">Consultation de toutes les données — synchronisation Supabase</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">Consultation de toutes les données — synchronisation Supabase</p>
         </div>
         {/* Supabase status pill */}
         <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border ${sbStatus === "ok" ? "bg-green-50 border-green-200 text-green-700" : sbStatus === "local" ? "bg-amber-50 border-amber-200 text-amber-700" : sbStatus === "syncing" ? "bg-blue-50 border-blue-200 text-blue-700" : "bg-muted border-border text-muted-foreground"}`}>
@@ -294,7 +294,7 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
             ? <div className="w-2.5 h-2.5 border border-blue-500 border-t-transparent rounded-full animate-spin" />
             : <div className={`w-2 h-2 rounded-full ${sbStatus === "ok" ? "bg-green-500" : sbStatus === "local" ? "bg-amber-500" : "bg-gray-400"}`} />}
           {sbStatus === "syncing" ? "Sync Supabase..." : sbStatus === "ok" ? "Supabase connecte" : sbStatus === "local" ? "Mode local" : "—"}
-          {sbMsg && <span className="hidden sm:inline text-[10px] opacity-70 ml-1">— {sbMsg}</span>}
+          {sbMsg && <span className="hidden sm:inline text-[10px]  ml-1">— {sbMsg}</span>}
         </div>
       </div>
 
@@ -305,7 +305,7 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
             <h3 className="font-semibold text-blue-900 text-sm">
               Importer {SECTIONS.find(s => s.id === section)?.label} / استيراد البيانات
             </h3>
-            <p className="text-xs text-blue-700 mt-0.5">
+            <p className="font-semibold" className="text-xs text-blue-700 mt-0.5">
               Supporte CSV ou JSON. Pour CSV: la 1ère ligne doit être les noms de colonnes.
               {section === "clients" && " Colonnes: nom, secteur, zone, type, taille, rotation, telephone, adresse, ice, notes, gps_lat, gps_lng"}
               {section === "stock" && " Colonnes: nom, nomAr, famille, unite, stockDisponible, prixAchat, pvMethode, pvValeur"}
@@ -331,7 +331,7 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
                 Modele CSV
               </button>
             )}
-            <label className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white cursor-pointer transition-opacity ${importing ? "opacity-60 pointer-events-none" : "hover:opacity-90"}`}
+            <label className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white cursor-pointer transition-opacity ${importing ? " pointer-events-none" : "hover:"}`}
               style={{ background: "oklch(0.38 0.2 260)" }}>
               <input ref={csvRef} type="file" accept=".csv,.json" className="hidden" onChange={handleClientImport} />
               {importing
@@ -446,7 +446,7 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
               a.download = `freshlink_backup_toutes_tables_${new Date().toISOString().split("T")[0]}.json`
               a.click()
             }}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md hover:opacity-90 transition-opacity"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md hover: transition-opacity"
             style={{ background: "var(--primary)" }}
             title="Télécharger TOUTES les tables — backup complet">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>

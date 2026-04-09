@@ -128,7 +128,7 @@ export default function MobileDashboard({ user }: Props) {
               <h2 className="text-lg font-bold text-foreground">
                 Tableau de bord <span className="text-muted-foreground font-normal text-base">/ لوحة القيادة</span>
               </h2>
-              <p className="text-xs text-muted-foreground">{user.name} — {today}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">{user.name} — {today}</p>
             </div>
             <button onClick={() => setShowChat(true)} className="relative p-2.5 rounded-xl border border-border bg-card hover:bg-muted transition-colors">
               <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ export default function MobileDashboard({ user }: Props) {
                 className={`flex-1 py-2 rounded-lg text-xs font-semibold transition-all ${period === p ? "text-white shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
                 style={period === p ? { background: "oklch(0.38 0.2 260)" } : {}}>
                 <span className="block">{PERIOD_LABELS[p]}</span>
-                <span className="text-[10px] opacity-70">{PERIOD_LABELS_AR[p]}</span>
+                <span className="text-[10px] ">{PERIOD_LABELS_AR[p]}</span>
               </button>
             ))}
           </div>
@@ -180,8 +180,8 @@ export default function MobileDashboard({ user }: Props) {
                   .map(([id, sku]) => (
                     <div key={id} className="px-4 py-3 flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-semibold text-foreground">{sku.nom}</p>
-                        <p className="text-xs text-muted-foreground">{sku.quantite.toLocaleString("fr-MA")} kg</p>
+                        <p className="font-semibold" className="text-sm font-semibold text-foreground">{sku.nom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{sku.quantite.toLocaleString("fr-MA")} kg</p>
                       </div>
                       <span className="font-bold text-primary text-sm">
                         {sku.ca.toLocaleString("fr-MA", { minimumFractionDigits: 2 })} DH
@@ -202,7 +202,7 @@ export default function MobileDashboard({ user }: Props) {
                 <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                <p className="text-sm text-muted-foreground">Aucune commande {period === "jour" ? "aujourd'hui" : period === "j1" ? "hier" : "cette semaine"}</p>
+                <p className="font-semibold" className="text-sm text-muted-foreground">Aucune commande {period === "jour" ? "aujourd'hui" : period === "j1" ? "hier" : "cette semaine"}</p>
               </div>
             ) : (
               <div className="flex flex-col gap-2">
@@ -245,13 +245,13 @@ export default function MobileDashboard({ user }: Props) {
             </button>
             <div>
               <h3 className="text-sm font-bold text-foreground">Discussion équipe <span className="text-muted-foreground font-normal">/ نقاش الفريق</span></h3>
-              <p className="text-xs text-muted-foreground">{messages.length} messages</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">{messages.length} messages</p>
             </div>
           </div>
 
           <div ref={chatRef} className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
             {messages.length === 0 && (
-              <p className="text-sm text-muted-foreground text-center mt-10">Aucun message — Soyez le premier!</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground text-center mt-10">Aucun message — Soyez le premier!</p>
             )}
             {messages.map(m => {
               const isMe = m.senderId === user.id
@@ -278,7 +278,7 @@ export default function MobileDashboard({ user }: Props) {
               placeholder="Votre message... / رسالتك"
               className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
             <button onClick={sendMessage} disabled={!newMsg.trim()}
-              className="p-2.5 rounded-xl text-white disabled:opacity-50"
+              className="p-2.5 rounded-xl text-white disabled:"
               style={{ background: "oklch(0.38 0.2 260)" }}>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

@@ -111,13 +111,13 @@ export default function BODepots({ user }: { user: User }) {
             Gestion des Depots
             <span className="text-xs font-normal text-muted-foreground" dir="rtl">ادارة المستودعات</span>
           </h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="font-semibold" className="text-sm text-muted-foreground mt-0.5">
             Creez et gerez vos depots. Affectez chaque magasinier/acheteur a son depot depuis la section Utilisateurs.
           </p>
         </div>
         {isSuperAdmin && (
           <button onClick={openCreate}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity shadow-sm">
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover: transition-opacity shadow-sm">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
@@ -136,7 +136,7 @@ export default function BODepots({ user }: { user: User }) {
         ].map(s => (
           <div key={s.label} className={`flex flex-col gap-1 px-4 py-3 rounded-xl border ${s.color}`}>
             <span className="text-2xl font-bold">{s.value}</span>
-            <span className="text-xs font-medium opacity-80">{s.label}</span>
+            <span className="text-xs font-medium ">{s.label}</span>
           </div>
         ))}
       </div>
@@ -159,7 +159,7 @@ export default function BODepots({ user }: { user: User }) {
           const depotUsers = getUsersForDepot(d.id)
           const isPrincipal = d.id === DEFAULT_DEPOT.id
           return (
-            <div key={d.id} className={`rounded-xl border-2 bg-card transition-all ${d.actif ? "border-border" : "border-dashed border-border/50 opacity-60"}`}>
+            <div key={d.id} className={`rounded-xl border-2 bg-card transition-all ${d.actif ? "border-border" : "border-dashed border-border/50 "}`}>
               {/* Card header */}
               <div className="flex items-start justify-between gap-3 p-4 border-b border-border">
                 <div className="flex items-center gap-3 min-w-0">
@@ -178,7 +178,7 @@ export default function BODepots({ user }: { user: User }) {
                         {d.actif ? "Actif" : "Inactif"}
                       </span>
                     </div>
-                    {d.ville && <p className="text-xs text-muted-foreground">{d.ville}</p>}
+                    {d.ville && <p className="font-semibold" className="text-xs text-muted-foreground">{d.ville}</p>}
                   </div>
                 </div>
                 {isSuperAdmin && (
@@ -235,11 +235,11 @@ export default function BODepots({ user }: { user: User }) {
 
                 {/* Assigned users */}
                 <div>
-                  <p className="text-xs font-semibold text-foreground mb-1.5">
+                  <p className="font-semibold" className="text-xs font-semibold text-foreground mb-1.5">
                     Equipe affectee ({depotUsers.length} utilisateur{depotUsers.length !== 1 ? "s" : ""})
                   </p>
                   {depotUsers.length === 0 ? (
-                    <p className="text-xs text-muted-foreground italic">Aucun utilisateur affecte a ce depot</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground italic">Aucun utilisateur affecte a ce depot</p>
                   ) : (
                     <div className="flex flex-wrap gap-1.5">
                       {depotUsers.map(u => (
@@ -250,7 +250,7 @@ export default function BODepots({ user }: { user: User }) {
                             u.role === "livreur"    ? "bg-violet-500" : "bg-slate-400"
                           }`} />
                           {u.name}
-                          <span className="text-muted-foreground opacity-70 capitalize">({u.role})</span>
+                          <span className="text-muted-foreground  capitalize">({u.role})</span>
                         </span>
                       ))}
                     </div>
@@ -258,7 +258,7 @@ export default function BODepots({ user }: { user: User }) {
                 </div>
 
                 {d.notes && (
-                  <p className="text-xs text-muted-foreground italic border-t border-border pt-2">{d.notes}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground italic border-t border-border pt-2">{d.notes}</p>
                 )}
               </div>
             </div>
@@ -267,10 +267,10 @@ export default function BODepots({ user }: { user: User }) {
 
         {filtered.length === 0 && (
           <div className="sm:col-span-2 flex flex-col items-center justify-center py-16 text-muted-foreground gap-3">
-            <svg className="w-12 h-12 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-12 h-12 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5" />
             </svg>
-            <p className="font-medium">Aucun depot trouve</p>
+            <p className="font-semibold" className="font-medium">Aucun depot trouve</p>
             {isSuperAdmin && <button onClick={openCreate} className="text-sm text-primary underline">Creer le premier depot</button>}
           </div>
         )}
@@ -282,8 +282,8 @@ export default function BODepots({ user }: { user: User }) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <div>
-          <p className="font-semibold mb-0.5">Comment affecter un utilisateur a un depot ?</p>
-          <p className="text-xs leading-relaxed">
+          <p className="font-semibold" className="font-semibold mb-0.5">Comment affecter un utilisateur a un depot ?</p>
+          <p className="font-semibold" className="text-xs leading-relaxed">
             Allez dans <strong>Administration &gt; Utilisateurs &amp; Roles</strong>, editez un utilisateur (magasinier, acheteur, livreur)
             et selectionnez son depot dans le champ "Depot assigne". Le magasinier ne verra alors que les bons d&apos;achat et PO destines a son depot.
           </p>
@@ -365,7 +365,7 @@ export default function BODepots({ user }: { user: User }) {
                 Annuler
               </button>
               <button onClick={handleSave} disabled={saving}
-                className="flex-1 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity disabled:opacity-50">
+                className="flex-1 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover: transition-opacity disabled:">
                 {saving ? "Enregistrement..." : editing ? "Mettre a jour" : "Creer le depot"}
               </button>
             </div>

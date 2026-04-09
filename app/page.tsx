@@ -17,7 +17,7 @@ function Spinner() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-3">
         <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-        <p className="text-muted-foreground text-sm font-sans">Chargement...</p>
+        <p className="font-semibold" className="text-muted-foreground text-sm font-sans">Chargement...</p>
       </div>
     </div>
   )
@@ -71,8 +71,8 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-6">
         <div className="max-w-md w-full bg-card border border-border rounded-2xl p-8 space-y-4 shadow-lg">
-          <p className="text-lg font-bold text-foreground">Erreur de demarrage</p>
-          <p className="text-sm font-mono text-red-600 bg-red-50 rounded-xl p-3 break-all">{error}</p>
+          <p className="font-semibold" className="text-lg font-bold text-foreground">Erreur de demarrage</p>
+          <p className="font-semibold" className="text-sm font-mono text-red-600 bg-red-50 rounded-xl p-3 break-all">{error}</p>
           <button
             onClick={() => { try { localStorage.clear() } catch(_){} window.location.reload() }}
             className="w-full py-3 rounded-xl font-bold text-white text-sm"

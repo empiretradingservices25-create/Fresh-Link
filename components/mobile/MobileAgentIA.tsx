@@ -429,8 +429,8 @@ Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
               Actif
             </span>
           </div>
-          <p className="text-xs font-medium text-slate-500 mt-0.5 truncate">{agent.fullName}</p>
-          <p className="text-[10px] font-semibold mt-0.5" style={{ color: agent.color }}>{agent.roleLabel}</p>
+          <p className="font-semibold" className="text-xs font-medium text-slate-500 mt-0.5 truncate">{agent.fullName}</p>
+          <p className="font-semibold" className="text-[10px] font-semibold mt-0.5" style={{ color: agent.color }}>{agent.roleLabel}</p>
         </div>
       </div>
 
@@ -441,7 +441,7 @@ Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
             key={i}
             onClick={() => send(qa.prompt)}
             disabled={loading}
-            className="shrink-0 px-3.5 py-2 rounded-full text-xs font-semibold border transition-all hover:opacity-80 active:scale-95 disabled:opacity-40"
+            className="shrink-0 px-3.5 py-2 rounded-full text-xs font-semibold border transition-all hover: active:scale-95 disabled:"
             style={{ background: agent.bgLight, color: agent.textColor, borderColor: agent.border }}
           >
             {qa.label}
@@ -506,12 +506,12 @@ Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
             onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()}
             placeholder={`Message a ${agent.name}...`}
             disabled={loading}
-            className="flex-1 px-4 py-2.5 rounded-xl text-sm border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all disabled:opacity-50"
+            className="flex-1 px-4 py-2.5 rounded-xl text-sm border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all disabled:"
           />
           <button
             onClick={() => send()}
             disabled={loading || !input.trim()}
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-40 shrink-0 shadow-sm"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all hover: active:scale-95 disabled: shrink-0 shadow-sm"
             style={{ background: agent.color }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

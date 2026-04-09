@@ -650,11 +650,11 @@ CONTEXTE SESSION :
     return text
       .split("\n")
       .map((line, i) => {
-        if (line.startsWith("# ")) return <p key={i} className="font-black text-sm mt-2 mb-1">{line.slice(2)}</p>
-        if (line.startsWith("## ")) return <p key={i} className="font-bold text-xs mt-2 mb-0.5 uppercase tracking-wide opacity-70">{line.slice(3)}</p>
-        if (line.startsWith("**") && line.endsWith("**")) return <p key={i} className="font-bold text-xs mt-1">{line.slice(2, -2)}</p>
-        if (line.startsWith("- ") || line.startsWith("* ")) return <p key={i} className="flex gap-1.5 text-xs ml-2"><span className="shrink-0 mt-1 w-1 h-1 rounded-full bg-current inline-block" /><span>{line.slice(2)}</span></p>
-        if (/^\d+\./.test(line)) return <p key={i} className="text-xs ml-2">{line}</p>
+        if (line.startsWith("# ")) return <p className="font-semibold" key={i} className="font-black text-sm mt-2 mb-1">{line.slice(2)}</p>
+        if (line.startsWith("## ")) return <p className="font-semibold" key={i} className="font-bold text-xs mt-2 mb-0.5 uppercase tracking-wide ">{line.slice(3)}</p>
+        if (line.startsWith("**") && line.endsWith("**")) return <p className="font-semibold" key={i} className="font-bold text-xs mt-1">{line.slice(2, -2)}</p>
+        if (line.startsWith("- ") || line.startsWith("* ")) return <p className="font-semibold" key={i} className="flex gap-1.5 text-xs ml-2"><span className="shrink-0 mt-1 w-1 h-1 rounded-full bg-current inline-block" /><span>{line.slice(2)}</span></p>
+        if (/^\d+\./.test(line)) return <p className="font-semibold" key={i} className="text-xs ml-2">{line}</p>
         if (line.startsWith("|") && line.endsWith("|")) {
           const cells = line.split("|").filter(c => c.trim())
           const isHeader = i > 0
@@ -670,7 +670,7 @@ CONTEXTE SESSION :
         }
         if (line.startsWith("---")) return <hr key={i} className="border-current/20 my-1" />
         if (line === "") return <div key={i} className="h-1.5" />
-        return <p key={i} className="text-xs leading-relaxed">{line}</p>
+        return <p className="font-semibold" key={i} className="text-xs leading-relaxed">{line}</p>
       })
   }
 
@@ -693,7 +693,7 @@ CONTEXTE SESSION :
             <span className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white shrink-0"
               style={{ background: agent.color }}>{agent.badge}</span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-0.5 truncate">{agent.role}</p>
+          <p className="font-semibold" className="text-[11px] text-slate-500 mt-0.5 truncate">{agent.role}</p>
         </div>
         <div className="flex items-center gap-1 text-[10px] font-semibold text-emerald-600 shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -707,7 +707,7 @@ CONTEXTE SESSION :
           style={{ scrollbarWidth: "none" }}>
           {actions.map((a, i) => (
             <button key={i} onClick={() => send(a)} disabled={loading}
-              className="shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white transition-all hover:opacity-80 active:scale-95 disabled:opacity-40"
+              className="shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white transition-all hover: active:scale-95 disabled:"
               style={{ background: agent.color }}>
               {a}
             </button>
@@ -736,7 +736,7 @@ CONTEXTE SESSION :
                 ? <div className="space-y-0">{formatText(m.text)}</div>
                 : <span className="text-xs">{m.text}</span>
               }
-              <p className="text-[9px] opacity-50 mt-1 text-right">
+              <p className="font-semibold" className="text-[9px]  mt-1 text-right">
                 {new Date(m.ts).toLocaleTimeString("fr-MA", { hour: "2-digit", minute: "2-digit" })}
               </p>
             </div>
@@ -780,18 +780,18 @@ CONTEXTE SESSION :
             placeholder={`Message ${agent.name}... (Darija, FR, EN)`}
             disabled={loading}
             rows={1}
-            className="flex-1 px-4 py-2.5 rounded-xl text-sm border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all disabled:opacity-50 resize-none"
+            className="flex-1 px-4 py-2.5 rounded-xl text-sm border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all disabled: resize-none"
             style={{ ["--tw-ring-color" as string]: agent.color + "40", maxHeight: "80px" }}
           />
           <button onClick={() => send()} disabled={loading || !input.trim()}
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-40 shrink-0 shadow-sm"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all hover: active:scale-95 disabled: shrink-0 shadow-sm"
             style={{ background: agent.color }}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           </button>
         </div>
-        <p className="text-[10px] text-slate-400 mt-1.5 text-center">
+        <p className="font-semibold" className="text-[10px] text-slate-400 mt-1.5 text-center">
           Shift+Enter pour nouvelle ligne · Enter pour envoyer
         </p>
       </div>
@@ -815,8 +815,8 @@ function AgentBtn({ a, isActive, onSelect }: { a: typeof AGENTS[0]; isActive: bo
           {a.avatar}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-bold truncate" style={isActive ? { color: a.color } : { color: "#1e293b" }}>{a.name}</p>
-          <p className="text-[10px] text-slate-400 truncate leading-tight">{a.role}</p>
+          <p className="font-semibold" className="text-xs font-bold truncate" style={isActive ? { color: a.color } : { color: "#1e293b" }}>{a.name}</p>
+          <p className="font-semibold" className="text-[10px] text-slate-400 truncate leading-tight">{a.role}</p>
         </div>
         {isActive && <span className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse" style={{ background: a.color }} />}
       </div>
@@ -831,8 +831,8 @@ function SectionLabel({ level, title, sub, color }: { level: string; title: stri
       <span className="text-[9px] font-black px-2 py-0.5 rounded-full text-white shrink-0"
         style={{ background: color }}>{level}</span>
       <div className="min-w-0">
-        <p className="text-[10px] font-bold text-slate-700 truncate leading-none">{title}</p>
-        <p className="text-[9px] text-slate-400 truncate leading-tight">{sub}</p>
+        <p className="font-semibold" className="text-[10px] font-bold text-slate-700 truncate leading-none">{title}</p>
+        <p className="font-semibold" className="text-[9px] text-slate-400 truncate leading-tight">{sub}</p>
       </div>
     </div>
   )
@@ -860,11 +860,11 @@ export default function AgentsIAPanel({ user, initialAgent }: Props) {
               </svg>
             </div>
             <div>
-              <p className="text-xs font-black text-slate-800 leading-none">
+              <p className="font-semibold" className="text-xs font-black text-slate-800 leading-none">
                 FRESH<span className="text-green-600">LINK</span>
                 <span className="text-green-700 text-[9px] tracking-widest ml-1">PRO</span>
               </p>
-              <p className="text-[9px] text-slate-400">{AGENTS.length} agents IA actifs</p>
+              <p className="font-semibold" className="text-[9px] text-slate-400">{AGENTS.length} agents IA actifs</p>
             </div>
           </div>
         </div>
@@ -893,12 +893,12 @@ export default function AgentsIAPanel({ user, initialAgent }: Props) {
         <div className="px-3 py-3">
           <div className="flex items-center gap-1.5 mb-1">
             <span className="text-[9px] font-black px-2 py-0.5 rounded-full text-white bg-amber-500 shrink-0">N3</span>
-            <p className="text-[10px] font-bold text-slate-700">Alerte Direction</p>
+            <p className="font-semibold" className="text-[10px] font-bold text-slate-700">Alerte Direction</p>
           </div>
-          <p className="text-[10px] text-slate-500 leading-relaxed px-1">
+          <p className="font-semibold" className="text-[10px] text-slate-500 leading-relaxed px-1">
             Declenchement automatique si N1+N2 ne resolvent pas.
           </p>
-          <p className="text-[10px] font-bold text-amber-600 mt-1 px-1">+212663898707</p>
+          <p className="font-semibold" className="text-[10px] font-bold text-amber-600 mt-1 px-1">+212663898707</p>
         </div>
       </div>
 

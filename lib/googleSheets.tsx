@@ -310,7 +310,7 @@ function doGet(e) {
   const html = '<html><body style="font-family:sans-serif;padding:24px">'
     + '<h2 style="color:#0F9D58">FreshLink Pro — AppScript actif</h2>'
     + '<p>Ce script est correctement deploye. Utilisez POST pour synchroniser les donnees.</p>'
-    + '<p style="color:#666;font-size:12px">Deploye le : ' + new Date().toLocaleString() + '</p>'
+    + '<p className="font-semibold" style="color:#666;font-size:12px">Deploye le : ' + new Date().toLocaleString() + '</p>'
     + '</body></html>';
   return HtmlService.createHtmlOutput(html);
 }

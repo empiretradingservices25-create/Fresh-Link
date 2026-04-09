@@ -325,7 +325,7 @@ export default function BODashboard({ user }: Props) {
             </h2>
             <div className="flex items-center gap-2 mt-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot" />
-              <p className="text-xs" style={{ color: "oklch(0.48 0.010 255)" }}>{today} — {user.name}</p>
+              <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.48 0.010 255)" }}>{today} — {user.name}</p>
             </div>
           </div>
         </div>
@@ -361,14 +361,14 @@ export default function BODashboard({ user }: Props) {
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-bold" style={{ color: "oklch(0.85 0.14 27)" }}>
+                <p className="font-semibold" className="text-sm font-bold" style={{ color: "oklch(0.85 0.14 27)" }}>
                   {creditAlerts.length} alerte(s) credit — {DH(totalEnRetard + totalHorsPlafond)} en situation critique
                 </p>
-                <p className="text-xs" style={{ color: "oklch(0.65 0.12 27)" }}>Clients hors plafond ou en retard de paiement</p>
+                <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.65 0.12 27)" }}>Clients hors plafond ou en retard de paiement</p>
               </div>
             </div>
             <button onClick={() => setDashTab("credit")}
-              className="px-4 py-1.5 rounded-xl text-xs font-bold text-white transition-opacity hover:opacity-90"
+              className="px-4 py-1.5 rounded-xl text-xs font-bold text-white transition-opacity hover:"
               style={{ background: "oklch(0.52 0.22 27)" }}>
               Voir Credit
             </button>
@@ -391,7 +391,7 @@ export default function BODashboard({ user }: Props) {
             ))}
           </div>
           {creditAlerts.length > 3 && (
-            <p className="text-xs text-center" style={{ color: "oklch(0.65 0.12 27)" }}>+ {creditAlerts.length - 3} autre(s) client(s) — voir onglet Credit</p>
+            <p className="font-semibold" className="text-xs text-center" style={{ color: "oklch(0.65 0.12 27)" }}>+ {creditAlerts.length - 3} autre(s) client(s) — voir onglet Credit</p>
           )}
         </div>
       )}
@@ -430,9 +430,9 @@ export default function BODashboard({ user }: Props) {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs" style={{ color: "oklch(0.52 0.010 145)" }}>{k.label} / {k.labelAr}</p>
-                  <p className="text-2xl font-black" style={{ color: k.valClr }}>{k.value}</p>
-                  <p className="text-xs" style={{ color: "oklch(0.50 0.010 145)" }}>{k.sub}</p>
+                  <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.52 0.010 145)" }}>{k.label} / {k.labelAr}</p>
+                  <p className="font-semibold" className="text-2xl font-black" style={{ color: k.valClr }}>{k.value}</p>
+                  <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.50 0.010 145)" }}>{k.sub}</p>
                   {(k.delta1 || k.delta2) && (
                     <div className="flex gap-1 mt-1.5 flex-wrap">{k.delta1}{k.delta2}</div>
                   )}
@@ -464,8 +464,8 @@ export default function BODashboard({ user }: Props) {
               { label: "Stock faible",    v: String(stockFaible), clr: stockFaible > 0 ? "oklch(0.65 0.22 27)" : "oklch(0.65 0.18 148)", sub: null, sub2: null },
             ].map(k => (
               <div key={k.label} className="rounded-xl p-3" style={{ background: "oklch(0.12 0.010 145)", border: "1px solid oklch(0.20 0.012 145)" }}>
-                <p className="text-[11px] mb-1 truncate" style={{ color: "oklch(0.52 0.010 145)" }}>{k.label}</p>
-                <p className="text-xl font-black" style={{ color: k.clr }}>{k.v}</p>
+                <p className="font-semibold" className="text-[11px] mb-1 truncate" style={{ color: "oklch(0.52 0.010 145)" }}>{k.label}</p>
+                <p className="font-semibold" className="text-xl font-black" style={{ color: k.clr }}>{k.v}</p>
                 {(k.sub || k.sub2) && <div className="flex gap-1 mt-1 flex-wrap">{k.sub}{k.sub2}</div>}
               </div>
             ))}
@@ -478,8 +478,8 @@ export default function BODashboard({ user }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
               <div>
-                <p className="text-sm font-bold" style={{ color: "oklch(0.82 0.14 27)" }}>Alerte stock faible / تنبيه مخزون</p>
-                <p className="text-xs" style={{ color: "oklch(0.65 0.12 27)" }}>{stockFaible} article(s) sous 50 kg — Passez des commandes fournisseur.</p>
+                <p className="font-semibold" className="text-sm font-bold" style={{ color: "oklch(0.82 0.14 27)" }}>Alerte stock faible / تنبيه مخزون</p>
+                <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.65 0.12 27)" }}>{stockFaible} article(s) sous 50 kg — Passez des commandes fournisseur.</p>
               </div>
             </div>
           )}
@@ -492,15 +492,15 @@ export default function BODashboard({ user }: Props) {
                 <span className="text-xs" style={{ color: "oklch(0.52 0.010 145)" }}>CA total</span>
               </div>
               {top10Clients.length === 0
-                ? <p className="px-4 py-6 text-sm text-center" style={{ color: "oklch(0.52 0.010 145)" }}>Aucune commande</p>
+                ? <p className="font-semibold" className="px-4 py-6 text-sm text-center" style={{ color: "oklch(0.52 0.010 145)" }}>Aucune commande</p>
                 : <div>
                   {top10Clients.map(([id, c], i) => (
                     <div key={id} className="px-4 py-2.5 flex items-center gap-3 row-hover" style={{ borderBottom: "1px solid oklch(0.16 0.010 145)" }}>
                       <span className="w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center shrink-0"
                         style={{ background: "oklch(0.18 0.040 148)", color: "oklch(0.65 0.18 148)" }}>{i + 1}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold truncate" style={{ color: "oklch(0.88 0.006 100)" }}>{c.nom}</p>
-                        <p className="text-xs" style={{ color: "oklch(0.52 0.010 145)" }}>{c.cmds} cmd(s) · {KG(c.tonnage)}</p>
+                        <p className="font-semibold" className="text-sm font-semibold truncate" style={{ color: "oklch(0.88 0.006 100)" }}>{c.nom}</p>
+                        <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.52 0.010 145)" }}>{c.cmds} cmd(s) · {KG(c.tonnage)}</p>
                       </div>
                       <span className="font-bold text-sm shrink-0" style={{ color: "oklch(0.72 0.18 148)" }}>{DH(c.ca)}</span>
                     </div>
@@ -515,13 +515,13 @@ export default function BODashboard({ user }: Props) {
                 <span className="text-xs" style={{ color: "oklch(0.52 0.010 145)" }}>Toute periode</span>
               </div>
               {artChartData.length === 0
-                ? <p className="px-4 py-6 text-sm text-center" style={{ color: "oklch(0.52 0.010 145)" }}>Aucune commande</p>
+                ? <p className="font-semibold" className="px-4 py-6 text-sm text-center" style={{ color: "oklch(0.52 0.010 145)" }}>Aucune commande</p>
                 : <div>
                   {artChartData.slice(0, 8).map((a, i) => (
                     <div key={a.name} className="px-4 py-2.5 flex items-center gap-3 row-hover" style={{ borderBottom: "1px solid oklch(0.16 0.010 145)" }}>
                       <span className="w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center shrink-0"
                         style={{ background: "oklch(0.18 0.040 72)", color: "oklch(0.75 0.18 72)" }}>{i + 1}</span>
-                      <p className="flex-1 text-sm font-semibold truncate" style={{ color: "oklch(0.88 0.006 100)" }}>{a.name}</p>
+                      <p className="font-semibold" className="flex-1 text-sm font-semibold truncate" style={{ color: "oklch(0.88 0.006 100)" }}>{a.name}</p>
                       <span className="font-bold text-sm shrink-0" style={{ color: "oklch(0.80 0.18 72)" }}>{KG(a.kg)}</span>
                     </div>
                   ))}
@@ -701,8 +701,8 @@ export default function BODashboard({ user }: Props) {
               { label: "Nb bons retour", v: String(retoursAll.length), c: "text-orange-600", bg: "bg-orange-50 border-orange-200" },
             ].map(k => (
               <div key={k.label} className={`rounded-2xl border p-4 ${k.bg}`}>
-                <p className="text-xs font-medium text-muted-foreground mb-1">{k.label}</p>
-                <p className={`text-xl font-bold ${k.c}`}>{k.v}</p>
+                <p className="font-semibold" className="text-xs font-medium text-muted-foreground mb-1">{k.label}</p>
+                <p className="font-semibold" className={`text-xl font-bold ${k.c}`}>{k.v}</p>
               </div>
             ))}
           </div>
@@ -714,14 +714,14 @@ export default function BODashboard({ user }: Props) {
                 <h3 className="text-sm font-bold text-red-700">Top clients retours / أكثر زبائن برجوع</h3>
               </div>
               {top10RetourClients.length === 0
-                ? <p className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
+                ? <p className="font-semibold" className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
                 : <div className="divide-y divide-border">
                   {top10RetourClients.map(([id, c], i) => (
                     <div key={id} className="px-4 py-2.5 flex items-center gap-3">
                       <span className="w-5 h-5 rounded-full bg-red-100 text-red-700 text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
                       <div className="flex-1">
-                        <p className="text-sm font-semibold text-foreground">{c.nom}</p>
-                        <p className="text-xs text-muted-foreground">{c.nb} retour(s)</p>
+                        <p className="font-semibold" className="text-sm font-semibold text-foreground">{c.nom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{c.nb} retour(s)</p>
                       </div>
                       <span className="font-bold text-red-600 text-sm">{KG(c.kg)}</span>
                     </div>
@@ -735,12 +735,12 @@ export default function BODashboard({ user }: Props) {
                 <h3 className="text-sm font-bold text-foreground">Top motifs de retour</h3>
               </div>
               {topMotifs.length === 0
-                ? <p className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
+                ? <p className="font-semibold" className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
                 : <div className="divide-y divide-border">
                   {topMotifs.map(([id, m], i) => (
                     <div key={id} className="px-4 py-2.5 flex items-center gap-3">
                       <span className="w-5 h-5 rounded-full bg-orange-100 text-orange-700 text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
-                      <p className="flex-1 text-sm font-semibold text-foreground truncate">{m.motif || "—"}</p>
+                      <p className="font-semibold" className="flex-1 text-sm font-semibold text-foreground truncate">{m.motif || "—"}</p>
                       <div className="text-right">
                         <span className="font-bold text-orange-600 text-sm">{m.nb}x</span>
                         <span className="text-xs text-muted-foreground ml-1">· {KG(m.kg)}</span>
@@ -756,12 +756,12 @@ export default function BODashboard({ user }: Props) {
                 <h3 className="text-sm font-bold text-foreground">Top articles retournes</h3>
               </div>
               {topArticlesRetour.length === 0
-                ? <p className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
+                ? <p className="font-semibold" className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
                 : <div className="divide-y divide-border">
                   {topArticlesRetour.map(([id, a], i) => (
                     <div key={id} className="px-4 py-2.5 flex items-center gap-3">
                       <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
-                      <p className="flex-1 text-sm font-semibold text-foreground">{a.nom}</p>
+                      <p className="font-semibold" className="flex-1 text-sm font-semibold text-foreground">{a.nom}</p>
                       <div className="text-right">
                         <span className="font-bold text-amber-600 text-sm">{KG(a.kg)}</span>
                         <span className="text-xs text-muted-foreground ml-1">· {a.nb}x</span>
@@ -777,12 +777,12 @@ export default function BODashboard({ user }: Props) {
                 <h3 className="text-sm font-bold text-foreground">Top livreurs retours</h3>
               </div>
               {topLivRetour.length === 0
-                ? <p className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
+                ? <p className="font-semibold" className="px-4 py-6 text-sm text-muted-foreground text-center">Aucun retour</p>
                 : <div className="divide-y divide-border">
                   {topLivRetour.map(([id, l], i) => (
                     <div key={id} className="px-4 py-2.5 flex items-center gap-3">
                       <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
-                      <p className="flex-1 text-sm font-semibold text-foreground">{l.nom}</p>
+                      <p className="font-semibold" className="flex-1 text-sm font-semibold text-foreground">{l.nom}</p>
                       <div className="text-right">
                         <span className="font-bold text-blue-600 text-sm">{KG(l.kg)}</span>
                         <span className="text-xs text-muted-foreground ml-1">· {l.nb} bon(s)</span>
@@ -803,7 +803,7 @@ export default function BODashboard({ user }: Props) {
                 {topPVRetour.map(([id, p], i) => (
                   <div key={id} className="px-4 py-2.5 flex items-center gap-3">
                     <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
-                    <p className="flex-1 text-sm font-semibold text-foreground">{p.nom}</p>
+                    <p className="font-semibold" className="flex-1 text-sm font-semibold text-foreground">{p.nom}</p>
                     <div className="text-right">
                       <span className="font-bold text-violet-600 text-sm">{KG(p.kg)}</span>
                       <span className="text-xs text-muted-foreground ml-1">· {p.nb} ligne(s)</span>
@@ -843,16 +843,16 @@ export default function BODashboard({ user }: Props) {
               { p: "Mois",        v: DH(caMonth), sub: `${cmdsMonth.length} commandes`, col: "text-emerald-600", bg: "bg-emerald-50", bd: "border-emerald-200" },
             ].map(k => (
               <div key={k.p} className={`${k.bg} ${k.bd} border rounded-xl p-4 text-center`}>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">{k.p}</p>
-                <p className={`text-xl font-extrabold ${k.col}`}>{k.v}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{k.sub}</p>
+                <p className="font-semibold" className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">{k.p}</p>
+                <p className="font-semibold" className={`text-xl font-extrabold ${k.col}`}>{k.v}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">{k.sub}</p>
               </div>
             ))}
           </div>
 
           {prevendeurs.length === 0 ? (
             <div className="bg-card rounded-xl border border-border p-10 text-center">
-              <p className="text-muted-foreground text-sm">Aucun prevendeur actif enregistre.</p>
+              <p className="font-semibold" className="text-muted-foreground text-sm">Aucun prevendeur actif enregistre.</p>
             </div>
           ) : (
             <div className="flex flex-col gap-4">
@@ -863,23 +863,23 @@ export default function BODashboard({ user }: Props) {
                     <div className="flex items-center gap-3 px-5 py-4 border-b border-border" style={{ background: "oklch(0.14 0.03 260)" }}>
                       <div className="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center text-white text-sm font-bold shrink-0">{pv.name[0]}</div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-white truncate">{pv.name}</p>
-                        <p className="text-xs" style={{ color: "oklch(0.60 0.03 245)" }}>
+                        <p className="font-semibold" className="text-sm font-bold text-white truncate">{pv.name}</p>
+                        <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.60 0.03 245)" }}>
                           {pv.secteur ? `Secteur: ${pv.secteur}` : "Prevendeur"} · {s.nbCmdsJ} cmd(s) · {KG(s.tonnageJ)} · {s.clientsJ} client(s)
                         </p>
                       </div>
                       <div className="flex gap-3 shrink-0">
                         <div className="text-center px-2">
-                          <p className="text-xs" style={{ color: "oklch(0.48 0.04 245)" }}>Jour CA</p>
-                          <p className="text-sm font-bold text-sky-400">{DH(s.caJ)}</p>
+                          <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.48 0.04 245)" }}>Jour CA</p>
+                          <p className="font-semibold" className="text-sm font-bold text-sky-400">{DH(s.caJ)}</p>
                         </div>
                         <div className="text-center px-2 border-l" style={{ borderColor: "oklch(0.22 0.03 260)" }}>
-                          <p className="text-xs" style={{ color: "oklch(0.48 0.04 245)" }}>Mois CA</p>
-                          <p className="text-sm font-bold text-emerald-400">{DH(s.caM)}</p>
+                          <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.48 0.04 245)" }}>Mois CA</p>
+                          <p className="font-semibold" className="text-sm font-bold text-emerald-400">{DH(s.caM)}</p>
                         </div>
                         <div className="text-center px-2 border-l" style={{ borderColor: "oklch(0.22 0.03 260)" }}>
-                          <p className="text-xs" style={{ color: "oklch(0.48 0.04 245)" }}>Tonnage J</p>
-                          <p className="text-sm font-bold text-amber-400">{KG(s.tonnageJ)}</p>
+                          <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.48 0.04 245)" }}>Tonnage J</p>
+                          <p className="font-semibold" className="text-sm font-bold text-amber-400">{KG(s.tonnageJ)}</p>
                         </div>
                       </div>
                     </div>
@@ -914,7 +914,7 @@ export default function BODashboard({ user }: Props) {
                           </div>
                         )}
                         {!((pv.objectifJournalierCA ?? 0) > 0 || (pv.objectifHebdomadaireCA ?? 0) > 0 || (pv.objectifMensuelCA ?? 0) > 0) && (
-                          <p className="text-xs text-muted-foreground">Pas d&apos;objectifs CA definis</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Pas d&apos;objectifs CA definis</p>
                         )}
                       </div>
                       <div className="flex flex-col gap-3">
@@ -938,7 +938,7 @@ export default function BODashboard({ user }: Props) {
                           </div>
                         )}
                         {!((pv.objectifJournalierClients ?? 0) > 0 || (pv.objectifMensuelClients ?? 0) > 0) && (
-                          <p className="text-xs text-muted-foreground">Pas d&apos;objectifs clients definis</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Pas d&apos;objectifs clients definis</p>
                         )}
                       </div>
                     </div>
@@ -962,9 +962,9 @@ export default function BODashboard({ user }: Props) {
               { label: "Alertes actives", labelAr: "تنبيهات", value: String(creditAlerts.length), color: creditAlerts.length > 0 ? "text-red-600" : "text-emerald-600" },
             ].map(k => (
               <div key={k.label} className="bg-card rounded-xl border border-border p-4 flex flex-col gap-0.5">
-                <p className="text-[11px] text-muted-foreground uppercase tracking-wide">{k.label}</p>
-                <p className="text-[10px] text-muted-foreground" dir="rtl">{k.labelAr}</p>
-                <p className={`text-2xl font-extrabold ${k.color}`}>{k.value}</p>
+                <p className="font-semibold" className="text-[11px] text-muted-foreground uppercase tracking-wide">{k.label}</p>
+                <p className="font-semibold" className="text-[10px] text-muted-foreground" dir="rtl">{k.labelAr}</p>
+                <p className="font-semibold" className={`text-2xl font-extrabold ${k.color}`}>{k.value}</p>
               </div>
             ))}
           </div>
@@ -982,8 +982,8 @@ export default function BODashboard({ user }: Props) {
                 <div key={c.client.id} className="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex flex-col gap-2">
                   <div className="flex items-start justify-between gap-2 flex-wrap">
                     <div>
-                      <p className="font-bold text-foreground">{c.client.nom}</p>
-                      <p className="text-xs text-muted-foreground">{c.client.secteur} — {c.client.zone}</p>
+                      <p className="font-semibold" className="font-bold text-foreground">{c.client.nom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">{c.client.secteur} — {c.client.zone}</p>
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {c.isOverPlafond && (
@@ -996,16 +996,16 @@ export default function BODashboard({ user }: Props) {
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-xs">
                     <div>
-                      <p className="text-muted-foreground">Encours</p>
-                      <p className="font-bold text-red-700 text-base">{DH(c.solde)}</p>
+                      <p className="font-semibold" className="text-muted-foreground">Encours</p>
+                      <p className="font-semibold" className="font-bold text-red-700 text-base">{DH(c.solde)}</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground">Plafond</p>
-                      <p className="font-bold">{c.plafond > 0 ? DH(c.plafond) : "Non defini"}</p>
+                      <p className="font-semibold" className="text-muted-foreground">Plafond</p>
+                      <p className="font-semibold" className="font-bold">{c.plafond > 0 ? DH(c.plafond) : "Non defini"}</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground">Delai</p>
-                      <p className="font-bold">{DELAI_RECOUVREMENT_LABELS[c.delai] ?? c.delai}</p>
+                      <p className="font-semibold" className="text-muted-foreground">Delai</p>
+                      <p className="font-semibold" className="font-bold">{DELAI_RECOUVREMENT_LABELS[c.delai] ?? c.delai}</p>
                     </div>
                   </div>
                   {c.plafond > 0 && (
@@ -1021,7 +1021,7 @@ export default function BODashboard({ user }: Props) {
                     </div>
                   )}
                   {c.lastBLDate && (
-                    <p className="text-[11px] text-muted-foreground">
+                    <p className="font-semibold" className="text-[11px] text-muted-foreground">
                       Derniere livraison : {c.lastBLDate}
                       {c.ageMs !== null && c.delai !== "a_definir" ? ` — ${Math.round(c.ageMs / (24 * 3600 * 1000))}j depuis` : ""}
                     </p>
@@ -1057,8 +1057,8 @@ export default function BODashboard({ user }: Props) {
                       <tr key={c.client.id}
                         className={`transition-colors ${c.isOverPlafond ? "bg-red-50" : c.isOverdue ? "bg-orange-50" : "hover:bg-muted/40"}`}>
                         <td className="px-4 py-3">
-                          <p className="font-semibold text-foreground">{c.client.nom}</p>
-                          <p className="text-xs text-muted-foreground">{c.client.secteur}</p>
+                          <p className="font-semibold" className="font-semibold text-foreground">{c.client.nom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">{c.client.secteur}</p>
                         </td>
                         <td className={`px-4 py-3 text-right font-bold ${c.isOverPlafond ? "text-red-700" : c.isOverdue ? "text-orange-700" : "text-foreground"}`}>
                           {DH(c.solde)}

@@ -149,8 +149,8 @@ export default function BOCommercial({ user }: Props) {
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3 flex items-start gap-3">
           <svg className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <div className="flex-1 text-xs text-blue-800">
-            <p className="font-semibold">Commandes Back-Office — Comptes commerciaux uniquement</p>
-            <p className="text-blue-600 mt-0.5">Les commandes creees depuis le BO sont reservees aux <strong>comptes commerciaux</strong> (epiceries, restaurants, hotels...). Les comptes portail Client/Fournisseur passent leurs propres commandes via leur portail dedie. Seuls le <strong>Responsable Commercial</strong> et les <strong>Administrateurs</strong> peuvent creer des commandes depuis le BO.</p>
+            <p className="font-semibold" className="font-semibold">Commandes Back-Office — Comptes commerciaux uniquement</p>
+            <p className="font-semibold" className="text-blue-600 mt-0.5">Les commandes creees depuis le BO sont reservees aux <strong>comptes commerciaux</strong> (epiceries, restaurants, hotels...). Les comptes portail Client/Fournisseur passent leurs propres commandes via leur portail dedie. Seuls le <strong>Responsable Commercial</strong> et les <strong>Administrateurs</strong> peuvent creer des commandes depuis le BO.</p>
           </div>
         </div>
       )}
@@ -161,7 +161,7 @@ export default function BOCommercial({ user }: Props) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
         <input type="email" value={emailConfig} onChange={e => setEmailConfig(e.target.value)} className="flex-1 text-sm px-3 py-2 rounded-lg border border-border bg-background font-sans focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Email notification commercial" />
-        <button onClick={handleSaveEmail} className="px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium font-sans hover:opacity-90">Sauvegarder</button>
+        <button onClick={handleSaveEmail} className="px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium font-sans hover:">Sauvegarder</button>
       </div>
 
       {/* Approval banner */}
@@ -175,9 +175,9 @@ export default function BOCommercial({ user }: Props) {
             {pendingApproval.map(c => (
               <div key={c.id} className="bg-white rounded-xl border border-orange-200 p-3 flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-sm text-foreground">{c.clientNom}</p>
-                  <p className="text-xs text-muted-foreground">{c.commercialNom} — {c.zone} — {c.date} — {c.lignes.reduce((s,l) => s + l.quantite * l.prixVente, 0).toLocaleString("fr-MA")} DH</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{c.lignes.map(l => `${l.articleNom} ×${l.quantite}`).join(", ")}</p>
+                  <p className="font-semibold" className="font-semibold text-sm text-foreground">{c.clientNom}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{c.commercialNom} — {c.zone} — {c.date} — {c.lignes.reduce((s,l) => s + l.quantite * l.prixVente, 0).toLocaleString("fr-MA")} DH</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">{c.lignes.map(l => `${l.articleNom} ×${l.quantite}`).join(", ")}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <button onClick={() => handleApprove(c.id)}
@@ -234,16 +234,16 @@ export default function BOCommercial({ user }: Props) {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-card rounded-xl border border-border p-4 text-center">
-          <p className="text-2xl font-bold text-primary font-sans">{filtered.length}</p>
-          <p className="text-sm text-muted-foreground font-sans">Commandes</p>
+          <p className="font-semibold" className="text-2xl font-bold text-primary font-sans">{filtered.length}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-sans">Commandes</p>
         </div>
         <div className="bg-card rounded-xl border border-border p-4 text-center">
-          <p className="text-xl font-bold text-green-600 font-sans">{totalCA.toLocaleString("fr-FR")}</p>
-          <p className="text-sm text-muted-foreground font-sans">CA (DH)</p>
+          <p className="font-semibold" className="text-xl font-bold text-green-600 font-sans">{totalCA.toLocaleString("fr-FR")}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-sans">CA (DH)</p>
         </div>
         <div className="bg-card rounded-xl border border-border p-4 text-center">
-          <p className="text-2xl font-bold text-orange-600 font-sans">{filtered.filter(c => c.statut === "en_attente").length}</p>
-          <p className="text-sm text-muted-foreground font-sans">En attente</p>
+          <p className="font-semibold" className="text-2xl font-bold text-orange-600 font-sans">{filtered.filter(c => c.statut === "en_attente").length}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-sans">En attente</p>
         </div>
       </div>
 
@@ -354,7 +354,7 @@ export default function BOCommercial({ user }: Props) {
               <div><span className="text-muted-foreground">Livraison:</span> <span className="font-medium text-foreground">{selected.heurelivraison}</span></div>
             </div>
             <div className="border-t border-border pt-3">
-              <p className="text-sm font-semibold text-foreground mb-2 font-sans">Articles:</p>
+              <p className="font-semibold" className="text-sm font-semibold text-foreground mb-2 font-sans">Articles:</p>
               {selected.lignes.map((l, idx) => (
                 <div key={idx} className="py-2 border-b border-border/50 last:border-0">
                   <div className="flex items-center justify-between text-sm font-sans">
@@ -379,7 +379,7 @@ export default function BOCommercial({ user }: Props) {
               <div className="flex items-center justify-between pt-3 mt-1">
                 <div>
                   <span className="font-semibold text-foreground font-sans text-sm">Total commande</span>
-                  <p className="text-xs text-muted-foreground font-sans">
+                  <p className="font-semibold" className="text-xs text-muted-foreground font-sans">
                     {selected.lignes.reduce((s, l) => s + l.quantite, 0).toFixed(1)} {selected.lignes[0]?.unite || "unités"} au total
                   </p>
                 </div>

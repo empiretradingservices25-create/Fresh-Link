@@ -38,8 +38,8 @@ function AccessDenied() {
         </svg>
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-foreground">Acces restreint</p>
-        <p className="text-sm text-muted-foreground mt-1">Cette section est reservee aux administrateurs.</p>
+        <p className="font-semibold" className="text-lg font-bold text-foreground">Acces restreint</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground mt-1">Cette section est reservee aux administrateurs.</p>
       </div>
     </div>
   )
@@ -167,7 +167,7 @@ export default function BOGoogleSheets({ user }: Props) {
             </div>
             <div>
               <h2 className="font-bold text-foreground text-base">Liaison Google Sheets</h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="font-semibold" className="text-xs text-muted-foreground">
                 Drive: <a href="https://drive.google.com/drive/folders/12nzqnZtK2EuFV8LNBfKrApj9nCtAo8pb" target="_blank" rel="noopener noreferrer"
                   className="text-primary hover:underline underline-offset-2">
                   Dossier FreshLink
@@ -207,7 +207,7 @@ export default function BOGoogleSheets({ user }: Props) {
             {/* Manual sync all button */}
             {configuredCount > 0 && (
               <button onClick={pushAllFn} disabled={globalSyncing}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-60"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white transition-all disabled:"
                 style={{ background: "oklch(0.38 0.2 152)" }}>
                 {globalSyncing
                   ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -233,7 +233,7 @@ export default function BOGoogleSheets({ user }: Props) {
         {showScript && (
           <div className="rounded-xl border border-border bg-muted/40 p-4 flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-bold text-foreground">Script AppScript (meme script pour chaque feuille)</p>
+              <p className="font-semibold" className="text-xs font-bold text-foreground">Script AppScript (meme script pour chaque feuille)</p>
               <button onClick={() => navigator.clipboard.writeText(APPS_SCRIPT_TEMPLATE)}
                 className="flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-border hover:bg-background transition-colors">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
@@ -260,7 +260,7 @@ export default function BOGoogleSheets({ user }: Props) {
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-foreground text-sm">Configuration des URLs AppScript</h3>
             <button onClick={handleSaveUrls}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${saved ? "bg-green-100 text-green-700 border border-green-300" : "bg-primary text-primary-foreground hover:opacity-90"}`}>
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${saved ? "bg-green-100 text-green-700 border border-green-300" : "bg-primary text-primary-foreground hover:"}`}>
               {saved
                 ? <><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>Sauvegarde</>
                 : <><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>Sauvegarder</>
@@ -299,8 +299,8 @@ export default function BOGoogleSheets({ user }: Props) {
                     {cfg.label[0]}
                   </div>
                   <div>
-                    <p className="font-bold text-foreground text-sm">{cfg.label}</p>
-                    <p className="text-[10px] text-muted-foreground" dir="rtl">{cfg.labelAr}</p>
+                    <p className="font-semibold" className="font-bold text-foreground text-sm">{cfg.label}</p>
+                    <p className="font-semibold" className="text-[10px] text-muted-foreground" dir="rtl">{cfg.labelAr}</p>
                   </div>
                 </div>
                 {/* Status badge */}
@@ -319,7 +319,7 @@ export default function BOGoogleSheets({ user }: Props) {
               </div>
 
               {/* Description */}
-              <p className="text-xs text-muted-foreground leading-relaxed">{cfg.description}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground leading-relaxed">{cfg.description}</p>
 
               {/* Stats row */}
               <div className="flex items-center gap-3 text-xs">
@@ -343,12 +343,12 @@ export default function BOGoogleSheets({ user }: Props) {
 
               {/* URL status */}
               {!hasUrl && isAdmin && (
-                <p className="text-[10px] text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1.5">
+                <p className="font-semibold" className="text-[10px] text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1.5">
                   URL non configuree. Deployez l'AppScript et collez l'URL ci-dessus.
                 </p>
               )}
               {!hasUrl && !isAdmin && (
-                <p className="text-[10px] text-muted-foreground bg-muted rounded-lg px-2 py-1.5">
+                <p className="font-semibold" className="text-[10px] text-muted-foreground bg-muted rounded-lg px-2 py-1.5">
                   Contacter l'administrateur pour configurer la synchronisation.
                 </p>
               )}
@@ -357,7 +357,7 @@ export default function BOGoogleSheets({ user }: Props) {
               <button
                 onClick={() => pushOne(cfg.key)}
                 disabled={!hasUrl || state.status === "syncing"}
-                className={`flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all disabled:opacity-40 ${hasUrl ? "text-white" : "bg-muted text-muted-foreground"}`}
+                className={`flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all disabled: ${hasUrl ? "text-white" : "bg-muted text-muted-foreground"}`}
                 style={hasUrl ? { background: "oklch(0.38 0.2 152)" } : {}}>
                 {state.status === "syncing"
                   ? <><div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> Synchronisation...</>

@@ -159,11 +159,11 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
       <div className="flex items-center justify-between gap-3">
         <div>
           <h2 className="text-lg font-bold text-foreground">Credit Fournisseurs</h2>
-          <p className="text-sm text-muted-foreground">Suivi des achats non regles par article et acheteur</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">Suivi des achats non regles par article et acheteur</p>
         </div>
         <button
           onClick={() => { setShowForm(true); setForm(blank()) }}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white shadow-sm hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white shadow-sm hover: transition-opacity"
           style={{ background: "var(--primary)" }}>
           <Icon d="M12 4v16m8-8H4" />
           Nouveau credit
@@ -179,9 +179,9 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
           { label: "Fournisseurs", value: fournisseursList.length, sub: "avec credit en cours", color: "text-amber-700", bg: "bg-amber-50" },
         ].map(k => (
           <div key={k.label} className={`${k.bg} rounded-2xl border border-border p-4`}>
-            <p className="text-xs text-muted-foreground">{k.label}</p>
-            <p className={`text-xl font-black mt-1 ${k.color}`}>{k.value}</p>
-            <p className="text-[11px] text-muted-foreground mt-0.5">{k.sub}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{k.label}</p>
+            <p className="font-semibold" className={`text-xl font-black mt-1 ${k.color}`}>{k.value}</p>
+            <p className="font-semibold" className="text-[11px] text-muted-foreground mt-0.5">{k.sub}</p>
           </div>
         ))}
       </div>
@@ -217,10 +217,10 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
         <div className="bg-card rounded-2xl border border-border overflow-hidden">
           {filtered.length === 0 ? (
             <div className="text-center py-16 text-muted-foreground">
-              <svg className="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-12 h-12 mx-auto mb-3 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
-              <p className="font-semibold">Aucun credit enregistre</p>
+              <p className="font-semibold" className="font-semibold">Aucun credit enregistre</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -291,12 +291,12 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
               <div key={nom} className="bg-card rounded-2xl border border-border overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-3 border-b border-border">
                   <div>
-                    <p className="font-bold text-foreground">{nom}</p>
-                    <p className="text-xs text-muted-foreground">{lines.length} ligne(s)</p>
+                    <p className="font-semibold" className="font-bold text-foreground">{nom}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">{lines.length} ligne(s)</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-black text-foreground">{fmt(total)} DH total</p>
-                    <p className="text-xs text-red-600 font-semibold">{fmt(reste)} DH reste a payer</p>
+                    <p className="font-semibold" className="font-black text-foreground">{fmt(total)} DH total</p>
+                    <p className="font-semibold" className="text-xs text-red-600 font-semibold">{fmt(reste)} DH reste a payer</p>
                   </div>
                 </div>
                 <div className="divide-y divide-border">
@@ -305,12 +305,12 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
                     return (
                       <div key={l.id} className="flex items-center gap-4 px-5 py-3 text-sm">
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-foreground truncate">{l.articleNom}</p>
-                          <p className="text-xs text-muted-foreground">Acheteur: {l.acheteurNom} · {l.dateAchat}</p>
+                          <p className="font-semibold" className="font-semibold text-foreground truncate">{l.articleNom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Acheteur: {l.acheteurNom} · {l.dateAchat}</p>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className="font-bold">{fmt(l.montant)} DH</p>
-                          <p className="text-xs text-muted-foreground">Paye: {fmt(l.montantPaye)} DH</p>
+                          <p className="font-semibold" className="font-bold">{fmt(l.montant)} DH</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Paye: {fmt(l.montantPaye)} DH</p>
                         </div>
                         <span className={`text-[11px] font-bold px-2 py-1 rounded-full border ${st.bg} ${st.text} ${st.border} shrink-0`}>{st.label}</span>
                         {l.statut !== "solde" && (
@@ -341,12 +341,12 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
               <div key={nom} className="bg-card rounded-2xl border border-border overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-3 border-b border-border">
                   <div>
-                    <p className="font-bold text-foreground">{nom}</p>
-                    <p className="text-xs text-muted-foreground">{lines.length} achat(s) non entierement regle(s)</p>
+                    <p className="font-semibold" className="font-bold text-foreground">{nom}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">{lines.length} achat(s) non entierement regle(s)</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-black text-foreground">{fmt(total)} DH engage</p>
-                    <p className={`text-xs font-semibold ${reste > 0 ? "text-red-600" : "text-green-600"}`}>{fmt(reste)} DH reste</p>
+                    <p className="font-semibold" className="font-black text-foreground">{fmt(total)} DH engage</p>
+                    <p className="font-semibold" className={`text-xs font-semibold ${reste > 0 ? "text-red-600" : "text-green-600"}`}>{fmt(reste)} DH reste</p>
                   </div>
                 </div>
                 <div className="divide-y divide-border">
@@ -355,10 +355,10 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
                     return (
                       <div key={l.id} className="flex items-center gap-4 px-5 py-3 text-sm">
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold truncate">{l.articleNom} — {l.fournisseurNom}</p>
-                          <p className="text-xs text-muted-foreground">{l.dateAchat}{l.referenceFacture ? ` · Ref: ${l.referenceFacture}` : ""}</p>
+                          <p className="font-semibold" className="font-semibold truncate">{l.articleNom} — {l.fournisseurNom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">{l.dateAchat}{l.referenceFacture ? ` · Ref: ${l.referenceFacture}` : ""}</p>
                         </div>
-                        <p className="font-bold shrink-0">{fmt(l.montant)} DH</p>
+                        <p className="font-semibold" className="font-bold shrink-0">{fmt(l.montant)} DH</p>
                         <span className={`text-[11px] font-bold px-2 py-1 rounded-full border ${st.bg} ${st.text} ${st.border} shrink-0`}>{st.label}</span>
                         {l.statut !== "solde" && (
                           <button onClick={() => { setPaymentModal(l); setPayAmount("") }}
@@ -384,7 +384,7 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-card rounded-2xl border border-border w-full max-w-md shadow-xl p-6 space-y-4">
             <div className="flex items-center justify-between">
-              <p className="font-bold text-foreground">Validation de paiement</p>
+              <p className="font-semibold" className="font-bold text-foreground">Validation de paiement</p>
               <button onClick={() => setPaymentModal(null)} className="p-1 rounded-lg hover:bg-muted text-muted-foreground">
                 <Icon d="M6 18L18 6M6 6l12 12" />
               </button>
@@ -413,7 +413,7 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
                 Annuler
               </button>
               <button onClick={handlePayment} disabled={!payAmount || Number(payAmount) <= 0}
-                className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-40 hover:opacity-90"
+                className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled: hover:"
                 style={{ background: "var(--primary)" }}>
                 Valider le paiement
               </button>
@@ -427,7 +427,7 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-card rounded-2xl border border-border w-full max-w-lg shadow-xl p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
-              <p className="font-bold text-foreground">Nouveau credit fournisseur</p>
+              <p className="font-semibold" className="font-bold text-foreground">Nouveau credit fournisseur</p>
               <button onClick={() => setShowForm(false)} className="p-1 rounded-lg hover:bg-muted text-muted-foreground">
                 <Icon d="M6 18L18 6M6 6l12 12" />
               </button>
@@ -503,7 +503,7 @@ export default function BOCreditFournisseur({ user }: { user: User }) {
                 Annuler
               </button>
               <button onClick={handleSave} disabled={!form.articleNom || form.montant <= 0}
-                className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-40 hover:opacity-90"
+                className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled: hover:"
                 style={{ background: "var(--primary)" }}>
                 Enregistrer
               </button>

@@ -95,8 +95,8 @@ export default function MobilePreparation({ user }: Props) {
             </svg>
           </button>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-foreground truncate">{activeBon.nom}</p>
-            <p className="text-xs text-muted-foreground">{activeBon.date}</p>
+            <p className="font-semibold" className="font-bold text-foreground truncate">{activeBon.nom}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{activeBon.date}</p>
           </div>
           <StatusBadge s={activeBon.statut} />
         </div>
@@ -129,8 +129,8 @@ export default function MobilePreparation({ user }: Props) {
                   }
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-foreground">{ligne.articleNom}</p>
-                  <p className="text-xs text-muted-foreground mb-3">
+                  <p className="font-semibold" className="font-bold text-foreground">{ligne.articleNom}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground mb-3">
                     A préparer : <strong>{ligne.qteCommandee.toFixed(1)} {ligne.unite}</strong>
                   </p>
                   {activeBon.statut !== "valide" && !ligne.valide && (
@@ -147,7 +147,7 @@ export default function MobilePreparation({ user }: Props) {
                     </div>
                   )}
                   {ligne.valide && (
-                    <p className="text-sm font-bold text-green-700">
+                    <p className="font-semibold" className="text-sm font-bold text-green-700">
                       Preparé : {ligne.qtePrepared.toFixed(1)} {ligne.unite}
                       {ligne.qtePrepared !== ligne.qteCommandee && (
                         <span className="text-amber-500 font-normal mr-2">
@@ -182,9 +182,9 @@ export default function MobilePreparation({ user }: Props) {
 
         {activeBon.statut === "valide" && (
           <div className="px-4 py-4 border-t border-green-200 bg-green-50 shrink-0 text-center">
-            <p className="text-green-700 font-bold text-sm">Preparation completement validee</p>
+            <p className="font-semibold" className="text-green-700 font-bold text-sm">Preparation completement validee</p>
             {activeBon.validatedAt && (
-              <p className="text-xs text-green-600 mt-0.5">{new Date(activeBon.validatedAt).toLocaleString("fr-MA")}</p>
+              <p className="font-semibold" className="text-xs text-green-600 mt-0.5">{new Date(activeBon.validatedAt).toLocaleString("fr-MA")}</p>
             )}
           </div>
         )}
@@ -201,17 +201,17 @@ export default function MobilePreparation({ user }: Props) {
     <div className="flex flex-col gap-4 p-4">
       <div>
         <h2 className="text-lg font-bold text-foreground">Bons de Préparation</h2>
-        <p className="text-sm text-muted-foreground">Validez les quantités chargees / التحقق من الكميات</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground">Validez les quantités chargees / التحقق من الكميات</p>
       </div>
 
       {activeBons.length === 0 ? (
         <div className="bg-card rounded-2xl border border-border p-12 text-center text-muted-foreground flex flex-col items-center gap-3">
-          <svg className="w-14 h-14 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-14 h-14 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
           </svg>
           <div>
-            <p className="font-semibold">Aucun bon de preparation</p>
-            <p className="text-sm mt-1">Le responsable doit créer un bon numerique depuis le back-office</p>
+            <p className="font-semibold" className="font-semibold">Aucun bon de preparation</p>
+            <p className="font-semibold" className="text-sm mt-1">Le responsable doit créer un bon numerique depuis le back-office</p>
           </div>
         </div>
       ) : (
@@ -224,10 +224,10 @@ export default function MobilePreparation({ user }: Props) {
               <button key={bon.id} onClick={() => openBon(bon)}
                 className="bg-card rounded-2xl border border-border p-4 text-left hover:shadow-sm transition-shadow w-full">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="font-bold text-foreground">{bon.nom}</p>
+                  <p className="font-semibold" className="font-bold text-foreground">{bon.nom}</p>
                   <StatusBadge s={bon.statut} />
                 </div>
-                <p className="text-xs text-muted-foreground mb-3">
+                <p className="font-semibold" className="text-xs text-muted-foreground mb-3">
                   {bon.date} — {total} articles — {bon.lignes.reduce((s, l) => s + l.qteCommandee, 0).toFixed(1)} kg
                 </p>
                 <div className="flex items-center gap-2">
@@ -240,7 +240,7 @@ export default function MobilePreparation({ user }: Props) {
                   </div>
                   <span className="text-xs font-bold text-foreground shrink-0">{progress}%</span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="font-semibold" className="text-xs text-muted-foreground mt-2">
                   {validated}/{total} articles validés
                 </p>
               </button>

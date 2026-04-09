@@ -15,9 +15,9 @@ function CTip({ active, payload, label }: { active?: boolean; payload?: { value:
   if (!active || !payload?.length) return null
   return (
     <div className="rounded-xl p-3 text-xs shadow-xl" style={{ background: "#0f1623", border: "1px solid #1a2535" }}>
-      <p className="font-bold mb-1" style={{ color: "#e2e8f0" }}>{label}</p>
+      <p className="font-semibold" className="font-bold mb-1" style={{ color: "#e2e8f0" }}>{label}</p>
       {payload.map((p, i) => (
-        <p key={i} style={{ color: p.color }}>{p.name}: <span className="font-bold">{typeof p.value === "number" ? p.value.toLocaleString("fr-MA") : p.value}</span></p>
+        <p className="font-semibold" key={i} style={{ color: p.color }}>{p.name}: <span className="font-bold">{typeof p.value === "number" ? p.value.toLocaleString("fr-MA") : p.value}</span></p>
       ))}
     </div>
   )
@@ -27,9 +27,9 @@ function CTip({ active, payload, label }: { active?: boolean; payload?: { value:
 function KPI({ label, value, sub, color = "#60a5fa" }: { label: string; value: string | number; sub?: string; color?: string }) {
   return (
     <div className="flex-1 min-w-0 rounded-2xl px-4 py-3" style={{ background: "#0f1a2e", border: "1px solid #1a2535" }}>
-      <p className="text-[11px] font-medium mb-1" style={{ color: "#6b7280" }}>{label}</p>
-      <p className="text-xl font-black" style={{ color }}>{value}</p>
-      {sub && <p className="text-[10px] mt-0.5" style={{ color: "#4b5563" }}>{sub}</p>}
+      <p className="font-semibold" className="text-[11px] font-medium mb-1" style={{ color: "#6b7280" }}>{label}</p>
+      <p className="font-semibold" className="text-xl font-black" style={{ color }}>{value}</p>
+      {sub && <p className="font-semibold" className="text-[10px] mt-0.5" style={{ color: "#4b5563" }}>{sub}</p>}
     </div>
   )
 }
@@ -191,7 +191,7 @@ export default function AnalyseReceptionPanel() {
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <h2 className="text-lg font-black" style={{ color: "#f1f5f9" }}>Analyse Reception & Facturation</h2>
-          <p className="text-xs mt-0.5" style={{ color: "#6b7280" }}>Reception vs Facturation — quantites, montants, ecarts par article et client</p>
+          <p className="font-semibold" className="text-xs mt-0.5" style={{ color: "#6b7280" }}>Reception vs Facturation — quantites, montants, ecarts par article et client</p>
         </div>
         <button onClick={exportCSV}
           className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold"
@@ -259,7 +259,7 @@ export default function AnalyseReceptionPanel() {
 
           {/* Trend chart */}
           <div className="rounded-2xl p-4" style={{ background: "#0f1a2e", border: "1px solid #1a2535" }}>
-            <p className="text-xs font-bold mb-3" style={{ color: "#e2e8f0" }}>Evolution 14 jours — Qte Recue vs Montant Facture</p>
+            <p className="font-semibold" className="text-xs font-bold mb-3" style={{ color: "#e2e8f0" }}>Evolution 14 jours — Qte Recue vs Montant Facture</p>
             <ResponsiveContainer width="100%" height={180}>
               <LineChart data={dailyTrend}>
                 <XAxis dataKey="date" tick={{ fontSize: 10, fill: "#6b7280" }} />
@@ -276,7 +276,7 @@ export default function AnalyseReceptionPanel() {
           {/* Summary table top 10 articles */}
           <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid #1a2535" }}>
             <div className="px-4 py-3" style={{ background: "#0d1a2e", borderBottom: "1px solid #1a2535" }}>
-              <p className="text-xs font-bold" style={{ color: "#e2e8f0" }}>Top 10 Articles — Reception vs Facturation</p>
+              <p className="font-semibold" className="text-xs font-bold" style={{ color: "#e2e8f0" }}>Top 10 Articles — Reception vs Facturation</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
@@ -327,8 +327,8 @@ export default function AnalyseReceptionPanel() {
 
           {/* Bar chart — Qte Reception vs Qte Facturation */}
           <div className="rounded-2xl p-4" style={{ background: "#0d1420", border: "1px solid #1e293b" }}>
-            <p className="text-xs font-bold mb-1" style={{ color: "#e2e8f0" }}>Quantites par Article — Reception vs Facturation (top 15)</p>
-            <p className="text-[10px] mb-3" style={{ color: "#6b7280" }}>Unites : kg / pieces selon article</p>
+            <p className="font-semibold" className="text-xs font-bold mb-1" style={{ color: "#e2e8f0" }}>Quantites par Article — Reception vs Facturation (top 15)</p>
+            <p className="font-semibold" className="text-[10px] mb-3" style={{ color: "#6b7280" }}>Unites : kg / pieces selon article</p>
             <ResponsiveContainer width="100%" height={240}>
               <BarChart
                 data={filteredByArticle.slice(0,15).map(a=>({
@@ -352,7 +352,7 @@ export default function AnalyseReceptionPanel() {
           {/* Detailed qty table */}
           <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid #1e293b" }}>
             <div className="px-4 py-3 flex items-center justify-between" style={{ background: "#0a1220", borderBottom: "1px solid #1e293b" }}>
-              <p className="text-xs font-bold" style={{ color: "#e2e8f0" }}>Detail Quantites Reception vs Facturation</p>
+              <p className="font-semibold" className="text-xs font-bold" style={{ color: "#e2e8f0" }}>Detail Quantites Reception vs Facturation</p>
               <span className="text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ background: "#1e3a5f", color: "#60a5fa" }}>
                 {filteredByArticle.length} articles
               </span>
@@ -505,7 +505,7 @@ export default function AnalyseReceptionPanel() {
 
           {/* Bar chart */}
           <div className="rounded-2xl p-4" style={{ background: "#0f1a2e", border: "1px solid #1a2535" }}>
-            <p className="text-xs font-bold mb-3" style={{ color: "#e2e8f0" }}>Montant — Reception vs Facturation (top 12)</p>
+            <p className="font-semibold" className="text-xs font-bold mb-3" style={{ color: "#e2e8f0" }}>Montant — Reception vs Facturation (top 12)</p>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={filteredByArticle.slice(0,12).map(a=>({ nom: a.nom.slice(0,12), rec: Math.round(a.montRec), fact: Math.round(a.montFacture) }))} margin={{ left: 0, right: 0 }}>
                 <XAxis dataKey="nom" tick={{ fontSize: 9, fill: "#6b7280" }} />
@@ -570,7 +570,7 @@ export default function AnalyseReceptionPanel() {
             style={{ background: "#0f1a2e", color: "#e2e8f0", border: "1px solid #1a2535" }} />
 
           <div className="rounded-2xl p-4" style={{ background: "#0f1a2e", border: "1px solid #1a2535" }}>
-            <p className="text-xs font-bold mb-3" style={{ color: "#e2e8f0" }}>Montant Facture par Client (top 12)</p>
+            <p className="font-semibold" className="text-xs font-bold mb-3" style={{ color: "#e2e8f0" }}>Montant Facture par Client (top 12)</p>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={filteredByClient.slice(0,12).map(c=>({ nom: c.nom.slice(0,10), mont: Math.round(c.montFacture) }))} margin={{ left:0,right:0 }}>
                 <XAxis dataKey="nom" tick={{ fontSize: 9, fill: "#6b7280" }} />
@@ -689,7 +689,7 @@ export default function AnalyseReceptionPanel() {
 
           <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid #1a2535" }}>
             <div className="px-4 py-3" style={{ background: "#0d1a2e", borderBottom: "1px solid #1a2535" }}>
-              <p className="text-xs font-bold" style={{ color: "#e2e8f0" }}>Detail Bons de Livraison</p>
+              <p className="font-semibold" className="text-xs font-bold" style={{ color: "#e2e8f0" }}>Detail Bons de Livraison</p>
             </div>
             <div className="overflow-x-auto max-h-[55vh]">
               <table className="w-full text-xs">

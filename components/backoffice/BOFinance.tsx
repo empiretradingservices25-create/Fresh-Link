@@ -18,10 +18,10 @@ const fmtMois = (s: string) => { const d = new Date(s + "-01"); return d.toLocal
 function KpiCard({ label, labelAr, value, sub, color }: { label: string; labelAr?: string; value: string; sub?: string; color: string }) {
   return (
     <div className="bg-card rounded-2xl border border-border p-5 flex flex-col gap-1">
-      <p className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">{label}</p>
-      {labelAr && <p className="text-[10px] text-muted-foreground" dir="rtl">{labelAr}</p>}
-      <p className={`text-2xl font-extrabold font-sans ${color}`}>{value}</p>
-      {sub && <p className="text-xs text-muted-foreground">{sub}</p>}
+      <p className="font-semibold" className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">{label}</p>
+      {labelAr && <p className="font-semibold" className="text-[10px] text-muted-foreground" dir="rtl">{labelAr}</p>}
+      <p className="font-semibold" className={`text-2xl font-extrabold font-sans ${color}`}>{value}</p>
+      {sub && <p className="font-semibold" className="text-xs text-muted-foreground">{sub}</p>}
     </div>
   )
 }
@@ -335,7 +335,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
             className="flex-1 min-w-max px-4 py-2.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap"
             style={tab === t.id ? { background: t.color, color: "#fff" } : { color: "var(--muted-foreground)" }}>
             <span>{t.label}</span>
-            <span className="block text-[9px] opacity-70" dir="rtl">{t.labelAr}</span>
+            <span className="block text-[9px] " dir="rtl">{t.labelAr}</span>
           </button>
         ))}
       </div>
@@ -408,7 +408,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                 </button>
               </div>
               {distributions.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Aucun actionnaire actif.</p>
+                <p className="font-semibold" className="text-sm text-muted-foreground">Aucun actionnaire actif.</p>
               ) : (
                 <div className="flex flex-col gap-2">
                   {distributions.map(d => (
@@ -416,10 +416,10 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                       <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0"
                         style={{ background: "oklch(0.38 0.18 140)" }}>{d.prenom[0]}{d.nom[0]}</div>
                       <div className="flex-1">
-                        <p className="text-sm font-semibold">{d.prenom} {d.nom}</p>
-                        <p className="text-xs text-muted-foreground">{d.part.toFixed(1)}% — {PERIODE_LABELS[d.periodeDistribution]}</p>
+                        <p className="font-semibold" className="text-sm font-semibold">{d.prenom} {d.nom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{d.part.toFixed(1)}% — {PERIODE_LABELS[d.periodeDistribution]}</p>
                       </div>
-                      <p className="font-bold text-emerald-700 font-mono text-sm shrink-0">{fmt(d.montant)} DH</p>
+                      <p className="font-semibold" className="font-bold text-emerald-700 font-mono text-sm shrink-0">{fmt(d.montant)} DH</p>
                     </div>
                   ))}
                   <div className="flex justify-between pt-2 border-t border-border">
@@ -436,7 +436,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
               <div className="bg-card rounded-2xl border border-border p-6 w-full max-w-md mx-4 shadow-xl">
                 <h3 className="font-bold text-sm mb-3">Sauvegarder la reserve caisse</h3>
-                <p className="text-xs text-muted-foreground mb-4">Cela enregistre un historique de la reserve et de la repartition par actionnaire pour la periode <strong>{periodFilter.from} → {periodFilter.to}</strong>.</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground mb-4">Cela enregistre un historique de la reserve et de la repartition par actionnaire pour la periode <strong>{periodFilter.from} → {periodFilter.to}</strong>.</p>
                 <div className="bg-muted/40 rounded-xl p-3 text-sm mb-4">
                   <div className="flex justify-between"><span>Benefice net :</span><span className="font-bold">{fmt(synthese.beneficeNet)} DH</span></div>
                   <div className="flex justify-between"><span>Taux reserve ({tauxCaisse}%) :</span><span className="font-bold text-amber-600">{fmt(synthese.reserveCaisse)} DH</span></div>
@@ -458,8 +458,8 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                 if (total === 0) return null
                 return (
                   <div key={cat} className="rounded-xl border border-border p-3">
-                    <p className="text-xs text-muted-foreground">{label.split("(")[0].trim()}</p>
-                    <p className="font-bold text-sm mt-1 font-mono">{fmt(total)} DH</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">{label.split("(")[0].trim()}</p>
+                    <p className="font-semibold" className="font-bold text-sm mt-1 font-mono">{fmt(total)} DH</p>
                   </div>
                 )
               })}
@@ -645,7 +645,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
                               <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style={{ background: "oklch(0.38 0.18 140)" }}>{a.prenom[0]}{a.nom[0]}</div>
-                              <div><p className="font-semibold">{a.prenom} {a.nom}</p>{a.telephone && <p className="text-xs text-muted-foreground">{a.telephone}</p>}</div>
+                              <div><p className="font-semibold" className="font-semibold">{a.prenom} {a.nom}</p>{a.telephone && <p className="font-semibold" className="text-xs text-muted-foreground">{a.telephone}</p>}</div>
                             </div>
                           </td>
                           <td className="px-4 py-3 font-mono font-bold text-blue-700">{fmt(a.cotisation)} DH</td>
@@ -681,12 +681,12 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                   <div key={snap.id} className="p-4">
                     <div className="flex items-center justify-between mb-2">
                       <div>
-                        <p className="font-semibold text-sm">{fmtMois(snap.periode)}</p>
-                        <p className="text-xs text-muted-foreground">Sauvegarde le {snap.date} — Taux: {snap.tauxReserve}%</p>
+                        <p className="font-semibold" className="font-semibold text-sm">{fmtMois(snap.periode)}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">Sauvegarde le {snap.date} — Taux: {snap.tauxReserve}%</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-amber-600 font-mono">{fmt(snap.montantReserve)} DH</p>
-                        <p className="text-xs text-muted-foreground">sur {fmt(snap.beneficeNet)} DH net</p>
+                        <p className="font-semibold" className="font-bold text-amber-600 font-mono">{fmt(snap.montantReserve)} DH</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">sur {fmt(snap.beneficeNet)} DH net</p>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -931,8 +931,8 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                   {salaries.map(s => (
                     <tr key={s.id} className="border-t border-border hover:bg-muted/30">
                       <td className="px-4 py-3">
-                        <p className="font-semibold">{s.prenom} {s.nom}</p>
-                        {s.telephone && <p className="text-xs text-muted-foreground">{s.telephone}</p>}
+                        <p className="font-semibold" className="font-semibold">{s.prenom} {s.nom}</p>
+                        {s.telephone && <p className="font-semibold" className="text-xs text-muted-foreground">{s.telephone}</p>}
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{s.poste}</td>
                       <td className="px-4 py-3"><span className="text-xs px-2 py-0.5 rounded-full border bg-muted">{CONTRAT_LABELS[s.typeContrat]}</span></td>
@@ -1068,10 +1068,10 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div className="flex-1">
-                  <p className="text-sm font-bold text-red-800">
+                  <p className="font-semibold" className="text-sm font-bold text-red-800">
                     {alertCount} client(s) en situation critique — {fmt(totalRetard + totalHorsPlafond)} DH a risque
                   </p>
-                  <p className="text-xs text-red-700">Clients hors plafond ou en retard de paiement</p>
+                  <p className="font-semibold" className="text-xs text-red-700">Clients hors plafond ou en retard de paiement</p>
                 </div>
               </div>
             )}
@@ -1123,7 +1123,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                 <div className="flex gap-2">
                   <button onClick={handleCreditPaiement}
                     disabled={!creditPaiClientId || !creditPaiMontant || Number(creditPaiMontant) <= 0}
-                    className="px-6 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-50"
+                    className="px-6 py-2.5 rounded-xl text-sm font-bold text-white disabled:"
                     style={{ background: "oklch(0.38 0.18 155)" }}>
                     Valider encaissement
                   </button>
@@ -1174,8 +1174,8 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                       <tr key={c.client.id}
                         className={`border-t border-border transition-colors ${c.isOverPlafond ? "bg-red-50" : c.isOverdue ? "bg-orange-50" : "hover:bg-muted/30"}`}>
                         <td className="px-4 py-3">
-                          <p className="font-semibold text-foreground whitespace-nowrap">{c.client.nom}</p>
-                          <p className="text-xs text-muted-foreground">{c.client.secteur}</p>
+                          <p className="font-semibold" className="font-semibold text-foreground whitespace-nowrap">{c.client.nom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">{c.client.secteur}</p>
                         </td>
                         <td className={`px-4 py-3 font-bold whitespace-nowrap ${c.isOverPlafond ? "text-red-700" : c.isOverdue ? "text-orange-700" : "text-foreground"}`}>
                           {fmt(c.solde)} DH
@@ -1202,7 +1202,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                         <td className="px-4 py-3 text-xs text-muted-foreground whitespace-nowrap">
                           {c.lastBLDate ?? "—"}
                           {c.ageMs !== null && c.delai !== "a_definir" && (
-                            <p className="text-[10px]">{Math.round(c.ageMs / (24 * 3600 * 1000))}j</p>
+                            <p className="font-semibold" className="text-[10px]">{Math.round(c.ageMs / (24 * 3600 * 1000))}j</p>
                           )}
                         </td>
                         <td className="px-4 py-3">
@@ -1323,8 +1323,8 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                 { label: "Resultat operationnel", value: `${fmt(totalEntrees - totalSorties - totalChargesPeriod - totalSalairesPeriod)} DH`, color: (totalEntrees - totalSorties - totalChargesPeriod - totalSalairesPeriod) >= 0 ? "text-emerald-600" : "text-red-600" },
               ].map(k => (
                 <div key={k.label} className="bg-card rounded-xl border border-border p-4">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide">{k.label}</p>
-                  <p className={`text-lg font-extrabold ${k.color}`}>{k.value}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground uppercase tracking-wide">{k.label}</p>
+                  <p className="font-semibold" className={`text-lg font-extrabold ${k.color}`}>{k.value}</p>
                 </div>
               ))}
             </div>

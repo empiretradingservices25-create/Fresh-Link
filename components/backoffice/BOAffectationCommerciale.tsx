@@ -105,7 +105,7 @@ export default function BOAffectationCommerciale({ user }: Props) {
             Affectation Commerciale
             <span className="text-muted-foreground font-normal text-base mr-2"> / التوزيع التجاري</span>
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="font-semibold" className="text-sm text-muted-foreground">
             Affecter les clients à un secteur et à un prévendeur — Affecter les prévendeurs à un secteur
           </p>
         </div>
@@ -126,9 +126,9 @@ export default function BOAffectationCommerciale({ user }: Props) {
           { label: "Prévendeurs actifs", value: prevendeurs.length, sub: `${prevWithSecteur} avec secteur`, color: "bg-amber-50 border-amber-200 text-amber-700" },
         ].map(s => (
           <div key={s.label} className={`rounded-xl border p-3 ${s.color}`}>
-            <p className="text-2xl font-bold">{s.value}</p>
-            <p className="text-xs font-medium">{s.label}</p>
-            {s.sub && <p className="text-[10px] opacity-70">{s.sub}</p>}
+            <p className="font-semibold" className="text-2xl font-bold">{s.value}</p>
+            <p className="font-semibold" className="text-xs font-medium">{s.label}</p>
+            {s.sub && <p className="font-semibold" className="text-[10px] ">{s.sub}</p>}
           </div>
         ))}
       </div>
@@ -191,8 +191,8 @@ export default function BOAffectationCommerciale({ user }: Props) {
                       <tr key={c.id} className={i % 2 === 0 ? "bg-card" : "bg-muted/30"} style={{ borderTop: "1px solid var(--border)" }}>
                         {/* Client name + type */}
                         <td className="px-4 py-3">
-                          <p className="font-semibold text-foreground">{c.nom}</p>
-                          <p className="text-xs text-muted-foreground capitalize">{c.type} — {c.zone || "—"}</p>
+                          <p className="font-semibold" className="font-semibold text-foreground">{c.nom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground capitalize">{c.type} — {c.zone || "—"}</p>
                         </td>
 
                         {/* Secteur selector */}
@@ -252,7 +252,7 @@ export default function BOAffectationCommerciale({ user }: Props) {
               </table>
             </div>
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="font-semibold" className="text-xs text-muted-foreground">
             {filteredClients.length} client(s) affiché(s) sur {clients.length} — Le Team Lead est automatiquement résolu depuis le secteur du prévendeur.
           </p>
         </div>
@@ -302,8 +302,8 @@ export default function BOAffectationCommerciale({ user }: Props) {
                               {p.name[0]}
                             </div>
                             <div>
-                              <p className="font-semibold text-foreground">{p.name}</p>
-                              <p className="text-[10px] text-muted-foreground">{p.email}</p>
+                              <p className="font-semibold" className="font-semibold text-foreground">{p.name}</p>
+                              <p className="font-semibold" className="text-[10px] text-muted-foreground">{p.email}</p>
                             </div>
                           </div>
                         </td>
@@ -387,7 +387,7 @@ export default function BOAffectationCommerciale({ user }: Props) {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground mt-2">
+              <p className="font-semibold" className="text-xs text-muted-foreground mt-2">
                 Pour associer un team lead à un secteur, modifiez son secteur dans Utilisateurs et Roles.
               </p>
             </div>

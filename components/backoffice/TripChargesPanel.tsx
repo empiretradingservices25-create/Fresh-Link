@@ -68,7 +68,7 @@ function RetourControleForm({ tripId, onSave }: { tripId: string; onSave: (c: Co
 
   return (
     <div className="space-y-4 p-4 rounded-2xl" style={{ background: "#0a0f18", border: "1px solid #1a2535" }}>
-      <p className="text-sm font-bold" style={{ color: "#f1f5f9" }}>Contrôle Retour Livreur</p>
+      <p className="font-semibold" className="text-sm font-bold" style={{ color: "#f1f5f9" }}>Contrôle Retour Livreur</p>
 
       {/* Caisses */}
       <div className="grid grid-cols-3 gap-2">
@@ -78,7 +78,7 @@ function RetourControleForm({ tripId, onSave }: { tripId: string; onSave: (c: Co
           { label: "Caisses Marché Retour", val: caissesMarcheRetour, set: setCaissesMarcheRetour },
         ].map(({ label, val, set }) => (
           <div key={label}>
-            <p className="text-xs mb-1" style={{ color: "#4b5563" }}>{label}</p>
+            <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>{label}</p>
             <input type="number" value={val} onChange={e => set(+e.target.value)} min={0} className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#060a10", border: "1px solid #1a2535", color: "#e2e8f0" }} />
           </div>
         ))}
@@ -100,7 +100,7 @@ function RetourControleForm({ tripId, onSave }: { tripId: string; onSave: (c: Co
 
       {/* Marchandises retour */}
       <div>
-        <p className="text-xs font-semibold mb-2" style={{ color: "#94a3b8" }}>Marchandises Retournées</p>
+        <p className="font-semibold" className="text-xs font-semibold mb-2" style={{ color: "#94a3b8" }}>Marchandises Retournées</p>
         <div className="grid grid-cols-3 gap-2 mb-2">
           <input value={newItem.article ?? ""} onChange={e => setNewItem(n => ({ ...n, article: e.target.value }))} placeholder="Article..." className="px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#060a10", border: "1px solid #1a2535", color: "#e2e8f0" }} />
           <input type="number" value={newItem.quantite ?? ""} onChange={e => setNewItem(n => ({ ...n, quantite: +e.target.value }))} placeholder="Qté (kg/u)..." min={0} className="px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#060a10", border: "1px solid #1a2535", color: "#e2e8f0" }} />
@@ -124,9 +124,9 @@ function RetourControleForm({ tripId, onSave }: { tripId: string; onSave: (c: Co
               <div key={i} className="flex items-start gap-2 p-2.5 rounded-xl text-xs" style={{ background: m.alerte ? "#1c0a0a" : "#060a10", border: `1px solid ${m.alerte ? "#3b1515" : "#1a2535"}` }}>
                 {m.alerte && <AlertTriangle className="w-3.5 h-3.5 text-red-400 flex-shrink-0 mt-0.5" />}
                 <div className="flex-1">
-                  <p className="font-medium" style={{ color: "#e2e8f0" }}>{m.article} — {m.quantite} kg/u</p>
-                  <p style={{ color: "#4b5563" }}>{MOTIF_RETOUR_LABELS[m.motif]}</p>
-                  {m.iaObservation && <p className="mt-0.5" style={{ color: "#7dd3fc" }}>IA: {m.iaObservation}</p>}
+                  <p className="font-semibold" className="font-medium" style={{ color: "#e2e8f0" }}>{m.article} — {m.quantite} kg/u</p>
+                  <p className="font-semibold" style={{ color: "#4b5563" }}>{MOTIF_RETOUR_LABELS[m.motif]}</p>
+                  {m.iaObservation && <p className="font-semibold" className="mt-0.5" style={{ color: "#7dd3fc" }}>IA: {m.iaObservation}</p>}
                 </div>
                 <button onClick={() => setMarchandises(prev => prev.filter((_, j) => j !== i))}><X className="w-3 h-3" style={{ color: "#6b7280" }} /></button>
               </div>
@@ -137,7 +137,7 @@ function RetourControleForm({ tripId, onSave }: { tripId: string; onSave: (c: Co
 
       {/* Observations */}
       <div>
-        <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Observations générales</p>
+        <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Observations générales</p>
         <textarea value={observations} onChange={e => setObservations(e.target.value)} rows={2} className="w-full px-3 py-2 rounded-xl text-xs outline-none resize-none" style={{ background: "#060a10", border: "1px solid #1a2535", color: "#e2e8f0" }} placeholder="Remarques sur le retour..." />
       </div>
 
@@ -184,7 +184,7 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
                 {trip.numero}
               </span>
             )}
-            <p className="text-sm font-bold" style={{ color: "#f1f5f9" }}>{trip.livreur}</p>
+            <p className="font-semibold" className="text-sm font-bold" style={{ color: "#f1f5f9" }}>{trip.livreur}</p>
             <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "#0d1a2e", color: "#60a5fa", border: "1px solid #1d3a5e" }}>{trip.immatricule}</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "#0a1a10", color: "#6ee7b7", border: "1px solid #15352a" }}>{trip.secteur}</span>
           </div>
@@ -196,7 +196,7 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
           </div>
         </div>
         <div className="text-right flex-shrink-0">
-          <p className="text-sm font-bold" style={{ color: "#f59e0b" }}>{totalCharges.toLocaleString()} DH</p>
+          <p className="font-semibold" className="text-sm font-bold" style={{ color: "#f59e0b" }}>{totalCharges.toLocaleString()} DH</p>
           <div className="flex items-center gap-1.5 justify-end mt-1">
             {alertes.length > 0 && <span className="flex items-center gap-1 text-[10px]" style={{ color: "#ef4444" }}><AlertTriangle className="w-3 h-3" />{alertes.length} alerte{alertes.length > 1 ? "s" : ""}</span>}
             <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ background: trip.validated ? "#10b98122" : "#f59e0b22", color: trip.validated ? "#10b981" : "#f59e0b", border: `1px solid ${trip.validated ? "#10b98144" : "#f59e0b44"}` }}>
@@ -218,8 +218,8 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
               { l: "Total KM", v: kmTotal !== null ? `${kmTotal} km` : "En cours" },
             ].map(({ l, v }) => (
               <div key={l} className="px-3 py-2.5 rounded-xl" style={{ background: "#0a0f18", border: "1px solid #1a2535" }}>
-                <p style={{ color: "#4b5563" }}>{l}</p>
-                <p className="font-bold mt-0.5" style={{ color: "#e2e8f0" }}>{v}</p>
+                <p className="font-semibold" style={{ color: "#4b5563" }}>{l}</p>
+                <p className="font-semibold" className="font-bold mt-0.5" style={{ color: "#e2e8f0" }}>{v}</p>
               </div>
             ))}
           </div>
@@ -227,7 +227,7 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
           {/* Charges detail */}
           {trip.charges.length > 0 && (
             <div className="rounded-xl overflow-hidden" style={{ border: "1px solid #1a2535" }}>
-              <p className="text-xs font-semibold px-3 py-2" style={{ background: "#0a0f18", color: "#94a3b8", borderBottom: "1px solid #1a2535" }}>Détail charges</p>
+              <p className="font-semibold" className="text-xs font-semibold px-3 py-2" style={{ background: "#0a0f18", color: "#94a3b8", borderBottom: "1px solid #1a2535" }}>Détail charges</p>
               {trip.charges.map((c, i) => (
                 <div key={i} className="flex items-center justify-between px-3 py-2 text-xs" style={{ borderBottom: i < trip.charges.length - 1 ? "1px solid #1a253520" : "none" }}>
                   <span style={{ color: "#94a3b8" }}>{TRIP_CHARGE_TYPE_LABELS[c.type]}</span>
@@ -245,7 +245,7 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
           {trip.controleRetour ? (
             <div className="rounded-xl p-3" style={{ background: "#0a1a10", border: "1px solid #15352a" }}>
               <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-bold" style={{ color: "#6ee7b7" }}>Contrôle Retour Validé</p>
+                <p className="font-semibold" className="text-xs font-bold" style={{ color: "#6ee7b7" }}>Contrôle Retour Validé</p>
                 <span className="text-xs" style={{ color: "#4b5563" }}>{trip.controleRetour.date}</span>
               </div>
               <div className="grid grid-cols-3 gap-2 text-xs mb-2">
@@ -255,9 +255,9 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
               </div>
               {alertes.length > 0 && (
                 <div className="p-2.5 rounded-xl text-xs" style={{ background: "#1c0a0a", border: "1px solid #3b1515" }}>
-                  <p className="font-bold mb-1.5" style={{ color: "#fca5a5" }}>Alertes IA ({alertes.length})</p>
+                  <p className="font-semibold" className="font-bold mb-1.5" style={{ color: "#fca5a5" }}>Alertes IA ({alertes.length})</p>
                   {alertes.map((a, i) => (
-                    <p key={i} className="flex items-start gap-1.5" style={{ color: "#fca5a5" }}>
+                    <p className="font-semibold" key={i} className="flex items-start gap-1.5" style={{ color: "#fca5a5" }}>
                       <AlertTriangle className="w-3 h-3 flex-shrink-0 mt-0.5" />
                       {a.article}: {a.iaObservation}
                     </p>
@@ -265,7 +265,7 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
                 </div>
               )}
               {trip.controleRetour.observations && (
-                <p className="text-xs mt-2" style={{ color: "#4b5563" }}>Obs: {trip.controleRetour.observations}</p>
+                <p className="font-semibold" className="text-xs mt-2" style={{ color: "#4b5563" }}>Obs: {trip.controleRetour.observations}</p>
               )}
             </div>
           ) : (
@@ -428,7 +428,7 @@ export default function TripChargesPanel() {
           <h2 className="text-sm font-bold" style={{ color: "#f1f5f9" }}>
             Charges Trip <span style={{ color: "#374151" }}>/ مصاريف الرحلة</span>
           </h2>
-          <p className="text-xs mt-0.5" style={{ color: "#374151" }}>
+          <p className="font-semibold" className="text-xs mt-0.5" style={{ color: "#374151" }}>
             Auto-rempli depuis Contrôle Préparation · BL · Retours
           </p>
         </div>
@@ -448,8 +448,8 @@ export default function TripChargesPanel() {
           { l: "Trips Validés", v: String(trips.filter(t => t.validated).length), c: "#10b981" },
         ].map(s => (
           <div key={s.l} className="rounded-xl p-3 flex items-center justify-between" style={{ background: "#0f1623", border: "1px solid #1a2535" }}>
-            <p className="text-xs" style={{ color: "#4b5563" }}>{s.l}</p>
-            <p className="text-sm font-bold" style={{ color: s.c }}>{s.v}</p>
+            <p className="font-semibold" className="text-xs" style={{ color: "#4b5563" }}>{s.l}</p>
+            <p className="font-semibold" className="text-sm font-bold" style={{ color: s.c }}>{s.v}</p>
           </div>
         ))}
       </div>
@@ -470,8 +470,8 @@ export default function TripChargesPanel() {
           <div className="w-full max-w-lg rounded-2xl overflow-hidden overflow-y-auto" style={{ background: "#0f1623", border: "1px solid #1a2535", maxHeight: "90vh" }} onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #1a2535" }}>
               <div>
-                <p className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Nouveau Trip</p>
-                <p className="text-[11px] mt-0.5 flex items-center gap-1.5" style={{ color: "#4b5563" }}>
+                <p className="font-semibold" className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Nouveau Trip</p>
+                <p className="font-semibold" className="text-[11px] mt-0.5 flex items-center gap-1.5" style={{ color: "#4b5563" }}>
                   Numéro assigné automatiquement :
                   <span className="font-black px-1.5 py-0.5 rounded" style={{ background: "#1a0d2e", color: "#a78bfa", fontSize: 10 }}>
                     TRP-{String(trips.length + 1).padStart(3, "0")}
@@ -484,7 +484,7 @@ export default function TripChargesPanel() {
 
               {/* Livreur — triggers auto-sync */}
               <div>
-                <p className="text-xs mb-1 flex items-center gap-1.5" style={{ color: "#94a3b8" }}>
+                <p className="font-semibold" className="text-xs mb-1 flex items-center gap-1.5" style={{ color: "#94a3b8" }}>
                   Livreur <span style={{ color: "#1d4ed8", fontSize: 9 }}>● auto-rempli depuis flux</span>
                 </p>
                 {livreurs.length > 0 ? (
@@ -528,42 +528,42 @@ export default function TripChargesPanel() {
                     </div>
                   </div>
                   {(form as { observations?: string }).observations && (
-                    <p className="text-xs" style={{ color: "#374151" }}>{(form as { observations?: string }).observations}</p>
+                    <p className="font-semibold" className="text-xs" style={{ color: "#374151" }}>{(form as { observations?: string }).observations}</p>
                   )}
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Immatricule</p>
+                  <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Immatricule</p>
                   <input value={form.immatricule ?? ""} onChange={e => setForm(f => ({ ...f, immatricule: e.target.value }))} placeholder="W-XXXXX-X" className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
                 </div>
                 <div>
-                  <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Secteur</p>
+                  <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Secteur</p>
                   <input value={form.secteur ?? ""} onChange={e => setForm(f => ({ ...f, secteur: e.target.value }))} placeholder="Zone / Secteur" className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
                 </div>
                 <div>
-                  <p className="text-xs mb-1 flex items-center gap-1" style={{ color: "#4b5563" }}>
+                  <p className="font-semibold" className="text-xs mb-1 flex items-center gap-1" style={{ color: "#4b5563" }}>
                     Nb Caisses Facturées
                     {autoSyncInfo && <span style={{ color: "#6ee7b7", fontSize: 9 }}>↑ auto</span>}
                   </p>
                   <input type="number" value={form.nbCaissesFact ?? ""} onChange={e => setForm(f => ({ ...f, nbCaissesFact: +e.target.value }))} min={0} className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
                 </div>
                 <div>
-                  <p className="text-xs mb-1 flex items-center gap-1" style={{ color: "#4b5563" }}>
+                  <p className="font-semibold" className="text-xs mb-1 flex items-center gap-1" style={{ color: "#4b5563" }}>
                     Nb Clients
                     {autoSyncInfo && autoSyncInfo.sourceBLs.length > 0 && <span style={{ color: "#6ee7b7", fontSize: 9 }}>↑ auto</span>}
                   </p>
                   <input type="number" value={form.nbClients ?? ""} onChange={e => setForm(f => ({ ...f, nbClients: +e.target.value }))} min={0} className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
                 </div>
                 <div>
-                  <p className="text-xs mb-1" style={{ color: "#4b5563" }}>KM Départ</p>
+                  <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>KM Départ</p>
                   <input type="number" value={form.kmDepart ?? ""} onChange={e => setForm(f => ({ ...f, kmDepart: +e.target.value }))} min={0} className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
                 </div>
               </div>
 
               {/* Charges */}
-              <p className="text-xs font-semibold" style={{ color: "#94a3b8" }}>Charges مصاريف</p>
+              <p className="font-semibold" className="text-xs font-semibold" style={{ color: "#94a3b8" }}>Charges مصاريف</p>
               <div className="grid grid-cols-3 gap-2">
                 <select value={newCharge.type} onChange={e => setNewCharge(c => ({ ...c, type: e.target.value as TripChargeType }))} className="px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }}>
                   {Object.entries(TRIP_CHARGE_TYPE_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}

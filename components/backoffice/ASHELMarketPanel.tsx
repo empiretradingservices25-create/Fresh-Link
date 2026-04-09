@@ -151,8 +151,8 @@ setMessages(prev => [...prev, { role: "assistant", content, ts: new Date().toISO
             </svg>
           </div>
           <div>
-            <p className="font-black text-sm text-foreground">ASHEL</p>
-            <p className="text-[11px] text-muted-foreground">Agent IA — Logique marche & approvisionnement</p>
+            <p className="font-semibold" className="font-black text-sm text-foreground">ASHEL</p>
+            <p className="font-semibold" className="text-[11px] text-muted-foreground">Agent IA — Logique marche & approvisionnement</p>
           </div>
         </div>
         <button onClick={() => setShowSnap(s => !s)}
@@ -169,7 +169,7 @@ setMessages(prev => [...prev, { role: "assistant", content, ts: new Date().toISO
       {/* Market snapshot panel */}
       {showSnap && (
         <div className="border-b border-border bg-muted/30 px-5 py-4 shrink-0">
-          <p className="text-xs font-bold text-foreground mb-3">Saisir prix du marche aujourd&apos;hui</p>
+          <p className="font-semibold" className="text-xs font-bold text-foreground mb-3">Saisir prix du marche aujourd&apos;hui</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
             {[
               { key: "article",    label: "Article",              ph: "ex: Tomates" },
@@ -190,7 +190,7 @@ setMessages(prev => [...prev, { role: "assistant", content, ts: new Date().toISO
             ))}
           </div>
           <button onClick={addSnapshot} disabled={!snapInput.article}
-            className="px-4 py-2 rounded-xl text-xs font-bold text-white disabled:opacity-50"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-white disabled:"
             style={{ background: "oklch(0.65 0.17 145)" }}>
             Enregistrer
           </button>
@@ -268,7 +268,7 @@ setMessages(prev => [...prev, { role: "assistant", content, ts: new Date().toISO
             className="flex-1 px-4 py-3 rounded-2xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
           />
           <button onClick={sendMessage} disabled={!input.trim() || loading}
-            className="w-11 h-11 rounded-xl flex items-center justify-center text-white disabled:opacity-40 shrink-0 mb-0.5"
+            className="w-11 h-11 rounded-xl flex items-center justify-center text-white disabled: shrink-0 mb-0.5"
             style={{ background: "oklch(0.65 0.17 145)" }}>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

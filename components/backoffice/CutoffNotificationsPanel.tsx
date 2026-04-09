@@ -56,8 +56,8 @@ export default function CutoffNotificationsPanel() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-bold" style={{ color: "#f1f5f9" }}>Notifications Cut-off</p>
-          <p className="text-xs mt-0.5" style={{ color: "#4b5563" }}>Configurez les rappels automatiques envoyés aux utilisateurs mobiles</p>
+          <p className="font-semibold" className="text-sm font-bold" style={{ color: "#f1f5f9" }}>Notifications Cut-off</p>
+          <p className="font-semibold" className="text-xs mt-0.5" style={{ color: "#4b5563" }}>Configurez les rappels automatiques envoyés aux utilisateurs mobiles</p>
         </div>
         <div className="flex gap-2">
           <button onClick={() => setShowAdd(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-white" style={{ background: "#1d4ed8" }}>
@@ -99,7 +99,7 @@ export default function CutoffNotificationsPanel() {
             <div className="p-4 space-y-3">
               {/* Message */}
               <div>
-                <p className="text-[10px] mb-1" style={{ color: "#4b5563" }}>Message de notification</p>
+                <p className="font-semibold" className="text-[10px] mb-1" style={{ color: "#4b5563" }}>Message de notification</p>
                 <textarea
                   value={c.message}
                   onChange={e => update(c.id, { message: e.target.value })}
@@ -110,7 +110,7 @@ export default function CutoffNotificationsPanel() {
               </div>
               {/* Roles */}
               <div>
-                <p className="text-[10px] mb-1.5" style={{ color: "#4b5563" }}>Destinataires</p>
+                <p className="font-semibold" className="text-[10px] mb-1.5" style={{ color: "#4b5563" }}>Destinataires</p>
                 <div className="flex flex-wrap gap-1.5">
                   {ELIGIBLE_ROLES.map(r => {
                     const has = c.roles.includes(r)
@@ -138,7 +138,7 @@ export default function CutoffNotificationsPanel() {
         {cutoffs.length === 0 && (
           <div className="text-center py-12">
             <Bell className="w-8 h-8 mx-auto mb-2" style={{ color: "#1a2535" }} />
-            <p className="text-xs" style={{ color: "#374151" }}>Aucune notification configurée</p>
+            <p className="font-semibold" className="text-xs" style={{ color: "#374151" }}>Aucune notification configurée</p>
           </div>
         )}
       </div>
@@ -148,19 +148,19 @@ export default function CutoffNotificationsPanel() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }} onClick={() => setShowAdd(false)}>
           <div className="w-full max-w-md rounded-2xl overflow-hidden" style={{ background: "#0f1623", border: "1px solid #1a2535" }} onClick={e => e.stopPropagation()}>
             <div className="px-5 py-4" style={{ borderBottom: "1px solid #1a2535" }}>
-              <p className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Nouvelle Notification Cut-off</p>
+              <p className="font-semibold" className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Nouvelle Notification Cut-off</p>
             </div>
             <div className="p-5 space-y-3">
               <div>
-                <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Heure</p>
+                <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Heure</p>
                 <input type="time" value={newForm.time} onChange={e => setNewForm(f => ({ ...f, time: e.target.value }))} className="px-3 py-2 rounded-xl text-sm font-bold outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
               </div>
               <div>
-                <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Message</p>
+                <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Message</p>
                 <textarea value={newForm.message} onChange={e => setNewForm(f => ({ ...f, message: e.target.value }))} rows={3} placeholder="Contenu du message de rappel..." className="w-full px-3 py-2 rounded-xl text-xs outline-none resize-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
               </div>
               <div>
-                <p className="text-xs mb-1.5" style={{ color: "#4b5563" }}>Destinataires</p>
+                <p className="font-semibold" className="text-xs mb-1.5" style={{ color: "#4b5563" }}>Destinataires</p>
                 <div className="flex flex-wrap gap-1.5">
                   {ELIGIBLE_ROLES.map(r => {
                     const has = (newForm.roles ?? []).includes(r)

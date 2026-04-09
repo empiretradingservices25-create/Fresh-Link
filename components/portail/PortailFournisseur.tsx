@@ -121,9 +121,9 @@ function CrossDocPreparation({ fournisseurId, orders, articles }: CrossDocPrepar
           </svg>
         </div>
         <div>
-          <p className="font-bold text-foreground">Aucune réception récente</p>
-          <p className="text-sm text-muted-foreground mt-1">La préparation cross-doc se basera sur les articles reçus de votre part.</p>
-          <p className="text-xs text-muted-foreground/70 mt-0.5">لا توجد استلامات حديثة لإعداد وثيقة التوزيع المتقاطع</p>
+          <p className="font-semibold" className="font-bold text-foreground">Aucune réception récente</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground mt-1">La préparation cross-doc se basera sur les articles reçus de votre part.</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground/70 mt-0.5">لا توجد استلامات حديثة لإعداد وثيقة التوزيع المتقاطع</p>
         </div>
       </div>
     )
@@ -135,8 +135,8 @@ function CrossDocPreparation({ fournisseurId, orders, articles }: CrossDocPrepar
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h3 className="font-bold text-foreground text-base">Préparation Cross-Doc</h3>
-          <p className="text-xs text-muted-foreground">Basé sur vos {orders.length} livraison(s) réceptionnée(s)</p>
-          <p className="text-[10px] text-muted-foreground/70">إعداد وثيقة التوزيع المتقاطع من آخر استلاماتك</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">Basé sur vos {orders.length} livraison(s) réceptionnée(s)</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground/70">إعداد وثيقة التوزيع المتقاطع من آخر استلاماتك</p>
         </div>
         <div className="flex items-center gap-2">
           <input
@@ -147,7 +147,7 @@ function CrossDocPreparation({ fournisseurId, orders, articles }: CrossDocPrepar
           />
           <button
             onClick={printDoc}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-bold hover:opacity-90 transition-opacity"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-white text-xs font-bold hover: transition-opacity"
             style={{ background: "var(--primary)" }}>
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -169,18 +169,18 @@ function CrossDocPreparation({ fournisseurId, orders, articles }: CrossDocPrepar
       {/* KPI bar */}
       <div className="grid grid-cols-3 gap-3">
         <div className="rounded-xl border border-border bg-card px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-foreground">{items.length}</p>
-          <p className="text-[10px] text-muted-foreground">Articles</p>
+          <p className="font-semibold" className="text-xl font-black text-foreground">{items.length}</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground">Articles</p>
         </div>
         <div className="rounded-xl border border-border bg-card px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-amber-600">
+          <p className="font-semibold" className="text-xl font-black text-amber-600">
             {items.filter(i => Number(propositions[i.articleId] ?? 0) > 0).length}
           </p>
-          <p className="text-[10px] text-muted-foreground">À préparer</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground">À préparer</p>
         </div>
         <div className="rounded-xl border border-border bg-card px-3 py-2.5 text-center">
-          <p className="text-base font-black text-primary">{totalEstime.toLocaleString("fr-MA")} DH</p>
-          <p className="text-[10px] text-muted-foreground">Total estimé</p>
+          <p className="font-semibold" className="text-base font-black text-primary">{totalEstime.toLocaleString("fr-MA")} DH</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground">Total estimé</p>
         </div>
       </div>
 
@@ -195,7 +195,7 @@ function CrossDocPreparation({ fournisseurId, orders, articles }: CrossDocPrepar
               className={`rounded-2xl border p-4 flex flex-col gap-3 ${needsAttention ? "border-amber-200 bg-amber-50/50" : "border-border bg-card"}`}>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-foreground text-sm">{it.articleNom}</p>
+                  <p className="font-semibold" className="font-bold text-foreground text-sm">{it.articleNom}</p>
                   <div className="flex flex-wrap gap-2 mt-1 text-xs text-muted-foreground">
                     <span>Dernière réception: <strong className="text-foreground">{it.dernierQteRecue} {it.unite}</strong></span>
                     <span>Stock dispo: <strong className="text-foreground">{it.stockDispo} {it.unite}</strong></span>
@@ -367,8 +367,8 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
         <FreshLinkLogo size={34} variant="full-white" />
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <p className="text-xs font-bold text-white">{fournisseur?.nom ?? user.name}</p>
-            <p className="text-[10px] text-sidebar-foreground/60">Portail Fournisseur / بوابة المورد</p>
+            <p className="font-semibold" className="text-xs font-bold text-white">{fournisseur?.nom ?? user.name}</p>
+            <p className="font-semibold" className="text-[10px] text-sidebar-foreground/60">Portail Fournisseur / بوابة المورد</p>
           </div>
           <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
             {(fournisseur?.nom ?? user.name)[0]}
@@ -395,7 +395,7 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
             </div>
             <div className="flex-1 min-w-0">
               <h2 className="font-bold text-foreground text-base">{fournisseur.nom}</h2>
-              <p className="text-sm text-muted-foreground">{fournisseur.contact}</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground">{fournisseur.contact}</p>
               <div className="flex flex-wrap gap-2 mt-2">
                 {fournisseur.telephone && (
                   <span className="text-xs px-2 py-1 rounded-lg bg-muted text-muted-foreground">
@@ -414,8 +414,8 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
             </div>
             <div className="flex flex-col gap-2 text-center">
               <div className="px-4 py-3 rounded-xl bg-amber-50 border border-amber-200">
-                <p className="text-2xl font-black text-amber-700">{totalPending}</p>
-                <p className="text-[10px] font-semibold text-amber-600 uppercase tracking-wide">En attente</p>
+                <p className="font-semibold" className="text-2xl font-black text-amber-700">{totalPending}</p>
+                <p className="font-semibold" className="text-[10px] font-semibold text-amber-600 uppercase tracking-wide">En attente</p>
               </div>
             </div>
           </div>
@@ -429,9 +429,9 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
             { label: "Valeur totale", labelAr: "القيمة الإجمالية", value: `${totalValeur.toFixed(0)} DH`, color: "text-primary" },
           ].map(s => (
             <div key={s.label} className="rounded-2xl border border-border bg-card px-4 py-3">
-              <p className={`text-2xl font-black ${s.color}`}>{s.value}</p>
-              <p className="text-xs text-muted-foreground">{s.label}</p>
-              <p className="text-[10px] text-muted-foreground/60">{s.labelAr}</p>
+              <p className="font-semibold" className={`text-2xl font-black ${s.color}`}>{s.value}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">{s.label}</p>
+              <p className="font-semibold" className="text-[10px] text-muted-foreground/60">{s.labelAr}</p>
             </div>
           ))}
         </div>
@@ -475,11 +475,11 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
           <div className="flex flex-col gap-3">
             {filtered.length === 0 ? (
               <div className="text-center py-16 text-muted-foreground">
-                <svg className="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 h-12 mx-auto mb-3 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <p className="font-semibold">Aucune commande</p>
-                <p className="text-sm">لا توجد طلبيات</p>
+                <p className="font-semibold" className="font-semibold">Aucune commande</p>
+                <p className="font-semibold" className="text-sm">لا توجد طلبيات</p>
               </div>
             ) : filtered.map(po => {
               const cfg = STATUT_CONFIG[po.statut] ?? STATUT_CONFIG.ouvert
@@ -515,28 +515,28 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                     <div className="border-t border-border px-4 py-4 flex flex-col gap-3 bg-muted/20">
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
                         <div>
-                          <p className="text-xs text-muted-foreground">Reference</p>
-                          <p className="font-mono font-semibold text-foreground">{po.id.slice(0, 14)}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Reference</p>
+                          <p className="font-semibold" className="font-mono font-semibold text-foreground">{po.id.slice(0, 14)}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">Article</p>
-                          <p className="font-semibold text-foreground">{po.articleNom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Article</p>
+                          <p className="font-semibold" className="font-semibold text-foreground">{po.articleNom}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">Quantite demandee</p>
-                          <p className="font-bold text-primary text-lg">{po.quantite} {po.articleUnite}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Quantite demandee</p>
+                          <p className="font-semibold" className="font-bold text-primary text-lg">{po.quantite} {po.articleUnite}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">Prix unitaire</p>
-                          <p className="font-semibold">{po.prixUnitaire.toFixed(2)} DH/{po.articleUnite}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Prix unitaire</p>
+                          <p className="font-semibold" className="font-semibold">{po.prixUnitaire.toFixed(2)} DH/{po.articleUnite}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">Total</p>
-                          <p className="font-bold text-primary">{po.total.toFixed(2)} DH</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Total</p>
+                          <p className="font-semibold" className="font-bold text-primary">{po.total.toFixed(2)} DH</p>
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">Cree par</p>
-                          <p className="font-semibold">{po.createdBy}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground">Cree par</p>
+                          <p className="font-semibold" className="font-semibold">{po.createdBy}</p>
                         </div>
                       </div>
                       {po.notes && (
@@ -566,7 +566,7 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                         <button
                           onClick={() => openWhatsAppConfirm(po)}
                           disabled={!isWaEnabled(po.id)}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-all ${isWaEnabled(po.id) ? "opacity-100 hover:opacity-90" : "opacity-40 cursor-not-allowed"}`}
+                          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-all ${isWaEnabled(po.id) ? " hover:" : " cursor-not-allowed"}`}
                           style={{ background: "#25D366" }}>
                           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -598,9 +598,9 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                     { label: "Reste",      labelAr: "المتبقي",             value: `${totalReste.toFixed(0)} DH`, color: "text-red-700" },
                   ].map(s => (
                     <div key={s.label} className="rounded-2xl border border-border bg-card px-3 py-3 text-center">
-                      <p className={`text-lg font-black ${s.color}`}>{s.value}</p>
-                      <p className="text-[10px] text-muted-foreground">{s.label}</p>
-                      <p className="text-[9px] text-muted-foreground/60">{s.labelAr}</p>
+                      <p className="font-semibold" className={`text-lg font-black ${s.color}`}>{s.value}</p>
+                      <p className="font-semibold" className="text-[10px] text-muted-foreground">{s.label}</p>
+                      <p className="font-semibold" className="text-[9px] text-muted-foreground/60">{s.labelAr}</p>
                     </div>
                   ))}
                 </div>
@@ -609,12 +609,12 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
 
             {paiements.length === 0 ? (
               <div className="text-center py-14 text-muted-foreground">
-                <svg className="w-10 h-10 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-10 h-10 mx-auto mb-3 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                <p className="font-semibold text-sm">Aucun paiement enregistré</p>
-                <p className="text-xs">Les commandes réceptionnées apparaîtront ici</p>
-                <p className="text-xs opacity-60">لا يوجد مدفوعات مسجلة</p>
+                <p className="font-semibold" className="font-semibold text-sm">Aucun paiement enregistré</p>
+                <p className="font-semibold" className="text-xs">Les commandes réceptionnées apparaîtront ici</p>
+                <p className="font-semibold" className="text-xs ">لا يوجد مدفوعات مسجلة</p>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
@@ -631,8 +631,8 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                       <div className="px-4 py-4 flex flex-col gap-2">
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex-1 min-w-0">
-                            <p className="font-bold text-foreground text-sm truncate">{p.articleNom}</p>
-                            <p className="text-[10px] font-mono text-muted-foreground">Ref: {p.poId.slice(0, 12)}</p>
+                            <p className="font-semibold" className="font-bold text-foreground text-sm truncate">{p.articleNom}</p>
+                            <p className="font-semibold" className="text-[10px] font-mono text-muted-foreground">Ref: {p.poId.slice(0, 12)}</p>
                           </div>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border shrink-0 ${statutCls}`}>{statutLabel}</span>
                         </div>
@@ -646,15 +646,15 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                           <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
                             <div className="h-2 rounded-full bg-green-500 transition-all" style={{ width: `${pct}%` }} />
                           </div>
-                          <p className="text-right text-[10px] text-muted-foreground mt-0.5">{pct}% payé</p>
+                          <p className="font-semibold" className="text-right text-[10px] text-muted-foreground mt-0.5">{pct}% payé</p>
                         </div>
 
                         {reste > 0 && (
                           <div className="flex items-center justify-between gap-3">
-                            <p className="text-sm font-semibold text-red-600">Reste: {reste.toFixed(2)} DH</p>
+                            <p className="font-semibold" className="text-sm font-semibold text-red-600">Reste: {reste.toFixed(2)} DH</p>
                             <button
                               onClick={() => { setPayModal(p); setPayAmount(reste.toFixed(2)); setPayNotes("") }}
-                              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover:opacity-90 transition-opacity"
+                              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover: transition-opacity"
                             >
                               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -664,7 +664,7 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                           </div>
                         )}
                         {p.notes && (
-                          <p className="text-xs text-muted-foreground italic border-t border-border pt-2">{p.notes}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground italic border-t border-border pt-2">{p.notes}</p>
                         )}
                       </div>
                     </div>
@@ -679,10 +679,10 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                 <div className="w-full max-w-md bg-background rounded-2xl border border-border shadow-2xl p-6 flex flex-col gap-4">
                   <h3 className="font-black text-foreground text-base">Valider paiement / تأكيد الدفع</h3>
                   <div className="bg-muted/40 rounded-xl p-3 text-sm">
-                    <p className="text-muted-foreground">Article: <strong className="text-foreground">{payModal.articleNom}</strong></p>
-                    <p className="text-muted-foreground">Total dû: <strong className="text-foreground">{payModal.montantTotal.toFixed(2)} DH</strong></p>
-                    <p className="text-muted-foreground">Déjà payé: <strong className="text-green-700">{payModal.montantPaye.toFixed(2)} DH</strong></p>
-                    <p className="text-muted-foreground">Reste: <strong className="text-red-700">{(payModal.montantTotal - payModal.montantPaye).toFixed(2)} DH</strong></p>
+                    <p className="font-semibold" className="text-muted-foreground">Article: <strong className="text-foreground">{payModal.articleNom}</strong></p>
+                    <p className="font-semibold" className="text-muted-foreground">Total dû: <strong className="text-foreground">{payModal.montantTotal.toFixed(2)} DH</strong></p>
+                    <p className="font-semibold" className="text-muted-foreground">Déjà payé: <strong className="text-green-700">{payModal.montantPaye.toFixed(2)} DH</strong></p>
+                    <p className="font-semibold" className="text-muted-foreground">Reste: <strong className="text-red-700">{(payModal.montantTotal - payModal.montantPaye).toFixed(2)} DH</strong></p>
                   </div>
                   <div className="flex flex-col gap-2">
                     <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Montant payé maintenant (DH)</label>
@@ -721,7 +721,7 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                         setPaiements(updated)
                         setPayModal(null)
                       }}
-                      className="flex-1 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity">
+                      className="flex-1 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover: transition-opacity">
                       Confirmer paiement
                     </button>
                   </div>
@@ -745,8 +745,8 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {filteredArticles.length === 0 ? (
               <div className="col-span-full text-center py-16 text-muted-foreground">
-                <p className="font-semibold">Aucun article</p>
-                <p className="text-sm">لا توجد منتجات</p>
+                <p className="font-semibold" className="font-semibold">Aucun article</p>
+                <p className="font-semibold" className="text-sm">لا توجد منتجات</p>
               </div>
             ) : filteredArticles.map(art => (
               <div key={art.id} className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-2">
@@ -755,7 +755,7 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
                 </div>
-                <p className="font-bold text-foreground text-sm">{art.nom}</p>
+                <p className="font-semibold" className="font-bold text-foreground text-sm">{art.nom}</p>
                 <div className="flex flex-col gap-1 text-xs text-muted-foreground">
                   <span>Unite: <strong className="text-foreground">{art.unite}</strong></span>
                   <span>Stock: <strong className="text-foreground">{art.stockDisponible} {art.unite}</strong></span>
@@ -767,7 +767,7 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
       </main>
 
       <footer className="border-t border-border bg-card px-4 py-3 flex items-center justify-center">
-        <p className="text-[11px] text-muted-foreground text-center">
+        <p className="font-semibold" className="text-[11px] text-muted-foreground text-center">
           &copy; 2026 <span className="font-semibold text-foreground">FreshLink Pro</span> By{" "}
           <span className="font-bold text-primary">Jawad</span>
           {" "}&mdash; Tous droits reserves / جميع الحقوق محفوظة

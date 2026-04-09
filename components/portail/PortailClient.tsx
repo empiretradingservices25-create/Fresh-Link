@@ -179,8 +179,8 @@ export default function PortailClient({ user, onLogout }: Props) {
         <FreshLinkLogo size={34} variant="full-white" />
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <p className="text-xs font-bold text-white">{client?.nom ?? user.name}</p>
-            <p className="text-[10px] text-sidebar-foreground/60">Portail Client / بوابة الزبون</p>
+            <p className="font-semibold" className="text-xs font-bold text-white">{client?.nom ?? user.name}</p>
+            <p className="font-semibold" className="text-[10px] text-sidebar-foreground/60">Portail Client / بوابة الزبون</p>
           </div>
           <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
             {(client?.nom ?? user.name)[0]}
@@ -207,7 +207,7 @@ export default function PortailClient({ user, onLogout }: Props) {
             </div>
             <div className="flex-1 min-w-0">
               <h2 className="font-bold text-foreground text-base">{client.nom}</h2>
-              <p className="text-sm text-muted-foreground">{client.secteur} — {client.zone}</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground">{client.secteur} — {client.zone}</p>
               <div className="flex flex-wrap gap-2 mt-2">
                 {client.telephone && (
                   <span className="text-xs px-2 py-1 rounded-lg bg-muted text-muted-foreground">{client.telephone}</span>
@@ -262,9 +262,9 @@ export default function PortailClient({ user, onLogout }: Props) {
             { label: "Livrees", labelAr: "تم التسليم", value: livrees, color: "text-primary" },
           ].map(s => (
             <div key={s.label} className="rounded-2xl border border-border bg-card px-4 py-3">
-              <p className={`text-2xl font-black ${s.color}`}>{s.value}</p>
-              <p className="text-xs text-muted-foreground">{s.label}</p>
-              <p className="text-[10px] text-muted-foreground/60">{s.labelAr}</p>
+              <p className="font-semibold" className={`text-2xl font-black ${s.color}`}>{s.value}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">{s.label}</p>
+              <p className="font-semibold" className="text-[10px] text-muted-foreground/60">{s.labelAr}</p>
             </div>
           ))}
         </div>
@@ -303,11 +303,11 @@ export default function PortailClient({ user, onLogout }: Props) {
           <div className="flex flex-col gap-3">
             {filtered.length === 0 ? (
               <div className="text-center py-16 text-muted-foreground">
-                <svg className="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 h-12 mx-auto mb-3 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                <p className="font-semibold">Aucune commande</p>
-                <p className="text-sm">لا توجد طلبيات</p>
+                <p className="font-semibold" className="font-semibold">Aucune commande</p>
+                <p className="font-semibold" className="text-sm">لا توجد طلبيات</p>
               </div>
             ) : filtered.map(cmd => {
               const cfg = STATUT_CONFIG[cmd.statut] ?? STATUT_CONFIG.en_attente
@@ -418,7 +418,7 @@ export default function PortailClient({ user, onLogout }: Props) {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-bold text-foreground text-base">Nouvelle commande / طلبية جديدة</h3>
-                  <p className="text-xs text-muted-foreground">{store.today()}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{store.today()}</p>
                 </div>
                 <button onClick={() => setTab("catalogue")}
                   className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border text-xs font-medium text-muted-foreground hover:bg-muted transition-colors">
@@ -563,8 +563,8 @@ export default function PortailClient({ user, onLogout }: Props) {
               {/* Total + submit */}
               <div className="flex items-center justify-between gap-4 pt-2 border-t border-border">
                 <div>
-                  <p className="text-xs text-muted-foreground">Total estime</p>
-                  <p className="text-xl font-black text-primary">
+                  <p className="font-semibold" className="text-xs text-muted-foreground">Total estime</p>
+                  <p className="font-semibold" className="text-xl font-black text-primary">
                     {lignes.reduce((s, l) => {
                       const art = articles.find(a => a.id === l.articleId)
                       if (!art) return s
@@ -577,7 +577,7 @@ export default function PortailClient({ user, onLogout }: Props) {
                 <button
                   onClick={handleSubmit}
                   disabled={submitSuccess}
-                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 disabled:opacity-50 transition-opacity shadow-md">
+                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-primary-foreground font-bold text-sm hover: disabled: transition-opacity shadow-md">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
@@ -610,8 +610,8 @@ export default function PortailClient({ user, onLogout }: Props) {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {filteredCatalogue.length === 0 ? (
                 <div className="col-span-full text-center py-16 text-muted-foreground">
-                  <p className="font-semibold">Aucun article</p>
-                  <p className="text-sm">لا توجد منتجات</p>
+                  <p className="font-semibold" className="font-semibold">Aucun article</p>
+                  <p className="font-semibold" className="text-sm">لا توجد منتجات</p>
                 </div>
               ) : filteredCatalogue.map(art => {
                 const inOrder = lignes.some(l => l.articleId === art.id)
@@ -619,8 +619,8 @@ export default function PortailClient({ user, onLogout }: Props) {
                   <div key={art.id} className={`rounded-2xl border bg-card p-3 flex flex-col gap-2 transition-all ${inOrder ? "border-primary ring-1 ring-primary/30" : "border-border"}`}>
                     <div className="flex items-start justify-between gap-1">
                       <div>
-                        <p className="font-bold text-foreground text-sm leading-tight">{art.nom}</p>
-                        {art.nomAr && <p className="text-[11px] text-muted-foreground">{art.nomAr}</p>}
+                        <p className="font-semibold" className="font-bold text-foreground text-sm leading-tight">{art.nom}</p>
+                        {art.nomAr && <p className="font-semibold" className="text-[11px] text-muted-foreground">{art.nomAr}</p>}
                       </div>
                       <span className="text-lg shrink-0">{FAMILLE_ICON[art.famille ?? ""] ?? ""}</span>
                     </div>
@@ -633,7 +633,7 @@ export default function PortailClient({ user, onLogout }: Props) {
                     <button
                       onClick={() => quickAdd(art.id)}
                       disabled={art.stockDisponible === 0}
-                      className={`w-full py-2 rounded-xl text-xs font-bold transition-all ${inOrder ? "bg-primary/10 text-primary border border-primary" : art.stockDisponible > 0 ? "bg-primary text-primary-foreground hover:opacity-90" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>
+                      className={`w-full py-2 rounded-xl text-xs font-bold transition-all ${inOrder ? "bg-primary/10 text-primary border border-primary" : art.stockDisponible > 0 ? "bg-primary text-primary-foreground hover:" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>
                       {inOrder ? "Dans la commande" : art.stockDisponible > 0 ? "+ Ajouter" : "Indisponible"}
                     </button>
                   </div>
@@ -645,7 +645,7 @@ export default function PortailClient({ user, onLogout }: Props) {
       </main>
 
       <footer className="border-t border-border bg-card px-4 py-3 flex items-center justify-center">
-        <p className="text-[11px] text-muted-foreground text-center">
+        <p className="font-semibold" className="text-[11px] text-muted-foreground text-center">
           &copy; 2026 <span className="font-semibold text-foreground">FreshLink Pro</span> By{" "}
           <span className="font-bold text-primary">Jawad</span>
           {" "}&mdash; Tous droits reserves / جميع الحقوق محفوظة

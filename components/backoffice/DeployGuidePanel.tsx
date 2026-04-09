@@ -39,7 +39,7 @@ function Code({ code, lang = "bash" }: { code: string; lang?: string }) {
           {copied ? <><CheckIcon /> Copie !</> : <><CopyIcon /> Copier</>}
         </button>
       </div>
-      <pre className="px-4 py-3 text-xs font-mono overflow-x-auto leading-relaxed bg-slate-800 text-slate-100">
+      <pre className="px-4 py-3 text-xs font-mono overflow-x-auto leading-relaxed bg-slate-800 text-slate-800">
         <code>{code}</code>
       </pre>
     </div>
@@ -60,8 +60,8 @@ function StepHeader({ n, title, sub, color = "blue" }: { n: number; title: strin
     <div className={`flex items-start gap-3 p-4 rounded-xl border ${c.light} ${c.border} mb-3`}>
       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black text-white shrink-0 ${c.bg}`}>{n}</div>
       <div>
-        <p className={`text-sm font-black ${c.text}`}>{title}</p>
-        <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{sub}</p>
+        <p className="font-semibold" className={`text-sm font-black ${c.text}`}>{title}</p>
+        <p className="font-semibold" className="text-xs text-slate-500 mt-0.5 leading-relaxed">{sub}</p>
       </div>
     </div>
   )
@@ -145,7 +145,7 @@ export default function DeployGuidePanel() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <p className="text-xs font-black text-slate-800">Guide Deploiement</p>
+          <p className="font-semibold" className="text-xs font-black text-slate-800">Guide Deploiement</p>
         </div>
         {CHAPTERS.map((ch, i) => (
           <button key={i} onClick={() => setChapter(i)}
@@ -155,7 +155,7 @@ export default function DeployGuidePanel() {
           </button>
         ))}
         <div className="hidden lg:block mt-auto px-3 pt-4">
-          <p className="text-[10px] text-slate-400 leading-relaxed">
+          <p className="font-semibold" className="text-[10px] text-slate-400 leading-relaxed">
             <span className="font-bold text-emerald-600">FRESH</span>
             <span className="font-bold text-slate-700">LINK</span> PRO
             <br />Guide de connexion
@@ -179,7 +179,7 @@ export default function DeployGuidePanel() {
                 </div>
                 <div>
                   <h2 className="text-lg font-black text-slate-800">Guide de connexion — de A a Z</h2>
-                  <p className="text-xs text-slate-500 mt-0.5">Pour debutants — Supabase + Vercel en 6 etapes</p>
+                  <p className="font-semibold" className="text-xs text-slate-500 mt-0.5">Pour debutants — Supabase + Vercel en 6 etapes</p>
                 </div>
               </div>
 
@@ -199,17 +199,17 @@ export default function DeployGuidePanel() {
                 ].map(s => (
                   <div key={s.n} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black text-white shrink-0 ${s.color}`}>{s.n}</div>
-                    <p className="text-xs font-semibold text-slate-700">{s.t}</p>
+                    <p className="font-semibold" className="text-xs font-semibold text-slate-700">{s.t}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-800 text-slate-200 text-xs leading-relaxed mb-4">
-                <p className="font-black text-white mb-2">Vos identifiants FreshLink Pro</p>
-                <p className="mb-1"><span className="text-slate-400">URL Supabase :</span><br/>
+              <div className="p-4 rounded-xl bg-slate-800 text-slate-800 text-xs leading-relaxed mb-4">
+                <p className="font-semibold" className="font-black text-white mb-2">Vos identifiants FreshLink Pro</p>
+                <p className="font-semibold" className="mb-1"><span className="text-slate-400">URL Supabase :</span><br/>
                   <span className="font-mono text-emerald-400 text-[11px] break-all">https://nphrncmuxbwahqnzdyxp.supabase.co</span>
                 </p>
-                <p className="mb-1"><span className="text-slate-400">Anon Key :</span><br/>
+                <p className="font-semibold" className="mb-1"><span className="text-slate-400">Anon Key :</span><br/>
                   <span className="font-mono text-blue-400 text-[10px] break-all">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5bmJlamNpdXplZHp1cnhoc3VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MDg0MjYsImV4cCI6MjA5MDE4NDQyNn0.vPgtRBu37SguLxpb7qs95_17U9ksX1S0tkyJSwP5wBg</span>
                 </p>
                 <p><span className="text-slate-400">Publishable Key :</span><br/>
@@ -231,7 +231,7 @@ export default function DeployGuidePanel() {
           {chapter === 1 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Supabase — Creer votre base de donnees</h2>
-              <p className="text-xs text-slate-500 mb-4">Supabase est votre base de donnees en ligne. C&apos;est gratuit pour commencer.</p>
+              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Supabase est votre base de donnees en ligne. C&apos;est gratuit pour commencer.</p>
 
               <StepHeader n={1} title="Creer un compte Supabase" sub="Allez sur supabase.com et creez un compte gratuit." color="emerald" />
               <div className="pl-4 mb-4">
@@ -294,10 +294,10 @@ export default function DeployGuidePanel() {
                     </button>
                   ))}
                 </div>
-                <div className="p-3 rounded-xl bg-slate-800 text-xs font-mono text-slate-100">
-                  <p className="text-slate-400 mb-1">Vos cles actuelles :</p>
-                  <p className="text-emerald-400 break-all text-[10px]">https://nphrncmuxbwahqnzdyxp.supabase.co</p>
-                  <p className="text-blue-400 break-all text-[10px] mt-1">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..._4bA9RtIVMUjNgxd2ojd9</p>
+                <div className="p-3 rounded-xl bg-slate-800 text-xs font-mono text-slate-800">
+                  <p className="font-semibold" className="text-slate-400 mb-1">Vos cles actuelles :</p>
+                  <p className="font-semibold" className="text-emerald-400 break-all text-[10px]">https://nphrncmuxbwahqnzdyxp.supabase.co</p>
+                  <p className="font-semibold" className="text-blue-400 break-all text-[10px] mt-1">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..._4bA9RtIVMUjNgxd2ojd9</p>
                 </div>
               </div>
 
@@ -315,7 +315,7 @@ export default function DeployGuidePanel() {
           {chapter === 2 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Vercel — Deployer en ligne</h2>
-              <p className="text-xs text-slate-500 mb-4">Vercel met votre application en ligne gratuitement. Aucune carte bancaire requise.</p>
+              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Vercel met votre application en ligne gratuitement. Aucune carte bancaire requise.</p>
 
               <StepHeader n={1} title="Creer un compte Vercel" sub="Allez sur vercel.com et connectez-vous avec GitHub." color="blue" />
               <div className="pl-4 mb-4">
@@ -380,13 +380,13 @@ export default function DeployGuidePanel() {
           {chapter === 3 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Variables d&apos;environnement</h2>
-              <p className="text-xs text-slate-500 mb-4">Les variables ENV permettent a votre application de savoir comment se connecter a Supabase, sans exposer vos cles dans le code.</p>
+              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Les variables ENV permettent a votre application de savoir comment se connecter a Supabase, sans exposer vos cles dans le code.</p>
 
               <Warn>Ne partagez jamais vos cles API publiquement. Les variables ENV sont chiffrees par Vercel.</Warn>
 
               <StepHeader n={1} title="Dans Vercel — Ajouter les variables" sub="Project → Settings → Environment Variables" color="amber" />
               <div className="pl-4 mb-4">
-                <p className="text-xs text-slate-600 font-semibold mb-2">Copiez-collez exactement ces variables :</p>
+                <p className="font-semibold" className="text-xs text-slate-600 font-semibold mb-2">Copiez-collez exactement ces variables :</p>
                 <Code lang="env" code={`NEXT_PUBLIC_SUPABASE_URL=https://nphrncmuxbwahqnzdyxp.supabase.co\nNEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5waHJuY211eGJ3YWhxbnpkeXhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDUyNDUsImV4cCI6MjA5MDUyMTI0NX0._4bA9RtIVMUjNgxd2ojd9_3b6vzGRddpPPbioalRsMw`} />
                 <Info>Selectionnez <strong>Production, Preview, Development</strong> pour les 3 environnements, puis cliquez Save.</Info>
                 <div className="space-y-2 mt-3">
@@ -423,7 +423,7 @@ export default function DeployGuidePanel() {
           {chapter === 4 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Creer les tables SQL</h2>
-              <p className="text-xs text-slate-500 mb-4">Les tables sont les &quot;feuilles Excel&quot; de votre base de donnees. Vous devez les creer une seule fois.</p>
+              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Les tables sont les &quot;feuilles Excel&quot; de votre base de donnees. Vous devez les creer une seule fois.</p>
 
               <StepHeader n={1} title="Ouvrir l'editeur SQL Supabase" sub="Dans votre projet Supabase, cliquer sur SQL Editor dans le menu gauche." color="green" />
               <div className="pl-4 mb-4">
@@ -542,7 +542,7 @@ ON CONFLICT DO NOTHING;`} />
           {chapter === 5 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Depannage — Resoudre les problemes</h2>
-              <p className="text-xs text-slate-500 mb-4">Si quelque chose ne fonctionne pas, voici les solutions les plus courantes.</p>
+              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Si quelque chose ne fonctionne pas, voici les solutions les plus courantes.</p>
 
               {[
                 {
@@ -583,8 +583,8 @@ ON CONFLICT DO NOTHING;`} />
                       ?
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-bold text-slate-800">{item.q}</p>
-                      {done(`faq${i}`) && <p className="text-xs text-slate-600 mt-2 leading-relaxed">{item.a}</p>}
+                      <p className="font-semibold" className="text-xs font-bold text-slate-800">{item.q}</p>
+                      {done(`faq${i}`) && <p className="font-semibold" className="text-xs text-slate-600 mt-2 leading-relaxed">{item.a}</p>}
                     </div>
                     <svg className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${done(`faq${i}`) ? "rotate-90" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -594,8 +594,8 @@ ON CONFLICT DO NOTHING;`} />
               ))}
 
               <div className="mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-                <p className="text-sm font-black text-emerald-800 mb-1">Felicitations !</p>
-                <p className="text-xs text-emerald-700 leading-relaxed">
+                <p className="font-semibold" className="text-sm font-black text-emerald-800 mb-1">Felicitations !</p>
+                <p className="font-semibold" className="text-xs text-emerald-700 leading-relaxed">
                   Si vous avez suivi toutes les etapes, votre application FreshLink Pro est maintenant connectee
                   a Supabase et deployee sur Vercel. Vos donnees sont sauvegardees dans une vraie base de donnees cloud.
                 </p>

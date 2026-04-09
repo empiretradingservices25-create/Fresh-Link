@@ -44,7 +44,7 @@ function PctRing({ value, max, label, color }: { value: number; max: number; lab
           <span className="text-sm font-extrabold text-foreground">{pct}%</span>
         </div>
       </div>
-      <p className="text-[11px] text-muted-foreground text-center font-medium">{label}</p>
+      <p className="font-semibold" className="text-[11px] text-muted-foreground text-center font-medium">{label}</p>
     </div>
   )
 }
@@ -95,7 +95,7 @@ export default function MobileObjectifs({ user }: Props) {
       {/* Title */}
       <div>
         <h2 className="text-base font-bold text-foreground">Mon Bilan / ملخصي</h2>
-        <p className="text-xs text-muted-foreground">{today}</p>
+        <p className="font-semibold" className="text-xs text-muted-foreground">{today}</p>
       </div>
 
       {/* Quick today cards */}
@@ -106,8 +106,8 @@ export default function MobileObjectifs({ user }: Props) {
           { l: "Mois",        v: DH(caM), c: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200" },
         ].map(k => (
           <div key={k.l} className={`${k.bg} border rounded-xl p-3 text-center`}>
-            <p className="text-[10px] font-semibold text-muted-foreground uppercase">{k.l}</p>
-            <p className={`text-sm font-extrabold ${k.c} mt-0.5`}>{k.v}</p>
+            <p className="font-semibold" className="text-[10px] font-semibold text-muted-foreground uppercase">{k.l}</p>
+            <p className="font-semibold" className={`text-sm font-extrabold ${k.c} mt-0.5`}>{k.v}</p>
           </div>
         ))}
       </div>
@@ -146,11 +146,11 @@ export default function MobileObjectifs({ user }: Props) {
 
       {!hasCA && !hasClients && (
         <div className="bg-card rounded-xl border border-border p-8 text-center">
-          <svg className="w-10 h-10 mx-auto mb-3 text-muted-foreground opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-10 h-10 mx-auto mb-3 text-muted-foreground " fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          <p className="text-sm text-muted-foreground font-semibold">Aucun objectif défini</p>
-          <p className="text-xs text-muted-foreground mt-1">Demandez à votre responsable de définir vos objectifs.</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-semibold">Aucun objectif défini</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground mt-1">Demandez à votre responsable de définir vos objectifs.</p>
         </div>
       )}
 
@@ -158,7 +158,7 @@ export default function MobileObjectifs({ user }: Props) {
       {cdM.length > 0 && (
         <div className="bg-card rounded-xl border border-border overflow-hidden">
           <div className="px-4 py-3 border-b border-border">
-            <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Mes commandes ce mois ({cdM.length})</p>
+            <p className="font-semibold" className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Mes commandes ce mois ({cdM.length})</p>
           </div>
           <div className="divide-y divide-border max-h-60 overflow-y-auto">
             {[...cdM].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 15).map(c => {
@@ -166,11 +166,11 @@ export default function MobileObjectifs({ user }: Props) {
               return (
                 <div key={c.id} className="flex items-center justify-between px-4 py-2.5">
                   <div>
-                    <p className="text-xs font-semibold text-foreground">{c.clientNom}</p>
-                    <p className="text-[10px] text-muted-foreground">{c.date}</p>
+                    <p className="font-semibold" className="text-xs font-semibold text-foreground">{c.clientNom}</p>
+                    <p className="font-semibold" className="text-[10px] text-muted-foreground">{c.date}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs font-bold text-primary">{DH(total)}</p>
+                    <p className="font-semibold" className="text-xs font-bold text-primary">{DH(total)}</p>
                     <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
                       c.statut === "livre" ? "bg-green-100 text-green-700" :
                       c.statut === "valide" ? "bg-amber-100 text-amber-700" :

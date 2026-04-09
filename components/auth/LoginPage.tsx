@@ -102,8 +102,8 @@ export default function LoginPage({ onLogin }: Props) {
           <div className="flex flex-col items-center gap-3">
             <FreshLinkLogo size={44} />
             <div className="text-center">
-              <p className="text-base font-bold text-slate-800">Bonjour, {pendingUser.name}</p>
-              <p className="text-sm text-slate-500 mt-0.5">Choisissez votre interface</p>
+              <p className="font-semibold" className="text-base font-bold text-slate-800">Bonjour, {pendingUser.name}</p>
+              <p className="font-semibold" className="text-sm text-slate-500 mt-0.5">Choisissez votre interface</p>
             </div>
           </div>
           <div className="flex flex-col gap-3">
@@ -142,10 +142,10 @@ export default function LoginPage({ onLogin }: Props) {
         <div className="absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, #4ADE80 1px, transparent 0)", backgroundSize: "24px 24px" }} />
         {/* Leaf glow top-right */}
-        <div className="absolute -top-24 -right-16 w-64 h-64 rounded-full opacity-20"
+        <div className="absolute -top-24 -right-16 w-64 h-64 rounded-full "
           style={{ background: "radial-gradient(circle, #4ADE80 0%, transparent 70%)" }} />
         {/* Deep glow bottom-left */}
-        <div className="absolute -bottom-20 -left-10 w-56 h-56 rounded-full opacity-10"
+        <div className="absolute -bottom-20 -left-10 w-56 h-56 rounded-full "
           style={{ background: "radial-gradient(circle, #22c55e 0%, transparent 70%)" }} />
 
         <div className="relative flex flex-col gap-8">
@@ -158,7 +158,7 @@ export default function LoginPage({ onLogin }: Props) {
               Pilotez vos flux<br/>
               <span style={{ color: "#4ADE80" }}>de bout en bout</span>
             </h2>
-            <p className="text-sm leading-relaxed text-slate-400">
+            <p className="font-semibold" className="text-sm leading-relaxed text-slate-400">
               Achat, vente, logistique et suivi commercial — gestion complete en temps reel pour les distributeurs de fruits et legumes.
             </p>
           </div>
@@ -173,14 +173,14 @@ export default function LoginPage({ onLogin }: Props) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={feat.icon} />
                   </svg>
                 </div>
-                <span className="text-sm text-slate-300">{feat.label}</span>
+                <span className="text-sm text-slate-700">{feat.label}</span>
               </div>
             ))}
           </div>
 
           {/* Agents IA hierarchy */}
           <div className="rounded-2xl p-4" style={{ background: "#1a3a28", border: "1px solid #2d5a3d" }}>
-            <p className="text-[10px] font-black tracking-widest uppercase text-green-400 mb-2.5">Agents IA Experts</p>
+            <p className="font-semibold" className="text-[10px] font-black tracking-widest uppercase text-green-400 mb-2.5">Agents IA Experts</p>
             <div className="flex flex-col gap-1.5">
               {N_LEVELS.map(l => (
                 <div key={l.level} className="flex items-center gap-2.5">
@@ -193,7 +193,7 @@ export default function LoginPage({ onLogin }: Props) {
           </div>
         </div>
 
-        <p className="relative text-xs text-slate-600">
+        <p className="font-semibold" className="relative text-xs text-slate-600">
           &copy; {new Date().getFullYear()} FreshLink Pro — Tous droits reserves
         </p>
       </div>
@@ -210,7 +210,7 @@ export default function LoginPage({ onLogin }: Props) {
           {/* Heading */}
           <div>
             <h1 className="text-2xl font-black text-slate-800">Connexion</h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="font-semibold" className="text-sm text-slate-500 mt-1">
               {clientMode ? "Portail client — entrez votre nom" : "Email ou nom d'utilisateur"}
             </p>
           </div>
@@ -294,7 +294,7 @@ export default function LoginPage({ onLogin }: Props) {
 
             {/* Submit */}
             <button type="submit" disabled={loading}
-              className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-sm hover:opacity-90 active:scale-[0.98]"
+              className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all disabled: flex items-center justify-center gap-2 shadow-sm hover: active:scale-[0.98]"
               style={{ background: "#16a34a" }}>
               {loading ? (
                 <>
@@ -351,8 +351,8 @@ export default function LoginPage({ onLogin }: Props) {
                         {acc.label.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-slate-700 truncate">{acc.label}</p>
-                        <p className="text-[10px] text-slate-400 truncate">{acc.note}</p>
+                        <p className="font-semibold" className="text-xs font-semibold text-slate-700 truncate">{acc.label}</p>
+                        <p className="font-semibold" className="text-[10px] text-slate-400 truncate">{acc.note}</p>
                       </div>
                       <span className="text-[10px] text-slate-400 font-mono shrink-0">{acc.password}</span>
                     </button>
@@ -368,7 +368,7 @@ export default function LoginPage({ onLogin }: Props) {
               <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-sm p-6 flex flex-col gap-4">
                 <div>
                   <h3 className="text-base font-bold text-slate-800">Reinitialiser le mot de passe</h3>
-                  <p className="text-sm text-slate-500 mt-0.5">Un nouveau mot de passe sera envoye par email.</p>
+                  <p className="font-semibold" className="text-sm text-slate-500 mt-0.5">Un nouveau mot de passe sera envoye par email.</p>
                 </div>
                 <input
                   type="email"
@@ -377,15 +377,15 @@ export default function LoginPage({ onLogin }: Props) {
                   placeholder="votre@email.com"
                   className="w-full px-4 py-3 rounded-xl text-sm border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/30 focus:border-green-500 transition-all"
                 />
-                {forgotStatus === "notfound" && <p className="text-sm text-red-600 font-medium">Email non trouve dans le systeme.</p>}
-                {forgotStatus === "sent" && <p className="text-sm text-green-700 font-medium">Nouveau mot de passe envoye par email.</p>}
+                {forgotStatus === "notfound" && <p className="font-semibold" className="text-sm text-red-600 font-medium">Email non trouve dans le systeme.</p>}
+                {forgotStatus === "sent" && <p className="font-semibold" className="text-sm text-green-700 font-medium">Nouveau mot de passe envoye par email.</p>}
                 <div className="flex gap-2">
                   <button onClick={() => { setShowForgot(false); setForgotEmail(""); setForgotStatus("idle") }}
                     className="flex-1 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
                     Annuler
                   </button>
                   <button onClick={handleForgotPassword} disabled={forgotStatus === "sending" || forgotStatus === "sent"}
-                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors disabled:opacity-60">
+                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors disabled:">
                     {forgotStatus === "sending" ? "Envoi..." : "Envoyer"}
                   </button>
                 </div>
@@ -393,7 +393,7 @@ export default function LoginPage({ onLogin }: Props) {
             </div>
           )}
 
-          <p className="text-center text-xs text-slate-400">
+          <p className="font-semibold" className="text-center text-xs text-slate-400">
             &copy; {new Date().getFullYear()} <span className="font-black text-slate-600">FRESHLINK PRO</span> — Jawad
           </p>
         </div>

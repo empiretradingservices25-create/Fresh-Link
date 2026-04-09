@@ -129,7 +129,7 @@ function ChargesPanel({ charges, onSave, onClose }: {
         <div className="flex items-center justify-between px-5 py-4 border-b border-border">
           <div>
             <h2 className="font-bold text-foreground">Charges fixes mensuelles</h2>
-            <p className="text-xs text-muted-foreground">Ces charges seront déduites avant le calcul du bénéfice net</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">Ces charges seront déduites avant le calcul du bénéfice net</p>
           </div>
           <button onClick={onClose} className="p-2 rounded-lg hover:bg-muted transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -223,7 +223,7 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
         <div className="flex items-center justify-between px-5 py-4 border-b border-border">
           <div>
             <h2 className="font-bold text-foreground">{fiche.userName}</h2>
-            <p className="text-xs text-muted-foreground">{fiche.userRole.replace(/_/g, " ")} · {fiche.periode}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{fiche.userRole.replace(/_/g, " ")} · {fiche.periode}</p>
           </div>
           <button onClick={onClose} className="p-2 rounded-lg hover:bg-muted transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +236,7 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
 
           {/* Calcul Ourai */}
           <div className="bg-muted/40 rounded-xl p-4 space-y-2.5">
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Fiche RH — Ourai</p>
+            <p className="font-semibold" className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Fiche RH — Ourai</p>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Salaire fixe</span>
               <span className="font-semibold">{FMT(fiche.salaireFixe)}</span>
@@ -264,14 +264,14 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
             <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-violet-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">A</span>
-                <p className="text-sm font-bold text-violet-800">Actionnaire — Calcul part bénéfice</p>
+                <p className="font-semibold" className="text-sm font-bold text-violet-800">Actionnaire — Calcul part bénéfice</p>
               </div>
 
               {/* Bénéfice net affiché en lecture seule — calculé depuis le tableau de bord */}
               <div className="rounded-lg bg-white border border-violet-200 px-3 py-2.5 space-y-1">
-                <p className="text-[10px] text-violet-600 font-semibold uppercase">Bénéfice net entreprise ce mois</p>
-                <p className="text-lg font-black text-violet-900">{FMT(benefNetEntreprise)}</p>
-                <p className="text-[10px] text-violet-500">= CA — achats — charges fixes — masse salariale totale</p>
+                <p className="font-semibold" className="text-[10px] text-violet-600 font-semibold uppercase">Bénéfice net entreprise ce mois</p>
+                <p className="font-semibold" className="text-lg font-black text-violet-900">{FMT(benefNetEntreprise)}</p>
+                <p className="font-semibold" className="text-[10px] text-violet-500">= CA — achats — charges fixes — masse salariale totale</p>
               </div>
 
               <div className="space-y-2 text-sm">
@@ -305,7 +305,7 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
                     <span className={resteEnCaisse >= 0 ? "text-emerald-700" : "text-red-700"}>{FMT(resteEnCaisse)}</span>
                   </div>
                   {resteEnCaisse < 0 && (
-                    <p className="text-xs text-red-600 mt-1 font-semibold">Solde insuffisant — approvisionnement requis</p>
+                    <p className="font-semibold" className="text-xs text-red-600 mt-1 font-semibold">Solde insuffisant — approvisionnement requis</p>
                   )}
                 </div>
               )}
@@ -318,8 +318,8 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-semibold text-foreground">Non actionnaire</p>
-                <p className="text-xs text-muted-foreground">Salaire final: <strong>{FMT(fiche.salaireBrut)}</strong> — pas de part bénéfice</p>
+                <p className="font-semibold" className="text-sm font-semibold text-foreground">Non actionnaire</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Salaire final: <strong>{FMT(fiche.salaireBrut)}</strong> — pas de part bénéfice</p>
               </div>
             </div>
           )}
@@ -427,7 +427,7 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">Comptabilite RH — Azmi</h1>
-            <p className="text-sm text-muted-foreground">Validation salaires · Bénéfice net · Actionnaires · Reste en caisse</p>
+            <p className="font-semibold" className="text-sm text-muted-foreground">Validation salaires · Bénéfice net · Actionnaires · Reste en caisse</p>
           </div>
         </div>
         <button
@@ -465,7 +465,7 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
       {/* ── Tableau bénéfice net ── */}
       <div className="bg-card border border-border rounded-2xl overflow-hidden">
         <div className="px-5 py-3 border-b border-border">
-          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Calcul Bénéfice Net — {periode}</p>
+          <p className="font-semibold" className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Calcul Bénéfice Net — {periode}</p>
         </div>
         <div className="divide-y divide-border">
           <div className="flex justify-between items-center px-5 py-3">
@@ -504,8 +504,8 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
           { label: "Benef net",   val: FMT(benefNetEntreprise), color: benefNetEntreprise > 0 ? "text-violet-600" : "text-red-600" },
         ].map(k => (
           <div key={k.label} className="bg-card border border-border rounded-xl p-3 text-center">
-            <p className="text-[10px] text-muted-foreground mb-1">{k.label}</p>
-            <p className={`text-sm font-bold ${k.color}`}>{k.val}</p>
+            <p className="font-semibold" className="text-[10px] text-muted-foreground mb-1">{k.label}</p>
+            <p className="font-semibold" className={`text-sm font-bold ${k.color}`}>{k.val}</p>
           </div>
         ))}
       </div>
@@ -516,12 +516,12 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
           <svg className="w-12 h-12 text-muted-foreground/30 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <p className="text-sm text-muted-foreground font-medium">Aucune fiche transmise pour {periode}</p>
-          <p className="text-xs text-muted-foreground">Ourai doit valider et transmettre les fiches depuis le module RH</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-medium">Aucune fiche transmise pour {periode}</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">Ourai doit valider et transmettre les fiches depuis le module RH</p>
         </div>
       ) : (
         <div className="space-y-2">
-          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest px-1">Fiches — {periodeFiches.length} employés</p>
+          <p className="font-semibold" className="text-xs font-bold text-muted-foreground uppercase tracking-widest px-1">Fiches — {periodeFiches.length} employés</p>
           {periodeFiches.map(f => {
             const grilles = LS.getGrilles()
             const g = grilles.find((gr: any) => gr.userId === f.userId)
@@ -540,7 +540,7 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-semibold text-sm text-foreground">{f.userName}</p>
+                    <p className="font-semibold" className="font-semibold text-sm text-foreground">{f.userName}</p>
                     {isActionnaire && (
                       <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold"
                         style={{ background: "oklch(0.94 0.05 280)", color: "oklch(0.4 0.2 280)" }}>
@@ -553,14 +553,14 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
                       {f.statut === "payé" ? "PAYE" : "A VALIDER"}
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{f.userRole.replace(/_/g, " ")}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{f.userRole.replace(/_/g, " ")}</p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="font-bold text-foreground">{FMT(total)}</p>
+                  <p className="font-semibold" className="font-bold text-foreground">{FMT(total)}</p>
                   {isActionnaire && f.partBenef ? (
-                    <p className="text-[10px] text-muted-foreground">base {FMT(f.salaireBrut)} + benef</p>
+                    <p className="font-semibold" className="text-[10px] text-muted-foreground">base {FMT(f.salaireBrut)} + benef</p>
                   ) : (
-                    <p className="text-[10px] text-muted-foreground">fixe + perf</p>
+                    <p className="font-semibold" className="text-[10px] text-muted-foreground">fixe + perf</p>
                   )}
                 </div>
                 <svg className="w-4 h-4 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

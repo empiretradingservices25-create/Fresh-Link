@@ -185,32 +185,32 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
           <div className="flex items-start justify-between flex-wrap gap-3">
             <div>
               <h3 className="font-bold text-foreground text-lg">Gestion des caisses vides / الصناديق</h3>
-              <p className="text-sm text-muted-foreground">Stock, circulation, capacite transport et tonnage</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground">Stock, circulation, capacite transport et tonnage</p>
             </div>
           </div>
           {/* KPIs */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {caisses.map(c => (
               <div key={c.id + "kpi"} className={`rounded-2xl border p-4 ${c.type === "gros" ? "bg-blue-50 border-blue-200" : "bg-amber-50 border-amber-200"}`}>
-                <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">{c.libelle}</p>
-                <p className={`text-2xl font-extrabold mt-1 ${c.type === "gros" ? "text-blue-700" : "text-amber-700"}`}>{c.stock}</p>
-                <p className="text-xs text-muted-foreground">stock | {c.enCirculation} en circulation</p>
-                <p className="text-xs font-semibold mt-1">{c.capaciteKg} kg/caisse</p>
+                <p className="font-semibold" className="text-xs font-bold uppercase tracking-wide text-muted-foreground">{c.libelle}</p>
+                <p className="font-semibold" className={`text-2xl font-extrabold mt-1 ${c.type === "gros" ? "text-blue-700" : "text-amber-700"}`}>{c.stock}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">stock | {c.enCirculation} en circulation</p>
+                <p className="font-semibold" className="text-xs font-semibold mt-1">{c.capaciteKg} kg/caisse</p>
               </div>
             ))}
             <div className="rounded-2xl border bg-green-50 border-green-200 p-4">
-              <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Tonnage max (stock)</p>
-              <p className="text-2xl font-extrabold mt-1 text-green-700">
+              <p className="font-semibold" className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Tonnage max (stock)</p>
+              <p className="font-semibold" className="text-2xl font-extrabold mt-1 text-green-700">
                 {(caisses.reduce((s, c) => s + (c.stock * c.capaciteKg), 0) / 1000).toFixed(2)} T
               </p>
-              <p className="text-xs text-muted-foreground">toutes caisses confondues</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">toutes caisses confondues</p>
             </div>
             <div className="rounded-2xl border bg-purple-50 border-purple-200 p-4">
-              <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">En circulation</p>
-              <p className="text-2xl font-extrabold mt-1 text-purple-700">
+              <p className="font-semibold" className="text-xs font-bold uppercase tracking-wide text-muted-foreground">En circulation</p>
+              <p className="font-semibold" className="text-2xl font-extrabold mt-1 text-purple-700">
                 {(caisses.reduce((s, c) => s + (c.enCirculation * c.capaciteKg), 0) / 1000).toFixed(2)} T
               </p>
-              <p className="text-xs text-muted-foreground">chez clients / livreurs</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">chez clients / livreurs</p>
             </div>
           </div>
 
@@ -221,7 +221,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-bold text-foreground">{c.libelle}</h4>
-                    <p className="text-xs text-muted-foreground">{c.capaciteKg} kg/caisse • {c.type === "gros" ? "Gros caisse" : "Demi caisse"}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">{c.capaciteKg} kg/caisse • {c.type === "gros" ? "Gros caisse" : "Demi caisse"}</p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-bold ${c.type === "gros" ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>{c.type}</span>
                 </div>
@@ -243,16 +243,16 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                 {/* Stock & circulation */}
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="bg-muted rounded-xl p-3">
-                    <p className="text-xs text-muted-foreground font-semibold">Stock</p>
-                    <p className="text-xl font-extrabold text-foreground">{c.stock}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground font-semibold">Stock</p>
+                    <p className="font-semibold" className="text-xl font-extrabold text-foreground">{c.stock}</p>
                   </div>
                   <div className="bg-amber-50 rounded-xl p-3">
-                    <p className="text-xs text-muted-foreground font-semibold">Circulation</p>
-                    <p className="text-xl font-extrabold text-amber-700">{c.enCirculation}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground font-semibold">Circulation</p>
+                    <p className="font-semibold" className="text-xl font-extrabold text-amber-700">{c.enCirculation}</p>
                   </div>
                   <div className="bg-green-50 rounded-xl p-3">
-                    <p className="text-xs text-muted-foreground font-semibold">Total</p>
-                    <p className="text-xl font-extrabold text-green-700">{c.stock + c.enCirculation}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground font-semibold">Total</p>
+                    <p className="font-semibold" className="text-xl font-extrabold text-green-700">{c.stock + c.enCirculation}</p>
                   </div>
                 </div>
                 {/* Tonnage bar */}
@@ -312,7 +312,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-foreground">{showHisto.nom} — Historique PA</h3>
-                <p className="text-xs text-muted-foreground">Evolution du prix d{"'"}achat par fournisseur</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Evolution du prix d{"'"}achat par fournisseur</p>
               </div>
               <button onClick={() => setShowHisto(null)} className="p-2 rounded-lg hover:bg-muted">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -321,20 +321,20 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
             {/* Current PA */}
             <div className="flex gap-3">
               <div className="flex-1 bg-primary/5 border border-primary/20 rounded-xl p-3 text-center">
-                <p className="text-xs text-muted-foreground font-semibold">PA actuel</p>
-                <p className="text-xl font-extrabold text-primary">{DH(showHisto.prixAchat)}</p>
-                <p className="text-xs text-muted-foreground">/ {showHisto.unite}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground font-semibold">PA actuel</p>
+                <p className="font-semibold" className="text-xl font-extrabold text-primary">{DH(showHisto.prixAchat)}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">/ {showHisto.unite}</p>
               </div>
               <div className="flex-1 bg-green-50 border border-green-200 rounded-xl p-3 text-center">
-                <p className="text-xs text-muted-foreground font-semibold">PV actuel</p>
-                <p className="text-xl font-extrabold text-green-700">{DH(computePV(showHisto))}</p>
-                <p className="text-xs text-muted-foreground">Marge: {showHisto.prixAchat > 0 ? ((computePV(showHisto) - showHisto.prixAchat) / showHisto.prixAchat * 100).toFixed(1) : 0}%</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground font-semibold">PV actuel</p>
+                <p className="font-semibold" className="text-xl font-extrabold text-green-700">{DH(computePV(showHisto))}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Marge: {showHisto.prixAchat > 0 ? ((computePV(showHisto) - showHisto.prixAchat) / showHisto.prixAchat * 100).toFixed(1) : 0}%</p>
               </div>
             </div>
             {/* History list */}
             <div className="overflow-y-auto flex-1">
               {(!showHisto.historiquePrixAchat || showHisto.historiquePrixAchat.length === 0) ? (
-                <p className="text-center text-sm text-muted-foreground py-8">Aucun historique de prix enregistre.</p>
+                <p className="font-semibold" className="text-center text-sm text-muted-foreground py-8">Aucun historique de prix enregistre.</p>
               ) : (
                 <table className="w-full text-xs">
                   <thead><tr className="text-muted-foreground border-b border-border">
@@ -365,22 +365,22 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
       {/* Header stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-card rounded-2xl border border-border p-4">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Total articles</p>
-          <p className="text-2xl font-extrabold text-primary mt-1">{articles.length}</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Total articles</p>
+          <p className="font-semibold" className="text-2xl font-extrabold text-primary mt-1">{articles.length}</p>
         </div>
         <div className="bg-card rounded-2xl border border-border p-4">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Familles</p>
-          <p className="text-2xl font-extrabold text-foreground mt-1">{byFamille.length}</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Familles</p>
+          <p className="font-semibold" className="text-2xl font-extrabold text-foreground mt-1">{byFamille.length}</p>
         </div>
         <div className="bg-card rounded-2xl border border-border p-4">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Stock total</p>
-          <p className="text-2xl font-extrabold text-green-600 mt-1">
+          <p className="font-semibold" className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Stock total</p>
+          <p className="font-semibold" className="text-2xl font-extrabold text-green-600 mt-1">
             {articles.reduce((s, a) => s + a.stockDisponible, 0).toLocaleString("fr-MA")} u.
           </p>
         </div>
         <div className="bg-card rounded-2xl border border-border p-4">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Stock defect</p>
-          <p className="text-2xl font-extrabold text-red-500 mt-1">
+          <p className="font-semibold" className="text-xs text-muted-foreground uppercase tracking-wide font-semibold">Stock defect</p>
+          <p className="font-semibold" className="text-2xl font-extrabold text-red-500 mt-1">
             {articles.reduce((s, a) => s + a.stockDefect, 0).toLocaleString("fr-MA")} u.
           </p>
         </div>
@@ -613,7 +613,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                     <button type="button"
                       onClick={() => { if (photoUrlInput.trim()) { setForm(f => ({ ...f, photo: photoUrlInput.trim() })); setPhotoUrlInput("") } }}
                       disabled={!photoUrlInput.trim()}
-                      className="px-3 py-2 rounded-xl border border-border text-xs font-semibold hover:bg-muted disabled:opacity-40 shrink-0 transition-colors">
+                      className="px-3 py-2 rounded-xl border border-border text-xs font-semibold hover:bg-muted disabled: shrink-0 transition-colors">
                       OK
                     </button>
                   </div>
@@ -627,7 +627,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                     <span className="text-[10px] text-muted-foreground">JPG · PNG · WEBP · URL externe acceptes</span>
                   </div>
                   {photoError && (
-                    <p className="text-[10px] text-amber-600 flex items-center gap-1">
+                    <p className="font-semibold" className="text-[10px] text-amber-600 flex items-center gap-1">
                       <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                       {photoError}
                     </p>
@@ -638,22 +638,22 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
             {/* PV + Marge preview */}
             <div className="flex gap-2 items-end pb-1 sm:col-span-2 lg:col-span-1">
               <div className="flex-1 px-4 py-2.5 rounded-xl border-2 border-primary/30 bg-primary/5 text-center">
-                <p className="text-[10px] text-muted-foreground uppercase font-semibold">PV calcule</p>
-                <p className="text-lg font-extrabold text-primary">{DH(computePV({ ...form, id: "" }))}</p>
+                <p className="font-semibold" className="text-[10px] text-muted-foreground uppercase font-semibold">PV calcule</p>
+                <p className="font-semibold" className="text-lg font-extrabold text-primary">{DH(computePV({ ...form, id: "" }))}</p>
               </div>
               <div className="flex-1 px-4 py-2.5 rounded-xl border-2 border-green-200 bg-green-50 text-center">
-                <p className="text-[10px] text-muted-foreground uppercase font-semibold">Marge</p>
+                <p className="font-semibold" className="text-[10px] text-muted-foreground uppercase font-semibold">Marge</p>
                 {(() => {
                   const pv = computePV({ ...form, id: "" })
                   const marge = pv - form.prixAchat
                   const pct = form.prixAchat > 0 ? (marge / form.prixAchat) * 100 : 0
-                  return <p className="text-lg font-extrabold text-green-700">{pct.toFixed(1)}% <span className="text-xs font-normal">{DH(marge)}</span></p>
+                  return <p className="font-semibold" className="text-lg font-extrabold text-green-700">{pct.toFixed(1)}% <span className="text-xs font-normal">{DH(marge)}</span></p>
                 })()}
               </div>
               {form.um && form.colisageParUM && (
                 <div className="flex-1 px-4 py-2.5 rounded-xl border-2 border-blue-200 bg-blue-50 text-center">
-                  <p className="text-[10px] text-muted-foreground uppercase font-semibold">PV/{form.um}</p>
-                  <p className="text-lg font-extrabold text-blue-700">{DH(computePV({ ...form, id: "" }) * form.colisageParUM)}</p>
+                  <p className="font-semibold" className="text-[10px] text-muted-foreground uppercase font-semibold">PV/{form.um}</p>
+                  <p className="font-semibold" className="text-lg font-extrabold text-blue-700">{DH(computePV({ ...form, id: "" }) * form.colisageParUM)}</p>
                 </div>
               )}
             </div>
@@ -715,16 +715,16 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
 
                 {/* Info */}
                 <div className="p-3 flex flex-col gap-1 flex-1">
-                  <p className="font-semibold text-sm text-foreground truncate">{a.nom}</p>
-                  <p className="text-[11px] text-muted-foreground" dir="rtl">{a.nomAr}</p>
+                  <p className="font-semibold" className="font-semibold text-sm text-foreground truncate">{a.nom}</p>
+                  <p className="font-semibold" className="text-[11px] text-muted-foreground" dir="rtl">{a.nomAr}</p>
                   <div className="flex justify-between items-center mt-auto pt-2">
                     <div>
-                      <p className="text-[10px] text-muted-foreground">Achat</p>
-                      <p className="text-xs font-bold font-mono text-red-600">{DH(a.prixAchat)}</p>
+                      <p className="font-semibold" className="text-[10px] text-muted-foreground">Achat</p>
+                      <p className="font-semibold" className="text-xs font-bold font-mono text-red-600">{DH(a.prixAchat)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-[10px] text-muted-foreground">Vente</p>
-                      <p className="text-xs font-bold font-mono text-green-600">{DH(pv)}</p>
+                      <p className="font-semibold" className="text-[10px] text-muted-foreground">Vente</p>
+                      <p className="font-semibold" className="text-xs font-bold font-mono text-green-600">{DH(pv)}</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-between mt-1">
@@ -813,8 +813,8 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                           onError={e => { e.currentTarget.src = DEFAULT_PHOTO }} />
                       </td>
                       <td className="px-4 py-2">
-                        <p className="font-semibold text-foreground">{a.nom}</p>
-                        <p className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
+                        <p className="font-semibold" className="font-semibold text-foreground">{a.nom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
                       </td>
                       <td className="px-4 py-2">
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${FAMILLE_COLORS[a.famille] || "bg-slate-50 text-slate-700 border-slate-200"}`}>

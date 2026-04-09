@@ -307,8 +307,8 @@ function POAchatTab({ pos, onRefresh }: { pos: PurchaseOrder[]; onRefresh: () =>
         <svg className="w-12 h-12 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        <p className="text-muted-foreground text-sm font-medium">Aucun PO achat</p>
-        <p className="text-muted-foreground/60 text-xs">Les commandes passees par les acheteurs apparaissent ici</p>
+        <p className="font-semibold" className="text-muted-foreground text-sm font-medium">Aucun PO achat</p>
+        <p className="font-semibold" className="text-muted-foreground/60 text-xs">Les commandes passees par les acheteurs apparaissent ici</p>
       </div>
     )
   }
@@ -316,15 +316,15 @@ function POAchatTab({ pos, onRefresh }: { pos: PurchaseOrder[]; onRefresh: () =>
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <p className="text-xs text-muted-foreground font-medium">{pos.length} commandes fournisseurs</p>
+        <p className="font-semibold" className="text-xs text-muted-foreground font-medium">{pos.length} commandes fournisseurs</p>
         <button onClick={onRefresh} className="text-xs text-primary font-semibold">Actualiser</button>
       </div>
       {pos.map(po => (
         <div key={po.id} className="bg-card border border-border rounded-2xl p-4 space-y-2 shadow-sm">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <p className="font-bold text-sm text-foreground">{po.articleNom}</p>
-              <p className="text-xs text-muted-foreground">{po.fournisseurNom}</p>
+              <p className="font-semibold" className="font-bold text-sm text-foreground">{po.articleNom}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">{po.fournisseurNom}</p>
             </div>
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${STATUT_COLOR[po.statut] ?? "bg-muted text-muted-foreground"}`}>
               {po.statut}
@@ -332,16 +332,16 @@ function POAchatTab({ pos, onRefresh }: { pos: PurchaseOrder[]; onRefresh: () =>
           </div>
           <div className="grid grid-cols-3 gap-2 text-center">
             <div className="bg-muted rounded-xl p-2">
-              <p className="text-[10px] text-muted-foreground">Qte</p>
-              <p className="text-sm font-bold text-foreground">{po.quantite} {po.articleUnite}</p>
+              <p className="font-semibold" className="text-[10px] text-muted-foreground">Qte</p>
+              <p className="font-semibold" className="text-sm font-bold text-foreground">{po.quantite} {po.articleUnite}</p>
             </div>
             <div className="bg-muted rounded-xl p-2">
-              <p className="text-[10px] text-muted-foreground">Prix unit.</p>
-              <p className="text-sm font-bold text-foreground">{DH(po.prixUnitaire)}</p>
+              <p className="font-semibold" className="text-[10px] text-muted-foreground">Prix unit.</p>
+              <p className="font-semibold" className="text-sm font-bold text-foreground">{DH(po.prixUnitaire)}</p>
             </div>
             <div className="bg-muted rounded-xl p-2">
-              <p className="text-[10px] text-muted-foreground">Total</p>
-              <p className="text-sm font-bold text-primary">{DH(po.total)}</p>
+              <p className="font-semibold" className="text-[10px] text-muted-foreground">Total</p>
+              <p className="font-semibold" className="text-sm font-bold text-primary">{DH(po.total)}</p>
             </div>
           </div>
           <div className="flex items-center justify-between text-[10px] text-muted-foreground">
@@ -364,8 +364,8 @@ function BesoinSKUTab({ besoin }: { besoin: ReturnType<typeof store.computeBesoi
         <svg className="w-12 h-12 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
         </svg>
-        <p className="text-muted-foreground text-sm font-medium">Aucun besoin SKU aujourd&apos;hui</p>
-        <p className="text-muted-foreground/60 text-xs">Apparait quand le stock ne couvre pas les commandes du jour</p>
+        <p className="font-semibold" className="text-muted-foreground text-sm font-medium">Aucun besoin SKU aujourd&apos;hui</p>
+        <p className="font-semibold" className="text-muted-foreground/60 text-xs">Apparait quand le stock ne couvre pas les commandes du jour</p>
       </div>
     )
   }
@@ -377,33 +377,33 @@ function BesoinSKUTab({ besoin }: { besoin: ReturnType<typeof store.computeBesoi
     <div className="flex flex-col gap-3">
       <div className="grid grid-cols-2 gap-2">
         <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-center">
-          <p className="text-xl font-black text-red-700">{urgents.length}</p>
-          <p className="text-[10px] text-red-600 font-semibold">SKU en rupture</p>
+          <p className="font-semibold" className="text-xl font-black text-red-700">{urgents.length}</p>
+          <p className="font-semibold" className="text-[10px] text-red-600 font-semibold">SKU en rupture</p>
         </div>
         <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-center">
-          <p className="text-xl font-black text-emerald-700">{couverts.length}</p>
-          <p className="text-[10px] text-emerald-600 font-semibold">SKU couverts</p>
+          <p className="font-semibold" className="text-xl font-black text-emerald-700">{couverts.length}</p>
+          <p className="font-semibold" className="text-[10px] text-emerald-600 font-semibold">SKU couverts</p>
         </div>
       </div>
 
       {urgents.length > 0 && (
         <div className="space-y-2">
-          <p className="text-xs font-bold text-red-700 uppercase tracking-wider">Ruptures — achat urgent</p>
+          <p className="font-semibold" className="text-xs font-bold text-red-700 uppercase tracking-wider">Ruptures — achat urgent</p>
           {urgents.map(b => (
             <div key={b.articleId} className="bg-red-50 border border-red-200 rounded-2xl p-3 space-y-1.5">
-              <p className="font-bold text-sm text-red-900">{b.articleNom}</p>
+              <p className="font-semibold" className="font-bold text-sm text-red-900">{b.articleNom}</p>
               <div className="grid grid-cols-3 gap-1 text-center text-[10px]">
                 <div className="bg-white rounded-lg p-1.5">
-                  <p className="text-muted-foreground">Commande</p>
-                  <p className="font-bold text-foreground">{b.commandeQty} {b.unite}</p>
+                  <p className="font-semibold" className="text-muted-foreground">Commande</p>
+                  <p className="font-semibold" className="font-bold text-foreground">{b.commandeQty} {b.unite}</p>
                 </div>
                 <div className="bg-white rounded-lg p-1.5">
-                  <p className="text-muted-foreground">Stock</p>
-                  <p className="font-bold text-emerald-700">{b.stockQty} {b.unite}</p>
+                  <p className="font-semibold" className="text-muted-foreground">Stock</p>
+                  <p className="font-semibold" className="font-bold text-emerald-700">{b.stockQty} {b.unite}</p>
                 </div>
                 <div className="bg-red-100 rounded-lg p-1.5">
-                  <p className="text-red-600">Besoin</p>
-                  <p className="font-bold text-red-700">{b.besoinNet} {b.unite}</p>
+                  <p className="font-semibold" className="text-red-600">Besoin</p>
+                  <p className="font-semibold" className="font-bold text-red-700">{b.besoinNet} {b.unite}</p>
                 </div>
               </div>
             </div>
@@ -413,10 +413,10 @@ function BesoinSKUTab({ besoin }: { besoin: ReturnType<typeof store.computeBesoi
 
       {couverts.length > 0 && (
         <div className="space-y-1">
-          <p className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Couverts par stock</p>
+          <p className="font-semibold" className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Couverts par stock</p>
           {couverts.map(b => (
             <div key={b.articleId} className="bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 flex items-center justify-between">
-              <p className="text-sm font-semibold text-emerald-900">{b.articleNom}</p>
+              <p className="font-semibold" className="text-sm font-semibold text-emerald-900">{b.articleNom}</p>
               <span className="text-xs text-emerald-700 font-bold">{b.stockQty} {b.unite} dispo</span>
             </div>
           ))}
@@ -443,14 +443,14 @@ function BesoinAchatTab({ bons }: { bons: BonAchat[] }) {
         <svg className="w-12 h-12 text-muted-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4" />
         </svg>
-        <p className="text-muted-foreground text-sm font-medium">Aucun bon d&apos;achat</p>
+        <p className="font-semibold" className="text-muted-foreground text-sm font-medium">Aucun bon d&apos;achat</p>
       </div>
     )
   }
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-xs text-muted-foreground font-medium">{bons.length} bon(s) d&apos;achat</p>
+      <p className="font-semibold" className="text-xs text-muted-foreground font-medium">{bons.length} bon(s) d&apos;achat</p>
       {bons.map(bon => {
         const totalQte = bon.lignes.reduce((s, l) => s + l.quantite, 0)
         const totalMt  = bon.lignes.reduce((s, l) => s + l.quantite * l.prixAchat, 0)
@@ -458,8 +458,8 @@ function BesoinAchatTab({ bons }: { bons: BonAchat[] }) {
           <div key={bon.id} className="bg-card border border-border rounded-2xl p-4 space-y-2 shadow-sm">
             <div className="flex items-start justify-between gap-2">
               <div>
-                <p className="font-bold text-sm text-foreground">{bon.fournisseurNom}</p>
-                <p className="text-xs text-muted-foreground">{bon.acheteurNom} — {bon.date}</p>
+                <p className="font-semibold" className="font-bold text-sm text-foreground">{bon.fournisseurNom}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">{bon.acheteurNom} — {bon.date}</p>
               </div>
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${STATUT_COLOR[bon.statut] ?? "bg-muted"}`}>
                 {bon.statut}
@@ -478,7 +478,7 @@ function BesoinAchatTab({ bons }: { bons: BonAchat[] }) {
                 </div>
               ))}
               {bon.lignes.length > 3 && (
-                <p className="text-[10px] text-muted-foreground text-center">+{bon.lignes.length - 3} autres articles</p>
+                <p className="font-semibold" className="text-[10px] text-muted-foreground text-center">+{bon.lignes.length - 3} autres articles</p>
               )}
             </div>
           </div>
@@ -663,10 +663,10 @@ function ReceptionTab({
             </svg>
           </button>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-foreground truncate">
+            <p className="font-semibold" className="text-sm font-bold text-foreground truncate">
               {selected.source === "purchase_order" ? "PO" : "Bon"} — {selected.id}
             </p>
-            <p className="text-xs text-muted-foreground">{selected.fournisseurNom} — {selected.date}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{selected.fournisseurNom} — {selected.date}</p>
           </div>
           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
             selected.statut === "receptionné" ? "bg-emerald-100 text-emerald-700" :
@@ -709,14 +709,14 @@ function ReceptionTab({
                   {(l.articleNom[0] ?? "A").toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-foreground truncate">{l.articleNom}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="font-semibold" className="text-sm font-bold text-foreground truncate">{l.articleNom}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">
                     Commande: <span className="font-semibold">{QTE(l.quantite)} {unite}</span>
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-bold text-primary">{DH(l.prixAchat)}</p>
-                  <p className="text-[10px] text-muted-foreground">/{unite}</p>
+                  <p className="font-semibold" className="text-sm font-bold text-primary">{DH(l.prixAchat)}</p>
+                  <p className="font-semibold" className="text-[10px] text-muted-foreground">/{unite}</p>
                 </div>
               </div>
 
@@ -786,11 +786,11 @@ function ReceptionTab({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <div className="flex flex-col gap-0.5">
-                    <p className="text-xs text-emerald-700 font-bold">
+                    <p className="font-semibold" className="text-xs text-emerald-700 font-bold">
                       Poids net: {QTE(net)} {unite}
                     </p>
                     {brut > 0 && (
-                      <p className="text-[10px] text-emerald-600 opacity-80">
+                      <p className="font-semibold" className="text-[10px] text-emerald-600 ">
                         Brut {QTE(brut)} kg — tare totale {QTE(brut - net)} kg
                         {Number(caisseGros[l.articleId] ?? 0) > 0 && ` | Gros ×${caisseGros[l.articleId]}(${QTE(Number(caisseGros[l.articleId])*TARE_GROS)}kg)`}
                         {Number(caisseDemi[l.articleId] ?? 0) > 0 && ` | Demi ×${caisseDemi[l.articleId]}(${QTE(Number(caisseDemi[l.articleId])*TARE_DEMI)}kg)`}
@@ -812,7 +812,7 @@ function ReceptionTab({
                   readOnly
                   disabled
                   value={l.prixAchat}
-                  className="w-full px-3 py-2.5 rounded-xl border border-border bg-muted text-muted-foreground text-sm cursor-not-allowed opacity-60 select-none" />
+                  className="w-full px-3 py-2.5 rounded-xl border border-border bg-muted text-muted-foreground text-sm cursor-not-allowed  select-none" />
               </div>
 
               {/* Motif ecart */}
@@ -832,7 +832,7 @@ function ReceptionTab({
 
         {/* Submit */}
         <button onClick={handleValider} disabled={saving}
-          className="w-full py-3.5 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity bg-primary">
+          className="w-full py-3.5 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled: transition-opacity bg-primary">
           {saving ? (
             <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -872,8 +872,8 @@ function ReceptionTab({
             </svg>
           </div>
           <div className="flex-1">
-            <p className="text-sm font-bold text-foreground">Vision des achats</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="font-semibold" className="text-sm font-bold text-foreground">Vision des achats</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">
               {pendingCount} en attente — {bonAchatCount} bon(s) + {poCount} PO
             </p>
           </div>
@@ -920,11 +920,11 @@ function ReceptionTab({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
             </svg>
           </div>
-          <p className="text-sm font-semibold text-foreground">Aucun achat trouve</p>
-          <p className="text-xs text-muted-foreground">
+          <p className="font-semibold" className="text-sm font-semibold text-foreground">Aucun achat trouve</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">
             Les bons valides par l&apos;acheteur et les PO confirmes apparaissent ici automatiquement.
           </p>
-          <p className="text-[11px] text-muted-foreground/70 mt-1">
+          <p className="font-semibold" className="text-[11px] text-muted-foreground/70 mt-1">
             Verifiez que l&apos;acheteur a bien soumis un bon (statut validé) ou confirme un PO (statut envoyé).
           </p>
         </div>
@@ -932,8 +932,8 @@ function ReceptionTab({
 
       {allItems.length > 0 && items.length === 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
-          <p className="text-sm font-semibold text-amber-800">Aucun achat avec ce filtre</p>
-          <p className="text-xs text-amber-700 mt-0.5">
+          <p className="font-semibold" className="text-sm font-semibold text-amber-800">Aucun achat avec ce filtre</p>
+          <p className="font-semibold" className="text-xs text-amber-700 mt-0.5">
             {allItems.length} achat(s) au total — changez le depot ou activez &quot;Tous les achats&quot;
           </p>
         </div>
@@ -966,7 +966,7 @@ function ReceptionTab({
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 justify-between">
-                  <p className="text-sm font-bold text-foreground truncate">{item.id}</p>
+                  <p className="font-semibold" className="text-sm font-bold text-foreground truncate">{item.id}</p>
                   <div className="flex items-center gap-1.5 shrink-0">
                     {isDone && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Receptionne</span>}
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isPO ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>
@@ -974,8 +974,8 @@ function ReceptionTab({
                     </span>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground mt-0.5">{item.fournisseurNom} — {item.date}</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">{item.fournisseurNom} — {item.date}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">
                   {item.lignes.length} article(s) — {item.lignes.map(l => `${l.articleNom} (${QTE(l.quantite)} ${l.unite})`).join(", ")}
                 </p>
                 {item.depotNom && (
@@ -1080,8 +1080,8 @@ function ValidationBLTab({
             </svg>
           </button>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-foreground truncate">BL {selectedBL.id}</p>
-            <p className="text-xs text-muted-foreground">{selectedBL.clientNom} — {selectedBL.date}</p>
+            <p className="font-semibold" className="text-sm font-bold text-foreground truncate">BL {selectedBL.id}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{selectedBL.clientNom} — {selectedBL.date}</p>
           </div>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 shrink-0">{selectedBL.statut}</span>
         </div>
@@ -1110,8 +1110,8 @@ function ValidationBLTab({
                 {(l.articleNom ?? art?.nom ?? "A")[0].toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-foreground truncate">{l.articleNom ?? art?.nom}</p>
-                <p className="text-xs text-muted-foreground">{QTE(l.quantite ?? 0)} {art?.unite ?? "kg"}</p>
+                <p className="font-semibold" className="text-sm font-semibold text-foreground truncate">{l.articleNom ?? art?.nom}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">{QTE(l.quantite ?? 0)} {art?.unite ?? "kg"}</p>
               </div>
               <span className="text-sm font-bold text-primary shrink-0">{DH(l.total ?? 0)}</span>
             </div>
@@ -1135,14 +1135,14 @@ function ValidationBLTab({
         {/* Actions */}
         <div className="flex gap-2">
           <button onClick={() => handleAction("valider")} disabled={saving}
-            className="flex-1 py-3.5 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled:opacity-60 bg-emerald-600">
+            className="flex-1 py-3.5 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled: bg-emerald-600">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             Valider BL
           </button>
           <button onClick={() => handleAction("refuser")} disabled={saving}
-            className="flex-1 py-3.5 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled:opacity-60 bg-red-600">
+            className="flex-1 py-3.5 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 disabled: bg-red-600">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -1183,8 +1183,8 @@ function ValidationBLTab({
       </div>
 
       <div className="bg-card rounded-xl border border-border p-4">
-        <p className="text-sm font-bold text-foreground">BL en attente de validation</p>
-        <p className="text-xs text-muted-foreground mt-0.5">{filtered.length} BL(s) retournes par les livreurs</p>
+        <p className="font-semibold" className="text-sm font-bold text-foreground">BL en attente de validation</p>
+        <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">{filtered.length} BL(s) retournes par les livreurs</p>
       </div>
 
       {filtered.length === 0 ? (
@@ -1194,8 +1194,8 @@ function ValidationBLTab({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
             </svg>
           </div>
-          <p className="text-sm font-semibold text-foreground">Aucun BL en attente</p>
-          <p className="text-xs text-muted-foreground">Les BL retournes par les livreurs apparaissent ici.</p>
+          <p className="font-semibold" className="text-sm font-semibold text-foreground">Aucun BL en attente</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">Les BL retournes par les livreurs apparaissent ici.</p>
         </div>
       ) : filtered.map(bl => {
         const totalMontant = (bl.lignes ?? []).reduce((s: number, l: { total?: number }) => s + (l.total ?? 0), 0)
@@ -1203,14 +1203,14 @@ function ValidationBLTab({
           <button key={bl.id} onClick={() => setSelectedBL(bl)}
             className="w-full text-left bg-card rounded-xl border border-border p-4 flex flex-col gap-2 hover:border-primary/40 hover:shadow-sm transition-all active:scale-[0.99]">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-sm font-bold text-foreground truncate">{bl.id}</p>
+              <p className="font-semibold" className="text-sm font-bold text-foreground truncate">{bl.id}</p>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 shrink-0">{bl.statut}</span>
             </div>
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{bl.clientNom}</span>
               <span className="font-semibold text-primary">{DH(totalMontant)}</span>
             </div>
-            {bl.livreurNom && <p className="text-xs text-muted-foreground">Livreur: {bl.livreurNom}</p>}
+            {bl.livreurNom && <p className="font-semibold" className="text-xs text-muted-foreground">Livreur: {bl.livreurNom}</p>}
             <div className="flex items-center justify-between">
               <span className="text-[10px] text-muted-foreground">{bl.date}</span>
               <span className="text-xs font-semibold text-primary flex items-center gap-1">

@@ -239,7 +239,7 @@ function PermissionsTabs({
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Droits d&apos;acces / الصلاحيات</h4>
-          <p className="text-[10px] text-muted-foreground mt-0.5">Separees par interface — Mobile et Back-office</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground mt-0.5">Separees par interface — Mobile et Back-office</p>
         </div>
         <div className="flex gap-2">
           <button type="button" onClick={() => handleToggleAll(true)}
@@ -334,8 +334,8 @@ function PermissionsTabs({
                         <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${isOn ? "left-4" : "left-0.5"}`} />
                       </button>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-slate-700 truncate">{page.label}</p>
-                        <p className="text-[10px] text-slate-400" dir="rtl">{page.labelAr}</p>
+                        <p className="font-semibold" className="text-xs font-semibold text-slate-700 truncate">{page.label}</p>
+                        <p className="font-semibold" className="text-[10px] text-slate-400" dir="rtl">{page.labelAr}</p>
                       </div>
                       <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold shrink-0 ${isOn ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-400"}`}>
                         {isOn ? "OUI" : "NON"}
@@ -361,8 +361,8 @@ function AccessDenied() {
         </svg>
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-foreground">Acces restreint</p>
-        <p className="text-sm text-muted-foreground mt-1">Gestion des utilisateurs reservee aux administrateurs.</p>
+        <p className="font-semibold" className="text-lg font-bold text-foreground">Acces restreint</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground mt-1">Gestion des utilisateurs reservee aux administrateurs.</p>
       </div>
     </div>
   )
@@ -611,7 +611,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
           <h2 className="text-xl font-bold text-foreground">
             Gestion Utilisateurs <span className="text-muted-foreground font-normal text-base mr-1">/ إدارة المستخدمين</span>
           </h2>
-          <p className="text-sm text-muted-foreground">{users.length} utilisateur(s) — {users.filter(u => u.actif).length} actifs</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">{users.length} utilisateur(s) — {users.filter(u => u.actif).length} actifs</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button onClick={exportCSV}
@@ -633,7 +633,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
           )}
           {canOpenNewForm && (
             <button onClick={openNew}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-primary-foreground bg-primary hover:opacity-90 transition-opacity">
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-primary-foreground bg-primary hover: transition-opacity">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
@@ -738,9 +738,9 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
             <svg className="w-4 h-4 shrink-0 mt-0.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
           )}
           <div>
-            <p className="font-semibold">{genPwdState.sending ? "Génération en cours..." : "Mot de passe généré et envoyé"}</p>
+            <p className="font-semibold" className="font-semibold">{genPwdState.sending ? "Génération en cours..." : "Mot de passe généré et envoyé"}</p>
             {!genPwdState.sending && (
-              <p className="text-xs mt-0.5">
+              <p className="font-semibold" className="text-xs mt-0.5">
                 Nouveau mot de passe : <code className="font-mono font-bold bg-white px-2 py-0.5 rounded border border-green-200">{genPwdState.pwd}</code>
                 <span className="ml-2 text-muted-foreground">(envoyé par email si configuré)</span>
               </p>
@@ -828,7 +828,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                           {u.name[0]}
                         </div>
                       )}
-                      <p className="font-semibold text-foreground">{u.name}</p>
+                      <p className="font-semibold" className="font-semibold text-foreground">{u.name}</p>
                     </div>
                   </td>
                   {/* Contact — always visible (phone + email) */}
@@ -897,7 +897,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                           <>
                             <button onClick={() => handleGeneratePassword(u)} title="Generer un mot de passe"
                               disabled={genPwdState?.userId === u.id && genPwdState.sending}
-                              className="p-1.5 rounded-lg hover:bg-violet-50 text-muted-foreground hover:text-violet-600 transition-colors disabled:opacity-50">
+                              className="p-1.5 rounded-lg hover:bg-violet-50 text-muted-foreground hover:text-violet-600 transition-colors disabled:">
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                               </svg>
@@ -933,7 +933,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
             <div className="flex items-center justify-between px-6 py-4 border-b border-border">
               <div>
                 <h3 className="font-bold text-foreground">{editing ? "Modifier l&apos;utilisateur" : "Nouvel utilisateur"}</h3>
-                <p className="text-xs text-muted-foreground">{editing ? "تعديل المستخدم" : "مستخدم جديد"}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">{editing ? "تعديل المستخدم" : "مستخدم جديد"}</p>
               </div>
               <button onClick={() => setShowForm(false)} className="p-2 rounded-lg hover:bg-muted text-muted-foreground">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -973,7 +973,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                         <button
                           type="button"
                           onClick={() => setForm({ ...form, photoUrl: undefined } as typeof form)}
-                          className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-destructive text-white flex items-center justify-center text-[10px] font-bold hover:opacity-90">
+                          className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-destructive text-white flex items-center justify-center text-[10px] font-bold hover:">
                           &times;
                         </button>
                       )}
@@ -1000,7 +1000,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                           }}
                         />
                       </label>
-                      <p className="text-[10px] text-muted-foreground">JPG, PNG, WEBP — Max 2 MB</p>
+                      <p className="font-semibold" className="text-[10px] text-muted-foreground">JPG, PNG, WEBP — Max 2 MB</p>
                     </div>
                   </div>
 
@@ -1069,7 +1069,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                           </select>
                         )
                       })()}
-                      <p className="text-[10px] text-muted-foreground">
+                      <p className="font-semibold" className="text-[10px] text-muted-foreground">
                         Si un depot est assigne, le magasinier/acheteur ne verra que les bons destines a ce depot.
                         Laissez vide pour voir tous les depots.
                       </p>
@@ -1086,7 +1086,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                         if (visibleRoles.length === 0) return null
                         return (
                           <div key={group.label}>
-                            <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-1.5">{group.label}</p>
+                            <p className="font-semibold" className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground mb-1.5">{group.label}</p>
                             <div className="flex flex-wrap gap-1.5">
                               {visibleRoles.map(r => (
                                 <button key={r} type="button"
@@ -1105,7 +1105,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                   {/* Access Type */}
                   <div className="flex flex-col gap-1 sm:col-span-2">
                     <label className="text-xs font-semibold text-foreground">Interface d&apos;acces / واجهة الوصول</label>
-                    <p className="text-[10px] text-muted-foreground">Par défaut, basé sur le rôle. Vous pouvez forcer une interface.</p>
+                    <p className="font-semibold" className="text-[10px] text-muted-foreground">Par défaut, basé sur le rôle. Vous pouvez forcer une interface.</p>
                     <div className="flex gap-2 flex-wrap mt-1">
                       {([
                         { val: undefined,    label: "Auto (rôle)",       tag: "AUTO" },
@@ -1128,8 +1128,8 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                   {form.accessType === "both" && (
                     <div className="flex flex-col gap-3 sm:col-span-2">
                       <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
-                        <p className="text-xs font-bold text-blue-800 uppercase tracking-wide mb-1">Mots de passe par interface</p>
-                        <p className="text-[11px] text-blue-700 mb-3">
+                        <p className="font-semibold" className="text-xs font-bold text-blue-800 uppercase tracking-wide mb-1">Mots de passe par interface</p>
+                        <p className="font-semibold" className="text-[11px] text-blue-700 mb-3">
                           Definissez un mot de passe different pour chaque interface. La connexion redirigera automatiquement sans afficher le selecteur.
                         </p>
                         <div className="grid grid-cols-2 gap-3">
@@ -1190,7 +1190,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                   <div className="flex flex-col gap-4">
                     {/* CA Objectifs */}
                     <div>
-                      <p className="text-xs font-semibold text-foreground mb-2">CA (Chiffre d&apos;affaires en DH)</p>
+                      <p className="font-semibold" className="text-xs font-semibold text-foreground mb-2">CA (Chiffre d&apos;affaires en DH)</p>
                       <div className="grid grid-cols-3 gap-2">
                         <div className="flex flex-col gap-1">
                           <label className="text-xs text-muted-foreground">Journalier</label>
@@ -1214,7 +1214,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                     </div>
                     {/* Clients Objectifs */}
                     <div>
-                      <p className="text-xs font-semibold text-foreground mb-2">Clients visités</p>
+                      <p className="font-semibold" className="text-xs font-semibold text-foreground mb-2">Clients visités</p>
                       <div className="grid grid-cols-3 gap-2">
                         <div className="flex flex-col gap-1">
                           <label className="text-xs text-muted-foreground">Journalier</label>
@@ -1258,7 +1258,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                 <svg className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "oklch(0.38 0.2 260)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="font-semibold" className="text-xs text-muted-foreground leading-relaxed">
                   Les workflows email (validation commande, besoin achat, récap journalier) sont envoyés à l'adresse email renseignée. Pour WhatsApp, l'application génère un lien <code className="font-mono">wa.me/</code> vers le numéro de téléphone.
                 </p>
               </div>
@@ -1273,8 +1273,8 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                 </div>
                 <label className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer hover:bg-muted/30 transition-colors">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-foreground">Activer camera &amp; micro obligatoire</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
+                    <p className="font-semibold" className="text-sm font-semibold text-foreground">Activer camera &amp; micro obligatoire</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">
                       L&apos;utilisateur devra autoriser la camera et le micro avant d&apos;acceder a l&apos;application.
                       {form.name?.toLowerCase().startsWith("demo") && (
                         <span className="ml-1 text-amber-500 font-medium">(Comptes demo — toujours ignore)</span>
@@ -1306,7 +1306,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
               </button>
               <button onClick={handleSave}
                 disabled={!form.name.trim() || !form.email.trim()}
-                className="px-5 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-50 transition-opacity hover:opacity-90"
+                className="px-5 py-2.5 rounded-xl text-sm font-bold text-white disabled: transition-opacity hover:"
                 style={{ background: "oklch(0.38 0.2 260)" }}>
                 {editing ? "Enregistrer les modifications" : "Cr\u00e9er l&apos;utilisateur"}
               </button>

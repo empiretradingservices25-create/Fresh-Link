@@ -262,7 +262,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h2 className="text-xl font-bold text-foreground">Stock <span className="text-muted-foreground font-normal text-base mr-1">/ المخزون</span></h2>
-          <p className="text-sm text-muted-foreground">{articles.length} articles — valeur totale: {DH(valeurStock)}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">{articles.length} articles — valeur totale: {DH(valeurStock)}</p>
         </div>
         <div className="flex gap-2">
           <button onClick={() => { setShowTransfert(true) }}
@@ -295,9 +295,9 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
           { label: "Alertes stock", labelAr: "تنبيهات", value: `${alertArticles.length} articles`, color: "text-red-600", bg: "bg-red-50 border-red-200" },
         ].map(k => (
           <div key={k.label} className={`rounded-2xl border p-4 ${k.bg}`}>
-            <p className="text-xs font-medium text-muted-foreground mb-0.5">{k.label}</p>
-            <p className={`text-lg font-bold ${k.color}`}>{k.value}</p>
-            <p className="text-[10px] text-muted-foreground">{k.labelAr}</p>
+            <p className="font-semibold" className="text-xs font-medium text-muted-foreground mb-0.5">{k.label}</p>
+            <p className="font-semibold" className={`text-lg font-bold ${k.color}`}>{k.value}</p>
+            <p className="font-semibold" className="text-[10px] text-muted-foreground">{k.labelAr}</p>
           </div>
         ))}
       </div>
@@ -413,8 +413,8 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                         />
                       </td>
                       <td className="px-4 py-3">
-                        <p className="font-semibold text-foreground">{a.nom}</p>
-                        <p className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
+                        <p className="font-semibold" className="font-semibold text-foreground">{a.nom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">{a.famille}</td>
                       <td className="px-4 py-3 text-right font-semibold text-emerald-600">{a.stockDisponible.toLocaleString("fr-MA")} {a.unite}</td>
@@ -454,8 +454,8 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                 {filtered.map((a, i) => (
                   <tr key={a.id} style={{ borderTop: "1px solid oklch(0.87 0.012 240)", background: i % 2 === 0 ? "white" : "oklch(0.975 0.003 240)" }}>
                     <td className="px-4 py-3">
-                      <p className="font-semibold text-foreground">{a.nom}</p>
-                      <p className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
+                      <p className="font-semibold" className="font-semibold text-foreground">{a.nom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{a.famille}</td>
                     <td className="px-4 py-3 text-right font-semibold">{DH(a.prixAchat)}</td>
@@ -505,8 +505,8 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                   return (
                     <tr key={a.id} style={{ borderTop: "1px solid oklch(0.87 0.012 240)", background: i % 2 === 0 ? "white" : "oklch(0.975 0.003 240)" }}>
                       <td className="px-4 py-3">
-                        <p className="font-semibold text-foreground">{a.nom}</p>
-                        <p className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
+                        <p className="font-semibold" className="font-semibold text-foreground">{a.nom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
                       </td>
                       <td className="px-4 py-3 text-right font-semibold">{DH(a.prixAchat)}</td>
                       <td className="px-4 py-3">
@@ -575,7 +575,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <h3 className="text-sm font-bold text-foreground">Inventaire physique / الجرد الفعلي</h3>
-              <p className="text-xs text-muted-foreground">Saisie stock theorique (UM/base) + stock reel magasinier. Le systeme calcule et alerte les ecarts +/-.</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">Saisie stock theorique (UM/base) + stock reel magasinier. Le systeme calcule et alerte les ecarts +/-.</p>
             </div>
             <div className="flex gap-2 flex-wrap">
               <button onClick={() => handleResetStockInventaire("stockDisponible")}
@@ -650,10 +650,10 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                     return (
                       <tr key={a.id} style={{ borderTop: "1px solid oklch(0.87 0.012 240)", background: i % 2 === 0 ? "white" : "oklch(0.975 0.003 240)" }}>
                         <td className="px-4 py-3">
-                          <p className="font-semibold text-foreground">{a.nom}</p>
-                          <p className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
+                          <p className="font-semibold" className="font-semibold text-foreground">{a.nom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
                           {a.stockReelDate && (
-                            <p className="text-[10px] text-blue-500 mt-0.5">Reel saisit: {a.stockReel} {a.unite} ({a.stockReelDate})</p>
+                            <p className="font-semibold" className="text-[10px] text-blue-500 mt-0.5">Reel saisit: {a.stockReel} {a.unite} ({a.stockReelDate})</p>
                           )}
                         </td>
                         <td className="px-4 py-3">
@@ -662,9 +662,9 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                             : <span className="text-xs text-muted-foreground">—</span>}
                         </td>
                         <td className="px-4 py-3 text-right">
-                          <p className="font-semibold text-foreground">{stockTheorique} {a.unite}</p>
+                          <p className="font-semibold" className="font-semibold text-foreground">{stockTheorique} {a.unite}</p>
                           {a.stockTheorique !== undefined && a.stockTheorique !== a.stockDisponible && (
-                            <p className="text-[10px] text-muted-foreground">Conforme: {a.stockDisponible}</p>
+                            <p className="font-semibold" className="text-[10px] text-muted-foreground">Conforme: {a.stockDisponible}</p>
                           )}
                         </td>
                         <td className="px-4 py-3 text-right">
@@ -779,7 +779,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                   </label>
                   <input type="number" step="0.01" value={artForm.pvValeur} onChange={e => setArtForm({ ...artForm, pvValeur: Number(e.target.value) })} className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
                   {artForm.prixAchat > 0 && (
-                    <p className="text-xs text-muted-foreground mt-0.5">
+                    <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">
                       PV calculé: <strong className="text-indigo-600">
                         {DH(artForm.pvMethode === "pourcentage" ? artForm.prixAchat * (1 + artForm.pvValeur / 100) : artForm.pvMethode === "montant" ? artForm.prixAchat + artForm.pvValeur : artForm.pvValeur)}
                       </strong>
@@ -789,8 +789,8 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                 {/* UM fields */}
                 <div className="col-span-2">
                   <div className="rounded-xl border border-blue-200 bg-blue-50 p-3 flex flex-col gap-2">
-                    <p className="text-xs font-bold text-blue-800 uppercase tracking-wide">Unite de Mesure (UM) commerciale</p>
-                    <p className="text-[11px] text-blue-700">Ex: "Caisse", "Carton", "Palette". Le prevendeur saisira en UM et le systeme convertit automatiquement en {artForm.unite}.</p>
+                    <p className="font-semibold" className="text-xs font-bold text-blue-800 uppercase tracking-wide">Unite de Mesure (UM) commerciale</p>
+                    <p className="font-semibold" className="text-[11px] text-blue-700">Ex: "Caisse", "Carton", "Palette". Le prevendeur saisira en UM et le systeme convertit automatiquement en {artForm.unite}.</p>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="flex flex-col gap-1">
                         <label className="text-xs font-semibold text-foreground">Libelle UM</label>
@@ -849,7 +849,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                       </div>
                     </div>
                     {(artForm as { um?: string; colisageParUM?: number }).um && (artForm as { colisageParUM?: number }).colisageParUM && (
-                      <p className="text-xs font-bold text-blue-700 bg-white rounded-lg px-3 py-1.5 border border-blue-200">
+                      <p className="font-semibold" className="text-xs font-bold text-blue-700 bg-white rounded-lg px-3 py-1.5 border border-blue-200">
                         1 {(artForm as { um?: string }).um} = {(artForm as { colisageParUM?: number }).colisageParUM} {artForm.unite}
                       </p>
                     )}
@@ -1039,7 +1039,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
 
               {ecartFilter === "client" ? (
                 Object.keys(ecartParClient).length === 0 ? (
-                  <p className="text-sm text-muted-foreground text-center py-6">Aucune caisse livree aujourd&apos;hui</p>
+                  <p className="font-semibold" className="text-sm text-muted-foreground text-center py-6">Aucune caisse livree aujourd&apos;hui</p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
@@ -1065,7 +1065,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                 )
               ) : (
                 Object.keys(ecartParLivreur).length === 0 ? (
-                  <p className="text-sm text-muted-foreground text-center py-6">Aucune caisse en circulation aujourd&apos;hui</p>
+                  <p className="font-semibold" className="text-sm text-muted-foreground text-center py-6">Aucune caisse en circulation aujourd&apos;hui</p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
@@ -1138,14 +1138,14 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
                       <tr>
                         <td colSpan={9} className="px-4 py-10 text-center text-muted-foreground text-sm">
                           Aucun mouvement de caisses enregistre
-                          <p className="text-xs mt-1 text-muted-foreground">Les mouvements apparaissent automatiquement lors des validations de ctrl achat, reception et expedition.</p>
+                          <p className="font-semibold" className="text-xs mt-1 text-muted-foreground">Les mouvements apparaissent automatiquement lors des validations de ctrl achat, reception et expedition.</p>
                         </td>
                       </tr>
                     ) : filteredMvts.map((m, i) => (
                       <tr key={m.id} style={{ borderTop: "1px solid oklch(0.87 0.012 240)", background: i % 2 === 0 ? "white" : "oklch(0.975 0.003 240)" }}>
                         <td className="px-4 py-3">
-                          <p className="font-mono text-xs text-foreground">{m.date}</p>
-                          {m.heure && <p className="text-[10px] text-muted-foreground">{m.heure}</p>}
+                          <p className="font-semibold" className="font-mono text-xs text-foreground">{m.date}</p>
+                          {m.heure && <p className="font-semibold" className="text-[10px] text-muted-foreground">{m.heure}</p>}
                         </td>
                         <td className="px-4 py-3">
                           <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
@@ -1181,7 +1181,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-bold text-sm text-foreground">Contenants & Tares configurables</h3>
-                  <p className="text-xs text-muted-foreground">Poids soustrait pour calculer le poids net. Ex: caisse 2.8kg, chario 15kg</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">Poids soustrait pour calculer le poids net. Ex: caisse 2.8kg, chario 15kg</p>
                 </div>
                 <button onClick={() => setShowContenantForm(true)}
                   className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-white"
@@ -1192,11 +1192,11 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {contenants.map(c => (
-                  <div key={c.id} className={`rounded-xl border p-3 flex items-center justify-between gap-2 ${c.actif ? "border-border bg-muted/20" : "border-dashed border-muted-foreground/20 opacity-50"}`}>
+                  <div key={c.id} className={`rounded-xl border p-3 flex items-center justify-between gap-2 ${c.actif ? "border-border bg-muted/20" : "border-dashed border-muted-foreground/20 "}`}>
                     <div>
-                      <p className="text-sm font-semibold text-foreground">{c.nom}</p>
-                      <p className="text-xs text-muted-foreground">{c.poidsKg} kg de tare</p>
-                      {c.notes && <p className="text-[10px] text-muted-foreground italic">{c.notes}</p>}
+                      <p className="font-semibold" className="text-sm font-semibold text-foreground">{c.nom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">{c.poidsKg} kg de tare</p>
+                      {c.notes && <p className="font-semibold" className="text-[10px] text-muted-foreground italic">{c.notes}</p>}
                     </div>
                     <div className="flex items-center gap-2">
                       <button onClick={() => store.updateContenant(c.id, { actif: !c.actif })} className={`text-xs px-2 py-0.5 rounded-full font-semibold ${c.actif ? "bg-green-100 text-green-700" : "bg-muted text-muted-foreground"}`}>

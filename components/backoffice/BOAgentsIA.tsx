@@ -507,9 +507,9 @@ function formatMessage(text: string) {
   let tableBuffer: string[] = []
 
   const flushTable = (key: string) => {
-    if (tableBuffer.length < 2) { tableBuffer.forEach((l, i) => elements.push(<p key={`${key}_${i}`} className="text-xs text-slate-600">{l}</p>)); tableBuffer = []; return }
+    if (tableBuffer.length < 2) { tableBuffer.forEach((l, i) => elements.push(<p className="font-semibold" key={`${key}_${i}`} className="text-xs text-slate-600">{l}</p>)); tableBuffer = []; return }
     const rows = tableBuffer.filter(l => l.trim().startsWith("|") && !l.match(/^\|[-| ]+\|$/))
-    if (rows.length === 0) { tableBuffer.forEach((l, i) => elements.push(<p key={`${key}_${i}`} className="text-xs">{l}</p>)); tableBuffer = []; return }
+    if (rows.length === 0) { tableBuffer.forEach((l, i) => elements.push(<p className="font-semibold" key={`${key}_${i}`} className="text-xs">{l}</p>)); tableBuffer = []; return }
     const header = rows[0].split("|").filter(Boolean).map(c => c.trim())
     const body = rows.slice(1)
     elements.push(
@@ -539,7 +539,7 @@ function formatMessage(text: string) {
       elements.push(<div key={key} className="flex gap-1.5 ml-2 text-xs text-slate-700"><span className="text-slate-400 shrink-0 mt-0.5">•</span><span dangerouslySetInnerHTML={{ __html: html }} /></div>); return
     }
     const html = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code class="bg-slate-100 px-1 rounded text-xs font-mono">$1</code>').replace(/\[([A-Z_]+)\]/g, '<span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-mono text-[10px] font-bold">[$1]</span>')
-    elements.push(<p key={key} className="text-xs text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: html }} />)
+    elements.push(<p className="font-semibold" key={key} className="text-xs text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: html }} />)
   })
   if (tableBuffer.length) flushTable(`table_final`)
   return elements
@@ -617,10 +617,10 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
             {agent.avatar}
           </div>
           <div>
-            <p className="font-bold text-slate-800 text-sm">{agent.name}</p>
+            <p className="font-semibold" className="font-bold text-slate-800 text-sm">{agent.name}</p>
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              <p className="text-[11px] text-slate-500">{agent.department}</p>
+              <p className="font-semibold" className="text-[11px] text-slate-500">{agent.department}</p>
             </div>
           </div>
         </div>
@@ -639,7 +639,7 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
       {/* Prompt editor */}
       {showPrompt && (
         <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 shrink-0">
-          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">System Prompt</p>
+          <p className="font-semibold" className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">System Prompt</p>
           <textarea value={sysprompt} onChange={e => setSysprompt(e.target.value)} rows={5}
             className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-200 resize-none" />
         </div>
@@ -650,7 +650,7 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
         style={{ scrollbarWidth: "none" }}>
         {agent.quickActions.map((a, i) => (
           <button key={i} onClick={() => send(a)} disabled={loading}
-            className="shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white transition-all hover:opacity-80 disabled:opacity-40"
+            className="shrink-0 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white transition-all hover: disabled:"
             style={{ background: agentColor }}>
             {a}
           </button>
@@ -676,7 +676,7 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
                   : <span>{msg.content}</span>
                 }
               </div>
-              <p className="text-[9px] text-slate-400 px-1">
+              <p className="font-semibold" className="text-[9px] text-slate-400 px-1">
                 {new Date(msg.ts).toLocaleTimeString("fr-MA", { hour: "2-digit", minute: "2-digit" })}
               </p>
             </div>
@@ -719,10 +719,10 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
             placeholder={`Ecris a ${agent.name} en Darija, Francais ou Anglais...`}
             disabled={loading}
             rows={1}
-            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all disabled:opacity-50 resize-none"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all disabled: resize-none"
             style={{ maxHeight: "120px", ["--tw-ring-color" as string]: agentColor + "40" }} />
           <button onClick={() => send()} disabled={loading || !input.trim()}
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-40 shrink-0 shadow-sm"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all hover: active:scale-95 disabled: shrink-0 shadow-sm"
             style={{ background: agentColor }}>
             {loading
               ? <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -733,9 +733,9 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
           </button>
         </div>
         <div className="flex items-center justify-between mt-1.5">
-          <p className="text-[10px] text-slate-400">Shift+Enter nouvelle ligne · Enter envoyer</p>
+          <p className="font-semibold" className="text-[10px] text-slate-400">Shift+Enter nouvelle ligne · Enter envoyer</p>
           {loading && (
-            <p className="text-[10px] text-slate-400 animate-pulse">
+            <p className="font-semibold" className="text-[10px] text-slate-400 animate-pulse">
               {agent.name} analyse...
             </p>
           )}
@@ -765,8 +765,8 @@ export default function BOAgentsIA({ user }: { user?: User }) {
       {/* Sidebar agents */}
       <div className="w-52 shrink-0 flex flex-col bg-white border-r border-slate-200 overflow-y-auto">
         <div className="px-4 py-3 border-b border-slate-100">
-          <p className="text-[11px] font-black text-slate-700 uppercase tracking-widest">Agents IA</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">Experts FreshLink Pro</p>
+          <p className="font-semibold" className="text-[11px] font-black text-slate-700 uppercase tracking-widest">Agents IA</p>
+          <p className="font-semibold" className="text-[10px] text-slate-400 mt-0.5">Experts FreshLink Pro</p>
         </div>
         <div className="p-2 flex flex-col gap-1">
           {AGENTS.map(a => {
@@ -782,8 +782,8 @@ export default function BOAgentsIA({ user }: { user?: User }) {
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-black text-white shrink-0"
                     style={{ background: color }}>{a.avatar}</div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold truncate" style={isActive ? { color } : { color: "#1e293b" }}>{a.name}</p>
-                    <p className="text-[10px] text-slate-400 truncate leading-tight">{a.department}</p>
+                    <p className="font-semibold" className="text-xs font-bold truncate" style={isActive ? { color } : { color: "#1e293b" }}>{a.name}</p>
+                    <p className="font-semibold" className="text-[10px] text-slate-400 truncate leading-tight">{a.department}</p>
                   </div>
                   {isActive && <span className="w-1.5 h-1.5 rounded-full animate-pulse shrink-0" style={{ background: color }} />}
                 </div>

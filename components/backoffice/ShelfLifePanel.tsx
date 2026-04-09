@@ -126,7 +126,7 @@ export default function ShelfLifePanel() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h2 className="text-xl font-black text-foreground">Shelf Life & DLC</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">Suivi par lot — fruits et legumes</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">Suivi par lot — fruits et legumes</p>
         </div>
         <button onClick={() => setShowAdd(true)}
           className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white"
@@ -148,8 +148,8 @@ export default function ShelfLifePanel() {
           { label: "Expire",      val: stats.expire,      bg: "bg-red-100",   text: "text-red-900",    border: "border-red-300" },
         ].map(k => (
           <div key={k.label} className={`${k.bg} border ${k.border} rounded-2xl p-4 text-center`}>
-            <p className={`text-2xl font-black ${k.text}`}>{k.val}</p>
-            <p className={`text-xs font-semibold ${k.text}`}>{k.label}</p>
+            <p className="font-semibold" className={`text-2xl font-black ${k.text}`}>{k.val}</p>
+            <p className="font-semibold" className={`text-xs font-semibold ${k.text}`}>{k.label}</p>
           </div>
         ))}
       </div>
@@ -161,11 +161,11 @@ export default function ShelfLifePanel() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <div>
-            <p className="text-sm font-bold text-red-800">
+            <p className="font-semibold" className="text-sm font-bold text-red-800">
               {stats.expire > 0 && `${stats.expire} lot(s) expire(s). `}
               {stats.critique > 0 && `${stats.critique} lot(s) en etat critique (≤2 jours).`}
             </p>
-            <p className="text-xs text-red-700 mt-0.5">Action immediate requise : ecoulement ou mise en degrade.</p>
+            <p className="font-semibold" className="text-xs text-red-700 mt-0.5">Action immediate requise : ecoulement ou mise en degrade.</p>
           </div>
         </div>
       )}
@@ -204,7 +204,7 @@ export default function ShelfLifePanel() {
               {/* Info */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <p className="font-bold text-sm text-foreground">{lot.articleNom}</p>
+                  <p className="font-semibold" className="font-bold text-sm text-foreground">{lot.articleNom}</p>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full border font-semibold ${lot.status.color}`}>
                     {lot.status.label}
                   </span>
@@ -254,7 +254,7 @@ export default function ShelfLifePanel() {
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-md rounded-2xl overflow-hidden" style={{ background: "oklch(0.13 0.02 260)", border: "1px solid oklch(0.22 0.04 260)" }}>
             <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid oklch(0.22 0.04 260)" }}>
-              <p className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Ajouter un lot</p>
+              <p className="font-semibold" className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Ajouter un lot</p>
               <button onClick={() => setShowAdd(false)}>
                 <svg className="w-4 h-4" style={{ color: "#6b7280" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -315,7 +315,7 @@ export default function ShelfLifePanel() {
               })()}
               <button onClick={addLot}
                 disabled={!form.articleId || !form.qte}
-                className="w-full py-3 rounded-xl font-bold text-white disabled:opacity-50"
+                className="w-full py-3 rounded-xl font-bold text-white disabled:"
                 style={{ background: "oklch(0.65 0.17 145)" }}>
                 Enregistrer le lot
               </button>

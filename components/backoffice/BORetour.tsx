@@ -39,16 +39,16 @@ export default function BORetour() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-card rounded-xl border border-border p-4 text-center">
-          <p className="text-2xl font-bold text-red-600 font-sans">{filtered.length}</p>
-          <p className="text-sm text-muted-foreground font-sans">Retours</p>
+          <p className="font-semibold" className="text-2xl font-bold text-red-600 font-sans">{filtered.length}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-sans">Retours</p>
         </div>
         <div className="bg-card rounded-xl border border-border p-4 text-center">
-          <p className="text-xl font-bold text-orange-600 font-sans">{filtered.filter(r => r.statut === "en_attente").length}</p>
-          <p className="text-sm text-muted-foreground font-sans">En attente</p>
+          <p className="font-semibold" className="text-xl font-bold text-orange-600 font-sans">{filtered.filter(r => r.statut === "en_attente").length}</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-sans">En attente</p>
         </div>
         <div className="bg-card rounded-xl border border-border p-4 text-center">
-          <p className="text-xl font-bold text-foreground font-sans">{totalRetour.toLocaleString("fr-MA", { minimumFractionDigits: 2 })} DH</p>
-          <p className="text-sm text-muted-foreground font-sans">Valeur retours</p>
+          <p className="font-semibold" className="text-xl font-bold text-foreground font-sans">{totalRetour.toLocaleString("fr-MA", { minimumFractionDigits: 2 })} DH</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground font-sans">Valeur retours</p>
         </div>
       </div>
 
@@ -99,7 +99,7 @@ export default function BORetour() {
                   </td>
                   <td className="px-4 py-3">
                     {r.statut === "en_attente" && (
-                      <button onClick={() => handleValider(r.id)} className="px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-medium hover:opacity-90">
+                      <button onClick={() => handleValider(r.id)} className="px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-medium hover:">
                         Valider retour
                       </button>
                     )}

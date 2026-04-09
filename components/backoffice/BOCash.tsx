@@ -430,9 +430,9 @@ export default function BOCash() {
               {k.icon}
             </div>
             <div>
-              <p className="text-xs text-muted-foreground font-sans font-medium uppercase tracking-wide">{k.label}</p>
-              <p className={`text-xl font-bold font-sans ${k.color}`}>{k.value}</p>
-              <p className="text-xs text-muted-foreground font-sans">{k.sub}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground font-sans font-medium uppercase tracking-wide">{k.label}</p>
+              <p className="font-semibold" className={`text-xl font-bold font-sans ${k.color}`}>{k.value}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground font-sans">{k.sub}</p>
             </div>
           </div>
         ))}
@@ -451,8 +451,8 @@ export default function BOCash() {
                   {livreur[0]}
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-foreground font-sans">{livreur}</p>
-                  <p className="text-xs text-muted-foreground font-sans">{data.count} BL · {data.total.toLocaleString("fr-MA")} DH</p>
+                  <p className="font-semibold" className="text-xs font-semibold text-foreground font-sans">{livreur}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground font-sans">{data.count} BL · {data.total.toLocaleString("fr-MA")} DH</p>
                 </div>
               </div>
             ))}
@@ -583,7 +583,7 @@ export default function BOCash() {
                         {bl.statut === "émis" && (
                           <button
                             onClick={() => handleEncaisser(bl.id)}
-                            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-white transition-opacity hover:opacity-80"
+                            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-white transition-opacity hover:"
                             style={{ background: "oklch(0.65 0.17 145)" }}
                           >
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
@@ -622,7 +622,7 @@ export default function BOCash() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-foreground">Frais supplementaires BL</h3>
-                  <p className="text-xs text-muted-foreground">{bl.clientNom} — {bl.date}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{bl.clientNom} — {bl.date}</p>
                 </div>
                 <button onClick={() => setPrintFraisId(null)}
                   className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground text-sm font-bold">
@@ -633,7 +633,7 @@ export default function BOCash() {
               <div className="flex flex-col gap-3">
                 {/* Frais impression */}
                 <div className="p-3 rounded-xl border border-border bg-muted/30 flex flex-col gap-2">
-                  <p className="text-xs font-bold text-foreground">Frais d&apos;impression</p>
+                  <p className="font-semibold" className="text-xs font-bold text-foreground">Frais d&apos;impression</p>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex flex-col gap-1">
                       <label className="text-[11px] font-semibold text-slate-700">DH / feuille</label>
@@ -651,13 +651,13 @@ export default function BOCash() {
                     </div>
                   </div>
                   {fraisImpr > 0 && (
-                    <p className="text-xs text-blue-700 font-semibold">= {fraisImpr} DH frais impression</p>
+                    <p className="font-semibold" className="text-xs text-blue-700 font-semibold">= {fraisImpr} DH frais impression</p>
                   )}
                 </div>
 
                 {/* Frais service */}
                 <div className="p-3 rounded-xl border border-border bg-muted/30 flex flex-col gap-2">
-                  <p className="text-xs font-bold text-foreground">Frais de service</p>
+                  <p className="font-semibold" className="text-xs font-bold text-foreground">Frais de service</p>
                   <div className="flex flex-col gap-1">
                     <label className="text-[11px] font-semibold text-slate-700">DH / caisse (gros + demi)</label>
                     <input type="number" min="0" step="0.5"
@@ -666,10 +666,10 @@ export default function BOCash() {
                       className="px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary" />
                   </div>
                   {fraisServ > 0 && (
-                    <p className="text-xs text-blue-700 font-semibold">= {totalNbCaisses} caisses × {fraisConfig.fraisServiceParCaisse} DH = {fraisServ} DH</p>
+                    <p className="font-semibold" className="text-xs text-blue-700 font-semibold">= {totalNbCaisses} caisses × {fraisConfig.fraisServiceParCaisse} DH = {fraisServ} DH</p>
                   )}
                   {totalNbCaisses === 0 && (
-                    <p className="text-[11px] text-muted-foreground">Aucune caisse saisie sur ce BL</p>
+                    <p className="font-semibold" className="text-[11px] text-muted-foreground">Aucune caisse saisie sur ce BL</p>
                   )}
                 </div>
 

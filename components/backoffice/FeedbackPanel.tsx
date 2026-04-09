@@ -116,8 +116,8 @@ function MultiSelectSujet({ value, onChange }: { value: string[]; onChange: (v: 
                     {checked && <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium" style={{ color: "#e2e8f0" }}>{opt.fr}</p>
-                    <p className="text-[10px]" dir="rtl" style={{ color: "#4b5563" }}>{opt.ar}</p>
+                    <p className="font-semibold" className="text-xs font-medium" style={{ color: "#e2e8f0" }}>{opt.fr}</p>
+                    <p className="font-semibold" className="text-[10px]" dir="rtl" style={{ color: "#4b5563" }}>{opt.ar}</p>
                   </div>
                 </button>
               )
@@ -207,8 +207,8 @@ function SubmitOnlyView({ user }: { user: User }) {
           </svg>
         </div>
         <div className="text-center">
-          <p className="text-base font-bold" style={{ color: "#f1f5f9" }}>Merci pour votre avis !</p>
-          <p className="text-sm mt-1" dir="rtl" style={{ color: "#4b5563" }}>شكراً على رأيك، تم التسجيل بنجاح</p>
+          <p className="font-semibold" className="text-base font-bold" style={{ color: "#f1f5f9" }}>Merci pour votre avis !</p>
+          <p className="font-semibold" className="text-sm mt-1" dir="rtl" style={{ color: "#4b5563" }}>شكراً على رأيك، تم التسجيل بنجاح</p>
         </div>
         <button onClick={() => { setDone(false); setForm(f => ({ ...f, sujets: [], message: "", note: 5 })) }}
           className="px-5 py-2 rounded-xl text-xs font-bold text-white"
@@ -225,10 +225,10 @@ function SubmitOnlyView({ user }: { user: User }) {
 
         {/* Header */}
         <div className="text-center mb-2">
-          <p className="text-lg font-bold" style={{ color: "#f1f5f9" }}>
+          <p className="font-semibold" className="text-lg font-bold" style={{ color: "#f1f5f9" }}>
             Donner votre avis
           </p>
-          <p className="text-sm mt-1" dir="rtl" style={{ color: "#4b5563" }}>
+          <p className="font-semibold" className="text-sm mt-1" dir="rtl" style={{ color: "#4b5563" }}>
             أخبرنا برأيك — آراؤكم تهمنا
           </p>
           <div className="mt-3 p-3 rounded-xl text-xs" style={{ background: "#0f1a10", border: "1px solid #15352a", color: "#4b6a4b" }}>
@@ -239,7 +239,7 @@ function SubmitOnlyView({ user }: { user: User }) {
 
         {/* Source */}
         <div>
-          <p className="text-xs font-semibold mb-2" style={{ color: "#94a3b8" }}>
+          <p className="font-semibold" className="text-xs font-semibold mb-2" style={{ color: "#94a3b8" }}>
             Vous êtes / أنتم
           </p>
           <div className="flex gap-2 flex-wrap">
@@ -251,7 +251,7 @@ function SubmitOnlyView({ user }: { user: User }) {
                   background: SOURCE_COLORS[s] + "22", color: SOURCE_COLORS[s], border: `1px solid ${SOURCE_COLORS[s]}66`,
                 } : { background: "#0a0f18", color: "#4b5563", border: "1px solid #1a2535" }}>
                 <span>{SOURCE_LABELS[s].fr}</span>
-                <span className="text-[10px] opacity-60" dir="rtl">/ {SOURCE_LABELS[s].ar}</span>
+                <span className="text-[10px] " dir="rtl">/ {SOURCE_LABELS[s].ar}</span>
               </button>
             ))}
           </div>
@@ -259,7 +259,7 @@ function SubmitOnlyView({ user }: { user: User }) {
 
         {/* Auteur */}
         <div>
-          <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
+          <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
             Votre nom / اسمكم
           </p>
           <input value={form.auteur} onChange={e => setForm(f => ({ ...f, auteur: e.target.value }))}
@@ -270,7 +270,7 @@ function SubmitOnlyView({ user }: { user: User }) {
 
         {/* Categories */}
         <div>
-          <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
+          <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
             Sujet(s) / الموضوع
             <span className="text-[10px] font-normal mr-1" style={{ color: "#374151" }}>— plusieurs choix possibles</span>
           </p>
@@ -279,7 +279,7 @@ function SubmitOnlyView({ user }: { user: User }) {
 
         {/* Note */}
         <div>
-          <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
+          <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
             Note / التقييم
           </p>
           <div className="flex items-center gap-3">
@@ -296,7 +296,7 @@ function SubmitOnlyView({ user }: { user: User }) {
 
         {/* Message */}
         <div>
-          <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
+          <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
             Votre message / رسالتكم
           </p>
           <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
@@ -309,7 +309,7 @@ function SubmitOnlyView({ user }: { user: User }) {
         {/* Submit */}
         <button onClick={submit}
           disabled={!form.auteur.trim() || form.sujets.length === 0 || !form.message.trim()}
-          className="w-full py-3 rounded-xl text-sm font-bold text-white transition-opacity disabled:opacity-40"
+          className="w-full py-3 rounded-xl text-sm font-bold text-white transition-opacity disabled:"
           style={{ background: "#1d4ed8" }}>
           Envoyer mon avis / إرسال الرأي
         </button>
@@ -382,7 +382,7 @@ function AdminView() {
             Feedbacks & Avis
             <span className="mr-2 font-normal text-base" style={{ color: "#4b5563" }}>/ الآراء والتقييمات</span>
           </h2>
-          <p className="text-xs mt-0.5 flex items-center gap-1.5" style={{ color: "#374151" }}>
+          <p className="font-semibold" className="text-xs mt-0.5 flex items-center gap-1.5" style={{ color: "#374151" }}>
             <svg className="w-3 h-3" fill="none" stroke="#ef4444" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
@@ -420,10 +420,10 @@ function AdminView() {
           <div key={s.fr} className="rounded-xl p-3 flex items-center justify-between"
             style={{ background: "#0f1623", border: "1px solid #1a2535" }}>
             <div>
-              <p className="text-xs font-medium" style={{ color: "#94a3b8" }}>{s.fr}</p>
-              <p className="text-[10px]" dir="rtl" style={{ color: "#374151" }}>{s.ar}</p>
+              <p className="font-semibold" className="text-xs font-medium" style={{ color: "#94a3b8" }}>{s.fr}</p>
+              <p className="font-semibold" className="text-[10px]" dir="rtl" style={{ color: "#374151" }}>{s.ar}</p>
             </div>
-            <p className="text-xl font-bold" style={{ color: s.c }}>{s.v}</p>
+            <p className="font-semibold" className="text-xl font-bold" style={{ color: s.c }}>{s.v}</p>
           </div>
         ))}
       </div>
@@ -536,8 +536,8 @@ function AdminView() {
             onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #1a2535" }}>
               <div>
-                <p className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Détail Avis / تفاصيل الرأي</p>
-                <p className="text-[10px]" style={{ color: "#4b5563" }}>{selected.date}</p>
+                <p className="font-semibold" className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Détail Avis / تفاصيل الرأي</p>
+                <p className="font-semibold" className="text-[10px]" style={{ color: "#4b5563" }}>{selected.date}</p>
               </div>
               <button onClick={() => setSelected(null)}>
                 <svg className="w-4 h-4" fill="none" stroke="#6b7280" viewBox="0 0 24 24">
@@ -554,11 +554,11 @@ function AdminView() {
                 <Stars n={selected.note} />
               </div>
               <div>
-                <p className="text-xs font-semibold" style={{ color: "#4b5563" }}>Auteur / الكاتب</p>
-                <p className="text-sm font-bold" style={{ color: "#f1f5f9" }}>{selected.auteur}</p>
+                <p className="font-semibold" className="text-xs font-semibold" style={{ color: "#4b5563" }}>Auteur / الكاتب</p>
+                <p className="font-semibold" className="text-sm font-bold" style={{ color: "#f1f5f9" }}>{selected.auteur}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#4b5563" }}>Catégories / الفئات</p>
+                <p className="font-semibold" className="text-xs font-semibold mb-1" style={{ color: "#4b5563" }}>Catégories / الفئات</p>
                 <div className="flex flex-wrap gap-1">
                   {selected.sujet.split(", ").map((s, i) => (
                     <span key={i} className="px-2 py-0.5 rounded text-xs font-medium"
@@ -569,9 +569,9 @@ function AdminView() {
                 </div>
               </div>
               <div>
-                <p className="text-xs font-semibold mb-1" style={{ color: "#4b5563" }}>Message / الرسالة</p>
+                <p className="font-semibold" className="text-xs font-semibold mb-1" style={{ color: "#4b5563" }}>Message / الرسالة</p>
                 <div className="p-3 rounded-xl" style={{ background: "#0a0f18", border: "1px solid #1a2535" }}>
-                  <p className="text-xs leading-relaxed" style={{ color: "#94a3b8" }}>{selected.message}</p>
+                  <p className="font-semibold" className="text-xs leading-relaxed" style={{ color: "#94a3b8" }}>{selected.message}</p>
                 </div>
               </div>
               <div className="flex items-center justify-between pt-1">
@@ -612,7 +612,7 @@ function AdminView() {
             style={{ background: "#0f1623", border: "1px solid #1a2535" }}
             onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #1a2535" }}>
-              <p className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Saisir un Avis / رأي جديد</p>
+              <p className="font-semibold" className="font-bold text-sm" style={{ color: "#f1f5f9" }}>Saisir un Avis / رأي جديد</p>
               <button onClick={() => setShowAdd(false)}>
                 <svg className="w-4 h-4" fill="none" stroke="#6b7280" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -622,7 +622,7 @@ function AdminView() {
             <div className="p-5 space-y-4 overflow-y-auto" style={{ maxHeight: "70vh" }}>
               {/* Source */}
               <div>
-                <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Source / المصدر</p>
+                <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Source / المصدر</p>
                 <div className="flex gap-2 flex-wrap">
                   {(["client", "fournisseur", "equipe"] as FeedbackSource[]).map(s => (
                     <button key={s} type="button" onClick={() => setForm(f => ({ ...f, source: s }))}
@@ -636,28 +636,28 @@ function AdminView() {
                 </div>
               </div>
               <div>
-                <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Auteur / الكاتب</p>
+                <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Auteur / الكاتب</p>
                 <input value={form.auteur} onChange={e => setForm(f => ({ ...f, auteur: e.target.value }))}
                   placeholder="Nom du client / fournisseur / employé"
                   className="w-full px-3 py-2.5 rounded-xl text-xs outline-none"
                   style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
               </div>
               <div>
-                <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
+                <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>
                   Catégories / الفئات
                   <span className="text-[10px] font-normal mr-1" style={{ color: "#374151" }}>— sélection multiple</span>
                 </p>
                 <MultiSelectSujet value={form.sujets} onChange={v => setForm(f => ({ ...f, sujets: v }))} />
               </div>
               <div>
-                <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Note / التقييم</p>
+                <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Note / التقييم</p>
                 <div className="flex items-center gap-3">
                   <Stars n={form.note} onRate={v => setForm(f => ({ ...f, note: v }))} />
                   <span className="text-sm font-bold" style={{ color: "#f59e0b" }}>{form.note}/5</span>
                 </div>
               </div>
               <div>
-                <p className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Message / الرسالة</p>
+                <p className="font-semibold" className="text-xs font-semibold mb-1.5" style={{ color: "#94a3b8" }}>Message / الرسالة</p>
                 <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
                   placeholder="Détails de l'avis..."
                   rows={4}
@@ -666,7 +666,7 @@ function AdminView() {
               </div>
               <button onClick={addFeedback}
                 disabled={!form.auteur.trim() || form.sujets.length === 0 || !form.message.trim()}
-                className="w-full py-2.5 rounded-xl text-xs font-bold text-white disabled:opacity-40"
+                className="w-full py-2.5 rounded-xl text-xs font-bold text-white disabled:"
                 style={{ background: "#1d4ed8" }}>
                 Enregistrer
               </button>

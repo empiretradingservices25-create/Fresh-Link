@@ -285,7 +285,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
       {/* Header */}
       <div>
         <h2 className="text-base font-bold text-slate-800">Qualite IA — Analyse Produit</h2>
-        <p className="text-xs text-slate-500">Capturez une photo pour evaluer la fraicheur et le calibre</p>
+        <p className="font-semibold" className="text-xs text-slate-500">Capturez une photo pour evaluer la fraicheur et le calibre</p>
       </div>
 
       {/* Article + Fournisseur selectors */}
@@ -323,22 +323,22 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
         const max = Math.max(...hist.map(h => h.prixAchat))
         return (
           <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">
-            <p className="text-xs font-bold text-blue-800 mb-2">Historique prix — {art.nom}</p>
+            <p className="font-semibold" className="text-xs font-bold text-blue-800 mb-2">Historique prix — {art.nom}</p>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div>
-                <p className="text-sm font-black text-green-700">{min.toFixed(2)} DH</p>
-                <p className="text-[10px] text-slate-500">Min achete</p>
+                <p className="font-semibold" className="text-sm font-black text-green-700">{min.toFixed(2)} DH</p>
+                <p className="font-semibold" className="text-[10px] text-slate-500">Min achete</p>
               </div>
               <div>
-                <p className="text-sm font-black text-blue-700">{avg.toFixed(2)} DH</p>
-                <p className="text-[10px] text-slate-500">Moyenne</p>
+                <p className="font-semibold" className="text-sm font-black text-blue-700">{avg.toFixed(2)} DH</p>
+                <p className="font-semibold" className="text-[10px] text-slate-500">Moyenne</p>
               </div>
               <div>
-                <p className="text-sm font-black text-amber-700">{max.toFixed(2)} DH</p>
-                <p className="text-[10px] text-slate-500">Max paye</p>
+                <p className="font-semibold" className="text-sm font-black text-amber-700">{max.toFixed(2)} DH</p>
+                <p className="font-semibold" className="text-[10px] text-slate-500">Max paye</p>
               </div>
             </div>
-            <p className="text-[10px] text-blue-600 mt-1.5 font-semibold">
+            <p className="font-semibold" className="text-[10px] text-blue-600 mt-1.5 font-semibold">
               Si-Mohammed peut proposer: {(min * 0.95).toFixed(2)} DH (objectif -5% du min historique)
             </p>
           </div>
@@ -374,7 +374,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
                   backgroundSize: "33.3% 33.3%"
                 }} />
                 {/* Center crop guide */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border-2 border-green-400 rounded-xl opacity-70" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border-2 border-green-400 rounded-xl " />
               </div>
               <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-3">
                 <button onClick={capturePhoto}
@@ -399,8 +399,8 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
                 </svg>
               </div>
               <div className="text-center">
-                <p className="text-sm font-bold text-slate-700">Activer la camera</p>
-                <p className="text-xs text-slate-500">Pointez vers le produit a analyser</p>
+                <p className="font-semibold" className="text-sm font-bold text-slate-700">Activer la camera</p>
+                <p className="font-semibold" className="text-xs text-slate-500">Pointez vers le produit a analyser</p>
               </div>
             </button>
           )}
@@ -420,8 +420,8 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
               </svg>
             </div>
             <div className="text-center">
-              <p className="text-sm font-bold text-slate-700">Choisir une photo</p>
-              <p className="text-xs text-slate-500">Depuis la galerie de votre telephone</p>
+              <p className="font-semibold" className="text-sm font-bold text-slate-700">Choisir une photo</p>
+              <p className="font-semibold" className="text-xs text-slate-500">Depuis la galerie de votre telephone</p>
             </div>
           </button>
         </div>
@@ -445,7 +445,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             <button
               onClick={analyzeQuality}
               disabled={analyzing || !selectedArticleId}
-              className="w-full py-3.5 rounded-xl font-bold text-sm bg-green-600 text-white disabled:opacity-40 flex items-center justify-center gap-2 hover:bg-green-700 transition-colors">
+              className="w-full py-3.5 rounded-xl font-bold text-sm bg-green-600 text-white disabled: flex items-center justify-center gap-2 hover:bg-green-700 transition-colors">
               {analyzing ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -502,14 +502,14 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             : "bg-red-50 border-b border-red-200"
           }`}>
             <div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Resultat analyse</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-500 uppercase tracking-wider">Resultat analyse</p>
               <div className="flex items-center gap-3 mt-1">
                 <span className={`text-3xl font-black border-2 px-3 py-1 rounded-xl ${gradeColor(result.grade)}`}>
                   {result.grade}
                 </span>
                 <div>
-                  <p className="text-lg font-black text-slate-800">{result.score}/100</p>
-                  <p className="text-xs text-slate-500">{articles.find(a => a.id === selectedArticleId)?.nom}</p>
+                  <p className="font-semibold" className="text-lg font-black text-slate-800">{result.score}/100</p>
+                  <p className="font-semibold" className="text-xs text-slate-500">{articles.find(a => a.id === selectedArticleId)?.nom}</p>
                 </div>
               </div>
             </div>
@@ -538,19 +538,19 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             {/* Details grid */}
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-slate-50 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Fraicheur</p>
-                <p className="text-sm font-semibold text-slate-800">{result.fraicheur}</p>
+                <p className="font-semibold" className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Fraicheur</p>
+                <p className="font-semibold" className="text-sm font-semibold text-slate-800">{result.fraicheur}</p>
               </div>
               <div className="bg-slate-50 rounded-xl p-3">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Calibre</p>
-                <p className="text-sm font-semibold text-slate-800">{result.calibre}</p>
+                <p className="font-semibold" className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Calibre</p>
+                <p className="font-semibold" className="text-sm font-semibold text-slate-800">{result.calibre}</p>
               </div>
             </div>
 
             {/* Defauts */}
             {result.defauts.length > 0 && (
               <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
-                <p className="text-xs font-bold text-red-700 mb-2">Defauts observes</p>
+                <p className="font-semibold" className="text-xs font-bold text-red-700 mb-2">Defauts observes</p>
                 <div className="flex flex-col gap-1">
                   {result.defauts.map((d, i) => (
                     <div key={i} className="flex items-center gap-2 text-sm text-red-700">
@@ -566,23 +566,23 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             {result.prixSuggere && (
               <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-bold text-green-700">Prix d&apos;achat suggere</p>
-                  <p className="text-[10px] text-green-600">Argumente en negociation</p>
+                  <p className="font-semibold" className="text-xs font-bold text-green-700">Prix d&apos;achat suggere</p>
+                  <p className="font-semibold" className="text-[10px] text-green-600">Argumente en negociation</p>
                 </div>
-                <p className="text-xl font-black text-green-700">{result.prixSuggere} DH</p>
+                <p className="font-semibold" className="text-xl font-black text-green-700">{result.prixSuggere} DH</p>
               </div>
             )}
 
             {/* Justification */}
             <div className="bg-slate-50 rounded-xl px-4 py-3">
-              <p className="text-xs font-bold text-slate-700 mb-1">Justification</p>
-              <p className="text-sm text-slate-700 leading-relaxed">{result.justification}</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-700 mb-1">Justification</p>
+              <p className="font-semibold" className="text-sm text-slate-700 leading-relaxed">{result.justification}</p>
             </div>
 
             {/* Conseils */}
             {result.conseils.length > 0 && (
               <div>
-                <p className="text-xs font-bold text-slate-700 mb-2">Conseils Si-Mohammed</p>
+                <p className="font-semibold" className="text-xs font-bold text-slate-700 mb-2">Conseils Si-Mohammed</p>
                 <div className="flex flex-col gap-2">
                   {result.conseils.map((c, i) => (
                     <div key={i} className="flex items-start gap-2 text-sm text-slate-700 bg-blue-50 rounded-xl px-3 py-2">
@@ -823,7 +823,7 @@ const text = await callAI(systemPrompt, [
     <div className="flex flex-col gap-4">
       <div>
         <h2 className="text-base font-bold text-slate-800">Comparatif Fournisseurs</h2>
-        <p className="text-xs text-slate-500">Comparez les offres avec historique prix et photos IA</p>
+        <p className="font-semibold" className="text-xs text-slate-500">Comparez les offres avec historique prix et photos IA</p>
       </div>
 
       {/* Article selector */}
@@ -851,21 +851,21 @@ const text = await callAI(systemPrompt, [
               {histByFournisseur.map((h) => h && (
                 <div key={h.fournisseurNom} className="bg-white border border-slate-200 rounded-xl px-4 py-3">
                   <div className="flex items-center justify-between mb-1.5">
-                    <p className="text-sm font-bold text-slate-800">{h.fournisseurNom}</p>
+                    <p className="font-semibold" className="text-sm font-bold text-slate-800">{h.fournisseurNom}</p>
                     <span className="text-xs text-slate-500">{h.nbAchats} achat(s)</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
-                      <p className="text-sm font-black text-green-700">{h.minPrix.toFixed(2)} DH</p>
-                      <p className="text-[10px] text-slate-500">Min</p>
+                      <p className="font-semibold" className="text-sm font-black text-green-700">{h.minPrix.toFixed(2)} DH</p>
+                      <p className="font-semibold" className="text-[10px] text-slate-500">Min</p>
                     </div>
                     <div>
-                      <p className="text-sm font-black text-blue-700">{h.moyennePrix.toFixed(2)} DH</p>
-                      <p className="text-[10px] text-slate-500">Moy</p>
+                      <p className="font-semibold" className="text-sm font-black text-blue-700">{h.moyennePrix.toFixed(2)} DH</p>
+                      <p className="font-semibold" className="text-[10px] text-slate-500">Moy</p>
                     </div>
                     <div>
-                      <p className="text-sm font-black text-slate-700">{h.dernierPrix.toFixed(2)} DH</p>
-                      <p className="text-[10px] text-slate-500">Dernier</p>
+                      <p className="font-semibold" className="text-sm font-black text-slate-700">{h.dernierPrix.toFixed(2)} DH</p>
+                      <p className="font-semibold" className="text-[10px] text-slate-500">Dernier</p>
                     </div>
                   </div>
                   {/* Mini bar */}
@@ -882,7 +882,7 @@ const text = await callAI(systemPrompt, [
       {/* Fournisseur entries */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <p className="text-xs font-bold text-slate-700">Fournisseurs a comparer ({entries.length}/5)</p>
+          <p className="font-semibold" className="text-xs font-bold text-slate-700">Fournisseurs a comparer ({entries.length}/5)</p>
           {entries.length < 5 && (
             <button onClick={addEntry} className="text-xs text-green-600 font-bold flex items-center gap-1">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -896,7 +896,7 @@ const text = await callAI(systemPrompt, [
         {entries.map((entry, i) => (
           <div key={i} className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-              <p className="text-xs font-black text-slate-600">Fournisseur {i + 1}</p>
+              <p className="font-semibold" className="text-xs font-black text-slate-600">Fournisseur {i + 1}</p>
               {entries.length > 2 && (
                 <button onClick={() => setEntries(prev => prev.filter((_, j) => j !== i))}
                   className="text-xs text-red-500 font-semibold">Supprimer</button>
@@ -1003,7 +1003,7 @@ const text = await callAI(systemPrompt, [
       <button
         onClick={analyzeComparatif}
         disabled={analyzing || !selectedArticleId || entries.filter(e => e.fournisseurId && e.prixPropose).length < 2}
-        className="w-full py-3.5 rounded-xl font-bold text-sm bg-green-600 text-white disabled:opacity-40 flex items-center justify-center gap-2 hover:bg-green-700 transition-colors">
+        className="w-full py-3.5 rounded-xl font-bold text-sm bg-green-600 text-white disabled: flex items-center justify-center gap-2 hover:bg-green-700 transition-colors">
         {analyzing ? (
           <>
             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -1024,15 +1024,15 @@ const text = await callAI(systemPrompt, [
         <div className="flex flex-col gap-3">
           {/* Winner */}
           <div className="bg-green-50 border border-green-300 rounded-2xl px-5 py-4">
-            <p className="text-xs font-bold text-green-700 uppercase tracking-wider mb-1">Meilleur choix</p>
-            <p className="text-xl font-black text-green-800">{result.meilleurFournisseurNom}</p>
-            <p className="text-sm text-green-700 mt-1 leading-relaxed">{result.recommandation}</p>
+            <p className="font-semibold" className="text-xs font-bold text-green-700 uppercase tracking-wider mb-1">Meilleur choix</p>
+            <p className="font-semibold" className="text-xl font-black text-green-800">{result.meilleurFournisseurNom}</p>
+            <p className="font-semibold" className="text-sm text-green-700 mt-1 leading-relaxed">{result.recommandation}</p>
           </div>
 
           {/* Classement */}
           <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100">
-              <p className="text-xs font-bold text-slate-700">Classement</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-700">Classement</p>
             </div>
             <div className="divide-y divide-slate-100">
               {result.classement.sort((a, b) => a.rang - b.rang).map(c => (
@@ -1041,11 +1041,11 @@ const text = await callAI(systemPrompt, [
                     c.rang === 1 ? "bg-amber-400 text-white" : c.rang === 2 ? "bg-slate-300 text-slate-700" : "bg-slate-200 text-slate-500"
                   }`}>{c.rang}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold text-slate-800 truncate">{c.nom}</p>
-                    <p className="text-xs text-slate-500 truncate">{c.raison}</p>
+                    <p className="font-semibold" className="text-sm font-bold text-slate-800 truncate">{c.nom}</p>
+                    <p className="font-semibold" className="text-xs text-slate-500 truncate">{c.raison}</p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="text-sm font-black text-slate-700">{c.score}/100</p>
+                    <p className="font-semibold" className="text-sm font-black text-slate-700">{c.score}/100</p>
                     <div className="w-16 h-1.5 bg-slate-100 rounded-full mt-1">
                       <div className="h-full bg-green-500 rounded-full" style={{ width: `${c.score}%` }} />
                     </div>
@@ -1057,23 +1057,23 @@ const text = await callAI(systemPrompt, [
 
           {/* Analyse */}
           <div className="bg-slate-50 rounded-2xl px-4 py-4">
-            <p className="text-xs font-bold text-slate-700 mb-2">Analyse ASHEL</p>
-            <p className="text-sm text-slate-700 leading-relaxed">{result.analyse}</p>
+            <p className="font-semibold" className="text-xs font-bold text-slate-700 mb-2">Analyse ASHEL</p>
+            <p className="font-semibold" className="text-sm text-slate-700 leading-relaxed">{result.analyse}</p>
           </div>
 
           {/* Prix cibles pour negociation */}
           <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
             <div className="px-4 py-3 bg-amber-50 border-b border-amber-100">
-              <p className="text-xs font-bold text-amber-800">Prix cibles pour negociation</p>
+              <p className="font-semibold" className="text-xs font-bold text-amber-800">Prix cibles pour negociation</p>
             </div>
             <div className="divide-y divide-slate-100">
               {result.prixNegociation.map(p => (
                 <div key={p.fournisseurNom} className="px-4 py-3 flex flex-col gap-1">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-bold text-slate-800">{p.fournisseurNom}</p>
+                    <p className="font-semibold" className="text-sm font-bold text-slate-800">{p.fournisseurNom}</p>
                     <span className="text-sm font-black text-green-700">{p.prixCible} DH</span>
                   </div>
-                  <p className="text-xs text-slate-500 italic">{p.argument}</p>
+                  <p className="font-semibold" className="text-xs text-slate-500 italic">{p.argument}</p>
                 </div>
               ))}
             </div>
@@ -1082,7 +1082,7 @@ const text = await callAI(systemPrompt, [
           {/* Risques */}
           {result.risques.length > 0 && (
             <div className="bg-red-50 border border-red-100 rounded-2xl px-4 py-3">
-              <p className="text-xs font-bold text-red-700 mb-2">Risques identifies</p>
+              <p className="font-semibold" className="text-xs font-bold text-red-700 mb-2">Risques identifies</p>
               {result.risques.map((r, i) => (
                 <div key={i} className="flex items-start gap-2 text-sm text-red-700 mb-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0 mt-1.5" />

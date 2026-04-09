@@ -463,7 +463,7 @@ export default function BOBonPreparation({ user }: Props) {
           style={{ background: "oklch(0.14 0.03 260)" }}>
           <div>
             <h2 className="font-bold text-white text-sm">{bon.nom}</h2>
-            <p className="text-xs" style={{ color: "oklch(0.60 0.03 245)" }}>
+            <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.60 0.03 245)" }}>
               {bon.date} · {MODE_LABELS[bon.mode].label}
               {" · "}{bon.sequenceMode === "itineraire" ? "Itinéraire GPS" : "Ordre horaire"}
             </p>
@@ -521,8 +521,8 @@ export default function BOBonPreparation({ user }: Props) {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-foreground text-sm">{ligne.articleNom}</p>
-                  <p className="text-xs text-muted-foreground mb-2">
+                  <p className="font-semibold" className="font-bold text-foreground text-sm">{ligne.articleNom}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground mb-2">
                     Total commandé : <strong>{ligne.qteCommandee.toFixed(1)} {ligne.unite}</strong>
                   </p>
 
@@ -564,13 +564,13 @@ export default function BOBonPreparation({ user }: Props) {
                       <button
                         onClick={() => validateLigne(bon.id, ligne.articleId, localQtys[ligne.articleId] ?? ligne.qteCommandee)}
                         disabled={ligne.valide}
-                        className={`flex-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${ligne.valide ? "bg-green-100 text-green-700" : "bg-primary text-white hover:opacity-90"}`}>
+                        className={`flex-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${ligne.valide ? "bg-green-100 text-green-700" : "bg-primary text-white hover:"}`}>
                         {ligne.valide ? "Validé" : "Valider"}
                       </button>
                     </div>
                   )}
                   {bon.statut === "valide" && (
-                    <p className="text-sm font-bold text-green-600">
+                    <p className="font-semibold" className="text-sm font-bold text-green-600">
                       {ligne.qtePrepared.toFixed(1)} {ligne.unite} préparés
                       {ligne.qtePrepared !== ligne.qteCommandee && (
                         <span className="text-xs text-amber-500 ml-2">Ecart: {(ligne.qtePrepared - ligne.qteCommandee).toFixed(1)}</span>
@@ -594,14 +594,14 @@ export default function BOBonPreparation({ user }: Props) {
                     {idx + 1}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-foreground">{ci.clientNom}</p>
-                    <p className="text-xs text-muted-foreground">{ci.secteur}{ci.zone ? ` — ${ci.zone}` : ""}</p>
+                    <p className="font-semibold" className="font-bold text-foreground">{ci.clientNom}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">{ci.secteur}{ci.zone ? ` — ${ci.zone}` : ""}</p>
                   </div>
                   <div className="text-right">
                     {ci.heurelivraison && (
-                      <p className="text-sm font-bold text-blue-700">{ci.heurelivraison}</p>
+                      <p className="font-semibold" className="text-sm font-bold text-blue-700">{ci.heurelivraison}</p>
                     )}
-                    <p className="text-xs text-muted-foreground">
+                    <p className="font-semibold" className="text-xs text-muted-foreground">
                       {sequenceMode === "itineraire" ? `Ordre GPS: #${ci.ordre + 1}` : "Horaire"}
                     </p>
                   </div>
@@ -646,8 +646,8 @@ export default function BOBonPreparation({ user }: Props) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div className="flex-1">
-              <p className="text-sm font-bold text-green-700">Préparation validée</p>
-              {bon.validatedAt && <p className="text-xs text-green-600">{new Date(bon.validatedAt).toLocaleString("fr-MA")}</p>}
+              <p className="font-semibold" className="text-sm font-bold text-green-700">Préparation validée</p>
+              {bon.validatedAt && <p className="font-semibold" className="text-xs text-green-600">{new Date(bon.validatedAt).toLocaleString("fr-MA")}</p>}
             </div>
             <button onClick={() => setViewing(null)}
               className="px-4 py-2 rounded-xl border border-green-300 text-sm font-semibold text-green-700 hover:bg-green-100">
@@ -671,7 +671,7 @@ export default function BOBonPreparation({ user }: Props) {
           <div className="flex items-center justify-between px-6 py-4 border-b border-border">
             <div>
               <h3 className="font-bold text-foreground">Nouveau Bon de Préparation</h3>
-              <p className="text-xs text-muted-foreground">وصل التحضير</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">وصل التحضير</p>
             </div>
             <button onClick={() => setShowNew(false)} className="p-2 rounded-lg hover:bg-muted text-muted-foreground">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -700,7 +700,7 @@ export default function BOBonPreparation({ user }: Props) {
                 className="px-3 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder={autoNom} />
               {!nomManual && (
-                <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                <p className="font-semibold" className="text-[11px] text-muted-foreground flex items-center gap-1">
                   <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -795,7 +795,7 @@ export default function BOBonPreparation({ user }: Props) {
                 </label>
                 <div className="flex flex-col gap-1.5 max-h-40 overflow-y-auto border border-border rounded-xl p-2">
                   {clientsAvailable.length === 0 ? (
-                    <p className="text-sm text-muted-foreground text-center py-4">Aucune commande validée</p>
+                    <p className="font-semibold" className="text-sm text-muted-foreground text-center py-4">Aucune commande validée</p>
                   ) : clientsAvailable.map(c => (
                     <label key={c.id} className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-muted/40 cursor-pointer">
                       <input type="checkbox" checked={selectedClients.includes(c.id)}
@@ -818,7 +818,7 @@ export default function BOBonPreparation({ user }: Props) {
             {/* Preview sequence */}
             {orderedPreview.length > 0 && (
               <div className="bg-muted/30 rounded-xl border border-border p-3">
-                <p className="text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
+                <p className="font-semibold" className="text-xs font-bold text-foreground mb-2 uppercase tracking-wide">
                   Apercu séquence ({sequenceMode === "horaire" ? "ordre horaire" : "itinéraire GPS"})
                 </p>
                 <div className="flex flex-col gap-1">
@@ -833,7 +833,7 @@ export default function BOBonPreparation({ user }: Props) {
                   ))}
                 </div>
                 {preview.length > 0 && (
-                  <p className="text-xs text-green-700 font-semibold mt-2 pt-2 border-t border-border">
+                  <p className="font-semibold" className="text-xs text-green-700 font-semibold mt-2 pt-2 border-t border-border">
                     {preview.length} article(s) — {preview.reduce((s, l) => s + l.qteCommandee, 0).toFixed(1)} kg total
                   </p>
                 )}
@@ -846,7 +846,7 @@ export default function BOBonPreparation({ user }: Props) {
                 Annuler
               </button>
               <button onClick={handleCreate} disabled={!effectiveNom.trim()}
-                className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-40"
+                className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white disabled:"
                 style={{ background: "oklch(0.38 0.2 260)" }}>
                 {format === "papier" ? "Créer et imprimer" : "Créer et démarrer"}
               </button>
@@ -866,13 +866,13 @@ export default function BOBonPreparation({ user }: Props) {
         <h2 className="text-xl font-bold text-foreground">
           Bons de Préparation <span className="text-muted-foreground font-normal text-base">/ وصولات التحضير</span>
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="font-semibold" className="text-sm text-muted-foreground">
           Total par article · Répartition par client · Séquencement horaire ou GPS
         </p>
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">{bons.length} bon(s)</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground">{bons.length} bon(s)</p>
         <button onClick={() => setShowNew(true)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
           style={{ background: "oklch(0.38 0.2 260)" }}>
@@ -885,11 +885,11 @@ export default function BOBonPreparation({ user }: Props) {
 
       {bons.length === 0 ? (
         <div className="bg-card rounded-2xl border border-border p-14 text-center text-muted-foreground">
-          <svg className="w-14 h-14 mx-auto mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-14 h-14 mx-auto mb-4 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
           </svg>
-          <p className="font-medium">Aucun bon de préparation</p>
-          <p className="text-sm mt-1">Créez un bon pour organiser le picking du chargement</p>
+          <p className="font-semibold" className="font-medium">Aucun bon de préparation</p>
+          <p className="font-semibold" className="text-sm mt-1">Créez un bon pour organiser le picking du chargement</p>
         </div>
       ) : (
         <div className="flex flex-col gap-3">
@@ -900,7 +900,7 @@ export default function BOBonPreparation({ user }: Props) {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <p className="font-bold text-foreground">{bon.nom}</p>
+                      <p className="font-semibold" className="font-bold text-foreground">{bon.nom}</p>
                       <StatusBadge s={bon.statut} />
                       <span className="px-2 py-0.5 rounded-full text-xs bg-muted text-muted-foreground border border-border">
                         {MODE_LABELS[bon.mode].label}
@@ -915,7 +915,7 @@ export default function BOBonPreparation({ user }: Props) {
                         {bon.sequenceMode === "itineraire" ? "GPS" : "Horaire"}
                       </span>
                     </div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="font-semibold" className="text-xs text-muted-foreground">
                       {bon.date} · {bon.lignes.length} articles · {bon.lignes.reduce((s, l) => s + l.qteCommandee, 0).toFixed(1)} kg · {ordClients.length} clients
                     </p>
 

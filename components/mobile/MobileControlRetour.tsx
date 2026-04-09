@@ -146,7 +146,7 @@ export default function MobileControlRetour({ user }: Props) {
               </svg>
               Retour
             </button>
-            <p className="font-bold text-sm text-foreground">Analyse IA — {selected.articleNom}</p>
+            <p className="font-semibold" className="font-bold text-sm text-foreground">Analyse IA — {selected.articleNom}</p>
           </div>
           <CameraIARetour
             articleNom={selected.articleNom}
@@ -163,7 +163,7 @@ export default function MobileControlRetour({ user }: Props) {
       {/* Header */}
       <div>
         <h2 className="text-lg font-black text-foreground">Control Retour</h2>
-        <p className="text-xs text-muted-foreground">Double validation commercial + logistique + analyse IA</p>
+        <p className="font-semibold" className="text-xs text-muted-foreground">Double validation commercial + logistique + analyse IA</p>
       </div>
 
       {/* Tabs */}
@@ -182,7 +182,7 @@ export default function MobileControlRetour({ user }: Props) {
       {tab === "declarer" && (
         <div className="flex flex-col gap-4">
           <div className="bg-card border border-border rounded-2xl p-4 flex flex-col gap-3">
-            <p className="text-sm font-bold text-foreground">Nouveau retour livreur</p>
+            <p className="font-semibold" className="text-sm font-bold text-foreground">Nouveau retour livreur</p>
             <input type="text" value={form.clientNom} onChange={e=>setForm(f=>({...f,clientNom:e.target.value}))}
               placeholder="Nom du client"
               className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
@@ -228,7 +228,7 @@ export default function MobileControlRetour({ user }: Props) {
             </div>
 
             <button onClick={addRetour} disabled={!form.articleNom || !form.qteRetour || !form.photo}
-              className="w-full py-3 rounded-xl font-bold text-white disabled:opacity-50"
+              className="w-full py-3 rounded-xl font-bold text-white disabled:"
               style={{ background: "oklch(0.65 0.17 145)" }}>
               Declarer le retour
             </button>
@@ -242,7 +242,7 @@ export default function MobileControlRetour({ user }: Props) {
           {/* Pending */}
           {pending.length > 0 && (
             <div>
-              <p className="text-xs font-bold text-amber-700 uppercase mb-2">En attente de validation commercial</p>
+              <p className="font-semibold" className="text-xs font-bold text-amber-700 uppercase mb-2">En attente de validation commercial</p>
               {pending.map(r => (
                 <RetourCard key={r.id} r={r}
                   onAnalyseIA={() => { setSelected(r); setShowCamera(true) }}
@@ -256,7 +256,7 @@ export default function MobileControlRetour({ user }: Props) {
           {/* Waiting logistique */}
           {waitingLog.length > 0 && (
             <div>
-              <p className="text-xs font-bold text-blue-700 uppercase mb-2">En attente de validation logistique</p>
+              <p className="font-semibold" className="text-xs font-bold text-blue-700 uppercase mb-2">En attente de validation logistique</p>
               {waitingLog.map(r => (
                 <RetourCard key={r.id} r={r}
                   onAnalyseIA={() => { setSelected(r); setShowCamera(true) }}
@@ -270,7 +270,7 @@ export default function MobileControlRetour({ user }: Props) {
           {/* Done */}
           {done.length > 0 && (
             <div>
-              <p className="text-xs font-bold text-muted-foreground uppercase mb-2">Traites</p>
+              <p className="font-semibold" className="text-xs font-bold text-muted-foreground uppercase mb-2">Traites</p>
               {done.map(r => (
                 <RetourCard key={r.id} r={r}
                   onAnalyseIA={undefined}
@@ -291,7 +291,7 @@ export default function MobileControlRetour({ user }: Props) {
       {showValidate && selected && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 p-4">
           <div className="w-full max-w-sm bg-card rounded-2xl border border-border p-5 flex flex-col gap-4">
-            <p className="font-bold text-foreground">Validation — {selected.articleNom}</p>
+            <p className="font-semibold" className="font-bold text-foreground">Validation — {selected.articleNom}</p>
             <div className="text-xs text-muted-foreground space-y-1">
               <p>Client : <strong>{selected.clientNom}</strong></p>
               <p>Quantite : <strong>{selected.qteRetour} {selected.unite}</strong></p>
@@ -334,9 +334,9 @@ function RetourCard({ r, onAnalyseIA, onValidate, statusBadge, statusLabel, canV
     <div className="bg-card border border-border rounded-2xl p-4 flex flex-col gap-3 mb-2">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="font-bold text-sm text-foreground">{r.articleNom}</p>
-          <p className="text-xs text-muted-foreground">{r.clientNom} — {r.qteRetour} {r.unite}</p>
-          <p className="text-xs text-muted-foreground">{new Date(r.createdAt).toLocaleDateString("fr-FR")} · {r.createdBy}</p>
+          <p className="font-semibold" className="font-bold text-sm text-foreground">{r.articleNom}</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">{r.clientNom} — {r.qteRetour} {r.unite}</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">{new Date(r.createdAt).toLocaleDateString("fr-FR")} · {r.createdBy}</p>
         </div>
         <span className={`text-[10px] px-2 py-1 rounded-full border font-bold shrink-0 ${statusBadge(r.statut)}`}>
           {statusLabel(r.statut)}
@@ -347,13 +347,13 @@ function RetourCard({ r, onAnalyseIA, onValidate, statusBadge, statusLabel, canV
       <div className="flex gap-2">
         {r.photo && (
           <div className="flex-1">
-            <p className="text-[10px] text-muted-foreground mb-1 font-semibold">Photo retour</p>
+            <p className="font-semibold" className="text-[10px] text-muted-foreground mb-1 font-semibold">Photo retour</p>
             <img src={r.photo} alt="Photo retour livreur" className="rounded-xl h-20 w-full object-cover" />
           </div>
         )}
         {r.photoIA && (
           <div className="flex-1">
-            <p className="text-[10px] text-muted-foreground mb-1 font-semibold">Photo analyse IA</p>
+            <p className="font-semibold" className="text-[10px] text-muted-foreground mb-1 font-semibold">Photo analyse IA</p>
             <img src={r.photoIA} alt="Photo analyse IA" className="rounded-xl h-20 w-full object-cover" />
           </div>
         )}
@@ -362,16 +362,16 @@ function RetourCard({ r, onAnalyseIA, onValidate, statusBadge, statusLabel, canV
       {/* IA result */}
       {r.analysisResult && (
         <div className="px-3 py-2.5 rounded-xl bg-blue-50 border border-blue-200">
-          <p className="text-xs font-bold text-blue-800 mb-1">Analyse IA</p>
-          <p className="text-xs text-blue-700">
+          <p className="font-semibold" className="text-xs font-bold text-blue-800 mb-1">Analyse IA</p>
+          <p className="font-semibold" className="text-xs text-blue-700">
             Etat : <strong>{r.analysisResult.etat}</strong> ·
             Shelf life : <strong>{r.analysisResult.shelfLifeEstime}</strong> ·
             Notre produit : <strong>{r.analysisResult.isMarchandise ? "Oui" : "Non"}</strong>
           </p>
           {r.analysisResult.prixSuggest && (
-            <p className="text-xs text-blue-700 mt-0.5">Prix suggere : <strong>{r.analysisResult.prixSuggest} MAD</strong></p>
+            <p className="font-semibold" className="text-xs text-blue-700 mt-0.5">Prix suggere : <strong>{r.analysisResult.prixSuggest} MAD</strong></p>
           )}
-          <p className="text-xs text-blue-600 mt-1 italic">{r.analysisResult.recommandation}</p>
+          <p className="font-semibold" className="text-xs text-blue-600 mt-1 italic">{r.analysisResult.recommandation}</p>
         </div>
       )}
 

@@ -346,18 +346,18 @@ export default function BOGPSTracker({ user }: Props) {
         <div className="flex items-center gap-2 flex-1 min-w-0">
           <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${myPosition ? "bg-emerald-500 animate-pulse" : "bg-gray-500"}`} />
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-white">
+            <p className="font-semibold" className="text-sm font-semibold text-white">
               {myPosition
                 ? `Position GPS: ${myPosition.coords.latitude.toFixed(5)}, ${myPosition.coords.longitude.toFixed(5)}`
                 : "GPS non actif — cliquez sur Activer pour partager votre position"}
             </p>
             {myPosition && (
-              <p className="text-xs text-gray-400">
+              <p className="font-semibold" className="text-xs text-gray-400">
                 Precision: {myPosition.coords.accuracy.toFixed(0)}m
                 {myPosition.coords.speed != null && ` — Vitesse: ${(myPosition.coords.speed * 3.6).toFixed(1)} km/h`}
               </p>
             )}
-            {gpsError && <p className="text-xs text-red-400 mt-0.5">{gpsError}</p>}
+            {gpsError && <p className="font-semibold" className="text-xs text-red-400 mt-0.5">{gpsError}</p>}
           </div>
         </div>
 
@@ -365,7 +365,7 @@ export default function BOGPSTracker({ user }: Props) {
         <select
           value={myStatus}
           onChange={e => setMyStatus(e.target.value as TrackedUser["status"])}
-          className="px-3 py-1.5 bg-gray-800 border border-gray-700 rounded-xl text-xs text-gray-200 focus:outline-none focus:border-blue-500"
+          className="px-3 py-1.5 bg-gray-800 border border-gray-700 rounded-xl text-xs text-gray-800 focus:outline-none focus:border-blue-500"
         >
           <option value="actif">Actif</option>
           <option value="en_route">En route</option>
@@ -378,7 +378,7 @@ export default function BOGPSTracker({ user }: Props) {
           <button
             onClick={startTracking}
             disabled={gpsLoading}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 rounded-xl text-sm font-medium text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled: rounded-xl text-sm font-medium text-white transition-colors"
           >
             {gpsLoading ? (
               <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -446,7 +446,7 @@ export default function BOGPSTracker({ user }: Props) {
               <svg className="w-12 h-12 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
-              <p className="text-sm">Activez votre GPS ou selectionnez un acteur pour afficher la carte</p>
+              <p className="font-semibold" className="text-sm">Activez votre GPS ou selectionnez un acteur pour afficher la carte</p>
             </div>
           )}
           {/* Google Maps link */}
@@ -492,7 +492,7 @@ export default function BOGPSTracker({ user }: Props) {
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
-                    filter === f ? "bg-blue-600 border-blue-500 text-white" : "bg-gray-800 border-gray-700 text-gray-400 hover:text-gray-200"
+                    filter === f ? "bg-blue-600 border-blue-500 text-white" : "bg-gray-800 border-gray-700 text-gray-400 hover:text-gray-800"
                   }`}
                 >
                   {f === "all" ? "Tous" : f === "livreur" ? "Livreurs" : "Commerciaux"}
@@ -519,10 +519,10 @@ export default function BOGPSTracker({ user }: Props) {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <p className="text-sm font-semibold text-white truncate">{t.name}{isMe ? " (Moi)" : ""}</p>
+                        <p className="font-semibold" className="text-sm font-semibold text-white truncate">{t.name}{isMe ? " (Moi)" : ""}</p>
                         <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium flex-shrink-0 ${st.class}`}>{st.label}</span>
                       </div>
-                      <p className="text-xs text-gray-400">{ROLE_LABELS[t.role] ?? t.role}</p>
+                      <p className="font-semibold" className="text-xs text-gray-400">{ROLE_LABELS[t.role] ?? t.role}</p>
                       <div className="flex items-center gap-3 mt-1 flex-wrap">
                         <span className="text-xs text-gray-500">
                           {t.lat.toFixed(4)}, {t.lng.toFixed(4)}
@@ -532,7 +532,7 @@ export default function BOGPSTracker({ user }: Props) {
                           <span className="text-xs text-cyan-400">{(t.speed * 3.6).toFixed(1)} km/h</span>
                         )}
                       </div>
-                      <p className="text-[10px] text-gray-600 mt-0.5">{timeSince(t.timestamp)}</p>
+                      <p className="font-semibold" className="text-[10px] text-gray-600 mt-0.5">{timeSince(t.timestamp)}</p>
                     </div>
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${t.status === "en_route" || t.status === "actif" ? "bg-emerald-500 animate-pulse" : "bg-gray-600"}`} />
                   </button>
@@ -553,7 +553,7 @@ export default function BOGPSTracker({ user }: Props) {
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">{selected.name}</h3>
-                <p className="text-sm text-gray-400">{ROLE_LABELS[selected.role] ?? selected.role}</p>
+                <p className="font-semibold" className="text-sm text-gray-400">{ROLE_LABELS[selected.role] ?? selected.role}</p>
                 <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${STATUS_CONFIG[selected.status].class}`}>
                   {STATUS_CONFIG[selected.status].label}
                 </span>
@@ -690,7 +690,7 @@ export default function BOGPSTracker({ user }: Props) {
               {/* Audio playback */}
               {camera.audioBlob && (
                 <div className="p-3 bg-gray-800 rounded-xl">
-                  <p className="text-xs text-gray-400 mb-2">Enregistrement audio:</p>
+                  <p className="font-semibold" className="text-xs text-gray-400 mb-2">Enregistrement audio:</p>
                   <audio controls src={camera.audioBlob} className="w-full h-8" />
                 </div>
               )}
@@ -724,8 +724,8 @@ function KpiCard({ label, value, icon, color }: { label: string; value: string; 
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d={icon} />
         </svg>
       </div>
-      <p className="text-xl font-bold text-white">{value}</p>
-      <p className="text-xs text-gray-400 mt-0.5">{label}</p>
+      <p className="font-semibold" className="text-xl font-bold text-white">{value}</p>
+      <p className="font-semibold" className="text-xs text-gray-400 mt-0.5">{label}</p>
     </div>
   )
 }
@@ -733,8 +733,8 @@ function KpiCard({ label, value, icon, color }: { label: string; value: string; 
 function InfoBox({ label, value }: { label: string; value: string }) {
   return (
     <div className="bg-gray-800/50 rounded-xl p-3">
-      <p className="text-xs text-gray-500 mb-0.5">{label}</p>
-      <p className="text-sm font-semibold text-white">{value}</p>
+      <p className="font-semibold" className="text-xs text-gray-500 mb-0.5">{label}</p>
+      <p className="font-semibold" className="text-sm font-semibold text-white">{value}</p>
     </div>
   )
 }

@@ -13,9 +13,9 @@ function AccessDenied() {
         </svg>
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-foreground">Acces restreint</p>
-        <p className="text-sm text-muted-foreground mt-1">Cette section est reservee aux administrateurs.</p>
-        <p className="text-xs text-muted-foreground/70 mt-0.5">هذا القسم للمسؤولين فقط</p>
+        <p className="font-semibold" className="text-lg font-bold text-foreground">Acces restreint</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground mt-1">Cette section est reservee aux administrateurs.</p>
+        <p className="font-semibold" className="text-xs text-muted-foreground/70 mt-0.5">هذا القسم للمسؤولين فقط</p>
       </div>
     </div>
   )
@@ -156,7 +156,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
     <div className="flex flex-col gap-5">
       <div>
         <h2 className="text-xl font-bold text-foreground">Paramètres <span className="text-muted-foreground font-normal text-base mr-1">/ الإعدادات</span></h2>
-        <p className="text-sm text-muted-foreground">Configuration des emails, motifs retour et workflows</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground">Configuration des emails, motifs retour et workflows</p>
       </div>
 
       {saved && (
@@ -202,14 +202,14 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
               </div>
               {/* Apercu entete BL */}
               <div className="flex-1 min-w-48">
-                <p className="text-xs text-muted-foreground mb-2">Apercu en-tête (BL / Facture)</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground mb-2">Apercu en-tête (BL / Facture)</p>
                 <div className="rounded-xl border border-border p-3 text-xs" style={{ borderTopColor: company.couleurEntete, borderTopWidth: 4 }}>
                   <div className="flex items-center gap-3">
                     {company.logo && <img src={company.logo} alt="Logo" className="h-10 object-contain" />}
                     <div>
-                      <p className="font-bold text-sm text-foreground">{company.nom || "Nom entreprise"}</p>
-                      <p className="text-muted-foreground">{company.adresse}{company.ville ? `, ${company.ville}` : ""}</p>
-                      <p className="text-muted-foreground">{company.telephone} — {company.email}</p>
+                      <p className="font-semibold" className="font-bold text-sm text-foreground">{company.nom || "Nom entreprise"}</p>
+                      <p className="font-semibold" className="text-muted-foreground">{company.adresse}{company.ville ? `, ${company.ville}` : ""}</p>
+                      <p className="font-semibold" className="text-muted-foreground">{company.telephone} — {company.email}</p>
                     </div>
                   </div>
                 </div>
@@ -317,8 +317,8 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
       {tab === "workflow" && (
         <div className="flex flex-col gap-4">
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-800">
-            <p className="font-bold mb-1">Workflow de validation des commandes</p>
-            <p className="text-xs leading-relaxed">Définissez qui doit approuver les commandes des prévendeurs avant qu&apos;elles soient prises en compte pour la livraison.</p>
+            <p className="font-semibold" className="font-bold mb-1">Workflow de validation des commandes</p>
+            <p className="font-semibold" className="text-xs leading-relaxed">Définissez qui doit approuver les commandes des prévendeurs avant qu&apos;elles soient prises en compte pour la livraison.</p>
           </div>
 
           <div className="bg-card rounded-2xl border border-border p-6 flex flex-col gap-4">
@@ -357,9 +357,9 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
                   {workflow.validationCommande === opt.v && <div className={`w-2.5 h-2.5 rounded-full ${opt.dot}`} />}
                 </div>
                 <div>
-                  <p className="font-semibold text-sm text-foreground">{opt.label}</p>
-                  <p className="text-xs text-muted-foreground">{opt.labelAr}</p>
-                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{opt.desc}</p>
+                  <p className="font-semibold" className="font-semibold text-sm text-foreground">{opt.label}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{opt.labelAr}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground mt-1 leading-relaxed">{opt.desc}</p>
                 </div>
               </label>
             ))}
@@ -370,7 +370,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
             <h4 className="font-semibold text-sm mb-3">Qui peut approuver / رفض أو قبول الطلبيات</h4>
             <div className="flex flex-col gap-2 text-xs text-muted-foreground">
               {workflow.validationCommande === "direct" && (
-                <p className="text-green-700 font-medium">Mode direct : aucune intervention requise. Les commandes sont automatiquement validées.</p>
+                <p className="font-semibold" className="text-green-700 font-medium">Mode direct : aucune intervention requise. Les commandes sont automatiquement validées.</p>
               )}
               {workflow.validationCommande === "responsable" && (
                 <ul className="space-y-1">
@@ -486,7 +486,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
           <div className="bg-card rounded-2xl border border-border p-6 flex flex-col gap-4">
             <div>
               <h3 className="font-semibold text-foreground text-sm">Notification besoin d&apos;achat — Acheteur mobile</h3>
-              <p className="text-xs text-muted-foreground mt-1">Quand une commande est validee, le besoin par SKU est recalcule et envoye automatiquement a l&apos;acheteur sur son mobile apres le delai configure.</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground mt-1">Quand une commande est validee, le besoin par SKU est recalcule et envoye automatiquement a l&apos;acheteur sur son mobile apres le delai configure.</p>
             </div>
 
             <label className="flex items-center gap-3 cursor-pointer">
@@ -496,7 +496,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
               </div>
               <div>
                 <span className="text-sm font-medium text-foreground">Push automatique vers l&apos;acheteur</span>
-                <p className="text-xs text-muted-foreground">Le besoin SKU apparait automatiquement sur le mobile de l&apos;acheteur</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Le besoin SKU apparait automatiquement sur le mobile de l&apos;acheteur</p>
               </div>
             </label>
 
@@ -552,8 +552,8 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
             <div className="flex items-start gap-3 p-3 rounded-xl bg-green-50 border border-green-200">
               <svg className="w-5 h-5 text-green-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
               <div>
-                <p className="text-sm font-semibold text-green-700">WhatsApp Business API</p>
-                <p className="text-xs text-green-600 mt-0.5">Pour les workflows WhatsApp (BL, commandes, alertes), configurez votre clé API WhatsApp Business. Entrez votre numéro de groupe ou de communauté dans la section workflows.</p>
+                <p className="font-semibold" className="text-sm font-semibold text-green-700">WhatsApp Business API</p>
+                <p className="font-semibold" className="text-xs text-green-600 mt-0.5">Pour les workflows WhatsApp (BL, commandes, alertes), configurez votre clé API WhatsApp Business. Entrez votre numéro de groupe ou de communauté dans la section workflows.</p>
               </div>
             </div>
             <div className="flex flex-col gap-1">
@@ -579,7 +579,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
 
           {/* Guide pas-à-pas */}
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5">
-            <p className="text-sm font-bold text-blue-800 mb-3">Guide de configuration EmailJS (5 minutes)</p>
+            <p className="font-semibold" className="text-sm font-bold text-blue-800 mb-3">Guide de configuration EmailJS (5 minutes)</p>
             <ol className="text-xs text-blue-800 leading-relaxed list-decimal list-inside space-y-2">
               <li>
                 Créez un compte gratuit sur{" "}
@@ -673,7 +673,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
                       : `Echec: ${result.error ?? "Vérifiez vos identifiants."}`,
                   })
                 }}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border border-border hover:bg-muted transition-colors disabled:opacity-50">
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border border-border hover:bg-muted transition-colors disabled:">
                 {testing
                   ? <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                   : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
@@ -685,8 +685,8 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
 
           {/* Template requis */}
           <div className="bg-card rounded-2xl border border-border p-5">
-            <p className="text-sm font-semibold text-foreground mb-3">Template EmailJS requis</p>
-            <p className="text-xs text-muted-foreground mb-3">
+            <p className="font-semibold" className="text-sm font-semibold text-foreground mb-3">Template EmailJS requis</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground mb-3">
               Votre template doit contenir exactement ces 3 variables (copiez-collez dans votre template EmailJS) :
             </p>
             <pre className="text-xs font-mono bg-muted rounded-xl p-4 text-foreground leading-relaxed overflow-x-auto whitespace-pre-wrap">{`Subject: {{subject}}
@@ -694,7 +694,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
 To: {{to_email}}
 
 {{message}}`}</pre>
-            <p className="text-xs text-muted-foreground mt-3">
+            <p className="font-semibold" className="text-xs text-muted-foreground mt-3">
               Dans &quot;To Email&quot; du template, mettez <code className="bg-muted px-1 rounded font-mono">{"{{to_email}}"}</code> pour que chaque email soit envoyé au bon destinataire.
             </p>
           </div>
@@ -705,7 +705,7 @@ To: {{to_email}}
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
             <div className="text-xs text-muted-foreground leading-relaxed">
-              <p className="font-semibold text-foreground mb-1">Sécurité & limites</p>
+              <p className="font-semibold" className="font-semibold text-foreground mb-1">Sécurité & limites</p>
               Identifiants stockés uniquement dans le navigateur (localStorage). Plan gratuit EmailJS : 200 emails/mois. Pour restreindre l&apos;origine dans EmailJS : <strong>Account → API Keys → Allowed Origins</strong>.
             </div>
           </div>
@@ -717,7 +717,7 @@ To: {{to_email}}
         <div className="flex flex-col gap-4">
           <div className="bg-card border border-border rounded-2xl p-5">
             <h3 className="font-bold text-foreground mb-1">Poids des contenants / Tares</h3>
-            <p className="text-xs text-muted-foreground mb-4">
+            <p className="font-semibold" className="text-xs text-muted-foreground mb-4">
               Ces poids sont utilises pour calculer le poids net a la reception.
               Caisse, Demi-caisse, Dolly (bois), Chariot — modifiables a tout moment.
             </p>
@@ -800,7 +800,7 @@ To: {{to_email}}
               setContenantSaved("Poids des contenants sauvegardés.")
               setTimeout(() => setContenantSaved(""), 2500)
             }}
-            className="self-start px-6 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity">
+            className="self-start px-6 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover: transition-opacity">
             Sauvegarder les poids
           </button>
         </div>
@@ -830,10 +830,10 @@ To: {{to_email}}
               </div>
               <div>
                 <h3 className="font-semibold text-foreground text-sm">Exporter la sauvegarde / تصدير النسخ الاحتياطي</h3>
-                <p className="text-xs text-muted-foreground">Téléchargez toutes les données en un fichier JSON</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Téléchargez toutes les données en un fichier JSON</p>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="font-semibold" className="text-xs text-muted-foreground leading-relaxed">
               Cette action exporte l&apos;intégralité des données stockées dans le navigateur (commandes, bons, stocks, utilisateurs, paramètres) dans un fichier <code className="bg-muted px-1 rounded font-mono">freshlink-backup-[date].json</code>. Conservez ce fichier en lieu sûr.
             </p>
             <button onClick={handleExport}
@@ -856,14 +856,14 @@ To: {{to_email}}
               </div>
               <div>
                 <h3 className="font-semibold text-foreground text-sm">Importer une sauvegarde / استيراد النسخ الاحتياطي</h3>
-                <p className="text-xs text-muted-foreground">Restaurez les données depuis un fichier JSON exporté</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Restaurez les données depuis un fichier JSON exporté</p>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 rounded-xl bg-amber-50 border border-amber-200">
               <svg className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
-              <p className="text-xs text-amber-800">L&apos;import <strong>écrase</strong> les données actuelles. Faites d&apos;abord une sauvegarde si nécessaire.</p>
+              <p className="font-semibold" className="text-xs text-amber-800">L&apos;import <strong>écrase</strong> les données actuelles. Faites d&apos;abord une sauvegarde si nécessaire.</p>
             </div>
             <input ref={importRef} type="file" accept=".json,application/json" onChange={handleImport} className="hidden" id="import-json-file" />
             <label htmlFor="import-json-file"
@@ -885,7 +885,7 @@ To: {{to_email}}
               </div>
               <div>
                 <h3 className="font-semibold text-red-700 text-sm">Réinitialiser toutes les données / مسح جميع البيانات</h3>
-                <p className="text-xs text-muted-foreground">Efface définitivement toutes les données du navigateur</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Efface définitivement toutes les données du navigateur</p>
               </div>
             </div>
             {!showClearConfirm ? (
@@ -898,7 +898,7 @@ To: {{to_email}}
               </button>
             ) : (
               <div className="flex flex-col gap-2">
-                <p className="text-sm font-semibold text-red-700">Confirmez-vous la suppression de toutes les données ?</p>
+                <p className="font-semibold" className="text-sm font-semibold text-red-700">Confirmez-vous la suppression de toutes les données ?</p>
                 <div className="flex gap-2">
                   <button onClick={handleClearAll}
                     className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors">
@@ -923,7 +923,7 @@ To: {{to_email}}
               </div>
               <div>
                 <h3 className="font-semibold text-foreground text-sm">Guide de passage en production / دليل النشر</h3>
-                <p className="text-xs text-muted-foreground">Recommandations pour déployer FreshLink en production</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Recommandations pour déployer FreshLink en production</p>
               </div>
             </div>
             <ol className="flex flex-col gap-3">
@@ -963,8 +963,8 @@ To: {{to_email}}
                   <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white mt-0.5"
                     style={{ background: "oklch(0.38 0.2 260)" }}>{step.n}</span>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{step.title}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{step.body}</p>
+                    <p className="font-semibold" className="text-sm font-semibold text-foreground">{step.title}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground leading-relaxed mt-0.5">{step.body}</p>
                   </div>
                 </li>
               ))}
@@ -977,7 +977,7 @@ To: {{to_email}}
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <div className="text-xs text-muted-foreground leading-relaxed">
-              <p className="font-semibold text-foreground mb-1">Architecture de stockage actuelle</p>
+              <p className="font-semibold" className="font-semibold text-foreground mb-1">Architecture de stockage actuelle</p>
               FreshLink utilise le <strong>localStorage</strong> du navigateur (~5–10 Mo). Les données sont propres à chaque appareil/navigateur. Pour une architecture multi-poste partagée, une migration vers une base de données cloud (Supabase, Firebase) est recommandée à long terme.
             </div>
           </div>
@@ -994,7 +994,7 @@ To: {{to_email}}
             </div>
             <div>
               <h3 className="font-bold text-foreground text-sm">Deployer sur Vercel</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">
                 Suivez ces etapes pour mettre votre application FreshLink en production sur Vercel gratuitement.
               </p>
             </div>
@@ -1054,7 +1054,7 @@ To: {{to_email}}
                 </div>
                 <h4 className="font-bold text-sm text-foreground">{step.title}</h4>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">{step.body}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground leading-relaxed">{step.body}</p>
               {"code" in step && step.code && (
                 <pre className="px-4 py-3 rounded-xl text-xs font-mono overflow-x-auto"
                   style={{ background: "oklch(0.12 0.02 260)", color: "oklch(0.88 0.015 245)", border: "1px solid oklch(0.22 0.04 260)" }}>
@@ -1077,7 +1077,7 @@ To: {{to_email}}
                   <svg className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <p className="text-xs text-blue-700">{step.tip}</p>
+                  <p className="font-semibold" className="text-xs text-blue-700">{step.tip}</p>
                 </div>
               )}
               {step.link && (
@@ -1095,14 +1095,14 @@ To: {{to_email}}
           {/* Quick deploy button */}
           <div className="bg-card rounded-2xl border border-border p-5 flex flex-col gap-3">
             <h4 className="font-bold text-sm text-foreground">Deploiement rapide (1-clic)</h4>
-            <p className="text-xs text-muted-foreground">
+            <p className="font-semibold" className="text-xs text-muted-foreground">
               Si votre code est deja sur GitHub, cliquez ce bouton pour importer directement dans Vercel.
             </p>
             <a
               href="https://vercel.com/new"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-sm font-bold text-white transition-opacity hover:opacity-90"
+              className="flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-sm font-bold text-white transition-opacity hover:"
               style={{ background: "#000" }}>
               <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white"><path d="M12 2L2 19.5h20L12 2z"/></svg>
               Deployer sur Vercel

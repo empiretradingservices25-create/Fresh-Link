@@ -454,7 +454,7 @@ export default function MobileAchat({ user }: Props) {
     <div className="p-4 flex flex-col gap-4 font-sans">
       <div>
         <h2 className="text-lg font-bold text-foreground">Achat / الشراء</h2>
-        <p className="text-sm text-muted-foreground">{store.today()} — {user.name}</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground">{store.today()} — {user.name}</p>
       </div>
 
       {/* Tab switcher */}
@@ -520,7 +520,7 @@ export default function MobileAchat({ user }: Props) {
         <div className="flex flex-col gap-3">
           {/* Mode toggle */}
           <div className="rounded-2xl p-4 flex flex-col gap-3" style={{ background: "oklch(0.12 0.010 145)", border: "1px solid oklch(0.20 0.012 145)" }}>
-            <p className="text-sm font-bold" style={{ color: "oklch(0.88 0.006 100)" }}>Mode de notification PO</p>
+            <p className="font-semibold" className="text-sm font-bold" style={{ color: "oklch(0.88 0.006 100)" }}>Mode de notification PO</p>
             <div className="flex gap-2">
               <button
                 onClick={() => setPoPushMode("auto")}
@@ -535,7 +535,7 @@ export default function MobileAchat({ user }: Props) {
                 Sur click
               </button>
             </div>
-            <p className="text-[11px]" style={{ color: "oklch(0.52 0.010 145)" }}>
+            <p className="font-semibold" className="text-[11px]" style={{ color: "oklch(0.52 0.010 145)" }}>
               {poPushMode === "auto"
                 ? "Les PO automatiques ouvrent cet onglet directement a la connexion."
                 : "Les PO automatiques affichent uniquement un badge de notification."}
@@ -547,8 +547,8 @@ export default function MobileAchat({ user }: Props) {
               <svg className="w-10 h-10" style={{ color: "oklch(0.52 0.010 145)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-sm font-semibold" style={{ color: "oklch(0.65 0.008 145)" }}>Aucun PO en attente</p>
-              <p className="text-xs" style={{ color: "oklch(0.50 0.008 145)" }}>Tous les bons d&apos;achat automatiques ont ete traites.</p>
+              <p className="font-semibold" className="text-sm font-semibold" style={{ color: "oklch(0.65 0.008 145)" }}>Aucun PO en attente</p>
+              <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.50 0.008 145)" }}>Tous les bons d&apos;achat automatiques ont ete traites.</p>
             </div>
           ) : (
             <div className="flex flex-col gap-2">
@@ -564,22 +564,22 @@ export default function MobileAchat({ user }: Props) {
                         </span>
                         <span className="text-[10px] font-mono" style={{ color: "oklch(0.52 0.010 145)" }}>{po.id}</span>
                       </div>
-                      <p className="font-bold text-sm" style={{ color: "oklch(0.88 0.006 100)" }}>{po.articleNom}</p>
-                      <p className="text-xs mt-0.5" style={{ color: "oklch(0.62 0.010 145)" }}>
+                      <p className="font-semibold" className="font-bold text-sm" style={{ color: "oklch(0.88 0.006 100)" }}>{po.articleNom}</p>
+                      <p className="font-semibold" className="text-xs mt-0.5" style={{ color: "oklch(0.62 0.010 145)" }}>
                         Fournisseur: <span className="font-semibold">{po.fournisseurNom}</span>
                       </p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xl font-black" style={{ color: "oklch(0.80 0.18 72)" }}>
+                      <p className="font-semibold" className="text-xl font-black" style={{ color: "oklch(0.80 0.18 72)" }}>
                         {po.quantite.toLocaleString("fr-MA")} {po.articleUnite}
                       </p>
-                      <p className="text-xs" style={{ color: "oklch(0.65 0.12 148)" }}>
+                      <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.65 0.12 148)" }}>
                         {(po.total).toLocaleString("fr-MA")} DH
                       </p>
                     </div>
                   </div>
                   {po.notes && (
-                    <p className="text-[11px] px-3 py-2 rounded-lg" style={{ background: "oklch(0.16 0.012 145)", color: "oklch(0.62 0.010 145)" }}>
+                    <p className="font-semibold" className="text-[11px] px-3 py-2 rounded-lg" style={{ background: "oklch(0.16 0.012 145)", color: "oklch(0.62 0.010 145)" }}>
                       {po.notes}
                     </p>
                   )}
@@ -611,12 +611,12 @@ export default function MobileAchat({ user }: Props) {
           {/* KPI bar */}
           <div className="flex gap-2">
             <div className="flex-1 bg-red-50 border border-red-200 rounded-xl px-3 py-2.5 text-center">
-              <p className="text-[11px] text-red-700 font-medium">Articles a acheter</p>
-              <p className="text-xl font-black text-red-800">{urgents.length}</p>
+              <p className="font-semibold" className="text-[11px] text-red-700 font-medium">Articles a acheter</p>
+              <p className="font-semibold" className="text-xl font-black text-red-800">{urgents.length}</p>
             </div>
             <div className="flex-1 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-center">
-              <p className="text-[11px] text-amber-700 font-medium">Cout estime total</p>
-              <p className="text-lg font-black text-amber-800">{totalBesoinEstime.toLocaleString("fr-MA")} DH</p>
+              <p className="font-semibold" className="text-[11px] text-amber-700 font-medium">Cout estime total</p>
+              <p className="font-semibold" className="text-lg font-black text-amber-800">{totalBesoinEstime.toLocaleString("fr-MA")} DH</p>
             </div>
           </div>
 
@@ -625,8 +625,8 @@ export default function MobileAchat({ user }: Props) {
               <svg className="w-10 h-10 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-sm font-semibold text-muted-foreground">Aucun besoin detecte</p>
-              <p className="text-xs text-muted-foreground">Le besoin est calcule a partir des commandes validees vs le stock disponible.</p>
+              <p className="font-semibold" className="text-sm font-semibold text-muted-foreground">Aucun besoin detecte</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">Le besoin est calcule a partir des commandes validees vs le stock disponible.</p>
             </div>
           ) : (
             <div className="flex flex-col gap-2">
@@ -635,8 +635,8 @@ export default function MobileAchat({ user }: Props) {
                   className={`rounded-2xl border p-4 flex flex-col gap-2 ${b.besoinNet > 0 ? "border-red-200 bg-red-50" : "border-green-200 bg-green-50"}`}>
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1">
-                      <p className="font-bold text-sm text-foreground">{b.articleNom}</p>
-                      <p className="text-xs text-muted-foreground">SKU ID: <span className="font-mono">{b.articleId}</span></p>
+                      <p className="font-semibold" className="font-bold text-sm text-foreground">{b.articleNom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">SKU ID: <span className="font-mono">{b.articleId}</span></p>
                     </div>
                     {b.besoinNet > 0 ? (
                       <span className="shrink-0 px-2.5 py-1 rounded-full text-xs font-bold bg-red-500 text-white">
@@ -651,16 +651,16 @@ export default function MobileAchat({ user }: Props) {
 
                   <div className="grid grid-cols-3 gap-2 text-xs">
                     <div className="bg-white/70 rounded-lg px-2 py-1.5 text-center">
-                      <p className="text-muted-foreground">Stock dispo</p>
-                      <p className="font-bold text-foreground">{b.stockDispo} {b.unite}</p>
+                      <p className="font-semibold" className="text-muted-foreground">Stock dispo</p>
+                      <p className="font-semibold" className="font-bold text-foreground">{b.stockDispo} {b.unite}</p>
                     </div>
                     <div className="bg-white/70 rounded-lg px-2 py-1.5 text-center">
-                      <p className="text-muted-foreground">Qte commandee</p>
-                      <p className="font-bold text-blue-700">{b.qteCommandee} {b.unite}</p>
+                      <p className="font-semibold" className="text-muted-foreground">Qte commandee</p>
+                      <p className="font-semibold" className="font-bold text-blue-700">{b.qteCommandee} {b.unite}</p>
                     </div>
                     <div className={`rounded-lg px-2 py-1.5 text-center ${b.besoinNet > 0 ? "bg-red-200/70" : "bg-green-200/70"}`}>
-                      <p className="text-muted-foreground">Besoin net</p>
-                      <p className={`font-black ${b.besoinNet > 0 ? "text-red-800" : "text-green-800"}`}>
+                      <p className="font-semibold" className="text-muted-foreground">Besoin net</p>
+                      <p className="font-semibold" className={`font-black ${b.besoinNet > 0 ? "text-red-800" : "text-green-800"}`}>
                         {b.besoinNet > 0 ? `+${b.besoinNet}` : "0"} {b.unite}
                       </p>
                     </div>
@@ -701,7 +701,7 @@ export default function MobileAchat({ user }: Props) {
                           return newLignes
                         })
                       }}
-                      className="w-full py-2 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1.5 transition-opacity hover:opacity-90"
+                      className="w-full py-2 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-1.5 transition-opacity hover:"
                       style={{ background: "oklch(0.45 0.18 200)" }}>
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -755,12 +755,12 @@ export default function MobileAchat({ user }: Props) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5" />
                 </svg>
                 {d.nom}
-                {d.ville && <span className="text-[10px] opacity-70">({d.ville})</span>}
+                {d.ville && <span className="text-[10px] ">({d.ville})</span>}
               </button>
             ))}
           </div>
           {selectedDepotId && (
-            <p className="text-xs text-muted-foreground">
+            <p className="font-semibold" className="text-xs text-muted-foreground">
               Ce bon sera visible par le magasinier du depot <span className="font-semibold text-foreground">{depots.find(d => d.id === selectedDepotId)?.nom ?? selectedDepotId}</span>
             </p>
           )}
@@ -778,7 +778,7 @@ export default function MobileAchat({ user }: Props) {
           ))}
         </select>
         {fournisseur?.telephone && (
-          <p className="text-xs text-muted-foreground">Tel: {fournisseur.telephone}</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">Tel: {fournisseur.telephone}</p>
         )}
       </div>
 
@@ -786,8 +786,8 @@ export default function MobileAchat({ user }: Props) {
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
-            <p className="text-sm font-bold text-foreground">Choisir les articles</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="font-semibold" className="text-sm font-bold text-foreground">Choisir les articles</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">
               {lignes.filter(l => l.articleId).length} selectionne(s) — {filteredArticles.length} article(s)
             </p>
           </div>
@@ -828,7 +828,7 @@ export default function MobileAchat({ user }: Props) {
         <div className="max-h-64 overflow-y-auto divide-y divide-border">
           {filteredArticles.length === 0 ? (
             <div className="py-8 flex flex-col items-center gap-2 text-center">
-              <p className="text-sm text-muted-foreground">Aucun article trouve</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground">Aucun article trouve</p>
               <button onClick={() => setArtSearch("")} className="text-xs text-primary underline">Effacer</button>
             </div>
           ) : filteredArticles.map(a => {
@@ -860,7 +860,7 @@ export default function MobileAchat({ user }: Props) {
                   className="w-10 h-10 rounded-xl object-cover border border-border shrink-0"
                   onError={e => { e.currentTarget.src = "https://placehold.co/40x40/e2e8f0/64748b?text=Art" }} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-foreground truncate">{a.nom}</p>
+                  <p className="font-semibold" className="text-sm font-bold text-foreground truncate">{a.nom}</p>
                   <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
                     <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${a.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
                       {a.stockDisponible > 0 ? `${a.stockDisponible} ${a.unite}` : "Rupture stock"}
@@ -948,8 +948,8 @@ export default function MobileAchat({ user }: Props) {
                     {history.map((h, hi) => (
                       <div key={hi} className="flex items-center justify-between px-3 py-2 text-xs">
                         <div>
-                          <p className="font-semibold text-foreground">{h.fournisseurNom}</p>
-                          <p className="text-muted-foreground">{h.date} {h.quantite ? `• ${h.quantite} ${art.unite}` : ""}</p>
+                          <p className="font-semibold" className="font-semibold text-foreground">{h.fournisseurNom}</p>
+                          <p className="font-semibold" className="text-muted-foreground">{h.date} {h.quantite ? `• ${h.quantite} ${art.unite}` : ""}</p>
                         </div>
                         <span className="font-bold text-primary">{h.prixAchat} DH/{art.unite}</span>
                       </div>
@@ -996,7 +996,7 @@ export default function MobileAchat({ user }: Props) {
                     className="px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="0" />
                   {hasUM && ligne.uniteMode === art?.um && ligne.quantite && art?.colisageParUM && (
-                    <p className="text-[11px] text-muted-foreground">= {(Number(ligne.quantite) * art.colisageParUM).toFixed(1)} {art.unite}</p>
+                    <p className="font-semibold" className="text-[11px] text-muted-foreground">= {(Number(ligne.quantite) * art.colisageParUM).toFixed(1)} {art.unite}</p>
                   )}
                 </div>
 
@@ -1018,7 +1018,7 @@ export default function MobileAchat({ user }: Props) {
                       className="px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="0.00" />
                     {!isNaN(pa) && pa > 0 && (
-                      <p className="text-[11px] text-blue-700 font-semibold">
+                      <p className="font-semibold" className="text-[11px] text-blue-700 font-semibold">
                         = {pa.toFixed(2)} DH/{art?.unite ?? "u"}
                       </p>
                     )}
@@ -1063,7 +1063,7 @@ export default function MobileAchat({ user }: Props) {
       {/* Submit */}
       <button onClick={handleSubmit}
         disabled={sending || !fournisseurId || lignes.some(l => !l.articleId || !l.quantite || (l.calcMode === "unit" && !l.prixAchat) || (l.calcMode === "total" && !l.totalPaye))}
-        className="w-full py-3.5 bg-primary text-primary-foreground rounded-xl font-bold disabled:opacity-50 transition-opacity hover:opacity-90 flex items-center justify-center gap-2">
+        className="w-full py-3.5 bg-primary text-primary-foreground rounded-xl font-bold disabled: transition-opacity hover: flex items-center justify-center gap-2">
         {sending ? (
           <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Validation...</>
         ) : (
@@ -1108,9 +1108,9 @@ export default function MobileAchat({ user }: Props) {
               {/* Modal header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-green-50">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-widest text-green-700">Confirmer le bon d&apos;achat</p>
-                  <p className="text-base font-bold text-slate-800 mt-0.5">{po.articleNom}</p>
-                  <p className="text-xs text-slate-500 font-mono">{po.id}</p>
+                  <p className="font-semibold" className="text-xs font-black uppercase tracking-widest text-green-700">Confirmer le bon d&apos;achat</p>
+                  <p className="font-semibold" className="text-base font-bold text-slate-800 mt-0.5">{po.articleNom}</p>
+                  <p className="font-semibold" className="text-xs text-slate-500 font-mono">{po.id}</p>
                 </div>
                 <button onClick={() => setPoModalId(null)} className="p-2 rounded-lg hover:bg-green-100 text-slate-500">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1222,7 +1222,7 @@ export default function MobileAchat({ user }: Props) {
                     onChange={url => setPoDetail(p => ({ ...p, photoAchat: url }))}
                   />
                   {!poDetail.photoAchat && (
-                    <p className="text-[11px] text-red-600 font-medium flex items-center gap-1">
+                    <p className="font-semibold" className="text-[11px] text-red-600 font-medium flex items-center gap-1">
                       <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -1235,7 +1235,7 @@ export default function MobileAchat({ user }: Props) {
                 <button
                   onClick={confirmPO}
                   disabled={poSaving || !poDetail.quantite || !poDetail.prixUnitaire || !poDetail.fournisseurId || !poDetail.photoAchat}
-                  className="w-full py-3.5 rounded-xl bg-green-600 text-white font-bold text-sm disabled:opacity-40 flex items-center justify-center gap-2 transition-opacity hover:bg-green-700">
+                  className="w-full py-3.5 rounded-xl bg-green-600 text-white font-bold text-sm disabled: flex items-center justify-center gap-2 transition-opacity hover:bg-green-700">
                   {poSaving ? (
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   ) : (
@@ -1335,16 +1335,16 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
       {/* KPIs */}
       <div className="grid grid-cols-3 gap-2">
         <div className="bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-slate-800">{entries.length}</p>
-          <p className="text-[10px] text-slate-500">Achats charges</p>
+          <p className="font-semibold" className="text-xl font-black text-slate-800">{entries.length}</p>
+          <p className="font-semibold" className="text-[10px] text-slate-500">Achats charges</p>
         </div>
         <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-center">
-          <p className="text-sm font-black text-amber-700">{entries.reduce((s, e) => s + e.totalCharges, 0).toLocaleString("fr-MA")} DH</p>
-          <p className="text-[10px] text-amber-600">Total charges</p>
+          <p className="font-semibold" className="text-sm font-black text-amber-700">{entries.reduce((s, e) => s + e.totalCharges, 0).toLocaleString("fr-MA")} DH</p>
+          <p className="font-semibold" className="text-[10px] text-amber-600">Total charges</p>
         </div>
         <div className="bg-blue-50 border border-blue-200 rounded-xl px-3 py-2.5 text-center">
-          <p className="text-sm font-black text-blue-700">{totalInvesti.toLocaleString("fr-MA")} DH</p>
-          <p className="text-[10px] text-blue-600">Investi total</p>
+          <p className="font-semibold" className="text-sm font-black text-blue-700">{totalInvesti.toLocaleString("fr-MA")} DH</p>
+          <p className="font-semibold" className="text-[10px] text-blue-600">Investi total</p>
         </div>
       </div>
 
@@ -1359,7 +1359,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
       {/* Form */}
       {showForm && (
         <div className="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col gap-3">
-          <p className="text-sm font-bold text-slate-800">Saisir les charges liees a un achat</p>
+          <p className="font-semibold" className="text-sm font-bold text-slate-800">Saisir les charges liees a un achat</p>
 
           <select value={form.articleId} onChange={e => setForm(p => ({ ...p, articleId: e.target.value }))}
             className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -1384,7 +1384,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
             </div>
           </div>
 
-          <p className="text-xs font-bold text-slate-700 mt-1">Charges liees (saisir uniquement celles applicables)</p>
+          <p className="font-semibold" className="text-xs font-bold text-slate-700 mt-1">Charges liees (saisir uniquement celles applicables)</p>
           <div className="flex flex-col gap-2">
             {TYPES_CHARGES.map((t, i) => (
               <div key={t.id} className="flex items-center gap-2 bg-slate-50 rounded-xl px-3 py-2 border border-slate-100">
@@ -1411,7 +1411,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
           {/* Cout de revient preview */}
           {coutRevient > 0 && (
             <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3">
-              <p className="text-xs text-green-700 font-semibold mb-1">Cout de revient unitaire estime</p>
+              <p className="font-semibold" className="text-xs text-green-700 font-semibold mb-1">Cout de revient unitaire estime</p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-500">Achat: {(qteNum * paNum).toLocaleString("fr-MA")} DH + Charges: {totalChargesForForm.toLocaleString("fr-MA")} DH</span>
                 <span className="text-base font-black text-green-700">{coutRevient.toFixed(2)} DH / unite</span>
@@ -1426,7 +1426,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
             </button>
             <button onClick={save}
               disabled={!form.articleId || !form.qteAchetee || !form.prixAchat}
-              className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-green-600 text-white disabled:opacity-40">
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-green-600 text-white disabled:">
               Enregistrer
             </button>
           </div>
@@ -1436,11 +1436,11 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
       {/* Entries list */}
       {entries.length === 0 && !showForm && (
         <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center">
-          <svg className="w-10 h-10 text-slate-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-10 h-10 text-slate-700 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M12 7h.01M9 7H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2h-2" />
           </svg>
-          <p className="text-sm text-slate-500">Aucune charge saisie</p>
-          <p className="text-xs text-slate-400 mt-1">Saisissez les charges balance, manutentionnaire, chariot, triporteur, etc.</p>
+          <p className="font-semibold" className="text-sm text-slate-500">Aucune charge saisie</p>
+          <p className="font-semibold" className="text-xs text-slate-400 mt-1">Saisissez les charges balance, manutentionnaire, chariot, triporteur, etc.</p>
         </div>
       )}
 
@@ -1449,8 +1449,8 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
           <div key={entry.id} className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
             <div className="flex items-start justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
               <div>
-                <p className="font-bold text-slate-800 text-sm">{entry.articleNom}</p>
-                <p className="text-xs text-slate-500">{entry.date} — {entry.qteAchetee} {entry.unite} a {entry.prixAchat} DH</p>
+                <p className="font-semibold" className="font-bold text-slate-800 text-sm">{entry.articleNom}</p>
+                <p className="font-semibold" className="text-xs text-slate-500">{entry.date} — {entry.qteAchetee} {entry.unite} a {entry.prixAchat} DH</p>
               </div>
               <button onClick={() => remove(entry.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1468,7 +1468,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
                   </div>
                 )
               })}
-              {entry.charges.length === 0 && <p className="text-xs text-slate-400">Aucune charge detail</p>}
+              {entry.charges.length === 0 && <p className="font-semibold" className="text-xs text-slate-400">Aucune charge detail</p>}
               <div className="border-t border-slate-100 pt-2 mt-1 flex items-center justify-between">
                 <span className="text-xs text-slate-500">Total charges</span>
                 <span className="text-sm font-black text-amber-600">{entry.totalCharges.toLocaleString("fr-MA")} DH</span>
@@ -1550,18 +1550,18 @@ function AvisModule({ user }: { user: User }) {
       {/* KPIs */}
       <div className="grid grid-cols-3 gap-2">
         <div className="bg-card border border-border rounded-xl px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-foreground">{avis.length}</p>
-          <p className="text-[10px] text-muted-foreground">Total avis</p>
+          <p className="font-semibold" className="text-xl font-black text-foreground">{avis.length}</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground">Total avis</p>
         </div>
         <div className="bg-card border border-border rounded-xl px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-amber-500">{avgNote}</p>
-          <p className="text-[10px] text-muted-foreground">Note moy./5</p>
+          <p className="font-semibold" className="text-xl font-black text-amber-500">{avgNote}</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground">Note moy./5</p>
         </div>
         <div className="bg-card border border-border rounded-xl px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-primary">
+          <p className="font-semibold" className="text-xl font-black text-primary">
             {avis.filter(a => a.source === "client").length}
           </p>
-          <p className="text-[10px] text-muted-foreground">Clients</p>
+          <p className="font-semibold" className="text-[10px] text-muted-foreground">Clients</p>
         </div>
       </div>
 
@@ -1616,7 +1616,7 @@ function AvisModule({ user }: { user: User }) {
           </div>
           <div className="flex gap-2">
             <button onClick={submit}
-              className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white bg-primary hover:opacity-90 transition-opacity">
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white bg-primary hover: transition-opacity">
               Enregistrer
             </button>
             <button onClick={() => setShowForm(false)}
@@ -1633,7 +1633,7 @@ function AvisModule({ user }: { user: User }) {
           <svg className="w-10 h-10 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
-          <p className="text-sm font-semibold text-muted-foreground">Aucun avis enregistré</p>
+          <p className="font-semibold" className="text-sm font-semibold text-muted-foreground">Aucun avis enregistré</p>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
@@ -1645,9 +1645,9 @@ function AvisModule({ user }: { user: User }) {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full text-white ${cfg.color}`}>{cfg.label}</span>
-                      <p className="font-bold text-foreground text-sm">{a.nom}</p>
+                      <p className="font-semibold" className="font-bold text-foreground text-sm">{a.nom}</p>
                     </div>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">
+                    <p className="font-semibold" className="text-[10px] text-muted-foreground mt-0.5">
                       {new Date(a.date).toLocaleDateString("fr-MA")} — par {a.auteurNom}
                     </p>
                   </div>
@@ -1659,7 +1659,7 @@ function AvisModule({ user }: { user: User }) {
                     ))}
                   </div>
                 </div>
-                <p className="text-sm text-foreground leading-relaxed">{a.message}</p>
+                <p className="font-semibold" className="text-sm text-foreground leading-relaxed">{a.message}</p>
               </div>
             )
           })}

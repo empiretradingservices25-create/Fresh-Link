@@ -277,14 +277,14 @@ export default function BoPurchaseOrders() {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
           <div className="bg-white rounded-xl border border-blue-200 p-3 flex flex-col gap-1.5">
-            <p className="font-bold text-blue-700">Bon d&apos;Achat (cree par l&apos;acheteur mobile)</p>
-            <p className="text-muted-foreground">Cree manuellement par l&apos;<strong>acheteur</strong> depuis son mobile. Il correspond a une commande ponctuelle passee directement aupres d&apos;un fournisseur pour un ou plusieurs articles a la fois. Il est envoye par email et genere une reception.</p>
-            <p className="text-muted-foreground">Accessible via: <strong>Achats &rarr; Bons d&apos;achat</strong></p>
+            <p className="font-semibold" className="font-bold text-blue-700">Bon d&apos;Achat (cree par l&apos;acheteur mobile)</p>
+            <p className="font-semibold" className="text-muted-foreground">Cree manuellement par l&apos;<strong>acheteur</strong> depuis son mobile. Il correspond a une commande ponctuelle passee directement aupres d&apos;un fournisseur pour un ou plusieurs articles a la fois. Il est envoye par email et genere une reception.</p>
+            <p className="font-semibold" className="text-muted-foreground">Accessible via: <strong>Achats &rarr; Bons d&apos;achat</strong></p>
           </div>
           <div className="bg-white rounded-xl border border-blue-200 p-3 flex flex-col gap-1.5">
-            <p className="font-bold text-blue-700">PO Consolide Fournisseur (cree par le back-office)</p>
-            <p className="text-muted-foreground">Genere <strong>automatiquement</strong> par le systeme a partir des besoins calcules (commandes clients validees - stock disponible), ou cree manuellement ici. Il regroupe les besoins de plusieurs articles par fournisseur en <strong>une seule commande</strong> officielle avec prix negocie, TVA, et signature electronique.</p>
-            <p className="text-muted-foreground">Accessible via: <strong>Achats → PO Consolide Fournisseur</strong></p>
+            <p className="font-semibold" className="font-bold text-blue-700">PO Consolide Fournisseur (cree par le back-office)</p>
+            <p className="font-semibold" className="text-muted-foreground">Genere <strong>automatiquement</strong> par le systeme a partir des besoins calcules (commandes clients validees - stock disponible), ou cree manuellement ici. Il regroupe les besoins de plusieurs articles par fournisseur en <strong>une seule commande</strong> officielle avec prix negocie, TVA, et signature electronique.</p>
+            <p className="font-semibold" className="text-muted-foreground">Accessible via: <strong>Achats → PO Consolide Fournisseur</strong></p>
           </div>
         </div>
       </div>
@@ -298,9 +298,9 @@ export default function BoPurchaseOrders() {
           { label: "Articles", value: articles.length, sub: "références", color: "text-cyan-600" },
         ].map(k => (
           <div key={k.label} className="bg-card rounded-xl border border-border p-4">
-            <p className="text-xs text-muted-foreground font-sans mb-1">{k.label}</p>
-            <p className={`text-2xl font-bold font-sans ${k.color}`}>{k.value}</p>
-            <p className="text-xs text-muted-foreground font-sans mt-0.5">{k.sub}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground font-sans mb-1">{k.label}</p>
+            <p className="font-semibold" className={`text-2xl font-bold font-sans ${k.color}`}>{k.value}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground font-sans mt-0.5">{k.sub}</p>
           </div>
         ))}
       </div>
@@ -309,7 +309,7 @@ export default function BoPurchaseOrders() {
       <div className="flex flex-wrap items-center gap-3">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white font-sans transition-opacity hover:opacity-90"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white font-sans transition-opacity hover:"
           style={{ background: "oklch(0.38 0.2 260)" }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
@@ -336,7 +336,7 @@ export default function BoPurchaseOrders() {
         />
 
         <div className="flex-1" />
-        <p className="text-sm text-muted-foreground font-sans">{filtered.length} résultat(s)</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground font-sans">{filtered.length} résultat(s)</p>
       </div>
 
       {/* Create Form */}
@@ -445,13 +445,13 @@ export default function BoPurchaseOrders() {
                 {/* Montant */}
                 <div className="rounded-xl p-4 flex items-center justify-between" style={{ background: "oklch(0.38 0.2 260 / 0.08)", border: "1px solid oklch(0.38 0.2 260 / 0.25)" }}>
                   <div>
-                    <p className="text-sm font-semibold text-foreground font-sans">{art?.nom} × {fQuantite} {art?.unite}</p>
-                    <p className="text-xs text-muted-foreground font-sans">{selectedFournisseur?.nom} — {fPrix} DH/unité</p>
+                    <p className="font-semibold" className="text-sm font-semibold text-foreground font-sans">{art?.nom} × {fQuantite} {art?.unite}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground font-sans">{selectedFournisseur?.nom} — {fPrix} DH/unité</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-muted-foreground font-sans">Total HT</p>
-                    <p className="text-xl font-bold font-sans" style={{ color: "oklch(0.38 0.2 260)" }}>{totalCalc.toLocaleString("fr-MA")} DH</p>
-                    <p className="text-xs text-muted-foreground font-sans">TTC: {Math.round(totalCalc * 1.19).toLocaleString("fr-MA")} DH</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground font-sans">Total HT</p>
+                    <p className="font-semibold" className="text-xl font-bold font-sans" style={{ color: "oklch(0.38 0.2 260)" }}>{totalCalc.toLocaleString("fr-MA")} DH</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground font-sans">TTC: {Math.round(totalCalc * 1.19).toLocaleString("fr-MA")} DH</p>
                   </div>
                 </div>
                 {/* Caissage auto */}
@@ -463,27 +463,27 @@ export default function BoPurchaseOrders() {
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                       <div className="bg-white rounded-xl border border-amber-200 p-3 text-center">
-                        <p className="text-xs text-muted-foreground">Gros caisses</p>
-                        <p className="text-2xl font-black text-amber-800">{caisse.gros}</p>
-                        <p className="text-[10px] text-muted-foreground">× {colGros} kg</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">Gros caisses</p>
+                        <p className="font-semibold" className="text-2xl font-black text-amber-800">{caisse.gros}</p>
+                        <p className="font-semibold" className="text-[10px] text-muted-foreground">× {colGros} kg</p>
                       </div>
                       <div className="bg-white rounded-xl border border-cyan-200 p-3 text-center">
-                        <p className="text-xs text-muted-foreground">Demi-caisses</p>
-                        <p className="text-2xl font-black text-cyan-700">{caisse.demi}</p>
-                        <p className="text-[10px] text-muted-foreground">× {colDemi} kg</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">Demi-caisses</p>
+                        <p className="font-semibold" className="text-2xl font-black text-cyan-700">{caisse.demi}</p>
+                        <p className="font-semibold" className="text-[10px] text-muted-foreground">× {colDemi} kg</p>
                       </div>
                       <div className="bg-white rounded-xl border border-border p-3 text-center">
-                        <p className="text-xs text-muted-foreground">Total caisse</p>
-                        <p className="text-2xl font-black text-foreground">{caisse.gros + caisse.demi}</p>
-                        <p className="text-[10px] text-muted-foreground">caisses</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">Total caisse</p>
+                        <p className="font-semibold" className="text-2xl font-black text-foreground">{caisse.gros + caisse.demi}</p>
+                        <p className="font-semibold" className="text-[10px] text-muted-foreground">caisses</p>
                       </div>
                       <div className="bg-white rounded-xl border border-border p-3 text-center">
-                        <p className="text-xs text-muted-foreground">Kg total</p>
-                        <p className="text-2xl font-black text-foreground">{caisse.totalKg}</p>
-                        <p className="text-[10px] text-muted-foreground">{caisse.reste > 0 ? `+${caisse.reste.toFixed(1)}kg excédent` : "exact"}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">Kg total</p>
+                        <p className="font-semibold" className="text-2xl font-black text-foreground">{caisse.totalKg}</p>
+                        <p className="font-semibold" className="text-[10px] text-muted-foreground">{caisse.reste > 0 ? `+${caisse.reste.toFixed(1)}kg excédent` : "exact"}</p>
                       </div>
                     </div>
-                    <p className="text-xs text-amber-700">
+                    <p className="font-semibold" className="text-xs text-amber-700">
                       Logique : max gros caisses ({colGros}kg), reste en demi-caisses ({colDemi}kg).
                       {caisse.reste > 0 ? ` Arrondi superieur: +${caisse.reste.toFixed(1)}kg commandes en plus.` : " Quantite exacte couverte."}
                     </p>
@@ -503,7 +503,7 @@ export default function BoPurchaseOrders() {
             <button
               onClick={handleSubmit}
               disabled={!fArticleId || !fFournisseurId || !fQuantite || !fPrix}
-              className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white font-sans transition-opacity hover:opacity-90 disabled:opacity-40 flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white font-sans transition-opacity hover: disabled: flex items-center gap-2"
               style={{ background: "oklch(0.38 0.2 260)" }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
@@ -574,7 +574,7 @@ export default function BoPurchaseOrders() {
                               </span>
                             )}
                           </div>
-                          <p className="text-[10px] text-muted-foreground leading-tight">
+                          <p className="font-semibold" className="text-[10px] text-muted-foreground leading-tight">
                             {c.totalKg}kg chargé{c.reste > 0 ? ` / +${c.reste.toFixed(0)}kg excédent` : ""}
                           </p>
                         </div>

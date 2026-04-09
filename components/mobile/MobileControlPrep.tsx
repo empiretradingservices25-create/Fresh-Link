@@ -116,8 +116,8 @@ function QRScannerModal({ onScan, onClose }: { onScan: (data: string) => void; o
     <div className="fixed inset-0 z-50 flex flex-col bg-black">
       <div className="flex items-center justify-between px-4 py-3">
         <div>
-          <p className="text-white font-bold text-sm">Scanner QR Commande</p>
-          <p className="text-gray-400 text-xs">Pointez la camera vers le QR code de la commande</p>
+          <p className="font-semibold" className="text-white font-bold text-sm">Scanner QR Commande</p>
+          <p className="font-semibold" className="text-gray-400 text-xs">Pointez la camera vers le QR code de la commande</p>
         </div>
         <button onClick={onClose} className="text-white bg-gray-800 rounded-full p-2">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +127,7 @@ function QRScannerModal({ onScan, onClose }: { onScan: (data: string) => void; o
       </div>
       {camError ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6">
-          <p className="text-white text-sm text-center">Camera non disponible. Saisie manuelle :</p>
+          <p className="font-semibold" className="text-white text-sm text-center">Camera non disponible. Saisie manuelle :</p>
           <input value={manualInput} onChange={e => setManualInput(e.target.value)}
             placeholder="ID commande (ex: CMD-XXXXXX)"
             className="w-full px-4 py-3 rounded-xl text-sm bg-gray-800 text-white border border-gray-600 focus:outline-none" />
@@ -141,13 +141,13 @@ function QRScannerModal({ onScan, onClose }: { onScan: (data: string) => void; o
           <video ref={videoRef} autoPlay playsInline muted className="flex-1 object-cover w-full" />
           {/* Targeting overlay */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-56 h-56 border-4 border-white rounded-2xl opacity-60" />
+            <div className="w-56 h-56 border-4 border-white rounded-2xl " />
           </div>
         </>
       )}
       {/* Manual fallback always visible */}
       <div className="px-4 py-4 bg-black flex flex-col gap-2">
-        <p className="text-gray-400 text-xs text-center">Ou saisie manuelle de l&apos;ID :</p>
+        <p className="font-semibold" className="text-gray-400 text-xs text-center">Ou saisie manuelle de l&apos;ID :</p>
         <div className="flex gap-2">
           <input value={manualInput} onChange={e => setManualInput(e.target.value)}
             placeholder="ID commande"
@@ -411,7 +411,7 @@ export default function MobileControlPrep({ user }: Props) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col bg-black">
         <div className="flex items-center justify-between px-4 py-3">
-          <div><p className="text-white font-bold text-sm">{artNom}</p><p className="text-gray-400 text-xs">Photo obligatoire — min 1 par article</p></div>
+          <div><p className="font-semibold" className="text-white font-bold text-sm">{artNom}</p><p className="font-semibold" className="text-gray-400 text-xs">Photo obligatoire — min 1 par article</p></div>
           <button onClick={closeCamera} className="text-white bg-gray-800 rounded-full p-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
@@ -453,11 +453,11 @@ export default function MobileControlPrep({ user }: Props) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 px-6 gap-6">
         <div className="bg-white rounded-3xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
-          <p className="font-black text-lg text-gray-900 text-center">{showQR.cmd.clientNom}</p>
-          <p className="text-xs text-gray-500">{showQR.cmd.secteur} — {showQR.cmd.nbArticles} article(s)</p>
+          <p className="font-semibold" className="font-black text-lg text-gray-900 text-center">{showQR.cmd.clientNom}</p>
+          <p className="font-semibold" className="text-xs text-gray-500">{showQR.cmd.secteur} — {showQR.cmd.nbArticles} article(s)</p>
           <QRCode data={showQR.cmd.qrData} size={200} />
-          <p className="text-xs text-gray-400 font-mono break-all text-center">{showQR.cmd.commandeId}</p>
-          <p className="text-sm font-bold text-gray-800">{showQR.cmd.montant.toFixed(2)} DH</p>
+          <p className="font-semibold" className="text-xs text-gray-400 font-mono break-all text-center">{showQR.cmd.commandeId}</p>
+          <p className="font-semibold" className="text-sm font-bold text-gray-800">{showQR.cmd.montant.toFixed(2)} DH</p>
           <button onClick={() => setShowQR(null)}
             className="w-full py-3 rounded-xl font-bold text-white"
             style={{ background: "oklch(0.38 0.2 260)" }}>
@@ -476,12 +476,12 @@ export default function MobileControlPrep({ user }: Props) {
   if (tripControls.length === 0) {
     return (
       <div className="p-4 flex flex-col gap-4 font-sans">
-        <div><h2 className="text-lg font-bold text-foreground">Controle Expedition</h2><p className="text-sm text-muted-foreground">{store.today()}</p></div>
+        <div><h2 className="text-lg font-bold text-foreground">Controle Expedition</h2><p className="font-semibold" className="text-sm text-muted-foreground">{store.today()}</p></div>
         <div className="bg-card rounded-2xl border border-border p-10 flex flex-col items-center gap-3 text-center">
           <svg className="w-10 h-10 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
           </svg>
-          <p className="text-sm font-semibold text-muted-foreground">Aucun trip planifie aujourd&apos;hui</p>
+          <p className="font-semibold" className="text-sm font-semibold text-muted-foreground">Aucun trip planifie aujourd&apos;hui</p>
         </div>
       </div>
     )
@@ -491,7 +491,7 @@ export default function MobileControlPrep({ user }: Props) {
     <div className="p-4 flex flex-col gap-4 font-sans">
       <div>
         <h2 className="text-lg font-bold text-foreground">Controle Expedition</h2>
-        <p className="text-sm text-muted-foreground">QR scan + quantites + photos obligatoires — {store.today()}</p>
+        <p className="font-semibold" className="text-sm text-muted-foreground">QR scan + quantites + photos obligatoires — {store.today()}</p>
       </div>
 
       {/* Trip tabs */}
@@ -500,7 +500,7 @@ export default function MobileControlPrep({ user }: Props) {
           <button key={tc.trip.id} onClick={() => setActiveTrip(tc.trip.id)}
             className={`shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-bold transition-all ${
               activeTrip === tc.trip.id ? "border-primary text-white" : "border-border text-foreground bg-card hover:bg-muted"
-            } ${tc.submitted ? "opacity-60" : ""}`}
+            } ${tc.submitted ? "" : ""}`}
             style={activeTrip === tc.trip.id ? { background: "oklch(0.38 0.2 260)" } : {}}>
             {tc.submitted && <svg className="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>}
             {tc.trip.numero ?? `Trip ${tc.trip.id.slice(-4)}`}
@@ -513,8 +513,8 @@ export default function MobileControlPrep({ user }: Props) {
           <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p className="text-base font-bold text-green-800">Expedition validee — Trip {activeTc.trip.numero}</p>
-          <p className="text-sm text-green-700">{activeTc.lines.filter(l=>l.conforme===false).length} anomalie(s)</p>
+          <p className="font-semibold" className="text-base font-bold text-green-800">Expedition validee — Trip {activeTc.trip.numero}</p>
+          <p className="font-semibold" className="text-sm text-green-700">{activeTc.lines.filter(l=>l.conforme===false).length} anomalie(s)</p>
         </div>
       ) : (
         <>
@@ -537,8 +537,8 @@ export default function MobileControlPrep({ user }: Props) {
               { label: "QR Scan", val: `${activeTc.commandes.filter(c=>c.scanned).length}/${activeTc.commandes.length}`, color: "text-cyan-800 bg-cyan-50 border-cyan-200" },
             ].map(s => (
               <div key={s.label} className={`border rounded-xl px-2 py-2 text-center ${s.color}`}>
-                <p className="text-[10px]">{s.label}</p>
-                <p className="text-sm font-black">{s.val}</p>
+                <p className="font-semibold" className="text-[10px]">{s.label}</p>
+                <p className="font-semibold" className="text-sm font-black">{s.val}</p>
               </div>
             ))}
           </div>
@@ -547,8 +547,8 @@ export default function MobileControlPrep({ user }: Props) {
           <div className="bg-card rounded-2xl border border-border p-4 flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-bold text-sm text-foreground">QR Codes Commandes</p>
-                <p className="text-xs text-muted-foreground">Affichez ou scannez le QR de chaque commande</p>
+                <p className="font-semibold" className="font-bold text-sm text-foreground">QR Codes Commandes</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">Affichez ou scannez le QR de chaque commande</p>
               </div>
               <button onClick={() => setShowScanner(activeTc.trip.id)}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-white"
@@ -560,7 +560,7 @@ export default function MobileControlPrep({ user }: Props) {
               </button>
             </div>
             {activeTc.commandes.length === 0 ? (
-              <p className="text-xs text-muted-foreground text-center py-2">Aucune commande liee a ce trip</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground text-center py-2">Aucune commande liee a ce trip</p>
             ) : (
               <div className="flex flex-col gap-2">
                 {activeTc.commandes.map(cmd => (
@@ -569,8 +569,8 @@ export default function MobileControlPrep({ user }: Props) {
                       cmd.scanned ? "bg-green-50 border-green-300" : "bg-card border-border"
                     }`}>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm text-foreground truncate">{cmd.clientNom}</p>
-                      <p className="text-xs text-muted-foreground">{cmd.secteur} — {cmd.nbArticles} art. — {cmd.montant.toFixed(0)} DH</p>
+                      <p className="font-semibold" className="font-semibold text-sm text-foreground truncate">{cmd.clientNom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">{cmd.secteur} — {cmd.nbArticles} art. — {cmd.montant.toFixed(0)} DH</p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {cmd.scanned && (
@@ -606,8 +606,8 @@ export default function MobileControlPrep({ user }: Props) {
                   {/* Header */}
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1">
-                      <p className="font-bold text-sm text-foreground">{line.articleNom}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="font-semibold" className="font-bold text-sm text-foreground">{line.articleNom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">
                         Attendu: <strong>{line.qteAttendue} {line.unite}</strong>
                         {qteUM && <span className="ml-2 text-blue-600">= {qteUM} {line.um}</span>}
                       </p>
@@ -650,7 +650,7 @@ export default function MobileControlPrep({ user }: Props) {
                     const sugg = calcCaissesSuggestion(line.qteAttendue, line.colisageCaisses!, line.colisageDemiCaisses ?? Math.round(line.colisageCaisses!/2))
                     return (
                       <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 flex items-center justify-between gap-2">
-                        <p className="text-xs text-amber-800">
+                        <p className="font-semibold" className="text-xs text-amber-800">
                           <span className="font-bold">Suggestion:</span>{" "}
                           {sugg.gros > 0 && <span>{sugg.gros} gros</span>}{" "}
                           {sugg.demi > 0 && <span>{sugg.demi} demi</span>}
@@ -756,7 +756,7 @@ export default function MobileControlPrep({ user }: Props) {
                 color: "oklch(0.90 0.006 100)",
               }}
               placeholder="Ex: 45230 km" />
-            {kmError && <p className="text-xs font-semibold" style={{ color: "oklch(0.72 0.20 27)" }}>{kmError}</p>}
+            {kmError && <p className="font-semibold" className="text-xs font-semibold" style={{ color: "oklch(0.72 0.20 27)" }}>{kmError}</p>}
           </div>
 
           {/* Validation blockers */}
@@ -774,23 +774,23 @@ export default function MobileControlPrep({ user }: Props) {
                 {(!allQtyOK || !allPhotosOK || !allCaissesOK || !kmOK) && (
                   <div className="rounded-xl px-4 py-3 flex flex-col gap-1"
                     style={{ background: "oklch(0.10 0.020 72)", border: "1px solid oklch(0.30 0.12 72)" }}>
-                    <p className="text-xs font-black" style={{ color: "oklch(0.72 0.18 72)" }}>Pour valider le chargement:</p>
-                    {!kmOK && <p className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>— KM depart obligatoire</p>}
-                    {!allCaissesOK && <p className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>
+                    <p className="font-semibold" className="text-xs font-black" style={{ color: "oklch(0.72 0.18 72)" }}>Pour valider le chargement:</p>
+                    {!kmOK && <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>— KM depart obligatoire</p>}
+                    {!allCaissesOK && <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>
                       — Caisses obligatoires: {activeTc.lines.filter(l=>!(Number(l.nbCaisseGros)>0||Number(l.nbCaisseDemi)>0)).map(l=>l.articleNom).join(", ")}
                     </p>}
-                    {!allQtyOK && <p className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>— Quantites manquantes ({activeTc.lines.filter(l=>l.qtePrepared==="").length} articles)</p>}
-                    {!allPhotosOK && <p className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>— Photos obligatoires ({activeTc.lines.filter(l=>l.photos.length===0).length} articles)</p>}
+                    {!allQtyOK && <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>— Quantites manquantes ({activeTc.lines.filter(l=>l.qtePrepared==="").length} articles)</p>}
+                    {!allPhotosOK && <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.65 0.14 72)" }}>— Photos obligatoires ({activeTc.lines.filter(l=>l.photos.length===0).length} articles)</p>}
                   </div>
                 )}
                 {caissesError && (
                   <div className="rounded-xl px-4 py-3" style={{ background: "oklch(0.10 0.020 27)", border: "1px solid oklch(0.30 0.12 27)" }}>
-                    <p className="text-xs font-bold" style={{ color: "oklch(0.72 0.20 27)" }}>{caissesError}</p>
+                    <p className="font-semibold" className="text-xs font-bold" style={{ color: "oklch(0.72 0.20 27)" }}>{caissesError}</p>
                   </div>
                 )}
                 <button onClick={() => handleSubmitTrip(activeTc.trip.id)}
                   disabled={!canSubmit || submitting===activeTc.trip.id}
-                  className="w-full py-3.5 rounded-xl font-bold text-white disabled:opacity-40 flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-xl font-bold text-white disabled: flex items-center justify-center gap-2"
                   style={{ background: canSubmit ? (anomaliesCount>0?"oklch(0.45 0.2 25)":"oklch(0.38 0.2 145)") : "oklch(0.22 0.010 145)" }}>
                   {submitting===activeTc.trip.id ? (
                     <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Validation...</>

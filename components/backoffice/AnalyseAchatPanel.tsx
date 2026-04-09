@@ -90,7 +90,7 @@ function AnalyseRow({ a }: { a: AnalyseAchat }) {
         <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: "#0d2e18", color: "#6ee7b7", border: "1px solid #15352a" }}>
           {a.valeurRetenue.toLocaleString()} DH
         </span>
-        <p className="text-[10px] mt-0.5" style={{ color: "#374151" }}>min(achat,récep.)</p>
+        <p className="font-semibold" className="text-[10px] mt-0.5" style={{ color: "#374151" }}>min(achat,récep.)</p>
       </td>
       <td className="px-4 py-3 text-center">
         <span className="text-xs font-bold" style={{ color: "#f59e0b" }}>{a.montantDonne.toLocaleString()} DH</span>
@@ -172,7 +172,7 @@ export default function AnalyseAchatPanel() {
           <h2 className="text-base font-bold" style={{ color: "#e2e8f0" }}>
             Analyse Achat &nbsp;<span style={{ color: "#4b5563", fontWeight: 400 }}>/ تحليل المشتريات</span>
           </h2>
-          <p className="text-xs mt-0.5" style={{ color: "#4b5563" }}>Comparaison achats vs réceptions et commandes vs facturation</p>
+          <p className="font-semibold" className="text-xs mt-0.5" style={{ color: "#4b5563" }}>Comparaison achats vs réceptions et commandes vs facturation</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex flex-col gap-0.5">
@@ -218,17 +218,17 @@ export default function AnalyseAchatPanel() {
         ].map(({ l, v, c, icon: Icon }) => (
           <div key={l} className="rounded-xl p-3.5" style={{ background: "#0f1623", border: `1px solid ${c}22` }}>
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs" style={{ color: "#4b5563" }}>{l}</p>
+              <p className="font-semibold" className="text-xs" style={{ color: "#4b5563" }}>{l}</p>
               <Icon className="w-4 h-4" style={{ color: c }} />
             </div>
-            <p className="text-base font-bold" style={{ color: c }}>{v}</p>
+            <p className="font-semibold" className="text-base font-bold" style={{ color: c }}>{v}</p>
           </div>
         ))}
       </div>
 
       {/* Formula box */}
       <div className="px-4 py-3 rounded-xl text-xs" style={{ background: "#0a0f18", border: "1px solid #1d3a5e" }}>
-        <p className="font-semibold mb-1" style={{ color: "#60a5fa" }}>Formules de calcul</p>
+        <p className="font-semibold" className="font-semibold mb-1" style={{ color: "#60a5fa" }}>Formules de calcul</p>
         <div className="grid grid-cols-2 gap-2" style={{ color: "#64748b" }}>
           <p><span style={{ color: "#6ee7b7" }}>Valeur retenue</span> = min(Valeur Achat, Valeur Réception)</p>
           <p><span style={{ color: "#fde68a" }}>Ecart</span> = Montant Rendu + Valeur Retenue − Montant Donné</p>

@@ -417,12 +417,12 @@ export default function BORecap() {
                 bg:    stats.marge >= 0 ? "bg-green-50" : "bg-red-50" },
             ].map(c => (
               <div key={c.label} className={`${c.bg} rounded-xl border border-border p-4`}>
-                <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">{c.label}</p>
-                <p className={`text-xl font-bold ${c.color}`}>
+                <p className="font-semibold" className="text-xs text-muted-foreground uppercase tracking-wide mb-1">{c.label}</p>
+                <p className="font-semibold" className={`text-xl font-bold ${c.color}`}>
                   {c.value.toLocaleString("fr-MA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH
                 </p>
                 {c.count !== null && (
-                  <p className="text-xs text-muted-foreground mt-1">{c.count} opération{c.count !== 1 ? "s" : ""}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground mt-1">{c.count} opération{c.count !== 1 ? "s" : ""}</p>
                 )}
               </div>
             ))}
@@ -473,7 +473,7 @@ export default function BORecap() {
                 className="flex-1 min-w-48 px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="admin@exemple.com" />
               <button onClick={handleSendRecap} disabled={sendingRecap || !ejsOk}
-                className="flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-semibold text-white disabled:opacity-50 shrink-0"
+                className="flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-semibold text-white disabled: shrink-0"
                 style={{ background: ejsOk ? "oklch(0.38 0.2 260)" : undefined, backgroundColor: !ejsOk ? "oklch(0.65 0.01 240)" : undefined }}>
                 {sendingRecap
                   ? <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -518,7 +518,7 @@ export default function BORecap() {
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div>
               <h3 className="font-semibold text-foreground">Besoin d'achat net — {today}</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">
+              <p className="font-semibold" className="text-sm text-muted-foreground mt-0.5">
                 Formule : Commandes prévendeurs du jour − Stock disponible − Retours validés
               </p>
             </div>
@@ -532,8 +532,8 @@ export default function BORecap() {
           {/* Tableau besoin */}
           {rows.length === 0 ? (
             <div className="bg-card rounded-xl border border-border p-10 text-center">
-              <svg className="w-12 h-12 mx-auto mb-3 text-muted-foreground opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
-              <p className="text-muted-foreground text-sm">Aucune commande active aujourd&apos;hui</p>
+              <svg className="w-12 h-12 mx-auto mb-3 text-muted-foreground " fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+              <p className="font-semibold" className="text-muted-foreground text-sm">Aucune commande active aujourd&apos;hui</p>
             </div>
           ) : (
             <div className="overflow-x-auto rounded-xl border border-border">
@@ -554,7 +554,7 @@ export default function BORecap() {
                 <tbody>
                   {rows.map(r => (
                     <tr key={r.articleId}
-                      className={`border-t border-border transition-colors ${r.selected ? "bg-primary/5" : "hover:bg-muted/20"} ${!r.selected ? "opacity-60" : ""}`}>
+                      className={`border-t border-border transition-colors ${r.selected ? "bg-primary/5" : "hover:bg-muted/20"} ${!r.selected ? "" : ""}`}>
                       <td className="px-3 py-3">
                         <input type="checkbox" checked={r.selected}
                           onChange={() => setRows(prev => prev.map(x => x.articleId === r.articleId ? { ...x, selected: !x.selected } : x))}
@@ -640,7 +640,7 @@ export default function BORecap() {
                 {sendMode === "par_fournisseur" && (
                   <div className="flex flex-col gap-2">
                     {groupesWithBesoin.length === 0 ? (
-                      <p className="text-sm text-muted-foreground">Aucun fournisseur avec besoin net identifié.</p>
+                      <p className="font-semibold" className="text-sm text-muted-foreground">Aucun fournisseur avec besoin net identifié.</p>
                     ) : (
                       <div className="overflow-x-auto rounded-xl border border-border">
                         <table className="w-full text-sm">
@@ -684,7 +684,7 @@ export default function BORecap() {
                 <div className="flex items-center gap-3 pt-2 border-t border-border">
                   <button onClick={handleSendBesoin}
                     disabled={sendingBesoin || !ejsOk || rowsWithBesoin.length === 0}
-                    className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold text-white disabled:opacity-50"
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold text-white disabled:"
                     style={{ background: ejsOk && rowsWithBesoin.length > 0 ? "oklch(0.38 0.2 260)" : undefined,
                              backgroundColor: (!ejsOk || rowsWithBesoin.length === 0) ? "oklch(0.65 0.01 240)" : undefined }}>
                     {sendingBesoin

@@ -30,10 +30,10 @@ export default function BOComptesExternes({ user }: Props) {
         </div>
         <div className="text-center">
           <h3 className="text-lg font-bold text-foreground">Acces non autorise</h3>
-          <p className="text-sm text-muted-foreground mt-1 max-w-sm">
+          <p className="font-semibold" className="text-sm text-muted-foreground mt-1 max-w-sm">
             Les comptes externes (clients portail et fournisseurs) sont visibles uniquement par le <strong>Responsable Commercial</strong>, le <strong>Controleur Achat</strong> et les <strong>Administrateurs</strong>.
           </p>
-          <p className="text-xs text-muted-foreground mt-2 font-mono bg-muted px-3 py-1.5 rounded-lg inline-block">
+          <p className="font-semibold" className="text-xs text-muted-foreground mt-2 font-mono bg-muted px-3 py-1.5 rounded-lg inline-block">
             Role: <strong>{user.role}</strong>
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function BOComptesExternes({ user }: Props) {
           <h2 className="text-xl font-bold text-foreground">
             Comptes Externes <span className="text-muted-foreground font-normal text-base mr-1">/ الحسابات الخارجية</span>
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="font-semibold" className="text-sm text-muted-foreground">
             Portails client et fournisseur — visible uniquement par Resp. Commercial, Ctrl Achat et Admin
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function BOComptesExternes({ user }: Props) {
         ].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${tab === t.id ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
-            {t.label} <span className="text-xs opacity-60 mr-1">{t.labelAr}</span>
+            {t.label} <span className="text-xs  mr-1">{t.labelAr}</span>
           </button>
         ))}
       </div>
@@ -117,19 +117,19 @@ export default function BOComptesExternes({ user }: Props) {
                   return (
                     <tr key={c.id} style={{ borderTop: "1px solid oklch(0.87 0.012 240)", background: i % 2 === 0 ? "white" : "oklch(0.975 0.003 240)" }}>
                       <td className="px-4 py-3">
-                        <p className="font-semibold text-foreground">{c.nom}</p>
-                        {c.ice && <p className="text-[10px] text-muted-foreground font-mono">ICE: {c.ice}</p>}
+                        <p className="font-semibold" className="font-semibold text-foreground">{c.nom}</p>
+                        {c.ice && <p className="font-semibold" className="text-[10px] text-muted-foreground font-mono">ICE: {c.ice}</p>}
                       </td>
                       <td className="px-4 py-3">
                         <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-semibold capitalize">{c.type}</span>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="text-xs text-foreground">{c.telephone}</p>
-                        <p className="text-xs text-muted-foreground">{c.email}</p>
+                        <p className="font-semibold" className="text-xs text-foreground">{c.telephone}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{c.email}</p>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="text-xs font-semibold">{c.secteur}</p>
-                        <p className="text-xs text-muted-foreground">{c.zone}</p>
+                        <p className="font-semibold" className="text-xs font-semibold">{c.secteur}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{c.zone}</p>
                       </td>
                       <td className="px-4 py-3">
                         {portalUser ? (
@@ -148,7 +148,7 @@ export default function BOComptesExternes({ user }: Props) {
                         {c.creditAutorise ? (
                           <div>
                             <span className="text-xs font-bold text-foreground">{(c.creditSolde ?? 0).toLocaleString("fr-MA")} DH</span>
-                            <p className="text-[10px] text-muted-foreground">Plafond: {(c.plafondCredit ?? 0).toLocaleString("fr-MA")} DH</p>
+                            <p className="font-semibold" className="text-[10px] text-muted-foreground">Plafond: {(c.plafondCredit ?? 0).toLocaleString("fr-MA")} DH</p>
                           </div>
                         ) : (
                           <span className="text-xs text-muted-foreground">Comptant</span>
@@ -186,14 +186,14 @@ export default function BOComptesExternes({ user }: Props) {
                   return (
                     <tr key={f.id} style={{ borderTop: "1px solid oklch(0.87 0.012 240)", background: i % 2 === 0 ? "white" : "oklch(0.975 0.003 240)" }}>
                       <td className="px-4 py-3">
-                        <p className="font-semibold text-foreground">{f.nom}</p>
-                        {f.ice && <p className="text-[10px] text-muted-foreground font-mono">ICE: {f.ice}</p>}
-                        <p className="text-[10px] text-muted-foreground">{f.ville}</p>
+                        <p className="font-semibold" className="font-semibold text-foreground">{f.nom}</p>
+                        {f.ice && <p className="font-semibold" className="text-[10px] text-muted-foreground font-mono">ICE: {f.ice}</p>}
+                        <p className="font-semibold" className="text-[10px] text-muted-foreground">{f.ville}</p>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="text-xs text-foreground">{f.telephone}</p>
-                        <p className="text-xs text-muted-foreground">{f.email}</p>
-                        <p className="text-xs text-muted-foreground">{f.contact}</p>
+                        <p className="font-semibold" className="text-xs text-foreground">{f.telephone}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{f.email}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{f.contact}</p>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap gap-1">
@@ -204,8 +204,8 @@ export default function BOComptesExternes({ user }: Props) {
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="text-xs font-semibold capitalize">{f.modalitePaiement?.replace("_", " ") ?? "—"}</p>
-                        {f.delaiPaiement && <p className="text-[10px] text-muted-foreground">{f.delaiPaiement}j</p>}
+                        <p className="font-semibold" className="text-xs font-semibold capitalize">{f.modalitePaiement?.replace("_", " ") ?? "—"}</p>
+                        {f.delaiPaiement && <p className="font-semibold" className="text-[10px] text-muted-foreground">{f.delaiPaiement}j</p>}
                       </td>
                       <td className="px-4 py-3">
                         {portalUser ? (

@@ -536,7 +536,7 @@ export default function MobileCommercial({ user }: Props) {
         <h2 className="text-lg font-bold text-foreground">
           Prise de Commande <span className="text-muted-foreground font-normal text-base">/ تسجيل الطلبية</span>
         </h2>
-        <p className="text-xs text-muted-foreground">{user.name} — {store.today()}</p>
+        <p className="font-semibold" className="text-xs text-muted-foreground">{user.name} — {store.today()}</p>
       </div>
 
       {/* Tab switcher */}
@@ -578,16 +578,16 @@ export default function MobileCommercial({ user }: Props) {
             </svg>
           </div>
           <div className="flex-1">
-            <p className={`text-sm font-bold ${successWorkflow === "direct" ? "text-green-700" : "text-amber-700"}`}>
+            <p className="font-semibold" className={`text-sm font-bold ${successWorkflow === "direct" ? "text-green-700" : "text-amber-700"}`}>
               {successWorkflow === "direct" ? "Commande validee directement" : "Commande en attente d'approbation"}
             </p>
-            <p className={`text-xs mt-0.5 ${successWorkflow === "direct" ? "text-green-600" : "text-amber-600"}`}>
+            <p className="font-semibold" className={`text-xs mt-0.5 ${successWorkflow === "direct" ? "text-green-600" : "text-amber-600"}`}>
               {successWorkflow === "direct"
                 ? "La commande est automatiquement validee et sera preparee pour livraison."
                 : "Votre commande a ete soumise et attend l'approbation d'un responsable. Elle ne sera traitee qu'apres validation."}
             </p>
             {successWorkflow !== "direct" && (
-              <p className="text-[11px] mt-1 font-semibold text-amber-700 bg-amber-100 px-2 py-1 rounded-lg inline-block">
+              <p className="font-semibold" className="text-[11px] mt-1 font-semibold text-amber-700 bg-amber-100 px-2 py-1 rounded-lg inline-block">
                 Statut: EN ATTENTE APPROBATION
               </p>
             )}
@@ -681,7 +681,7 @@ export default function MobileCommercial({ user }: Props) {
         {filterKey === "proche" && (
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
-              <p className="text-xs text-muted-foreground">
+              <p className="font-semibold" className="text-xs text-muted-foreground">
                 {gpsLat ? `Position: ${gpsLat.toFixed(4)}, ${gpsLng?.toFixed(4)}` : "Localisation en cours..."}
               </p>
               <button onClick={() => setShowProximiteSlider(p => !p)}
@@ -704,7 +704,7 @@ export default function MobileCommercial({ user }: Props) {
         {/* Dropdown list */}
         <div className="flex flex-col gap-1 max-h-52 overflow-y-auto">
           {filteredClients.length === 0 ? (
-            <p className="text-xs text-muted-foreground px-2 py-3 text-center">Aucun client trouvé</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground px-2 py-3 text-center">Aucun client trouvé</p>
           ) : filteredClients.map(c => {
             const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null
             return (
@@ -714,8 +714,8 @@ export default function MobileCommercial({ user }: Props) {
                   {c.nom[0]}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-foreground truncate">{c.nom}</p>
-                  <p className="text-xs text-muted-foreground">{c.secteur} · {TYPE_LABELS[c.type]} · {TAILLE_LABELS[c.taille]}</p>
+                  <p className="font-semibold" className="text-sm font-semibold text-foreground truncate">{c.nom}</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{c.secteur} · {TYPE_LABELS[c.type]} · {TAILLE_LABELS[c.taille]}</p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   {dist !== null && <span className="text-xs text-muted-foreground">{dist.toFixed(1)}km</span>}
@@ -737,8 +737,8 @@ export default function MobileCommercial({ user }: Props) {
               {selectedClient.nom[0]}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-foreground">{selectedClient.nom}</p>
-              <p className="text-xs text-muted-foreground">{selectedClient.telephone} · {selectedClient.secteur}</p>
+              <p className="font-semibold" className="text-sm font-bold text-foreground">{selectedClient.nom}</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">{selectedClient.telephone} · {selectedClient.secteur}</p>
             </div>
             {selectedClient.gpsLat && (
               <button onClick={() => openGPSGuide(selectedClient)} title="Itinéraire"
@@ -829,7 +829,7 @@ export default function MobileCommercial({ user }: Props) {
             </div>
             {/* Credit section */}
             <div className="col-span-2 border-t border-border pt-3 flex flex-col gap-2">
-              <p className="text-xs font-bold text-foreground uppercase tracking-wide">Credit / الائتمان</p>
+              <p className="font-semibold" className="text-xs font-bold text-foreground uppercase tracking-wide">Credit / الائتمان</p>
               <div className="flex items-center gap-3">
                 <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-foreground">
                   <input type="checkbox"
@@ -853,12 +853,12 @@ export default function MobileCommercial({ user }: Props) {
               </div>
             </div>
           </div>
-          {gpsLat && <p className="text-xs text-green-600">Position GPS actuelle sera associée au client</p>}
+          {gpsLat && <p className="font-semibold" className="text-xs text-green-600">Position GPS actuelle sera associée au client</p>}
           <div className="flex gap-2">
             <button onClick={() => setShowAddClient(false)}
               className="flex-1 py-2.5 rounded-xl border border-border text-sm font-semibold text-foreground hover:bg-muted">Annuler</button>
             <button onClick={handleAddClient} disabled={!newClient.nom.trim()}
-              className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-50"
+              className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:"
               style={{ background: "oklch(0.38 0.2 260)" }}>Créer le client</button>
           </div>
         </div>
@@ -884,7 +884,7 @@ export default function MobileCommercial({ user }: Props) {
         </div>
         <input type="time" value={heurelivraison} onChange={e => setHeureLivraison(e.target.value)}
           className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
-        <p className="text-[11px] text-muted-foreground">
+        <p className="font-semibold" className="text-[11px] text-muted-foreground">
           L&apos;horaire sera enregistre comme defaut pour ce client apres confirmation de la commande.
         </p>
       </div>
@@ -917,8 +917,8 @@ export default function MobileCommercial({ user }: Props) {
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-bold text-foreground">Habitudes du client</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="font-semibold" className="text-sm font-bold text-foreground">Habitudes du client</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">
                   {selectedClientId
                     ? Object.keys(clientHabits).length > 0
                       ? `${Object.keys(clientHabits).length} articles commandes regulierement`
@@ -954,7 +954,7 @@ export default function MobileCommercial({ user }: Props) {
                         className="w-11 h-11 rounded-xl object-cover shrink-0 border border-border"
                         onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-foreground truncate">{art.nom}</p>
+                        <p className="font-semibold" className="text-sm font-bold text-foreground truncate">{art.nom}</p>
                         <div className="flex items-center gap-2 flex-wrap mt-0.5">
                           <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-lg bg-amber-100 text-amber-700">{habit.count}x commande</span>
                           <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
@@ -976,7 +976,7 @@ export default function MobileCommercial({ user }: Props) {
                               else setLignes(prev => [...prev, { articleId: artId, quantite: "", prixVente: String(pv), uniteMode: "base" }])
                               setCommTab("nouvelle")
                             }}
-                            className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:opacity-40">
+                            className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:">
                             + Ajouter
                           </button>
                         )}
@@ -991,8 +991,8 @@ export default function MobileCommercial({ user }: Props) {
               <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistree</p>
-              <p className="text-xs text-muted-foreground">Les habitudes se creent automatiquement apres plusieurs commandes passees par ce client.</p>
+              <p className="font-semibold" className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistree</p>
+              <p className="font-semibold" className="text-xs text-muted-foreground">Les habitudes se creent automatiquement apres plusieurs commandes passees par ce client.</p>
             </div>
           )}
         </div>
@@ -1002,8 +1002,8 @@ export default function MobileCommercial({ user }: Props) {
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
-            <p className="text-sm font-bold text-foreground">Articles / المنتجات</p>
-            <p className="text-xs text-muted-foreground">{pickerArticles.length} articles</p>
+            <p className="font-semibold" className="text-sm font-bold text-foreground">Articles / المنتجات</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{pickerArticles.length} articles</p>
           </div>
           {selectedClientId && Object.keys(clientHabits).length > 0 && (
             <button onClick={autoFillPanier}
@@ -1048,7 +1048,7 @@ export default function MobileCommercial({ user }: Props) {
         <div className="max-h-72 overflow-y-auto divide-y divide-border">
           {pickerArticles.length === 0 ? (
             <div className="py-8 flex flex-col items-center gap-2 text-center">
-              <p className="text-sm text-muted-foreground">Aucun article trouve</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground">Aucun article trouve</p>
               <button onClick={() => setArticleSearch("")} className="text-xs text-primary underline">Effacer</button>
             </div>
           ) : pickerArticles.map(a => {
@@ -1059,7 +1059,7 @@ export default function MobileCommercial({ user }: Props) {
             const habitCount = clientHabits[a.id]?.count ?? 0
             return (
               <label key={a.id}
-                className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors ${inCart ? "bg-primary/5" : stockOk ? "hover:bg-muted/50" : "opacity-40 pointer-events-none"}`}>
+                className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors ${inCart ? "bg-primary/5" : stockOk ? "hover:bg-muted/50" : " pointer-events-none"}`}>
                 <input type="checkbox" checked={inCart} readOnly={false}
                   onChange={e => {
                     if (e.target.checked) {
@@ -1080,7 +1080,7 @@ export default function MobileCommercial({ user }: Props) {
                   className="w-10 h-10 rounded-xl object-cover border border-border shrink-0"
                   onError={e => { e.currentTarget.src = "https://placehold.co/40x40/e2e8f0/64748b?text=Art" }} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-foreground truncate">{a.nom}</p>
+                  <p className="font-semibold" className="text-sm font-bold text-foreground truncate">{a.nom}</p>
                   <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
                     <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${stockOk ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
                       {stockOk ? `${a.stockDisponible} ${a.unite}` : "Rupture"}
@@ -1121,8 +1121,8 @@ export default function MobileCommercial({ user }: Props) {
                     className="w-12 h-12 rounded-xl object-cover border border-border shrink-0"
                     onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} />
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-foreground text-sm">{art.nom}</p>
-                    <p className="text-xs text-muted-foreground" dir="rtl">{art.nomAr}</p>
+                    <p className="font-semibold" className="font-bold text-foreground text-sm">{art.nom}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground" dir="rtl">{art.nomAr}</p>
                     <div className="flex items-center gap-2 mt-0.5">
                       <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
                         Stock: {art.stockDisponible} {art.unite}
@@ -1141,7 +1141,7 @@ export default function MobileCommercial({ user }: Props) {
                 </div>
               ) : (
                 <div className="px-3 py-3 rounded-xl border-2 border-dashed border-border/50 text-center">
-                  <p className="text-xs text-muted-foreground">Cochez un article ci-dessus pour remplir cette ligne</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">Cochez un article ci-dessus pour remplir cette ligne</p>
                 </div>
               )}
 
@@ -1177,7 +1177,7 @@ export default function MobileCommercial({ user }: Props) {
                       className={`flex-1 py-2 rounded-xl text-xs font-bold border-2 transition-all ${ligne.uniteMode !== art.um ? "border-primary text-white" : "border-border bg-background text-muted-foreground"}`}
                       style={ligne.uniteMode !== art.um ? { background: "oklch(0.45 0.18 145)" } : {}}>
                       {art.unite}
-                      <span className="block text-[10px] font-normal opacity-70">unité de base</span>
+                      <span className="block text-[10px] font-normal ">unité de base</span>
                     </button>
                     {/* UM button */}
                     <button type="button"
@@ -1185,7 +1185,7 @@ export default function MobileCommercial({ user }: Props) {
                       className={`flex-1 py-2 rounded-xl text-xs font-bold border-2 transition-all ${ligne.uniteMode === art.um ? "border-blue-500 text-white" : "border-border bg-background text-blue-600"}`}
                       style={ligne.uniteMode === art.um ? { background: "oklch(0.45 0.18 240)" } : {}}>
                       {art.um}
-                      <span className="block text-[10px] font-normal opacity-80">= {art.colisageParUM} {art.unite}</span>
+                      <span className="block text-[10px] font-normal ">= {art.colisageParUM} {art.unite}</span>
                     </button>
                   </div>
                   {/* Live conversion display */}
@@ -1268,7 +1268,7 @@ export default function MobileCommercial({ user }: Props) {
               <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-sm font-bold text-amber-800">
+              <p className="font-semibold" className="text-sm font-bold text-amber-800">
                 {missedArticles.length} article(s) non commandes depuis longtemps
               </p>
             </div>
@@ -1278,12 +1278,12 @@ export default function MobileCommercial({ user }: Props) {
           </button>
           {showMissedAlert && (
             <div className="px-4 pb-4 flex flex-col gap-2">
-              <p className="text-xs text-amber-700">Ces articles ont ete commandes par ce client mais pas recemment. Voulez-vous les ajouter ?</p>
+              <p className="font-semibold" className="text-xs text-amber-700">Ces articles ont ete commandes par ce client mais pas recemment. Voulez-vous les ajouter ?</p>
               {missedArticles.map(art => (
                 <div key={art.id} className="flex items-center justify-between bg-white rounded-xl border border-amber-200 px-3 py-2.5">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{art.nom}</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="font-semibold" className="text-sm font-semibold text-foreground">{art.nom}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">
                       Derniere commande : {clientHabits[art.id]?.lastDate ?? "—"}
                       {" "}· {clientHabits[art.id]?.count}x commande(s)
                     </p>
@@ -1303,7 +1303,7 @@ export default function MobileCommercial({ user }: Props) {
       {/* Submit */}
       <button onClick={handleSubmit}
         disabled={sending || !selectedClientId || !heurelivraison || lignes.some(l => !l.articleId || !l.quantite)}
-        className="w-full py-4 rounded-xl font-bold text-white disabled:opacity-50 flex items-center justify-center gap-2 text-sm"
+        className="w-full py-4 rounded-xl font-bold text-white disabled: flex items-center justify-center gap-2 text-sm"
         style={{ background: "oklch(0.65 0.17 145)" }}>
         {sending
           ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Envoi...</>
@@ -1315,7 +1315,7 @@ export default function MobileCommercial({ user }: Props) {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-sm font-bold text-foreground">Visite sans commande / زيارة بدون طلب</h3>
-            <p className="text-xs text-muted-foreground">Enregistrer une visite client non convertie</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">Enregistrer une visite client non convertie</p>
           </div>
           <button onClick={() => setShowVisiteForm(v => !v)}
             className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-dashed border-amber-400 text-amber-700 hover:bg-amber-50">
@@ -1343,7 +1343,7 @@ export default function MobileCommercial({ user }: Props) {
             <button
               onClick={handleVisiteSansCommande}
               disabled={!visiteClientId || !visiteRaison}
-              className="w-full py-2.5 rounded-xl text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-50 transition-colors">
+              className="w-full py-2.5 rounded-xl text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 disabled: transition-colors">
               Enregistrer la visite
             </button>
           </div>
@@ -1361,7 +1361,7 @@ export default function MobileCommercial({ user }: Props) {
               <svg className="w-10 h-10 mx-auto text-muted-foreground mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <p className="text-sm font-semibold text-muted-foreground">Aucune commande aujourd&apos;hui</p>
+              <p className="font-semibold" className="text-sm font-semibold text-muted-foreground">Aucune commande aujourd&apos;hui</p>
               <button onClick={() => setCommTab("nouvelle")} className="mt-3 px-4 py-2 rounded-xl text-sm font-semibold text-white" style={{ background: "oklch(0.38 0.2 260)" }}>
                 Passer une commande
               </button>
@@ -1373,8 +1373,8 @@ export default function MobileCommercial({ user }: Props) {
                 <div className="bg-card rounded-2xl border border-primary/30 p-4 flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-bold text-foreground">Modifier — {editCmd.clientNom}</p>
-                      <p className="text-xs text-muted-foreground">Modification possible dans le delai d&apos;1 heure apres creation</p>
+                      <p className="font-semibold" className="text-sm font-bold text-foreground">Modifier — {editCmd.clientNom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">Modification possible dans le delai d&apos;1 heure apres creation</p>
                     </div>
                     <button onClick={() => setEditCmd(null)} className="p-1.5 rounded-lg bg-muted text-muted-foreground">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -1393,7 +1393,7 @@ export default function MobileCommercial({ user }: Props) {
                     const art = articles.find(a => a.id === ligne.articleId)
                     return (
                       <div key={i} className="bg-muted/30 rounded-xl p-3 flex flex-col gap-2">
-                        <p className="text-xs font-semibold text-foreground">{art?.nom ?? "Article"}</p>
+                        <p className="font-semibold" className="text-xs font-semibold text-foreground">{art?.nom ?? "Article"}</p>
                         {art?.um && art.colisageParUM && (
                           <div className="flex gap-2">
                             <button type="button" onClick={() => { const u = [...editLignes]; u[i] = { ...u[i], uniteMode: "base", quantite: "" }; setEditLignes(u) }}
@@ -1423,7 +1423,7 @@ export default function MobileCommercial({ user }: Props) {
                           </div>
                         </div>
                         {art?.um && art.colisageParUM && ligne.uniteMode === art.um && ligne.quantite && Number(ligne.quantite) > 0 && (
-                          <p className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg">
+                          <p className="font-semibold" className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg">
                             {ligne.quantite} {art.um} = {(Number(ligne.quantite) * art.colisageParUM).toFixed(1)} {art.unite}
                           </p>
                         )}
@@ -1434,7 +1434,7 @@ export default function MobileCommercial({ user }: Props) {
                   <div className="flex gap-2">
                     <button onClick={() => setEditCmd(null)} className="flex-1 py-2.5 rounded-xl border border-border text-sm font-semibold text-foreground hover:bg-muted">Annuler</button>
                     <button onClick={handleSaveEdit} disabled={editSaving}
-                      className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-60"
+                      className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:"
                       style={{ background: "oklch(0.38 0.2 260)" }}>
                       {editSaving ? "Sauvegarde..." : "Enregistrer modifications"}
                     </button>
@@ -1452,9 +1452,9 @@ export default function MobileCommercial({ user }: Props) {
                   <div key={cmd.id} className={`rounded-xl border p-4 flex flex-col gap-2.5 ${isActive ? "border-primary/50 bg-primary/3" : "border-border bg-card"}`}>
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm text-foreground">{cmd.clientNom}</p>
-                        <p className="text-xs text-muted-foreground">{cmd.secteur} · {cmd.heurelivraison}</p>
-                        <p className="text-xs text-muted-foreground font-mono">{cmd.id}</p>
+                        <p className="font-semibold" className="font-bold text-sm text-foreground">{cmd.clientNom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{cmd.secteur} · {cmd.heurelivraison}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground font-mono">{cmd.id}</p>
                       </div>
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
                         cmd.statut === "valide" ? "bg-blue-100 text-blue-700" :

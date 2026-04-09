@@ -209,7 +209,7 @@ export default function BODispatch({ user }: Props) {
         ].map(t => (
           <button key={t.id} onClick={() => setActiveTab(t.id)}
             className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === t.id ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
-            {t.label} <span className="text-xs opacity-60 mr-1">{t.labelAr}</span>
+            {t.label} <span className="text-xs  mr-1">{t.labelAr}</span>
           </button>
         ))}
       </div>
@@ -220,7 +220,7 @@ export default function BODispatch({ user }: Props) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-bold text-foreground">Dispatch / التوزيع</h2>
-              <p className="text-sm text-muted-foreground">{availableCommandes.length} commande(s) validée(s) disponible(s)</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground">{availableCommandes.length} commande(s) validée(s) disponible(s)</p>
             </div>
             <button onClick={() => setShowTripForm(true)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
@@ -294,7 +294,7 @@ export default function BODispatch({ user }: Props) {
                             style={{ width: `${pctKg}%` }} />
                         </div>
                         {overCapacity && (
-                          <p className="text-xs text-red-600 font-semibold">Depassement de capacite (+{(totalKgAffecte - capKg).toFixed(1)} kg)</p>
+                          <p className="font-semibold" className="text-xs text-red-600 font-semibold">Depassement de capacite (+{(totalKgAffecte - capKg).toFixed(1)} kg)</p>
                         )}
                       </div>
                     )}
@@ -332,7 +332,7 @@ export default function BODispatch({ user }: Props) {
               {/* Commandes list */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm font-semibold text-foreground">Commandes validées ({filtered.length})</p>
+                  <p className="font-semibold" className="text-sm font-semibold text-foreground">Commandes validées ({filtered.length})</p>
                   {filtered.length > 0 && (
                     <button onClick={() => setSelectedCmds(prev => prev.length === filtered.length ? [] : filtered.map(c => c.id))}
                       className="text-xs text-primary hover:underline">
@@ -342,19 +342,19 @@ export default function BODispatch({ user }: Props) {
                 </div>
                 <div className="flex flex-col gap-2 max-h-64 overflow-y-auto rounded-xl border border-border p-2">
                   {filtered.length === 0 ? (
-                    <p className="text-sm text-muted-foreground text-center py-6">Aucune commande validée</p>
+                    <p className="font-semibold" className="text-sm text-muted-foreground text-center py-6">Aucune commande validée</p>
                   ) : filtered.map(c => (
                     <label key={c.id}
                       className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${selectedCmds.includes(c.id) ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/40"}`}>
                       <input type="checkbox" checked={selectedCmds.includes(c.id)} onChange={() => toggleCmd(c.id)}
                         className="w-4 h-4 mt-0.5 rounded accent-primary shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-foreground">{c.clientNom}</p>
-                        <p className="text-xs text-muted-foreground">{c.zone} · {c.commercialNom} · {c.heurelivraison}</p>
-                        <p className="text-xs text-muted-foreground">{c.lignes.map(l => `${l.articleNom} ×${l.quantite}`).join(", ")}</p>
+                        <p className="font-semibold" className="font-semibold text-sm text-foreground">{c.clientNom}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{c.zone} · {c.commercialNom} · {c.heurelivraison}</p>
+                        <p className="font-semibold" className="text-xs text-muted-foreground">{c.lignes.map(l => `${l.articleNom} ×${l.quantite}`).join(", ")}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="text-sm font-bold" style={{ color: "oklch(0.38 0.2 260)" }}>
+                        <p className="font-semibold" className="text-sm font-bold" style={{ color: "oklch(0.38 0.2 260)" }}>
                           {store.formatMAD(c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0))}
                         </p>
                         {c.gpsLat && <span className="text-[10px] text-green-600 font-semibold">GPS</span>}
@@ -365,7 +365,7 @@ export default function BODispatch({ user }: Props) {
               </div>
 
               <div className="flex items-center justify-between">
-                <p className="text-sm text-muted-foreground">
+                <p className="font-semibold" className="text-sm text-muted-foreground">
                   {selectedCmds.length} commande(s) sélectionnée(s)
                 </p>
                 <div className="flex gap-2">
@@ -375,7 +375,7 @@ export default function BODispatch({ user }: Props) {
                   </button>
                   <button onClick={handleCreateTrip}
                     disabled={!selectedLivreurId || selectedCmds.length === 0}
-                    className="px-5 py-2 rounded-xl text-sm font-semibold text-white disabled:opacity-40"
+                    className="px-5 py-2 rounded-xl text-sm font-semibold text-white disabled:"
                     style={{ background: "oklch(0.38 0.2 260)" }}>
                     Créer ({selectedCmds.length})
                   </button>
@@ -387,7 +387,7 @@ export default function BODispatch({ user }: Props) {
           {/* Trips list */}
           {trips.length === 0 ? (
             <div className="bg-card rounded-2xl border border-border p-12 text-center text-muted-foreground">
-              <svg className="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-12 h-12 mx-auto mb-3 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
               <p>Aucun trip créé / لا توجد رحلات</p>
@@ -401,7 +401,7 @@ export default function BODispatch({ user }: Props) {
                     {trip.vehicule && <span className="px-2 py-0.5 bg-muted rounded-lg text-xs text-muted-foreground">{trip.vehicule}</span>}
                     <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${tripStatusColor[trip.statut] || "bg-gray-100 text-gray-800"}`}>{trip.statut}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{trip.date} · {trip.commandeIds.length} commandes</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">{trip.date} · {trip.commandeIds.length} commandes</p>
                   <div className="flex flex-wrap gap-1.5 mt-2">
                     {trip.commandeIds.map(cid => {
                       const cmd = commandes.find(c => c.id === cid)
@@ -416,13 +416,13 @@ export default function BODispatch({ user }: Props) {
                 <div className="flex items-center gap-2 shrink-0">
                   {trip.statut === "planifié" && (
                     <button onClick={() => updateTripStatus(trip.id, "en_cours")}
-                      className="px-3 py-1.5 rounded-xl text-xs font-semibold text-white bg-orange-500 hover:opacity-90">
+                      className="px-3 py-1.5 rounded-xl text-xs font-semibold text-white bg-orange-500 hover:">
                       Démarrer
                     </button>
                   )}
                   {trip.statut === "en_cours" && (
                     <button onClick={() => updateTripStatus(trip.id, "terminé")}
-                      className="px-3 py-1.5 rounded-xl text-xs font-semibold text-white bg-green-600 hover:opacity-90">
+                      className="px-3 py-1.5 rounded-xl text-xs font-semibold text-white bg-green-600 hover:">
                       Terminer
                     </button>
                   )}
@@ -444,7 +444,7 @@ export default function BODispatch({ user }: Props) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-bold text-foreground">Gestion des Livreurs / إدارة السائقين</h2>
-              <p className="text-sm text-muted-foreground">{livreurs.length} livreur(s) · {livreurs.filter(l => l.actif).length} actifs</p>
+              <p className="font-semibold" className="text-sm text-muted-foreground">{livreurs.length} livreur(s) · {livreurs.filter(l => l.actif).length} actifs</p>
             </div>
             <button onClick={openNewLivreur}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
@@ -524,7 +524,7 @@ export default function BODispatch({ user }: Props) {
                     </button>
                     <button onClick={saveLivreur}
                       disabled={!livreurForm.nom || !livreurForm.prenom}
-                      className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-40"
+                      className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white disabled:"
                       style={{ background: "oklch(0.38 0.2 260)" }}>
                       Sauvegarder
                     </button>
@@ -594,7 +594,7 @@ export default function BODispatch({ user }: Props) {
         <div className="flex flex-col gap-5">
           <div>
             <h2 className="font-bold text-foreground">Charge Logistique / تكلفة النقل</h2>
-            <p className="text-sm text-muted-foreground">Calcul manuel et detaille des frais de transport par tournee</p>
+            <p className="font-semibold" className="text-sm text-muted-foreground">Calcul manuel et detaille des frais de transport par tournee</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -645,8 +645,8 @@ export default function BODispatch({ user }: Props) {
               {/* Retour */}
               <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-muted">
                 <div>
-                  <p className="text-xs font-semibold text-foreground">Retour marchandise</p>
-                  <p className="text-[10px] text-muted-foreground">Le livreur ramene des produits non livres</p>
+                  <p className="font-semibold" className="text-xs font-semibold text-foreground">Retour marchandise</p>
+                  <p className="font-semibold" className="text-[10px] text-muted-foreground">Le livreur ramene des produits non livres</p>
                 </div>
                 <button onClick={() => setChargeForm(p => ({ ...p, hasRetour: !p.hasRetour }))}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${chargeForm.hasRetour ? "bg-blue-600" : "bg-muted-foreground/30"}`}>
@@ -657,8 +657,8 @@ export default function BODispatch({ user }: Props) {
               {/* Solo vs avec livreur */}
               <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-muted">
                 <div>
-                  <p className="text-xs font-semibold text-foreground">Avec livreur dedie</p>
-                  <p className="text-[10px] text-muted-foreground">Desactive = tournee solo (resp. log. seul), reduction appliquee</p>
+                  <p className="font-semibold" className="text-xs font-semibold text-foreground">Avec livreur dedie</p>
+                  <p className="font-semibold" className="text-[10px] text-muted-foreground">Desactive = tournee solo (resp. log. seul), reduction appliquee</p>
                 </div>
                 <button onClick={() => setChargeForm(p => ({ ...p, avecLivreur: !p.avecLivreur }))}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${chargeForm.avecLivreur ? "bg-blue-600" : "bg-muted-foreground/30"}`}>
@@ -698,15 +698,15 @@ export default function BODispatch({ user }: Props) {
               {/* Summary card */}
               <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-5 text-white flex flex-col gap-3">
                 <h3 className="font-bold text-base">Cout total estime</h3>
-                <p className="text-4xl font-black">{chargeResult.total.toLocaleString("fr-MA", { minimumFractionDigits: 2 })} DH</p>
+                <p className="font-semibold" className="text-4xl font-black">{chargeResult.total.toLocaleString("fr-MA", { minimumFractionDigits: 2 })} DH</p>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="bg-white/10 rounded-xl p-2">
-                    <p className="opacity-70">Cout / client</p>
-                    <p className="font-bold text-base">{chargeForm.nbClients > 0 ? (chargeResult.total / chargeForm.nbClients).toFixed(2) : "—"} DH</p>
+                    <p className="font-semibold" className="">Cout / client</p>
+                    <p className="font-semibold" className="font-bold text-base">{chargeForm.nbClients > 0 ? (chargeResult.total / chargeForm.nbClients).toFixed(2) : "—"} DH</p>
                   </div>
                   <div className="bg-white/10 rounded-xl p-2">
-                    <p className="opacity-70">Cout / caisse</p>
-                    <p className="font-bold text-base">{chargeForm.nbCaisses > 0 ? (chargeResult.total / chargeForm.nbCaisses).toFixed(2) : "—"} DH</p>
+                    <p className="font-semibold" className="">Cout / caisse</p>
+                    <p className="font-semibold" className="font-bold text-base">{chargeForm.nbCaisses > 0 ? (chargeResult.total / chargeForm.nbCaisses).toFixed(2) : "—"} DH</p>
                   </div>
                 </div>
               </div>
@@ -735,9 +735,9 @@ export default function BODispatch({ user }: Props) {
 
               {/* Context info */}
               <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-xs text-blue-800 flex flex-col gap-1.5">
-                <p className="font-bold">Logique de calcul :</p>
+                <p className="font-semibold" className="font-bold">Logique de calcul :</p>
                 <p>Frais fixe (base tournee) + (nb clients × tarif/client) + (nb caisses × tarif/caisse) + (km × tarif/km) + supplement retour − reduction solo</p>
-                <p className="text-blue-600 mt-1">Ces tarifs sont indicatifs. Configurez-les en cliquant sur "Configurer les tarifs de base" ci-dessus.</p>
+                <p className="font-semibold" className="text-blue-600 mt-1">Ces tarifs sont indicatifs. Configurez-les en cliquant sur "Configurer les tarifs de base" ci-dessus.</p>
               </div>
             </div>
           </div>

@@ -10,9 +10,9 @@ const fmtDH = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 
 function KpiCard({ label, value, sub, accent }: { label: string; value: string | number; sub?: string; accent: string }) {
   return (
     <div className={`rounded-2xl border p-4 flex flex-col gap-1 ${accent}`}>
-      <p className="text-xs font-semibold uppercase tracking-wide opacity-60">{label}</p>
-      <p className="text-2xl font-extrabold leading-tight">{value}</p>
-      {sub && <p className="text-xs opacity-60 mt-0.5">{sub}</p>}
+      <p className="font-semibold" className="text-xs font-semibold uppercase tracking-wide ">{label}</p>
+      <p className="font-semibold" className="text-2xl font-extrabold leading-tight">{value}</p>
+      {sub && <p className="font-semibold" className="text-xs  mt-0.5">{sub}</p>}
     </div>
   )
 }
@@ -176,7 +176,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
             Performance Livraison
             <span className="text-muted-foreground font-normal text-base ml-2">/ أداء التوصيل</span>
           </h2>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="font-semibold" className="text-sm text-muted-foreground mt-0.5">
             Nb clients · Tonnage · Taux retour · A temps / TOT / Retard 30min / Retard 1h+
           </p>
         </div>
@@ -240,7 +240,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
           accent="bg-purple-50 border-purple-200 text-purple-800" />
         <div className="sm:col-span-2 bg-card rounded-2xl border border-border p-4">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm font-semibold text-foreground">Taux de livraison global</p>
+            <p className="font-semibold" className="text-sm font-semibold text-foreground">Taux de livraison global</p>
             <span className={`text-lg font-extrabold ${tauxGlobal >= 80 ? "text-green-600" : tauxGlobal >= 60 ? "text-amber-500" : "text-red-500"}`}>
               {tauxGlobal}%
             </span>
@@ -284,8 +284,8 @@ export default function BORapportLivraison({ user: _user }: Props) {
                     {p.nom.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-bold text-foreground">{p.nom}</p>
-                    <p className="text-xs text-muted-foreground">{p.trips} trip{p.trips > 1 ? "s" : ""}</p>
+                    <p className="font-semibold" className="font-bold text-foreground">{p.nom}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground">{p.trips} trip{p.trips > 1 ? "s" : ""}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -316,15 +316,15 @@ export default function BORapportLivraison({ user: _user }: Props) {
                   { label: "Nb livraisons", value: p.livres, color: "text-foreground" },
                 ].map(s => (
                   <div key={s.label} className="bg-muted/40 rounded-xl p-3 text-center">
-                    <p className={`text-lg font-extrabold ${s.color}`}>{s.value}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{s.label}</p>
+                    <p className="font-semibold" className={`text-lg font-extrabold ${s.color}`}>{s.value}</p>
+                    <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">{s.label}</p>
                   </div>
                 ))}
               </div>
 
               {/* Timing breakdown */}
               <div className="bg-muted/30 rounded-xl p-3">
-                <p className="text-xs font-semibold text-muted-foreground mb-2">Timing des livraisons</p>
+                <p className="font-semibold" className="text-xs font-semibold text-muted-foreground mb-2">Timing des livraisons</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
                     { label: "A temps", value: p.aTtemps, bg: "bg-green-100 text-green-800 border-green-200", desc: "±30 min" },
@@ -333,14 +333,14 @@ export default function BORapportLivraison({ user: _user }: Props) {
                     { label: "Retard 1h+", value: p.retard1h, bg: "bg-red-100 text-red-800 border-red-200", desc: "> 60 min" },
                   ].map(t => (
                     <div key={t.label} className={`rounded-lg border px-3 py-2 text-center ${t.bg}`}>
-                      <p className="text-xl font-extrabold">{t.value}</p>
-                      <p className="text-xs font-semibold">{t.label}</p>
-                      <p className="text-[10px] opacity-70">{t.desc}</p>
+                      <p className="font-semibold" className="text-xl font-extrabold">{t.value}</p>
+                      <p className="font-semibold" className="text-xs font-semibold">{t.label}</p>
+                      <p className="font-semibold" className="text-[10px] ">{t.desc}</p>
                     </div>
                   ))}
                 </div>
                 {p.unknownTiming > 0 && (
-                  <p className="text-[10px] text-muted-foreground mt-2">
+                  <p className="font-semibold" className="text-[10px] text-muted-foreground mt-2">
                     {p.unknownTiming} livraison(s) sans heure enregistrée
                   </p>
                 )}

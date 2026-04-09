@@ -52,7 +52,7 @@ export default function MobileFeedback({ user }: Props) {
           <svg className="w-5 h-5 shrink-0" style={{ color: "oklch(0.65 0.18 148)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p className="text-sm font-semibold" style={{ color: "oklch(0.75 0.14 148)" }}>Merci pour votre avis !</p>
+          <p className="font-semibold" className="text-sm font-semibold" style={{ color: "oklch(0.75 0.14 148)" }}>Merci pour votre avis !</p>
         </div>
       )}
 
@@ -79,7 +79,7 @@ export default function MobileFeedback({ user }: Props) {
             ))}
           </div>
           {(hovered || rating) > 0 && (
-            <p className="text-xs font-semibold" style={{ color: "#f59e0b" }}>{STAR_LABELS[hovered || rating]}</p>
+            <p className="font-semibold" className="text-xs font-semibold" style={{ color: "#f59e0b" }}>{STAR_LABELS[hovered || rating]}</p>
           )}
         </div>
 
@@ -110,7 +110,7 @@ export default function MobileFeedback({ user }: Props) {
         <button
           onClick={submit}
           disabled={!rating || !message.trim() || saving}
-          className="w-full py-3 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-40 flex items-center justify-center gap-2"
+          className="w-full py-3 rounded-xl font-bold text-sm text-white transition-all hover: active:scale-95 disabled: flex items-center justify-center gap-2"
           style={{ background: "oklch(0.58 0.18 148)" }}
         >
           {saving ? (
@@ -143,7 +143,7 @@ export default function MobileFeedback({ user }: Props) {
                   <span className="text-[10px]" style={{ color: "oklch(0.42 0.008 145)" }}>{h.date}</span>
                 </div>
               </div>
-              <p className="text-xs leading-relaxed" style={{ color: "oklch(0.65 0.006 100)" }}>{h.message}</p>
+              <p className="font-semibold" className="text-xs leading-relaxed" style={{ color: "oklch(0.65 0.006 100)" }}>{h.message}</p>
             </div>
           ))}
         </div>

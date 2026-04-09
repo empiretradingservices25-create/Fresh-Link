@@ -151,8 +151,8 @@ export default function ForecastPanel() {
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
           <h2 className="text-xl font-black text-foreground">Forecast & Achat Auto</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">Prevision J+1 · Declenchement achat a {autoHour}</p>
-          {lastRun && <p className="text-[11px] text-muted-foreground mt-0.5">Derniere generation : {lastRun}</p>}
+          <p className="font-semibold" className="text-xs text-muted-foreground mt-0.5">Prevision J+1 · Declenchement achat a {autoHour}</p>
+          {lastRun && <p className="font-semibold" className="text-[11px] text-muted-foreground mt-0.5">Derniere generation : {lastRun}</p>}
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <button onClick={generateForecast}
@@ -180,20 +180,20 @@ export default function ForecastPanel() {
       {generated && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="bg-card border border-border rounded-2xl p-4">
-            <p className="text-2xl font-black text-foreground">{forecasts.length}</p>
-            <p className="text-xs text-muted-foreground font-semibold">Articles analyses</p>
+            <p className="font-semibold" className="text-2xl font-black text-foreground">{forecasts.length}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground font-semibold">Articles analyses</p>
           </div>
           <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4">
-            <p className="text-2xl font-black text-orange-700">{nbToOrder}</p>
-            <p className="text-xs text-orange-700 font-semibold">A commander</p>
+            <p className="font-semibold" className="text-2xl font-black text-orange-700">{nbToOrder}</p>
+            <p className="font-semibold" className="text-xs text-orange-700 font-semibold">A commander</p>
           </div>
           <div className="bg-green-50 border border-green-200 rounded-2xl p-4">
-            <p className="text-2xl font-black text-green-700">{forecasts.length - nbToOrder}</p>
-            <p className="text-xs text-green-700 font-semibold">Stock suffisant</p>
+            <p className="font-semibold" className="text-2xl font-black text-green-700">{forecasts.length - nbToOrder}</p>
+            <p className="font-semibold" className="text-xs text-green-700 font-semibold">Stock suffisant</p>
           </div>
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
-            <p className="text-xl font-black text-blue-700">{totalMontant.toFixed(0)} MAD</p>
-            <p className="text-xs text-blue-700 font-semibold">Montant total achat</p>
+            <p className="font-semibold" className="text-xl font-black text-blue-700">{totalMontant.toFixed(0)} MAD</p>
+            <p className="font-semibold" className="text-xs text-blue-700 font-semibold">Montant total achat</p>
           </div>
         </div>
       )}
@@ -203,7 +203,7 @@ export default function ForecastPanel() {
         <svg className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p className="text-xs text-blue-800">
+        <p className="font-semibold" className="text-xs text-blue-800">
           <strong>Methode :</strong> Prevision = moyenne ponderee (70% moy. 7j + 30% moy. 30j) ajustee par la tendance recente.
           Stock restant deduit. Bon d&apos;achat genere automatiquement pour les articles en deficit.
           Livraison ciblee le lendemain a 08h00.
@@ -215,7 +215,7 @@ export default function ForecastPanel() {
           <svg className="w-16 h-16 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          <p className="text-muted-foreground text-sm">Cliquez &quot;Generer le forecast&quot; pour calculer les besoins de demain.</p>
+          <p className="font-semibold" className="text-muted-foreground text-sm">Cliquez &quot;Generer le forecast&quot; pour calculer les besoins de demain.</p>
         </div>
       ) : (
         <>
@@ -239,7 +239,7 @@ export default function ForecastPanel() {
               }`}>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <p className="font-bold text-sm text-foreground">{f.articleNom}</p>
+                    <p className="font-semibold" className="font-bold text-sm text-foreground">{f.articleNom}</p>
                     {f.trend !== 0 && (
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
                         f.trend > 0 ? "bg-green-100 text-green-700 border border-green-300" :
@@ -259,8 +259,8 @@ export default function ForecastPanel() {
                 <div className="text-right shrink-0">
                   {f.qteACommander > 0 ? (
                     <>
-                      <p className="font-black text-orange-600">{f.qteACommander} {f.unite}</p>
-                      <p className="text-[11px] text-muted-foreground">{f.montantCommande.toFixed(2)} MAD</p>
+                      <p className="font-semibold" className="font-black text-orange-600">{f.qteACommander} {f.unite}</p>
+                      <p className="font-semibold" className="text-[11px] text-muted-foreground">{f.montantCommande.toFixed(2)} MAD</p>
                     </>
                   ) : (
                     <span className="text-xs font-semibold text-green-600 flex items-center gap-1">

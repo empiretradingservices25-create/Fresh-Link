@@ -170,8 +170,8 @@ function CaisseCard({ caisse }: { caisse: CaisseVide }) {
             <Package className="w-4.5 h-4.5" style={{ color: caisse.type === "gros" ? "#f59e0b" : "#06b6d4" }} />
           </div>
           <div>
-            <p className="text-sm font-bold" style={{ color: "#f1f5f9" }}>{caisse.libelle}</p>
-            <p className="text-xs" style={{ color: "#4b5563" }}>Capacité {caisse.capaciteKg} kg</p>
+            <p className="font-semibold" className="text-sm font-bold" style={{ color: "#f1f5f9" }}>{caisse.libelle}</p>
+            <p className="font-semibold" className="text-xs" style={{ color: "#4b5563" }}>Capacité {caisse.capaciteKg} kg</p>
           </div>
         </div>
         {low && <AlertTriangle className="w-4 h-4 text-red-400" />}
@@ -184,8 +184,8 @@ function CaisseCard({ caisse }: { caisse: CaisseVide }) {
           { l: "Total", v: total, c: "#94a3b8" },
         ].map(({ l, v, c }) => (
           <div key={l} className="rounded-xl py-2 px-1" style={{ background: "#0a0f18" }}>
-            <p className="text-xs" style={{ color: "#4b5563" }}>{l}</p>
-            <p className="text-lg font-bold" style={{ color: c }}>{v}</p>
+            <p className="font-semibold" className="text-xs" style={{ color: "#4b5563" }}>{l}</p>
+            <p className="font-semibold" className="text-lg font-bold" style={{ color: c }}>{v}</p>
           </div>
         ))}
       </div>
@@ -215,17 +215,17 @@ function MouvementRow({ m }: { m: CaisseVideMouvement }) {
           : <ArrowDownCircle className="w-4 h-4 text-emerald-400" />}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-medium truncate" style={{ color: "#e2e8f0" }}>
+        <p className="font-semibold" className="font-medium truncate" style={{ color: "#e2e8f0" }}>
           {OPERATION_LABELS[m.typeOperation] ?? m.typeOperation}
           {m.articleNom && <span style={{ color: "#4b5563" }}> — {m.articleNom}</span>}
         </p>
-        <p style={{ color: "#374151" }}>{m.notes ?? m.referenceDoc ?? "—"}</p>
+        <p className="font-semibold" style={{ color: "#374151" }}>{m.notes ?? m.referenceDoc ?? "—"}</p>
       </div>
       <div className="text-right flex-shrink-0">
-        <p style={{ color: m.sens === "sortie" ? "#f87171" : "#6ee7b7" }}>
+        <p className="font-semibold" style={{ color: m.sens === "sortie" ? "#f87171" : "#6ee7b7" }}>
           {m.sens === "sortie" ? "−" : "+"}{m.nbCaisseGros}G / {m.nbCaisseDemi}D
         </p>
-        <p style={{ color: "#374151" }}>{m.date}</p>
+        <p className="font-semibold" style={{ color: "#374151" }}>{m.date}</p>
       </div>
     </div>
   )
@@ -300,7 +300,7 @@ export default function CaissesVidesPanel() {
           <h2 className="text-sm font-bold" style={{ color: "#f1f5f9" }}>
             Gestion Caisses Vides <span style={{ color: "#374151" }}>/ الصناديق الفارغة</span>
           </h2>
-          <p className="text-xs mt-0.5" style={{ color: "#374151" }}>
+          <p className="font-semibold" className="text-xs mt-0.5" style={{ color: "#374151" }}>
             Auto-synchronisé depuis: Marché · Contrôle Marché · Réception · Contrôle Préparation · BL · Retours
           </p>
         </div>
@@ -328,8 +328,8 @@ export default function CaissesVidesPanel() {
           { l: "Mouvements Total", v: mouvements.length, c: "#f59e0b" },
         ].map(s => (
           <div key={s.l} className="rounded-xl p-3 flex items-center justify-between" style={{ background: "#0f1623", border: "1px solid #1a2535" }}>
-            <p className="text-xs" style={{ color: "#4b5563" }}>{s.l}</p>
-            <p className="text-sm font-bold" style={{ color: s.c }}>{s.v}</p>
+            <p className="font-semibold" className="text-xs" style={{ color: "#4b5563" }}>{s.l}</p>
+            <p className="font-semibold" className="text-sm font-bold" style={{ color: s.c }}>{s.v}</p>
           </div>
         ))}
       </div>
@@ -347,10 +347,10 @@ export default function CaissesVidesPanel() {
       {/* Manual movement form */}
       {showManuel && (
         <div className="rounded-2xl p-4 space-y-3" style={{ background: "#0f1623", border: "1px solid #1a2535" }}>
-          <p className="text-xs font-bold" style={{ color: "#94a3b8" }}>Mouvement Manuel</p>
+          <p className="font-semibold" className="text-xs font-bold" style={{ color: "#94a3b8" }}>Mouvement Manuel</p>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Type opération</p>
+              <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Type opération</p>
               <select value={manualForm.typeOperation}
                 onChange={e => setManualForm(f => ({ ...f, typeOperation: e.target.value as CaisseVideMouvement["typeOperation"] }))}
                 className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }}>
@@ -358,7 +358,7 @@ export default function CaissesVidesPanel() {
               </select>
             </div>
             <div>
-              <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Sens</p>
+              <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Sens</p>
               <select value={manualForm.sens}
                 onChange={e => setManualForm(f => ({ ...f, sens: e.target.value as "sortie" | "entree" }))}
                 className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }}>
@@ -367,20 +367,20 @@ export default function CaissesVidesPanel() {
               </select>
             </div>
             <div>
-              <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Nb Gros Caisses</p>
+              <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Nb Gros Caisses</p>
               <input type="number" min={0} value={manualForm.nbCaisseGros || ""}
                 onChange={e => setManualForm(f => ({ ...f, nbCaisseGros: +e.target.value }))}
                 className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
             </div>
             <div>
-              <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Nb Demi Caisses</p>
+              <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Nb Demi Caisses</p>
               <input type="number" min={0} value={manualForm.nbCaisseDemi || ""}
                 onChange={e => setManualForm(f => ({ ...f, nbCaisseDemi: +e.target.value }))}
                 className="w-full px-3 py-2 rounded-xl text-xs outline-none" style={{ background: "#0a0f18", border: "1px solid #1a2535", color: "#e2e8f0" }} />
             </div>
           </div>
           <div>
-            <p className="text-xs mb-1" style={{ color: "#4b5563" }}>Notes</p>
+            <p className="font-semibold" className="text-xs mb-1" style={{ color: "#4b5563" }}>Notes</p>
             <input value={manualForm.notes}
               onChange={e => setManualForm(f => ({ ...f, notes: e.target.value }))}
               placeholder="Observations..."
@@ -398,7 +398,7 @@ export default function CaissesVidesPanel() {
           className="w-full flex items-center justify-between px-4 py-3"
           style={{ background: "#0a0f18", borderBottom: "1px solid #1a2535" }}
           onClick={() => setShowAllMvts(!showAllMvts)}>
-          <p className="text-xs font-semibold" style={{ color: "#94a3b8" }}>
+          <p className="font-semibold" className="text-xs font-semibold" style={{ color: "#94a3b8" }}>
             Historique mouvements {showAllMvts ? "(tous)" : "(aujourd'hui)"}
             <span className="ml-2 px-1.5 py-0.5 rounded-full text-[10px]" style={{ background: "#1a2535", color: "#60a5fa" }}>
               {allMvts.length}
@@ -408,7 +408,7 @@ export default function CaissesVidesPanel() {
         </button>
         <div className="overflow-y-auto" style={{ maxHeight: 320 }}>
           {allMvts.length === 0
-            ? <p className="text-center py-8 text-xs" style={{ color: "#374151" }}>Aucun mouvement {showAllMvts ? "" : "aujourd'hui"}</p>
+            ? <p className="font-semibold" className="text-center py-8 text-xs" style={{ color: "#374151" }}>Aucun mouvement {showAllMvts ? "" : "aujourd'hui"}</p>
             : allMvts.map((m, i) => <MouvementRow key={i} m={m} />)}
         </div>
       </div>

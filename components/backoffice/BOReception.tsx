@@ -316,10 +316,10 @@ export default function BOReception({ user }: { user: { id: string; name: string
         </div>
         <div className="text-center">
           <h3 className="text-lg font-bold text-foreground">Acces non autorise</h3>
-          <p className="text-sm text-muted-foreground mt-1 max-w-sm">
+          <p className="font-semibold" className="text-sm text-muted-foreground mt-1 max-w-sm">
             La reception de marchandises est reservee exclusivement aux membres de la <strong>Logistique</strong> (Resp. Logistique, Magasinier, Dispatcheur) et aux <strong>Administrateurs</strong>.
           </p>
-          <p className="text-xs text-muted-foreground mt-2 font-mono bg-muted px-3 py-1.5 rounded-lg inline-block">
+          <p className="font-semibold" className="text-xs text-muted-foreground mt-2 font-mono bg-muted px-3 py-1.5 rounded-lg inline-block">
             Votre role: <strong>{user.role}</strong> — non autorise
           </p>
         </div>
@@ -358,7 +358,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
             <div key={bon.id} className="bg-card rounded-2xl border border-border p-4 flex items-start justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <p className="font-bold text-foreground">{bon.fournisseurNom}</p>
+                  <p className="font-semibold" className="font-bold text-foreground">{bon.fournisseurNom}</p>
                   <span className="text-xs text-muted-foreground">{bon.date}</span>
                   <span className="text-xs text-muted-foreground">• {bon.acheteurNom}</span>
                 </div>
@@ -375,7 +375,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
                   {DH(bon.lignes.reduce((s, l) => s + l.quantite * l.prixAchat, 0))}
                 </span>
                 <button onClick={() => openBonReception(bon)}
-                  className="px-4 py-2 rounded-xl text-sm font-bold text-white hover:opacity-90"
+                  className="px-4 py-2 rounded-xl text-sm font-bold text-white hover:"
                   style={{ background: "oklch(0.38 0.2 260)" }}>
                   Receptionner
                 </button>
@@ -398,19 +398,19 @@ export default function BOReception({ user }: { user: { id: string; name: string
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${po.statut === "envoyé" ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>{po.statut}</span>
-                  <p className="font-bold text-foreground">{po.articleNom}</p>
+                  <p className="font-semibold" className="font-bold text-foreground">{po.articleNom}</p>
                   <span className="text-xs text-muted-foreground">•</span>
-                  <p className="text-sm text-muted-foreground">{po.fournisseurNom}</p>
+                  <p className="font-semibold" className="text-sm text-muted-foreground">{po.fournisseurNom}</p>
                 </div>
                 <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
                   <span>Qte commandee: <strong>{po.quantite} {po.articleUnite}</strong></span>
                   <span>PU: <strong>{DH(po.prixUnitaire)}</strong></span>
                   <span>Total: <strong className="text-primary">{DH(po.total)}</strong></span>
                 </div>
-                {po.notes && <p className="text-xs text-muted-foreground mt-1 italic">{po.notes}</p>}
+                {po.notes && <p className="font-semibold" className="text-xs text-muted-foreground mt-1 italic">{po.notes}</p>}
               </div>
               <button onClick={() => openPOReception(po)}
-                className="px-4 py-2 rounded-xl text-sm font-bold text-white hover:opacity-90 shrink-0"
+                className="px-4 py-2 rounded-xl text-sm font-bold text-white hover: shrink-0"
                 style={{ background: "oklch(0.38 0.2 260)" }}>
                 Receptionner
               </button>
@@ -423,7 +423,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
       {tab === "manuel" && (
         <div className="flex flex-col gap-4">
           <h3 className="font-bold text-foreground">Reception manuelle / استلام يدوي</h3>
-          <p className="text-sm text-muted-foreground">Creez une reception sans bon d{"'"}achat ni PO — utile pour les achats au marche.</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">Creez une reception sans bon d{"'"}achat ni PO — utile pour les achats au marche.</p>
 
           <div className="bg-card rounded-2xl border border-border p-5 flex flex-col gap-4">
             {/* Fournisseur */}
@@ -494,7 +494,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
               </button>
               <button onClick={handleValiderManuel}
                 disabled={manuelLignes.every(l => !l.articleId || !l.qteRecue)}
-                className="px-6 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-50"
+                className="px-6 py-2.5 rounded-xl text-sm font-bold text-white disabled:"
                 style={{ background: "oklch(0.38 0.2 260)" }}>
                 Valider la reception
               </button>
@@ -573,7 +573,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-foreground">Reception — {selectedBon.fournisseurNom}</h3>
-                <p className="text-xs text-muted-foreground font-mono">{selectedBon.id} · {selectedBon.date}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground font-mono">{selectedBon.id} · {selectedBon.date}</p>
               </div>
               <button onClick={() => setSelectedBon(null)} className="p-2 hover:bg-muted rounded-lg">
                 <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -611,7 +611,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
                 return (
                   <div key={l.articleId} className="p-3 rounded-xl border border-border bg-muted/20">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="font-semibold text-foreground text-sm">{l.articleNom}</p>
+                      <p className="font-semibold" className="font-semibold text-foreground text-sm">{l.articleNom}</p>
                       <span className={`w-2 h-2 rounded-full ${conforme ? "bg-green-500" : "bg-yellow-500"}`} />
                     </div>
                     <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground mb-2">
@@ -713,7 +713,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
                 Stand-by / انتظار
               </button>
               <button onClick={() => setSelectedBon(null)} className="flex-1 py-2.5 rounded-xl border border-border text-sm font-semibold">Annuler</button>
-              <button onClick={handleValiderBon} className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-primary hover:opacity-90 transition-opacity">
+              <button onClick={handleValiderBon} className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-primary hover: transition-opacity">
                 Valider la reception
               </button>
             </div>
@@ -728,7 +728,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-foreground">Reception PO — {selectedPO.articleNom}</h3>
-                <p className="text-xs text-muted-foreground">{selectedPO.fournisseurNom} • {selectedPO.date}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">{selectedPO.fournisseurNom} • {selectedPO.date}</p>
               </div>
               <button onClick={() => setSelectedPO(null)} className="p-2 hover:bg-muted rounded-lg">
                 <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
@@ -789,7 +789,7 @@ export default function BOReception({ user }: { user: { id: string; name: string
                 Stand-by / انتظار
               </button>
               <button onClick={() => setSelectedPO(null)} className="flex-1 py-2.5 rounded-xl border border-border text-sm font-semibold">Annuler</button>
-              <button onClick={handleValiderPO} className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-primary hover:opacity-90 transition-opacity">
+              <button onClick={handleValiderPO} className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-primary hover: transition-opacity">
                 Valider
               </button>
             </div>

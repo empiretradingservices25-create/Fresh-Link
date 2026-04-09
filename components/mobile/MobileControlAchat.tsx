@@ -227,8 +227,8 @@ export default function MobileControlAchat({ user }: Props) {
       <div className="fixed inset-0 z-50 flex flex-col bg-black">
         <div className="flex items-center justify-between px-4 py-3">
           <div>
-            <p className="text-white font-bold text-sm">{artNom}</p>
-            <p className="text-gray-400 text-xs">Prenez au moins 1 photo de la caisse</p>
+            <p className="font-semibold" className="text-white font-bold text-sm">{artNom}</p>
+            <p className="font-semibold" className="text-gray-400 text-xs">Prenez au moins 1 photo de la caisse</p>
           </div>
           <button onClick={closeCamera} className="text-white bg-gray-800 rounded-full p-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,8 +279,8 @@ export default function MobileControlAchat({ user }: Props) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <p className="text-base font-bold text-green-800">Controle de chargement valide</p>
-          <p className="text-sm text-green-700">
+          <p className="font-semibold" className="text-base font-bold text-green-800">Controle de chargement valide</p>
+          <p className="font-semibold" className="text-sm text-green-700">
             {conformes.length} article(s) conforme(s){anomalies.length > 0 ? `, ${anomalies.length} anomalie(s) signalee(s)` : " — aucune anomalie"}
           </p>
           <button onClick={() => { setSubmitted(false); setEntries([]); setNotes(""); buildEntries(bons, articles, "all", contenants) }}
@@ -296,7 +296,7 @@ export default function MobileControlAchat({ user }: Props) {
     <div className="p-4 flex flex-col gap-4 font-sans">
       <div>
         <h2 className="text-lg font-bold text-foreground">Controle Chargement Marche</h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="font-semibold" className="text-sm text-muted-foreground">
           Quantites + photo obligatoire par article — {store.today()}
         </p>
       </div>
@@ -310,7 +310,7 @@ export default function MobileControlAchat({ user }: Props) {
           <svg className="w-10 h-10 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
-          <p className="text-sm font-semibold text-muted-foreground">Aucun bon d'achat valide aujourd'hui</p>
+          <p className="font-semibold" className="text-sm font-semibold text-muted-foreground">Aucun bon d'achat valide aujourd'hui</p>
         </div>
       ) : (
         <>
@@ -335,8 +335,8 @@ export default function MobileControlAchat({ user }: Props) {
               { label: "Anomalies", val: anomalies.length, bg: "bg-red-50 border-red-200", txt: "text-red-800" },
             ].map(s => (
               <div key={s.label} className={`flex-1 min-w-0 border rounded-xl px-2 py-2 text-center ${s.bg}`}>
-                <p className={`text-[10px] ${s.txt}`}>{s.label}</p>
-                <p className={`text-base font-black ${s.txt}`}>{s.val}</p>
+                <p className="font-semibold" className={`text-[10px] ${s.txt}`}>{s.label}</p>
+                <p className="font-semibold" className={`text-base font-black ${s.txt}`}>{s.val}</p>
               </div>
             ))}
           </div>
@@ -360,8 +360,8 @@ export default function MobileControlAchat({ user }: Props) {
                   {/* Header */}
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1">
-                      <p className="font-bold text-sm text-foreground">{e.articleNom}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="font-semibold" className="font-bold text-sm text-foreground">{e.articleNom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">
                         Achete : <strong>{e.qteAttendue} {e.unite}</strong>
                         {qteUM && <span className="ml-2 text-blue-600">= {qteUM} {e.um}</span>}
                       </p>
@@ -394,7 +394,7 @@ export default function MobileControlAchat({ user }: Props) {
                         {hasPhoto ? `${e.photos.length} photo(s)` : "Photo obligatoire — aucune prise"}
                       </span>
                       <button onClick={() => openCamera(e.articleId)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white transition-opacity ${hasPhoto ? "opacity-80" : ""}`}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white transition-opacity ${hasPhoto ? "" : ""}`}
                         style={{ background: hasPhoto ? "oklch(0.5 0.18 300)" : "oklch(0.45 0.2 25)" }}>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -503,15 +503,15 @@ export default function MobileControlAchat({ user }: Props) {
           {/* Validation blockers info */}
           {(!allQtyFilled || !allPhotosTaken) && (
             <div className="bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 flex flex-col gap-1">
-              <p className="text-xs font-bold text-amber-800">Pour valider le controle :</p>
-              {!allQtyFilled && <p className="text-xs text-amber-700">— Renseignez les quantites pour tous les articles ({entries.filter(e=>e.qteScannee==="").length} restants)</p>}
-              {!allPhotosTaken && <p className="text-xs text-amber-700">— Prenez au moins 1 photo par article ({entries.filter(e=>e.photos.length===0).length} sans photo)</p>}
+              <p className="font-semibold" className="text-xs font-bold text-amber-800">Pour valider le controle :</p>
+              {!allQtyFilled && <p className="font-semibold" className="text-xs text-amber-700">— Renseignez les quantites pour tous les articles ({entries.filter(e=>e.qteScannee==="").length} restants)</p>}
+              {!allPhotosTaken && <p className="font-semibold" className="text-xs text-amber-700">— Prenez au moins 1 photo par article ({entries.filter(e=>e.photos.length===0).length} sans photo)</p>}
             </div>
           )}
 
           {/* Submit */}
           <button onClick={handleSubmit} disabled={!canSubmit || submitting}
-            className="w-full py-3.5 rounded-xl font-bold text-white disabled:opacity-40 transition-opacity flex items-center justify-center gap-2"
+            className="w-full py-3.5 rounded-xl font-bold text-white disabled: transition-opacity flex items-center justify-center gap-2"
             style={{ background: canSubmit ? "oklch(0.38 0.2 260)" : "oklch(0.3 0 0)" }}>
             {submitting ? (
               <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Validation...</>

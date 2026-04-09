@@ -137,8 +137,8 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`;
           </div>
           <div className="text-center">
             <h3 className="font-bold text-foreground">Analyse IA — Retour produit</h3>
-            {articleNom && <p className="text-sm text-muted-foreground mt-1">Article : <strong>{articleNom}</strong></p>}
-            <p className="text-xs text-muted-foreground mt-2">Prenez une photo du retour. L&apos;IA analysera la qualite, le shelf life et proposera un prix.</p>
+            {articleNom && <p className="font-semibold" className="text-sm text-muted-foreground mt-1">Article : <strong>{articleNom}</strong></p>}
+            <p className="font-semibold" className="text-xs text-muted-foreground mt-2">Prenez une photo du retour. L&apos;IA analysera la qualite, le shelf life et proposera un prix.</p>
           </div>
           <div className="w-full">
             <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">Prix d&apos;achat (MAD/kg) — optionnel</label>
@@ -159,7 +159,7 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`;
       {/* Camera */}
       {step === "camera" && (
         <div className="flex flex-col gap-3">
-          <p className="text-sm font-bold text-foreground text-center">Cadrez le produit retourne</p>
+          <p className="font-semibold" className="text-sm font-bold text-foreground text-center">Cadrez le produit retourne</p>
           <div className="relative rounded-2xl overflow-hidden bg-black aspect-[4/3]">
             <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
             <div className="absolute inset-0 border-2 border-dashed border-white/40 rounded-2xl pointer-events-none" />
@@ -178,7 +178,7 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`;
       {/* Preview */}
       {step === "preview" && photo && (
         <div className="flex flex-col gap-3">
-          <p className="text-sm font-bold text-foreground text-center">Photo prise</p>
+          <p className="font-semibold" className="text-sm font-bold text-foreground text-center">Photo prise</p>
           <img src={photo} alt="Photo retour produit" className="rounded-2xl w-full object-cover aspect-[4/3]" />
           {error && <div className="px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700">{error}</div>}
           <div className="flex gap-3">
@@ -197,37 +197,37 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`;
         <div className="flex flex-col items-center gap-4 py-12">
           <div className="w-14 h-14 rounded-full border-4 border-t-transparent animate-spin"
             style={{ borderColor: "oklch(0.65 0.17 145)", borderTopColor: "transparent" }} />
-          <p className="font-semibold text-foreground text-sm">Analyse IA en cours...</p>
-          <p className="text-xs text-muted-foreground text-center">Evaluation de la qualite, shelf life et prix recommande</p>
-          {photo && <img src={photo} alt="Photo en cours d'analyse" className="rounded-xl w-40 h-32 object-cover opacity-50" />}
+          <p className="font-semibold" className="font-semibold text-foreground text-sm">Analyse IA en cours...</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground text-center">Evaluation de la qualite, shelf life et prix recommande</p>
+          {photo && <img src={photo} alt="Photo en cours d'analyse" className="rounded-xl w-40 h-32 object-cover " />}
         </div>
       )}
 
       {/* Result */}
       {step === "result" && result && photo && (
         <div className="flex flex-col gap-4">
-          <p className="text-sm font-bold text-foreground text-center">Resultat analyse IA</p>
+          <p className="font-semibold" className="text-sm font-bold text-foreground text-center">Resultat analyse IA</p>
           <div className="flex gap-3">
             <img src={photo} alt="Photo analysee" className="w-24 h-20 rounded-xl object-cover shrink-0" />
             <div className="flex-1 flex flex-col gap-1.5">
               <span className={`self-start text-[11px] px-2.5 py-1 rounded-full border font-bold ${etatColor(result.etat)}`}>
                 Etat : {result.etat}
               </span>
-              <p className="text-xs text-muted-foreground">
+              <p className="font-semibold" className="text-xs text-muted-foreground">
                 Notre marchandise : <strong className={result.isMarchandise ? "text-green-600" : "text-red-600"}>
                   {result.isMarchandise ? "Oui" : "Non"}
                 </strong>
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="font-semibold" className="text-xs text-muted-foreground">
                 Shelf life : <strong className="text-foreground">{result.shelfLifeEstime}</strong>
               </p>
             </div>
           </div>
 
           <div className="bg-card border border-border rounded-2xl p-4 flex flex-col gap-2.5">
-            <p className="text-xs font-bold text-foreground">Recommandation IA</p>
-            <p className="text-sm text-foreground">{result.recommandation}</p>
-            <p className="text-xs text-muted-foreground">{result.details}</p>
+            <p className="font-semibold" className="text-xs font-bold text-foreground">Recommandation IA</p>
+            <p className="font-semibold" className="text-sm text-foreground">{result.recommandation}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{result.details}</p>
             {result.prixSuggest && (
               <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-amber-50 border border-amber-200 mt-1">
                 <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

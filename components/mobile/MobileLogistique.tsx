@@ -65,8 +65,8 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
             {commande.clientNom[0]}
           </div>
           <div className="text-left">
-            <p className="font-bold text-foreground text-sm">{commande.clientNom}</p>
-            <p className="text-xs text-muted-foreground">{commande.secteur} — {commande.zone}</p>
+            <p className="font-semibold" className="font-bold text-foreground text-sm">{commande.clientNom}</p>
+            <p className="font-semibold" className="text-xs text-muted-foreground">{commande.secteur} — {commande.zone}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -82,7 +82,7 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
         <div className="border-t border-border px-4 pb-4 pt-3 flex flex-col gap-3">
           {/* Lines */}
           <div className="bg-muted/40 rounded-xl p-3">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Articles commandés</p>
+            <p className="font-semibold" className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Articles commandés</p>
             <div className="flex flex-col gap-1.5">
               {commande.lignes.map((l, i) => (
                 <div key={i} className="flex items-center justify-between text-sm">
@@ -100,11 +100,11 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
           {/* Heure de livraison demandée vs réelle */}
           <div className="bg-blue-50 rounded-xl p-3 flex items-center justify-between gap-3 border border-blue-100">
             <div>
-              <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-0.5">Heure demandée</p>
-              <p className="font-bold text-blue-900 text-base">{commande.heurelivraison || "—"}</p>
+              <p className="font-semibold" className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-0.5">Heure demandée</p>
+              <p className="font-semibold" className="font-bold text-blue-900 text-base">{commande.heurelivraison || "—"}</p>
             </div>
             <div className="flex flex-col gap-0.5">
-              <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide">Heure réelle</p>
+              <p className="font-semibold" className="text-xs font-semibold text-blue-700 uppercase tracking-wide">Heure réelle</p>
               <input
                 type="time"
                 value={heureReelle}
@@ -116,7 +116,7 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
 
           {/* Statut change buttons */}
           <div>
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Statut de livraison</p>
+            <p className="font-semibold" className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Statut de livraison</p>
             <div className="grid grid-cols-2 gap-2">
               {(["livre", "premier_passage", "deuxieme_passage"] as const).map(s => (
                 <button
@@ -140,7 +140,7 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
           {/* Motif retour picker */}
           {showMotifs && (
             <div className="bg-red-50 rounded-xl p-3 flex flex-col gap-2">
-              <p className="text-xs font-semibold text-red-700">Motif du retour</p>
+              <p className="font-semibold" className="text-xs font-semibold text-red-700">Motif du retour</p>
               <div className="flex flex-wrap gap-2">
                 {motifs.filter(m => m.actif).map(m => (
                   <button
@@ -456,8 +456,8 @@ export default function MobileLogistique({ user }: Props) {
                 <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
                   <Icon d="M5 13l4 4L19 7" className="w-6 h-6 text-green-600" />
                 </div>
-                <p className="font-semibold text-foreground">Tout est validé</p>
-                <p className="text-sm text-muted-foreground mt-1">Aucune commande en attente</p>
+                <p className="font-semibold" className="font-semibold text-foreground">Tout est validé</p>
+                <p className="font-semibold" className="text-sm text-muted-foreground mt-1">Aucune commande en attente</p>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
@@ -467,9 +467,9 @@ export default function MobileLogistique({ user }: Props) {
                     <div key={c.id} className="bg-card rounded-2xl border border-border p-4 flex flex-col gap-3">
                       <div className="flex items-start justify-between">
                         <div>
-                          <p className="font-bold text-foreground font-sans text-sm">{c.clientNom}</p>
-                          <p className="text-xs text-muted-foreground font-sans">{c.secteur} — {c.zone}</p>
-                          <p className="text-xs text-muted-foreground font-sans">Heure: {c.heurelivraison}</p>
+                          <p className="font-semibold" className="font-bold text-foreground font-sans text-sm">{c.clientNom}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground font-sans">{c.secteur} — {c.zone}</p>
+                          <p className="font-semibold" className="text-xs text-muted-foreground font-sans">Heure: {c.heurelivraison}</p>
                           {/* Credit badge — shown to livreur */}
                           {clientRecord?.creditAutorise !== undefined && (
                             <div className="flex items-center gap-1.5 mt-1 flex-wrap">
@@ -515,7 +515,7 @@ export default function MobileLogistique({ user }: Props) {
 
                       <button
                         onClick={() => validateCommande(c.id)}
-                        className="w-full py-2.5 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 transition-opacity hover:opacity-90"
+                        className="w-full py-2.5 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 transition-opacity hover:"
                         style={{ background: "oklch(0.45 0.18 200)" }}
                       >
                         <Icon d="M5 13l4 4L19 7" className="w-4 h-4" />
@@ -558,22 +558,22 @@ export default function MobileLogistique({ user }: Props) {
                 <div className="rounded-2xl border-2 border-green-300 bg-green-50 p-4 flex flex-col gap-3">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <p className="text-xs font-bold text-green-800 uppercase tracking-wide">Prochain client</p>
+                    <p className="font-semibold" className="text-xs font-bold text-green-800 uppercase tracking-wide">Prochain client</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center text-white font-black text-base shrink-0">
                       {nextClient.clientNom[0]}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-foreground text-sm truncate">{nextClient.clientNom}</p>
-                      <p className="text-xs text-muted-foreground">{nextClient.secteur} — {nextClient.zone}</p>
+                      <p className="font-semibold" className="font-bold text-foreground text-sm truncate">{nextClient.clientNom}</p>
+                      <p className="font-semibold" className="text-xs text-muted-foreground">{nextClient.secteur} — {nextClient.zone}</p>
                       {nextClient.heurelivraison && (
-                        <p className="text-xs text-blue-700 font-semibold">{nextClient.heurelivraison}</p>
+                        <p className="font-semibold" className="text-xs text-blue-700 font-semibold">{nextClient.heurelivraison}</p>
                       )}
                     </div>
                     <div className="text-right">
-                      <p className="font-black text-primary text-sm">{totalHT.toLocaleString("fr-MA")} DH</p>
-                      <p className="text-[10px] text-muted-foreground">HT</p>
+                      <p className="font-semibold" className="font-black text-primary text-sm">{totalHT.toLocaleString("fr-MA")} DH</p>
+                      <p className="font-semibold" className="text-[10px] text-muted-foreground">HT</p>
                     </div>
                   </div>
                   <div className="flex gap-2">
@@ -583,7 +583,7 @@ export default function MobileLogistique({ user }: Props) {
                         if (!cleanPhone) { alert("Aucun numéro de téléphone enregistré pour ce client."); return }
                         window.open(`https://wa.me/212${cleanPhone.replace(/^0/, "")}?text=${encodedMsg}`, "_blank")
                       }}
-                      className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition-opacity hover:opacity-90"
+                      className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition-opacity hover:"
                       style={{ background: "#25D366" }}>
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -604,7 +604,7 @@ export default function MobileLogistique({ user }: Props) {
                     </button>
                   </div>
                   {!phone && (
-                    <p className="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1">
+                    <p className="font-semibold" className="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1">
                       Aucun numéro dans la fiche client — enregistrez un téléphone pour activer l&apos;envoi.
                     </p>
                   )}
@@ -616,14 +616,14 @@ export default function MobileLogistique({ user }: Props) {
             <div className="rounded-2xl p-4 flex flex-col gap-3" style={{ background: "oklch(0.14 0.03 260)", color: "white" }}>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-semibold opacity-60 uppercase tracking-wide">Tournée active</p>
+                  <p className="font-semibold" className="text-xs font-semibold  uppercase tracking-wide">Tournée active</p>
                   {activeTrip ? (
                     <>
-                      <p className="font-bold text-base mt-0.5">{activeTrip.livreurNom}</p>
-                      <p className="text-xs opacity-70">{activeTrip.vehicule} — {activeTrip.date}</p>
+                      <p className="font-semibold" className="font-bold text-base mt-0.5">{activeTrip.livreurNom}</p>
+                      <p className="font-semibold" className="text-xs ">{activeTrip.vehicule} — {activeTrip.date}</p>
                     </>
                   ) : (
-                    <p className="font-bold text-base mt-0.5">Aucune tournée assignée</p>
+                    <p className="font-semibold" className="font-bold text-base mt-0.5">Aucune tournée assignée</p>
                   )}
                 </div>
                 <div className={`px-3 py-1.5 rounded-xl text-xs font-bold ${activeTrip?.statut === "en_cours" ? "bg-green-400/20 text-green-300" : "bg-white/10 text-white/70"}`}>
@@ -640,14 +640,14 @@ export default function MobileLogistique({ user }: Props) {
                   { label: "Retours", value: tripStats.retours, color: "text-red-400" },
                 ].map(s => (
                   <div key={s.label} className="text-center">
-                    <p className={`text-xl font-black ${s.color}`}>{s.value}</p>
-                    <p className="text-[10px] opacity-60">{s.label}</p>
+                    <p className="font-semibold" className={`text-xl font-black ${s.color}`}>{s.value}</p>
+                    <p className="font-semibold" className="text-[10px] ">{s.label}</p>
                   </div>
                 ))}
               </div>
 
               <div className="pt-2 border-t border-white/10 flex justify-between items-center">
-                <span className="text-xs opacity-60">Total encaissé</span>
+                <span className="text-xs ">Total encaissé</span>
                 <span className="font-bold text-sm">{tripStats.totalHT.toLocaleString("fr-MA")} DH HT</span>
               </div>
             </div>
@@ -655,7 +655,7 @@ export default function MobileLogistique({ user }: Props) {
             {/* Itinéraire — ordered list */}
             {activeTrip && activeTrip.itineraire.length > 0 && (
               <div className="bg-card rounded-2xl border border-border p-4">
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Itinéraire</p>
+                <p className="font-semibold" className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Itinéraire</p>
                 <div className="flex flex-col gap-2">
                   {[...activeTrip.itineraire]
                     .sort((a, b) => a.ordre - b.ordre)
@@ -669,7 +669,7 @@ export default function MobileLogistique({ user }: Props) {
                             {stop.ordre}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-foreground truncate">{stop.clientNom}</p>
+                            <p className="font-semibold" className="text-sm font-semibold text-foreground truncate">{stop.clientNom}</p>
                           </div>
                           {bl && (
                             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold shrink-0 ${STATUT_BL_COLORS[bl.statutLivraison] ?? "bg-gray-100"}`}>
@@ -707,13 +707,13 @@ export default function MobileLogistique({ user }: Props) {
 
             {/* Delivery cards */}
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              <p className="font-semibold" className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                 Clients ({tripCommandes.length}) — {deliveryMode === "horaire" ? "Ordre horaire de livraison" : "Circuit GPS optimal"}
               </p>
               {tripCommandes.length === 0 ? (
                 <div className="bg-card rounded-2xl border border-border p-8 text-center">
-                  <p className="font-semibold text-foreground">Aucune commande dans cette tournée</p>
-                  <p className="text-sm text-muted-foreground mt-1">Les commandes validées apparaîtront ici</p>
+                  <p className="font-semibold" className="font-semibold text-foreground">Aucune commande dans cette tournée</p>
+                  <p className="font-semibold" className="text-sm text-muted-foreground mt-1">Les commandes validées apparaîtront ici</p>
                 </div>
               ) : (
                 (() => {
@@ -798,7 +798,7 @@ export default function MobileLogistique({ user }: Props) {
                 <div className="flex items-center justify-center h-full bg-muted">
                   <div className="text-center">
                     <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">Chargement de la carte...</p>
+                    <p className="font-semibold" className="text-sm text-muted-foreground">Chargement de la carte...</p>
                   </div>
                 </div>
               )}
@@ -990,7 +990,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="font-bold text-foreground font-sans text-base">Reception Marchandises</h2>
-          <p className="text-xs text-muted-foreground">تاريخ الصلاحية DLC — سجل الاستلام</p>
+          <p className="font-semibold" className="text-xs text-muted-foreground">تاريخ الصلاحية DLC — سجل الاستلام</p>
         </div>
         <button
           onClick={() => setShowForm(s => !s)}
@@ -1014,23 +1014,23 @@ function MagasinierReceptionTab({ user }: { user: User }) {
       {/* KPIs */}
       <div className="grid grid-cols-3 gap-2">
         <div className="bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-slate-800">{receptions.length}</p>
-          <p className="text-[10px] text-slate-500">Total receptions</p>
+          <p className="font-semibold" className="text-xl font-black text-slate-800">{receptions.length}</p>
+          <p className="font-semibold" className="text-[10px] text-slate-500">Total receptions</p>
         </div>
         <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-amber-700">{pendingPOs.length}</p>
-          <p className="text-[10px] text-amber-600">PO a receptionner</p>
+          <p className="font-semibold" className="text-xl font-black text-amber-700">{pendingPOs.length}</p>
+          <p className="font-semibold" className="text-[10px] text-amber-600">PO a receptionner</p>
         </div>
         <div className="bg-blue-50 border border-blue-200 rounded-xl px-3 py-2.5 text-center">
-          <p className="text-xl font-black text-blue-700">{receptions.filter(r => r.statut === "partielle").length}</p>
-          <p className="text-[10px] text-blue-600">Partielles</p>
+          <p className="font-semibold" className="text-xl font-black text-blue-700">{receptions.filter(r => r.statut === "partielle").length}</p>
+          <p className="font-semibold" className="text-[10px] text-blue-600">Partielles</p>
         </div>
       </div>
 
       {/* PO pending alerts */}
       {pendingPOs.length > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
-          <p className="text-xs font-bold text-amber-800 mb-2">{pendingPOs.length} bon(s) d&apos;achat en attente de reception</p>
+          <p className="font-semibold" className="text-xs font-bold text-amber-800 mb-2">{pendingPOs.length} bon(s) d&apos;achat en attente de reception</p>
           <div className="flex flex-col gap-1.5">
             {pendingPOs.slice(0, 3).map(po => (
               <div key={po.id} className="flex items-center justify-between text-xs">
@@ -1045,7 +1045,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
       {/* Form */}
       {showForm && (
         <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-4">
-          <p className="text-sm font-bold text-slate-800">Saisir une reception</p>
+          <p className="font-semibold" className="text-sm font-bold text-slate-800">Saisir une reception</p>
 
           {/* Source selector */}
           <div className="grid grid-cols-2 gap-2">
@@ -1087,7 +1087,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
           {/* Lignes articles */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-bold text-slate-700">Articles recus</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-700">Articles recus</p>
               {source === "manuel" && (
                 <button type="button"
                   onClick={() => setLignes(p => [...p, { articleId: "", articleNom: "", unite: "", quantiteCommandee: 0, quantiteRecue: "", prixAchat: "", prixFacture: "", dlc: "", motifReliquat: "" }])}
@@ -1109,7 +1109,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
                   </select>
                 ) : (
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-bold text-slate-800">{l.articleNom}</p>
+                    <p className="font-semibold" className="text-sm font-bold text-slate-800">{l.articleNom}</p>
                     <span className="text-xs text-slate-500">{l.quantiteCommandee} {l.unite} command.</span>
                   </div>
                 )}
@@ -1122,7 +1122,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
                       className="w-full px-2.5 py-2 rounded-lg border border-slate-200 bg-white text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-400"
                       placeholder="0" />
                     {l.quantiteCommandee > 0 && Number(l.quantiteRecue) < l.quantiteCommandee && Number(l.quantiteRecue) > 0 && (
-                      <p className="text-[10px] text-amber-600 mt-0.5">Reliquat: {l.quantiteCommandee - Number(l.quantiteRecue)} {l.unite}</p>
+                      <p className="font-semibold" className="text-[10px] text-amber-600 mt-0.5">Reliquat: {l.quantiteCommandee - Number(l.quantiteRecue)} {l.unite}</p>
                     )}
                   </div>
                   <div>
@@ -1145,7 +1145,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
                   {l.dlc && (() => {
                     const daysLeft = Math.ceil((new Date(l.dlc).getTime() - Date.now()) / 86400000)
                     return (
-                      <p className={`text-[10px] mt-0.5 font-semibold ${daysLeft <= 2 ? "text-red-600" : daysLeft <= 7 ? "text-amber-600" : "text-green-600"}`}>
+                      <p className="font-semibold" className={`text-[10px] mt-0.5 font-semibold ${daysLeft <= 2 ? "text-red-600" : daysLeft <= 7 ? "text-amber-600" : "text-green-600"}`}>
                         {daysLeft <= 0 ? "EXPIRE" : `${daysLeft} jours restants`}
                       </p>
                     )
@@ -1183,7 +1183,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
             </button>
             <button onClick={handleSave}
               disabled={saving || lignes.every(l => !l.articleId || !l.quantiteRecue)}
-              className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-green-600 text-white disabled:opacity-40 flex items-center justify-center gap-2">
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-green-600 text-white disabled: flex items-center justify-center gap-2">
               {saving && <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />}
               Valider la reception
             </button>
@@ -1194,8 +1194,8 @@ function MagasinierReceptionTab({ user }: { user: User }) {
       {/* History */}
       {sortedReceptions.length === 0 && !showForm ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center">
-          <p className="text-sm text-slate-500">Aucune reception enregistree</p>
-          <p className="text-xs text-slate-400 mt-1">Cliquez &quot;Nouvelle reception&quot; pour commencer</p>
+          <p className="font-semibold" className="text-sm text-slate-500">Aucune reception enregistree</p>
+          <p className="font-semibold" className="text-xs text-slate-400 mt-1">Cliquez &quot;Nouvelle reception&quot; pour commencer</p>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
@@ -1203,8 +1203,8 @@ function MagasinierReceptionTab({ user }: { user: User }) {
             <div key={r.id} className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
                 <div>
-                  <p className="text-xs font-mono text-slate-500">{r.id}</p>
-                  <p className="text-sm font-bold text-slate-800">{r.date} — {r.fournisseurNom || "Manuel"}</p>
+                  <p className="font-semibold" className="text-xs font-mono text-slate-500">{r.id}</p>
+                  <p className="font-semibold" className="text-sm font-bold text-slate-800">{r.date} — {r.fournisseurNom || "Manuel"}</p>
                 </div>
                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                   r.statut === "validée" ? "bg-green-100 text-green-700"
@@ -1221,17 +1221,17 @@ function MagasinierReceptionTab({ user }: { user: User }) {
                   return (
                     <div key={i} className="flex items-start justify-between text-xs">
                       <div>
-                        <p className="font-semibold text-slate-800">{l.articleNom}</p>
-                        <p className="text-slate-500">Recu: <span className="font-bold text-green-700">{l.quantiteRecue}</span> / command: {l.quantiteCommandee}</p>
+                        <p className="font-semibold" className="font-semibold text-slate-800">{l.articleNom}</p>
+                        <p className="font-semibold" className="text-slate-500">Recu: <span className="font-bold text-green-700">{l.quantiteRecue}</span> / command: {l.quantiteCommandee}</p>
                         {dlcEntry?.dlc && (
-                          <p className="text-[10px] text-blue-600 font-semibold">DLC: {dlcEntry.dlc}</p>
+                          <p className="font-semibold" className="text-[10px] text-blue-600 font-semibold">DLC: {dlcEntry.dlc}</p>
                         )}
                       </div>
                       {l.prixFacture && <span className="font-bold text-slate-700">{l.prixFacture} DH</span>}
                     </div>
                   )
                 })}
-                {r.notes && <p className="text-[11px] text-slate-500 italic border-t border-slate-100 pt-1.5 mt-1">{r.notes}</p>}
+                {r.notes && <p className="font-semibold" className="text-[11px] text-slate-500 italic border-t border-slate-100 pt-1.5 mt-1">{r.notes}</p>}
               </div>
             </div>
           ))}

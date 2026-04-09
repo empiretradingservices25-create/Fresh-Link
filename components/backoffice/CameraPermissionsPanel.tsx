@@ -31,12 +31,12 @@ export default function CameraPermissionsPanel({ currentUser }: { currentUser: U
       <div className="rounded-xl p-4 flex items-start gap-3" style={{ background: "#0d1a2e", border: "1px solid #1d3a5e" }}>
         <Shield className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-bold" style={{ color: "#f1f5f9" }}>Gestion des Droits Caméra</p>
-          <p className="text-xs mt-0.5" style={{ color: "#4b5563" }}>
+          <p className="font-semibold" className="text-sm font-bold" style={{ color: "#f1f5f9" }}>Gestion des Droits Caméra</p>
+          <p className="font-semibold" className="text-xs mt-0.5" style={{ color: "#4b5563" }}>
             Le Super Admin est le seul à pouvoir accorder ou révoquer l&apos;accès caméra pour les autres utilisateurs. Les autres rôles ne peuvent pas modifier ces permissions.
           </p>
           {!isSuperAdmin && (
-            <p className="text-xs mt-2 font-semibold" style={{ color: "#ef4444" }}>
+            <p className="font-semibold" className="text-xs mt-2 font-semibold" style={{ color: "#ef4444" }}>
               Accès lecture seule — seul le Super Admin peut modifier ces permissions.
             </p>
           )}
@@ -47,8 +47,8 @@ export default function CameraPermissionsPanel({ currentUser }: { currentUser: U
       <div className="rounded-xl p-3 flex items-center gap-3" style={{ background: "#0d2e18", border: "1px solid #15352a" }}>
         <Camera className="w-4 h-4 text-emerald-400" />
         <div className="flex-1">
-          <p className="text-xs font-bold" style={{ color: "#6ee7b7" }}>Super Admin — Accès caméra permanent</p>
-          <p className="text-[10px]" style={{ color: "#374151" }}>Ce droit ne peut pas être retiré</p>
+          <p className="font-semibold" className="text-xs font-bold" style={{ color: "#6ee7b7" }}>Super Admin — Accès caméra permanent</p>
+          <p className="font-semibold" className="text-[10px]" style={{ color: "#374151" }}>Ce droit ne peut pas être retiré</p>
         </div>
         <Unlock className="w-4 h-4 text-emerald-400" />
       </div>
@@ -67,7 +67,7 @@ export default function CameraPermissionsPanel({ currentUser }: { currentUser: U
                 {u.name[0].toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold truncate" style={{ color: "#f1f5f9" }}>{u.name}</p>
+                <p className="font-semibold" className="text-sm font-semibold truncate" style={{ color: "#f1f5f9" }}>{u.name}</p>
                 <div className="flex items-center gap-2 mt-0.5">
                   <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "#0a0f18", color: "#4b5563", border: "1px solid #1a2535" }}>
                     {ROLE_LABELS[u.role]}
@@ -88,7 +88,7 @@ export default function CameraPermissionsPanel({ currentUser }: { currentUser: U
                 <button
                   onClick={() => toggle(u.id, granted)}
                   disabled={!isSuperAdmin}
-                  className="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 focus:outline-none disabled: disabled:cursor-not-allowed"
                   style={{ background: granted ? "#10b981" : "#374151" }}
                   title={!isSuperAdmin ? "Seul le Super Admin peut modifier cette permission" : ""}
                 >
@@ -111,8 +111,8 @@ export default function CameraPermissionsPanel({ currentUser }: { currentUser: U
           { l: "Total utilisateurs", v: eligible.length + 1, c: "#6366f1" },
         ].map(s => (
           <div key={s.l} className="rounded-xl p-3 text-center" style={{ background: "#0f1623", border: "1px solid #1a2535" }}>
-            <p className="text-xl font-bold" style={{ color: s.c }}>{s.v}</p>
-            <p className="text-[10px] mt-0.5" style={{ color: "#4b5563" }}>{s.l}</p>
+            <p className="font-semibold" className="text-xl font-bold" style={{ color: s.c }}>{s.v}</p>
+            <p className="font-semibold" className="text-[10px] mt-0.5" style={{ color: "#4b5563" }}>{s.l}</p>
           </div>
         ))}
       </div>

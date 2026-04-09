@@ -101,7 +101,7 @@ export default function BOFournisseurs({ user }: { user: { id: string; role: str
       <div className="flex items-center justify-between">
         <div>
           <h2 className="font-bold text-foreground text-lg">Fournisseurs / الموردون</h2>
-          <p className="text-sm text-muted-foreground">{fournisseurs.length} fournisseur(s) enregistré(s)</p>
+          <p className="font-semibold" className="text-sm text-muted-foreground">{fournisseurs.length} fournisseur(s) enregistré(s)</p>
         </div>
         <div className="flex items-center gap-3">
           {saved && (
@@ -132,7 +132,7 @@ export default function BOFournisseurs({ user }: { user: { id: string; role: str
             <div className="flex items-start justify-between gap-2">
               <div>
                 <h3 className="font-bold text-foreground">{f.nom}</h3>
-                <p className="text-xs text-muted-foreground">{f.ville}{f.region ? ` — ${f.region}` : ""}</p>
+                <p className="font-semibold" className="text-xs text-muted-foreground">{f.ville}{f.region ? ` — ${f.region}` : ""}</p>
               </div>
               <div className="flex gap-1 shrink-0">
                 {canEdit && (
@@ -207,7 +207,7 @@ export default function BOFournisseurs({ user }: { user: { id: string; role: str
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-card rounded-2xl border border-border p-6 max-w-sm w-full flex flex-col gap-4 shadow-xl">
             <h3 className="font-bold text-foreground">Confirmer la suppression</h3>
-            <p className="text-sm text-muted-foreground">Cette action est irréversible. Le fournisseur sera supprimé définitivement.</p>
+            <p className="font-semibold" className="text-sm text-muted-foreground">Cette action est irréversible. Le fournisseur sera supprimé définitivement.</p>
             <div className="flex gap-2">
               <button onClick={() => handleDelete(confirmDelete)}
                 className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors">
@@ -284,7 +284,7 @@ export default function BOFournisseurs({ user }: { user: { id: string; role: str
               {/* SPECIALITES */}
               {activeTab === "specialites" && (
                 <div className="flex flex-col gap-3">
-                  <p className="text-xs text-muted-foreground">Sélectionnez les fruits et légumes fournis par ce fournisseur :</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">Sélectionnez les fruits et légumes fournis par ce fournisseur :</p>
                   <div className="flex flex-wrap gap-2">
                     {SPECIALITES_FRUITS_LEGUMES.map(s => (
                       <button key={s} onClick={() => toggleSpecialite(s)} type="button"
@@ -298,7 +298,7 @@ export default function BOFournisseurs({ user }: { user: { id: string; role: str
                     ))}
                   </div>
                   {form.specialites.length > 0 && (
-                    <p className="text-xs text-green-700 font-medium">{form.specialites.length} spécialité(s) sélectionnée(s)</p>
+                    <p className="font-semibold" className="text-xs text-green-700 font-medium">{form.specialites.length} spécialité(s) sélectionnée(s)</p>
                   )}
                 </div>
               )}
@@ -306,7 +306,7 @@ export default function BOFournisseurs({ user }: { user: { id: string; role: str
               {/* ITINERAIRES */}
               {activeTab === "itineraires" && (
                 <div className="flex flex-col gap-4">
-                  <p className="text-xs text-muted-foreground">Définissez les marchés, souks ou points d&apos;approvisionnement et les jours/horaires de passage :</p>
+                  <p className="font-semibold" className="text-xs text-muted-foreground">Définissez les marchés, souks ou points d&apos;approvisionnement et les jours/horaires de passage :</p>
                   {(form.itineraires || []).map((pt, i) => (
                     <div key={i} className="bg-muted/30 rounded-xl border border-border p-4 flex flex-col gap-3">
                       <div className="flex items-center justify-between">
