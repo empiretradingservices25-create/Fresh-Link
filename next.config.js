@@ -3,9 +3,7 @@ const nextConfig = {
   // Pour la compatibilité de build sur Vercel
   typescript: {
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
+    // ignoreDuringBuilds: true, // Option incorrecte ici, à retirer ou déplacer si nécessaire
   },
   images: {
     domains: [],
