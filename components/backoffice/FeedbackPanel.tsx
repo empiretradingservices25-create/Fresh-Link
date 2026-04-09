@@ -3,10 +3,10 @@
 import { useState, useRef, useEffect } from "react"
 import { store, type Feedback, type FeedbackSource, type FeedbackStatut, type User } from "@/lib/store"
 
-// ─── Props ────────────────────────────────────────────────────────────────────
+// -─ Props ----------------------------------
 interface Props { user: User }
 
-// ─── Bilingual labels ──────────────────────────────────────────────────────
+// -─ Bilingual labels ---------------------------
 const SOURCE_LABELS: Record<FeedbackSource, { fr: string; ar: string }> = {
   client:      { fr: "Client",         ar: "زبون" },
   fournisseur: { fr: "Fournisseur",    ar: "مورد" },
@@ -31,7 +31,7 @@ const STATUT_COLORS: Record<FeedbackStatut, string> = {
   traite:  "#10b981",
 }
 
-// ─── Predefined sujet categories (FR + AR) ────────────────────────────────
+// -─ Predefined sujet categories (FR + AR) ----------------
 const SUJET_OPTIONS: { fr: string; ar: string }[] = [
   { fr: "Qualite produit",         ar: "جودة المنتج" },
   { fr: "Délai de livraison",      ar: "وقت التسليم" },
@@ -47,7 +47,7 @@ const SUJET_OPTIONS: { fr: string; ar: string }[] = [
   { fr: "Réclamation urgente",     ar: "شكوى عاجلة" },
 ]
 
-// ─── MultiSelect dropdown ─────────────────────────────────────────────────
+// -─ MultiSelect dropdown ------------------------─
 function MultiSelectSujet({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) {
   const [open, setOpen] = useState(false)
   const [custom, setCustom] = useState("")
@@ -141,7 +141,7 @@ function MultiSelectSujet({ value, onChange }: { value: string[]; onChange: (v: 
   )
 }
 
-// ─── Stars ────────────────────────────────────────────────────────────────
+// -─ Stars --------------------------------
 function Stars({ n, onRate }: { n: number; onRate?: (v: number) => void }) {
   return (
     <div className="flex gap-0.5">
@@ -158,7 +158,7 @@ function Stars({ n, onRate }: { n: number; onRate?: (v: number) => void }) {
   )
 }
 
-// ─── Export ───────────────────────────────────────────────────────────────
+// -─ Export -------------------------------─
 function exportCSV(feedbacks: Feedback[]) {
   const cols = ["id", "date", "source", "auteur", "sujet", "note", "message", "statut"]
   const rows = feedbacks.map(f =>
@@ -172,7 +172,7 @@ function exportCSV(feedbacks: Feedback[]) {
   URL.revokeObjectURL(a.href)
 }
 
-// ─── Submit-only view (non-admin) ─────────────────────────────────────────
+// -─ Submit-only view (non-admin) --------------------─
 function SubmitOnlyView({ user }: { user: User }) {
   const [done, setDone] = useState(false)
   const [form, setForm] = useState({
@@ -318,7 +318,7 @@ function SubmitOnlyView({ user }: { user: User }) {
   )
 }
 
-// ─── Admin list view ──────────────────────────────────────────────────────
+// -─ Admin list view ---------------------------
 function AdminView() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>(() => store.getFeedbacks())
   const [filterSource, setFilterSource] = useState<FeedbackSource | "all">("all")
@@ -678,7 +678,7 @@ function AdminView() {
   )
 }
 
-// ─── Main export — routes by admin status ─────────────────────────────────
+// -─ Main export — routes by admin status ----------------─
 export default function FeedbackPanel({ user }: Props) {
   const isAdmin = user.role === "super_admin" || user.role === "admin" || user.canViewDatabase
   if (!isAdmin) return <SubmitOnlyView user={user} />

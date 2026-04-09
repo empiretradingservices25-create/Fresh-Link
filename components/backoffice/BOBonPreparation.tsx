@@ -32,7 +32,7 @@ function StatusBadge({ s }: { s: BonPreparation["statut"] }) {
   )
 }
 
-// ── Sort clients by chosen mode ──────────────────────────────────────────────
+// - Sort clients by chosen mode -----------------------
 function sortClients(clients: ClientSequenceInfo[], mode: SequenceModePrep): ClientSequenceInfo[] {
   if (mode === "horaire") {
     return [...clients].sort((a, b) => {
@@ -45,7 +45,7 @@ function sortClients(clients: ClientSequenceInfo[], mode: SequenceModePrep): Cli
   return [...clients].sort((a, b) => a.ordre - b.ordre)
 }
 
-// ── Print window ─────────────────────────────────────────────────────────────
+// - Print window ------------------------------─
 function openPrintPrep(bon: BonPreparation, commandes: Commande[]) {
   const company = (() => {
     try { return JSON.parse(localStorage.getItem("fl_company") || "{}") } catch { return {} }
@@ -254,7 +254,7 @@ function openPrintPrep(bon: BonPreparation, commandes: Commande[]) {
   win.document.close()
 }
 
-// ── Main component ───────────────────────────────────────────────────────────
+// - Main component -----------------------------─
 export default function BOBonPreparation({ user }: Props) {
   const [bons, setBons] = useState<BonPreparation[]>([])
   const [trips, setTrips] = useState<Trip[]>([])
@@ -444,7 +444,7 @@ export default function BOBonPreparation({ user }: Props) {
     if (viewing?.id === id) setViewing(null)
   }
 
-  // ── Digital preparation view ──────────────────────────────────────────────
+  // - Digital preparation view -----------------------
   const DigitalPrepaView = ({ bon }: { bon: BonPreparation }) => {
     const [localQtys, setLocalQtys] = useState<Record<string, number>>(
       Object.fromEntries(bon.lignes.map(l => [l.articleId, l.qtePrepared || l.qteCommandee]))
@@ -659,7 +659,7 @@ export default function BOBonPreparation({ user }: Props) {
     )
   }
 
-  // ── New bon form ──────────────────────────────────────────────────────────
+  // - New bon form -----------------------------
   const NewBonForm = () => {
     const preview = buildLignes()
     const previewClients = buildClientsInfo(getCmdsForSelection())
@@ -857,7 +857,7 @@ export default function BOBonPreparation({ user }: Props) {
     )
   }
 
-  // ── Main render ───────────────────────────────────────────────────────────
+  // - Main render -----------------------------─
   return (
     <div className="flex flex-col gap-5">
       {viewing && viewing.format === "numerique" && <DigitalPrepaView bon={viewing} />}

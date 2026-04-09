@@ -563,7 +563,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                 onChange={e => setForm(f => ({ ...f, pvValeur: Number(e.target.value) }))}
                 className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary" />
             </div>
-            {/* ── PHOTO IMPORT (Fichier / Drag-Drop / URL) ── */}
+            {/* - PHOTO IMPORT (Fichier / Drag-Drop / URL) - */}
             <div className="flex flex-col gap-2 sm:col-span-2">
               <label className="text-xs font-semibold">Photo article</label>
               <div className="flex gap-3 items-start flex-wrap">
@@ -671,7 +671,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
         </div>
       )}
 
-      {/* ── GRID VIEW ── */}
+      {/* - GRID VIEW - */}
       {view === "grid" && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {filtered.length === 0 ? (
@@ -763,7 +763,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
         </div>
       )}
 
-      {/* ── TABLE VIEW ── */}
+      {/* - TABLE VIEW - */}
       {view === "table" && (
         <div className="bg-card rounded-2xl border border-border overflow-hidden">
           <div className="overflow-x-auto">

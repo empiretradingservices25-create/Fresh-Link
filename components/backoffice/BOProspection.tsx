@@ -3,9 +3,9 @@
 import { useState, useCallback, useRef } from "react"
 import { store, type User, type Client } from "@/lib/store"
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // TYPES
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 type Activite = "restaurant" | "marchand" | "distributeur" | "grossiste" | "superette" | "hotel" | "traiteur" | "autre"
 type Potentiel = "faible" | "moyen" | "fort"
@@ -43,9 +43,9 @@ interface IaAnalyse {
   resume: string         // short executive summary
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // CONSTANTS
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 const ACTIVITES: { value: Activite; label: string; labelAr: string; color: string }[] = [
   { value: "restaurant",   label: "Restaurant / Café",     labelAr: "مطعم / قهوة",    color: "#ef4444" },
@@ -103,7 +103,7 @@ function loadProspects(): ProspectClient[] {
 }
 function saveProspects(p: ProspectClient[]) { localStorage.setItem(LS_KEY, JSON.stringify(p)) }
 
-// ─── Export helpers ───────────────────────────────────────────
+// -─ Export helpers ---------------------─
 function exportJSON(prospects: ProspectClient[]) {
   const blob = new Blob([JSON.stringify(prospects, null, 2)], { type: "application/json" })
   const url = URL.createObjectURL(blob)
@@ -158,9 +158,9 @@ async function importJSON(file: File): Promise<ProspectClient[]> {
   })
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // ICON HELPER
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 function Icon({ d, className = "w-4 h-4" }: { d: string; className?: string }) {
   return (
@@ -170,9 +170,9 @@ function Icon({ d, className = "w-4 h-4" }: { d: string; className?: string }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // AI ANALYSIS — real LLM call
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 async function analyserProspect(prospect: ProspectClient, articles: string[]): Promise<IaAnalyse> {
   const act = ACTIVITES.find(a => a.value === prospect.activite)
@@ -230,9 +230,9 @@ Génère une analyse complète en JSON avec exactement cette structure:
   return JSON.parse(jsonMatch[0]) as IaAnalyse
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // SUB-COMPONENTS
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 function ScoreRing({ score }: { score: number }) {
   const radius = 28
@@ -383,9 +383,9 @@ function AnalyseCard({ analyse, prospect, onClose, onUpdateProspect }: {
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // MAIN COMPONENT
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 export default function BOProspection({ user }: { user: User }) {
   const [prospects, setProspects]         = useState<ProspectClient[]>(loadProspects)
@@ -524,7 +524,7 @@ export default function BOProspection({ user }: { user: User }) {
     setConvertingId(null)
   }
 
-  // ── Filtered lists ─────────────────────────────────────────
+  // - Filtered lists --------------------─
   const active = prospects.filter(p => !p.convertedClientId)
   const converted = prospects.filter(p => !!p.convertedClientId)
 
@@ -550,7 +550,7 @@ export default function BOProspection({ user }: { user: User }) {
   return (
     <div className="space-y-5">
 
-      {/* ── HEADER ───────────────────────────────────────────── */}
+      {/* - HEADER ----------------------─ */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h2 className="text-lg font-black text-foreground">Prospection Clients IA</h2>
@@ -623,7 +623,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       </div>
 
-      {/* ── KPI ROW ──────────────────────────────────────────── */}
+      {/* - KPI ROW ---------------------- */}
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
         {[
           { label: "Total actifs",  labelAr: "المجموع",    value: kpis.total,     cls: "text-foreground",   bg: "bg-card" },
@@ -641,7 +641,7 @@ export default function BOProspection({ user }: { user: User }) {
         ))}
       </div>
 
-      {/* ── TABS ─────────────────────────────────────────────── */}
+      {/* - TABS -----------------------─ */}
       <div className="flex gap-1 p-1 bg-muted rounded-xl">
         {([
           { id: "liste",      label: `Liste (${active.length})`,       labelAr: "القائمة" },
@@ -658,7 +658,7 @@ export default function BOProspection({ user }: { user: User }) {
         ))}
       </div>
 
-      {/* ── LISTE TAB ────────────────────────────────────────── */}
+      {/* - LISTE TAB --------------------- */}
       {tab === "liste" && (
         <div className="space-y-4">
           {/* Filters */}
@@ -771,7 +771,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       )}
 
-      {/* ── ANALYSE IA TAB ───────────────────────────────────── */}
+      {/* - ANALYSE IA TAB ------------------─ */}
       {tab === "analyse_ia" && (
         <div className="space-y-4">
           {analysed.length === 0 ? (
@@ -840,7 +840,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       )}
 
-      {/* ── CONVERTIS TAB ────────────────────────────────────── */}
+      {/* - CONVERTIS TAB ------------------- */}
       {tab === "convertis" && (
         <div className="space-y-4">
           {converted.length === 0 ? (
@@ -883,7 +883,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       )}
 
-      {/* ── IMPORT STATUS TOAST ─────────────────────────────── */}
+      {/* - IMPORT STATUS TOAST ---------------─ */}
       {importStatus && (
         <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-xl shadow-lg text-sm font-semibold flex items-center gap-2 max-w-sm text-center ${
           importStatus.type === "success" ? "bg-green-600 text-white" : "bg-red-600 text-white"
@@ -898,7 +898,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       )}
 
-      {/* ── AI ERROR BANNER ──────────────────────────────────── */}
+      {/* - AI ERROR BANNER ------------------ */}
       {analyseError && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-red-600 text-white px-4 py-3 rounded-xl shadow-lg text-sm font-semibold flex items-center gap-2">
           <Icon d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -909,7 +909,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       )}
 
-      {/* ── SUCCESS BANNER ───────────────────────────────────── */}
+      {/* - SUCCESS BANNER ------------------─ */}
       {convertSuccess && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-green-600 text-white px-4 py-3 rounded-xl shadow-lg text-sm font-semibold flex items-center gap-2 max-w-sm text-center">
           <Icon d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -920,7 +920,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       )}
 
-      {/* ── ANALYSE MODAL ────────────────────────────────────── */}
+      {/* - ANALYSE MODAL ------------------- */}
       {analyseModal && (
         <AnalyseCard
           analyse={analyseModal.result}
@@ -933,7 +933,7 @@ export default function BOProspection({ user }: { user: User }) {
         />
       )}
 
-      {/* ── DETAIL MODAL ─────────────────────────────────────── */}
+      {/* - DETAIL MODAL -------------------─ */}
       {selected && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-card rounded-2xl border border-border w-full max-w-lg shadow-xl max-h-[90vh] overflow-y-auto">
@@ -1026,7 +1026,7 @@ export default function BOProspection({ user }: { user: User }) {
         </div>
       )}
 
-      {/* ── ADD FORM MODAL ───────────────────────────────────── */}
+      {/* - ADD FORM MODAL ------------------─ */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-card rounded-2xl border border-border w-full max-w-2xl shadow-xl max-h-[92vh] overflow-y-auto">

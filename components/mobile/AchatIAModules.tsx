@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { type Article, type Fournisseur, type User, type HistoriquePrixAchat } from "@/lib/store"
 
-// ── Shared API call ──────────────────────────────────────────────────────────
+// - Shared API call -----------------------------
 
 async function callAI(
   systemPrompt: string,
@@ -25,7 +25,7 @@ async function callAI(
   return data.choices?.[0]?.message?.content ?? "";
 }
 
-// ── Image → base64 ───────────────────────────────────────────────────────────
+// - Image → base64 -----------------------------─
 async function blobToBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -39,11 +39,11 @@ async function fileToBase64(file: File): Promise<string> {
   return blobToBase64(file)
 }
 
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 // CAMERA QUALITE IA
 // Analyse la fraîcheur, calibre et état d'un produit via photo
 // SI-MOHAMMED utilise cet outil sur le terrain
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 
 interface QualiteResult {
   score: number          // 0-100
@@ -610,10 +610,10 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
   )
 }
 
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 // COMPARATIF FOURNISSEURS IA
 // Compare plusieurs fournisseurs : historique prix + photos + analyse IA
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 
 interface FournisseurEntry {
   fournisseurId: string

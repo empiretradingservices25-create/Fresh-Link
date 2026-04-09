@@ -8,7 +8,7 @@
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- ─── 1. USERS ────────────────────────────────────────────────────────────────
+-- -─ 1. USERS --------------------------------
 CREATE TABLE IF NOT EXISTS public.fl_users (
   id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name          TEXT NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS public.fl_users (
   updated_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 2. CATALOGUE FRUITS & LEGUMES DU MONDE ──────────────────────────────────
+-- -─ 2. CATALOGUE FRUITS & LEGUMES DU MONDE -----------------
 CREATE TABLE IF NOT EXISTS public.fl_produits_catalogue (
   id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nom             TEXT NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS public.fl_produits_catalogue (
 TRUNCATE TABLE public.fl_produits_catalogue RESTART IDENTITY CASCADE;
 
 INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_categorie, couleur, taille_standard, unite, origine, saison) VALUES
--- ── AGRUMES ──────────────────────────────────────────────────────────────────
+-- - AGRUMES ---------------------------------
 ('Orange',            'برتقال',     'Orange',           'fruit', 'agrume',   'orange',     'M',   'kg', 'Maroc',       'hiver'),
 ('Citron',            'حامض',       'Lemon',            'fruit', 'agrume',   'jaune',      'S',   'kg', 'Maroc',       'toute_annee'),
 ('Pamplemousse',      'بوملو',      'Grapefruit',       'fruit', 'agrume',   'jaune-rose', 'L',   'kg', 'Israel',      'hiver'),
@@ -76,7 +76,7 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Yuzu',              'يوزو',       'Yuzu',             'fruit', 'agrume',   'jaune',      'S',   'kg', 'Japon',       'hiver'),
 ('Kumquat',           'كمكوات',     'Kumquat',          'fruit', 'agrume',   'orange',     'XS',  'kg', 'Chine',       'hiver'),
 ('Pomelo',            'بومييلو',    'Pomelo',           'fruit', 'agrume',   'rose',       'XL',  'kg', 'Thaïlande',   'hiver'),
--- ── FRUITS TROPICAUX ─────────────────────────────────────────────────────────
+-- - FRUITS TROPICAUX ----------------------------─
 ('Mangue',            'مانجو',      'Mango',            'fruit', 'tropical', 'jaune-rouge','L',   'kg', 'Senegal',     'ete'),
 ('Ananas',            'أناناس',     'Pineapple',        'fruit', 'tropical', 'jaune',      'XL',  'piece','Costa Rica', 'toute_annee'),
 ('Papaye',            'بابايا',     'Papaya',           'fruit', 'tropical', 'orange',     'L',   'kg', 'Brésil',      'toute_annee'),
@@ -92,18 +92,18 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Durian',            'دوريان',     'Durian',           'fruit', 'tropical', 'jaune',      'XL',  'kg', 'Thaïlande',   'ete'),
 ('Tamarinde',         'تمر هندي',   'Tamarind',         'fruit', 'tropical', 'brun',       'S',   'kg', 'Inde',        'ete'),
 ('Longane',           'لونجان',     'Longan',           'fruit', 'tropical', 'brun',       'S',   'kg', 'Chine',       'ete'),
--- ── FRUITS A PEPIN ───────────────────────────────────────────────────────────
+-- - FRUITS A PEPIN -----------------------------─
 ('Pomme',             'تفاح',       'Apple',            'fruit', 'pepin',    'rouge-vert', 'M',   'kg', 'Maroc',       'automne'),
 ('Poire',             'إجاص',       'Pear',             'fruit', 'pepin',    'jaune-vert', 'M',   'kg', 'Maroc',       'automne'),
 ('Coing',             'سفرجل',      'Quince',           'fruit', 'pepin',    'jaune',      'M',   'kg', 'Maroc',       'automne'),
--- ── FRUITS A NOYAU ───────────────────────────────────────────────────────────
+-- - FRUITS A NOYAU -----------------------------─
 ('Peche',             'خوخ',        'Peach',            'fruit', 'noyau',    'jaune-rose', 'M',   'kg', 'Maroc',       'ete'),
 ('Nectarine',         'نكتارين',    'Nectarine',        'fruit', 'noyau',    'rouge-jaune','M',   'kg', 'Maroc',       'ete'),
 ('Prune',             'برقوق',      'Plum',             'fruit', 'noyau',    'violet',     'S',   'kg', 'Maroc',       'ete'),
 ('Cerise',            'حب الملوك',  'Cherry',           'fruit', 'noyau',    'rouge',      'S',   'kg', 'Maroc',       'ete'),
 ('Abricot',           'مشمش',       'Apricot',          'fruit', 'noyau',    'orange',     'S',   'kg', 'Maroc',       'ete'),
 ('Merise',            'كرز بري',    'Wild Cherry',      'fruit', 'noyau',    'rouge',      'XS',  'kg', 'France',      'ete'),
--- ── BAIES ────────────────────────────────────────────────────────────────────
+-- - BAIES ----------------------------------
 ('Fraise',            'فراولة',     'Strawberry',       'fruit', 'baie',     'rouge',      'S',   'kg', 'Maroc',       'printemps'),
 ('Framboise',         'توت عليق',   'Raspberry',        'fruit', 'baie',     'rouge',      'S',   'kg', 'Maroc',       'ete'),
 ('Myrtille',          'توت أزرق',   'Blueberry',        'fruit', 'baie',     'bleu',       'S',   'kg', 'Chili',       'toute_annee'),
@@ -111,13 +111,13 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Groseille',         'كشمش',       'Gooseberry',       'fruit', 'baie',     'vert-rouge', 'S',   'kg', 'France',      'ete'),
 ('Cassis',            'كاسيس',      'Black Currant',    'fruit', 'baie',     'noir',       'S',   'kg', 'France',      'ete'),
 ('Airelle',           'توت بري',    'Cranberry',        'fruit', 'baie',     'rouge',      'S',   'kg', 'Canada',      'automne'),
--- ── RAISINS & MELONS ─────────────────────────────────────────────────────────
+-- - RAISINS & MELONS ----------------------------─
 ('Raisin blanc',      'عنب أبيض',   'White Grape',      'fruit', 'raisin',   'vert',       'M',   'kg', 'Maroc',       'ete'),
 ('Raisin rouge',      'عنب أحمر',   'Red Grape',        'fruit', 'raisin',   'rouge',      'M',   'kg', 'Maroc',       'ete'),
 ('Raisin noir',       'عنب أسود',   'Black Grape',      'fruit', 'raisin',   'noir',       'M',   'kg', 'Italie',      'ete'),
 ('Melon',             'بطيخ أصفر',  'Melon',            'fruit', 'cucurbit', 'jaune',      'XL',  'piece','Maroc',      'ete'),
 ('Pasteque',          'دلاح',       'Watermelon',       'fruit', 'cucurbit', 'vert-rouge', 'XL',  'piece','Maroc',      'ete'),
--- ── LEGUMES FEUILLES ─────────────────────────────────────────────────────────
+-- - LEGUMES FEUILLES ----------------------------─
 ('Salade romaine',    'خس روماني',  'Romaine Lettuce',  'legume','feuille',  'vert',       'M',   'piece','Maroc',     'toute_annee'),
 ('Laitue',            'خس',         'Lettuce',          'legume','feuille',  'vert',       'M',   'piece','Maroc',     'toute_annee'),
 ('Epinard',           'سبانخ',      'Spinach',          'legume','feuille',  'vert',       'S',   'kg', 'Maroc',       'hiver'),
@@ -128,7 +128,7 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Pak choi',          'باك تشوي',   'Bok Choy',         'legume','feuille',  'vert',       'M',   'kg', 'Chine',       'hiver'),
 ('Endive',            'هندباء',     'Chicory',          'legume','feuille',  'blanc-jaune','M',   'piece','Belgique',  'hiver'),
 ('Roquette',          'جرجير',      'Arugula',          'legume','feuille',  'vert',       'S',   'kg', 'Maroc',       'toute_annee'),
--- ── LEGUMES RACINES ───────────────────────────────────────────────────────────
+-- - LEGUMES RACINES -----------------------------─
 ('Carotte',           'جزر',        'Carrot',           'legume','racine',   'orange',     'M',   'kg', 'Maroc',       'toute_annee'),
 ('Betterave',         'شمندر',      'Beetroot',         'legume','racine',   'rouge',      'M',   'kg', 'Maroc',       'hiver'),
 ('Navet',             'لفت',        'Turnip',           'legume','racine',   'blanc-violet','M',  'kg', 'Maroc',       'hiver'),
@@ -136,14 +136,14 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Céleri-rave',       'كرفس جذري',  'Celeriac',         'legume','racine',   'brun',       'L',   'kg', 'France',      'automne'),
 ('Panais',            'جزر أبيض',   'Parsnip',          'legume','racine',   'blanc',      'M',   'kg', 'Maroc',       'hiver'),
 ('Raifort',           'خردل بري',   'Horseradish',      'legume','racine',   'blanc',      'S',   'kg', 'Pologne',     'toute_annee'),
--- ── LEGUMES BULBES ────────────────────────────────────────────────────────────
+-- - LEGUMES BULBES ------------------------------
 ('Oignon',            'بصل',        'Onion',            'legume','bulbe',    'jaune-rouge','M',   'kg', 'Maroc',       'toute_annee'),
 ('Ail',               'ثوم',        'Garlic',           'legume','bulbe',    'blanc',      'S',   'kg', 'Maroc',       'toute_annee'),
 ('Echalote',          'كراث صغير',  'Shallot',          'legume','bulbe',    'brun-violet','S',   'kg', 'France',      'toute_annee'),
 ('Poireau',           'كراث',       'Leek',             'legume','bulbe',    'vert-blanc', 'L',   'kg', 'Maroc',       'hiver'),
 ('Oignon rouge',      'بصل أحمر',   'Red Onion',        'legume','bulbe',    'rouge',      'M',   'kg', 'Maroc',       'toute_annee'),
 ('Fenouil',           'شمر',        'Fennel',           'legume','bulbe',    'vert-blanc', 'M',   'kg', 'Maroc',       'hiver'),
--- ── LEGUMES FRUITS ────────────────────────────────────────────────────────────
+-- - LEGUMES FRUITS ------------------------------
 ('Tomate',            'طماطم',      'Tomato',           'legume','fruit_lg',  'rouge',     'M',   'kg', 'Maroc',       'toute_annee'),
 ('Tomate cerise',     'طماطم كرزية','Cherry Tomato',    'legume','fruit_lg',  'rouge',     'S',   'kg', 'Maroc',       'toute_annee'),
 ('Tomate coeur',      'طماطم قلب',  'Beefsteak Tomato', 'legume','fruit_lg',  'rouge',     'XL',  'kg', 'Espagne',     'ete'),
@@ -155,27 +155,27 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Aubergine',         'قرع أسود',   'Eggplant',         'legume','fruit_lg',  'violet',    'L',   'kg', 'Maroc',       'ete'),
 ('Concombre',         'خيار',       'Cucumber',         'legume','fruit_lg',  'vert',      'M',   'kg', 'Maroc',       'toute_annee'),
 ('Cornichon',         'خيار صغير',  'Gherkin',          'legume','fruit_lg',  'vert',      'S',   'kg', 'Maroc',       'ete'),
--- ── LEGUMES TIGES ────────────────────────────────────────────────────────────
+-- - LEGUMES TIGES ------------------------------
 ('Asperge verte',     'هليون',      'Green Asparagus',  'legume','tige',     'vert',       'M',   'kg', 'Maroc',       'printemps'),
 ('Asperge blanche',   'هليون أبيض', 'White Asparagus',  'legume','tige',     'blanc',      'M',   'kg', 'France',      'printemps'),
 ('Céleri',            'كرفس',       'Celery',           'legume','tige',     'vert',       'M',   'botte','Maroc',     'hiver'),
 ('Rhubarbe',          'راوند',      'Rhubarb',          'legume','tige',     'rouge',      'M',   'kg', 'France',      'printemps'),
--- ── LEGUMES FLEURS ───────────────────────────────────────────────────────────
+-- - LEGUMES FLEURS -----------------------------─
 ('Chou-fleur',        'قرنبيط',     'Cauliflower',      'legume','fleur',    'blanc',      'L',   'piece','Maroc',     'hiver'),
 ('Brocoli',           'بروكلي',     'Broccoli',         'legume','fleur',    'vert',       'L',   'kg', 'Maroc',       'hiver'),
 ('Artichaut',         'أرضي شوكي',  'Artichoke',        'legume','fleur',    'vert',       'L',   'piece','Maroc',     'printemps'),
--- ── LEGUMINEUSES ─────────────────────────────────────────────────────────────
+-- - LEGUMINEUSES ------------------------------─
 ('Haricot vert',      'لوبيا خضراء','Green Bean',       'legume','legumineuse','vert',     'M',   'kg', 'Maroc',       'ete'),
 ('Pois chiche',       'حمص',        'Chickpea',         'legume','legumineuse','beige',    'S',   'kg', 'Maroc',       'toute_annee'),
 ('Petits pois',       'جلبانة',     'Peas',             'legume','legumineuse','vert',     'S',   'kg', 'Maroc',       'printemps'),
 ('Feve',              'فول',        'Broad Bean',       'legume','legumineuse','vert',     'M',   'kg', 'Maroc',       'printemps'),
 ('Haricot borlotti',  'فاصوليا',    'Borlotti Bean',    'legume','legumineuse','blanc-rouge','S', 'kg', 'Italie',      'ete'),
--- ── CHAMPIGNONS ──────────────────────────────────────────────────────────────
+-- - CHAMPIGNONS -------------------------------
 ('Champignon Paris',  'فطر',        'Button Mushroom',  'champignon','champignon','blanc','S','kg','France',          'toute_annee'),
 ('Portobello',        'بورتوبيلو',  'Portobello',       'champignon','champignon','brun', 'L','kg','France',          'toute_annee'),
 ('Shiitake',          'شيتاكي',     'Shiitake',         'champignon','champignon','brun', 'M','kg','Japon',           'toute_annee'),
 ('Chanterelle',       'جيرول',      'Chanterelle',      'champignon','champignon','jaune','S','kg','France',          'automne'),
--- ── HERBES AROMATIQUES ───────────────────────────────────────────────────────
+-- - HERBES AROMATIQUES ---------------------------─
 ('Persil',            'معدنوس',     'Parsley',          'herbe','aromatique','vert',       'S',   'botte','Maroc',    'toute_annee'),
 ('Coriandre',         'قزبر',       'Coriander',        'herbe','aromatique','vert',       'S',   'botte','Maroc',    'toute_annee'),
 ('Menthe',            'نعناع',      'Mint',             'herbe','aromatique','vert',       'S',   'botte','Maroc',    'toute_annee'),
@@ -185,7 +185,7 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Aneth',             'شبت',        'Dill',             'herbe','aromatique','vert',       'S',   'botte','Maroc',    'ete'),
 ('Estragon',          'طرخون',      'Tarragon',         'herbe','aromatique','vert',       'S',   'botte','France',   'ete'),
 ('Citronnelle',       'حشيشة الليمون','Lemongrass',     'herbe','aromatique','vert-jaune', 'M',   'botte','Vietnam',  'toute_annee'),
--- ── TUBERCULES & CEREALES ────────────────────────────────────────────────────
+-- - TUBERCULES & CEREALES --------------------------
 ('Pomme de terre',    'بطاطا',      'Potato',           'legume','tubercule', 'brun',      'M',   'kg', 'Maroc',       'toute_annee'),
 ('Patate douce',      'بطاطا حلوة', 'Sweet Potato',     'legume','tubercule', 'orange',    'M',   'kg', 'Maroc',       'automne'),
 ('Manioc',            'مانيوك',     'Cassava',          'legume','tubercule', 'brun',      'L',   'kg', 'Afrique',     'toute_annee'),
@@ -195,7 +195,7 @@ INSERT INTO public.fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_c
 ('Curcuma',           'كركم',       'Turmeric',         'legume','tubercule', 'orange',    'S',   'kg', 'Inde',        'toute_annee'),
 ('Taro',              'قلقاس',      'Taro',             'legume','tubercule', 'brun',      'M',   'kg', 'Afrique',     'toute_annee');
 
--- ─── 3. ARTICLES (CATALOGUE ACTIF POUR LES ACHATS/VENTES) ────────────────────
+-- -─ 3. ARTICLES (CATALOGUE ACTIF POUR LES ACHATS/VENTES) ----------
 CREATE TABLE IF NOT EXISTS public.fl_articles (
   id                  UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nom                 TEXT NOT NULL,
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS public.fl_articles (
   updated_at          TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 4. CLIENTS & FOURNISSEURS ────────────────────────────────────────────────
+-- -─ 4. CLIENTS & FOURNISSEURS ------------------------
 CREATE TABLE IF NOT EXISTS public.fl_clients (
   id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nom         TEXT NOT NULL,
@@ -243,7 +243,7 @@ CREATE TABLE IF NOT EXISTS public.fl_fournisseurs (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 5. COMMANDES CLIENTS ─────────────────────────────────────────────────────
+-- -─ 5. COMMANDES CLIENTS --------------------------─
 CREATE TABLE IF NOT EXISTS public.fl_commandes (
   id             UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   date           DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS public.fl_commandes_lignes (
   created_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 6. BONS D'ACHAT ─────────────────────────────────────────────────────────
+-- -─ 6. BONS D'ACHAT ----------------------------─
 CREATE TABLE IF NOT EXISTS public.fl_bons_achat (
   id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   date            DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -299,7 +299,7 @@ CREATE TABLE IF NOT EXISTS public.fl_bons_achat_lignes (
   created_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 7. PURCHASE ORDERS ───────────────────────────────────────────────────────
+-- -─ 7. PURCHASE ORDERS ---------------------------─
 CREATE TABLE IF NOT EXISTS public.fl_purchase_orders (
   id               UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   date             DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -311,7 +311,7 @@ CREATE TABLE IF NOT EXISTS public.fl_purchase_orders (
   created_at       TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 8. RECEPTONS MARCHANDISES ────────────────────────────────────────────────
+-- -─ 8. RECEPTONS MARCHANDISES ------------------------
 CREATE TABLE IF NOT EXISTS public.fl_receptions (
   id                UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   date              DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -325,7 +325,7 @@ CREATE TABLE IF NOT EXISTS public.fl_receptions (
   created_at        TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 9. STOCK MOUVEMENT ───────────────────────────────────────────────────────
+-- -─ 9. STOCK MOUVEMENT ---------------------------─
 CREATE TABLE IF NOT EXISTS public.fl_stock_mouvements (
   id           UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   date         DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -340,7 +340,7 @@ CREATE TABLE IF NOT EXISTS public.fl_stock_mouvements (
   created_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 10. BONS DE PREPARATION ──────────────────────────────────────────────────
+-- -─ 10. BONS DE PREPARATION -------------------------
 CREATE TABLE IF NOT EXISTS public.fl_bons_preparation (
   id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   code        TEXT NOT NULL UNIQUE,    -- Ex: TRIP-2026-PR01 (genere automatiquement)
@@ -349,7 +349,7 @@ CREATE TABLE IF NOT EXISTS public.fl_bons_preparation (
   created_at  TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 11. SHELF LIFE / DLC ─────────────────────────────────────────────────────
+-- -─ 11. SHELF LIFE / DLC --------------------------─
 CREATE TABLE IF NOT EXISTS public.fl_shelf_life (
   id             UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   article_id     UUID REFERENCES public.fl_articles(id) ON DELETE SET NULL,
@@ -362,7 +362,7 @@ CREATE TABLE IF NOT EXISTS public.fl_shelf_life (
   created_at     TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 12. TRIPS & LIVRAISONS ───────────────────────────────────────────────────
+-- -─ 12. TRIPS & LIVRAISONS -------------------------─
 CREATE TABLE IF NOT EXISTS public.fl_trips (
   id           UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   date         DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -374,7 +374,7 @@ CREATE TABLE IF NOT EXISTS public.fl_trips (
   created_at   TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 13. FEEDBACK / AVIS ──────────────────────────────────────────────────────
+-- -─ 13. FEEDBACK / AVIS ---------------------------
 CREATE TABLE IF NOT EXISTS public.fl_feedback (
   id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id     UUID REFERENCES public.fl_users(id) ON DELETE SET NULL,
@@ -386,7 +386,7 @@ CREATE TABLE IF NOT EXISTS public.fl_feedback (
   created_at  TIMESTAMPTZ DEFAULT NOW()
 );
 
--- ─── 14. AGENTS IA & ESCALADE ─────────────────────────────────────────────────
+-- -─ 14. AGENTS IA & ESCALADE ------------------------─
 CREATE TABLE IF NOT EXISTS public.fl_agents_ia (
   id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nom         TEXT NOT NULL,
@@ -422,7 +422,7 @@ CREATE TABLE IF NOT EXISTS public.fl_escalation_log (
   resolved_at  TIMESTAMPTZ
 );
 
--- ─── ROW LEVEL SECURITY ───────────────────────────────────────────────────────
+-- -─ ROW LEVEL SECURITY ---------------------------─
 -- On active RLS sur toutes les tables et autorise anon (acces via anon key)
 ALTER TABLE public.fl_users              ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.fl_produits_catalogue ENABLE ROW LEVEL SECURITY;
@@ -464,7 +464,7 @@ BEGIN
   END LOOP;
 END $$;
 
--- ─── TRIGGER: maj auto de stock_reserve quand commande validée ───────────────
+-- -─ TRIGGER: maj auto de stock_reserve quand commande validée -------─
 CREATE OR REPLACE FUNCTION public.fn_update_stock_reserve()
 RETURNS TRIGGER LANGUAGE plpgsql AS $$
 BEGIN
@@ -491,7 +491,7 @@ CREATE TRIGGER trg_update_stock_reserve
   AFTER UPDATE ON public.fl_commandes
   FOR EACH ROW EXECUTE FUNCTION public.fn_update_stock_reserve();
 
--- ─── TRIGGER: generation automatique code bon de preparation ─────────────────
+-- -─ TRIGGER: generation automatique code bon de preparation --------─
 CREATE OR REPLACE FUNCTION public.fn_gen_bon_prep_code()
 RETURNS TRIGGER LANGUAGE plpgsql AS $$
 DECLARE
@@ -512,7 +512,7 @@ CREATE TRIGGER trg_gen_bon_prep_code
   FOR EACH ROW WHEN (NEW.code IS NULL OR NEW.code = '')
   EXECUTE FUNCTION public.fn_gen_bon_prep_code();
 
--- ─── INDEX pour performances ──────────────────────────────────────────────────
+-- -─ INDEX pour performances -------------------------
 CREATE INDEX IF NOT EXISTS idx_commandes_date   ON public.fl_commandes(date);
 CREATE INDEX IF NOT EXISTS idx_commandes_statut ON public.fl_commandes(statut);
 CREATE INDEX IF NOT EXISTS idx_bons_achat_date  ON public.fl_bons_achat(date);
@@ -520,9 +520,9 @@ CREATE INDEX IF NOT EXISTS idx_articles_actif   ON public.fl_articles(actif);
 CREATE INDEX IF NOT EXISTS idx_shelf_life_date  ON public.fl_shelf_life(date_expiration);
 CREATE INDEX IF NOT EXISTS idx_escalation_niveau ON public.fl_escalation_log(niveau);
 
--- ─── FIN DE MIGRATION V9 ─────────────────────────────────────────────────────
+-- -─ FIN DE MIGRATION V9 --------------------------─
 -- Tables crees : 18 tables metier
 -- Fruits & Legumes : 100+ produits du monde entier
 -- Triggers : stock_reserve automatique, code bon preparation auto
 -- RLS : actif sur toutes les tables, acces anon autorise
--- ─────────────────────────────────────────────────────────────────────────────
+-- --------------------------------------─

@@ -94,7 +94,7 @@ export default function LoginPage({ onLogin }: Props) {
     setForgotStatus("sent")
   }
 
-  // ── Interface picker ─────────────────────────────────────────────────────────
+  // - Interface picker ----------------------------─
   if (pendingUser) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 p-6 font-sans">
@@ -134,7 +134,7 @@ export default function LoginPage({ onLogin }: Props) {
   return (
     <div className="min-h-screen flex font-sans bg-slate-50">
 
-      {/* ── Left brand panel — desktop only ───────────────────────────────────── */}
+      {/* - Left brand panel — desktop only ------------------─ */}
       <div className="hidden lg:flex flex-col justify-between w-[400px] shrink-0 p-10 relative overflow-hidden"
         style={{ background: "#0d2218", borderRight: "1px solid #1a3a28" }}>
 
@@ -198,7 +198,7 @@ export default function LoginPage({ onLogin }: Props) {
         </p>
       </div>
 
-      {/* ── Right — login form ─────────────────────────────────────────────────── */}
+      {/* - Right — login form -------------------------─ */}
       <div className="flex-1 flex items-center justify-center overflow-y-auto p-5 sm:p-8">
         <div className="w-full max-w-[420px] flex flex-col gap-5 py-6">
 

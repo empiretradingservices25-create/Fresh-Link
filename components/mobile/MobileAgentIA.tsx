@@ -5,7 +5,7 @@ import { type User } from "@/lib/store"
 
 interface Props { user: User }
 
-// ─── Role → Agent expert mapping ──────────────────────────────────────────────
+// -─ Role → Agent expert mapping -----------------------
 // Each agent adapts language to the interlocutor: prevendeur (Darija), client (formal), manager (KPIs)
 const ROLE_AGENT: Record<string, {
   id: string

@@ -13,7 +13,7 @@ import {
   type BesoinParFournisseur,
 } from "@/lib/email"
 
-// ─── Types ──────────────────────────────────────────────────────────────────
+// -─ Types ---------------------------------
 
 interface DailyStats {
   date: string
@@ -35,7 +35,7 @@ interface BesoinRow extends BesoinLigneEmail {
   selected: boolean
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// -─ Helpers --------------------------------─
 
 function computeStats(date: string): DailyStats {
   const bonsAchat   = store.getBonsAchat().filter(b => b.date === date)
@@ -143,7 +143,7 @@ function groupByFournisseur(
   return Array.from(map.values())
 }
 
-// ─── Composant ───────────────────────────────────────────────────────────────
+// -─ Composant -------------------------------─
 
 export default function BORecap() {
   const today         = store.today()
@@ -221,7 +221,7 @@ export default function BORecap() {
     return () => { if (autoTimerRef.current) clearTimeout(autoTimerRef.current) }
   }, [recapAuto, recapHeure]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Envoi récap ────────────────────────────────────────────────────────────
+  // - Envoi récap ------------------------------
 
   const handleSendRecap = async () => {
     if (!ejsOk) {
@@ -247,7 +247,7 @@ export default function BORecap() {
     showFeedback("ok", "Configuration sauvegardée.")
   }
 
-  // ── Envoi besoin d'achat ───────────────────────────────────────────────────
+  // - Envoi besoin d'achat -------------------------─
 
   const selectedRows    = rows.filter(r => r.selected)
   const rowsWithBesoin  = selectedRows.filter(r => r.besoinNet > 0)
@@ -323,13 +323,13 @@ export default function BORecap() {
     showFeedback("ok", "Configuration emails sauvegardée.")
   }
 
-  // ─── Aperçu email besoin ───────────────────────────────────────────────────
+  // -─ Aperçu email besoin -------------------------─
 
   const besoinPreviewText = rowsWithBesoin.length > 0
     ? buildBesoinAchatEmail(rowsWithBesoin, { date: store.today() })
     : "Aucune ligne avec besoin net sélectionnée."
 
-  // ─── Render ───────────────────────────────────────────────────────────────
+  // -─ Render -------------------------------─
 
   const TABS = [
     { id: "recap" as const,  label: "Récap journalier", icon: "📊" },
@@ -585,7 +585,7 @@ export default function BORecap() {
 
           {rows.length > 0 && (
             <>
-              {/* ── Destinataires ── */}
+              {/* - Destinataires - */}
               <div className="bg-card rounded-xl border border-border p-5 flex flex-col gap-4">
                 <h4 className="font-semibold text-foreground text-sm">Destinataires de l&apos;email</h4>
 

@@ -74,7 +74,7 @@ interface PermSection {
   pages: { label: string; labelAr: string; permKey: keyof User }[]
 }
 
-// ── MOBILE sections (what the user can see on the mobile app) ─────────────────
+// - MOBILE sections (what the user can see on the mobile app) --------─
 const MOBILE_PERM_SECTIONS: PermSection[] = [
   {
     group: "Commandes & Ventes (Mobile)", groupAr: "الطلبيات والمبيعات",
@@ -112,7 +112,7 @@ const MOBILE_PERM_SECTIONS: PermSection[] = [
   },
 ]
 
-// ── BACK-OFFICE sections (what the user can see in the BO) ────────────────────
+// - BACK-OFFICE sections (what the user can see in the BO) ----------
 const BACKOFFICE_PERM_SECTIONS: PermSection[] = [
   {
     group: "Analyse & KPI", groupAr: "التحليل",
@@ -196,9 +196,9 @@ const EMPTY_USER: Omit<User, "id"> = {
   objectifJournalierClients: 0, objectifHebdomadaireClients: 0, objectifMensuelClients: 0,
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // PermissionsTabs — Mobile / Back-office separated permissions UI
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 type PermTab = "mobile" | "backoffice"
 

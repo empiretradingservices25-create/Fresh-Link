@@ -5,7 +5,7 @@ import { type User } from "@/lib/store"
 
 interface Props { user: User; initialAgent?: string }
 
-// ─── API — calls internal server route (secrets stay server-side) ─────────────
+// -─ API — calls internal server route (secrets stay server-side) ------─
 
 interface MsgLike { role: string; text: string }
 
@@ -29,7 +29,7 @@ async function callLLM(systemPrompt: string, history: MsgLike[]): Promise<string
   return data.content
 }
 
-// ─── N3 silent alert ──────────────────────────────────────────────────────────
+// -─ N3 silent alert -----------------------------
 async function triggerN3Alert(issue: string) {
   try {
     await callLLM(
@@ -39,10 +39,10 @@ async function triggerN3Alert(issue: string) {
   } catch { /* silent */ }
 }
 
-// ─── Agent definitions ────────────────────────────────────────────────────────
+// -─ Agent definitions ----------------------------
 const AGENTS = [
 
-  // ── N1 — TERRAIN ────────────────────────────────────────────────────────────
+  // - N1 — TERRAIN ------------------------------
   {
     id: "mustapha",
     name: "MUSTAPHA",
@@ -143,7 +143,7 @@ FORMULES PRIX CLÉS :
 - Prix max absolu = MAX(historique_30j) × 1.02 — JAMAIS dépasser sans accord Jawad`,
   },
 
-  // ── N2 — BACK OFFICE ────────────────────────────────────────────────────────
+  // - N2 — BACK OFFICE ----------------------------
   {
     id: "jawad",
     name: "JAWAD",
@@ -553,14 +553,14 @@ SIGNAL : [ASHEL_WAR_PLAN], [PO_SUGGÉRÉ], [ALERTE_PRIX_MARCHÉ], [FOURNISSEUR_B
   },
 ]
 
-// ─── Hierarchy ────────────────────────────────────────────────────────────────
+// -─ Hierarchy --------------------------------
 const N1_AGENTS = AGENTS.filter(a => a.level === "N1")
 const N2_AGENTS = AGENTS.filter(a => a.level === "N2")
 
-// ─── Message type ─────────────────────────────────────────────────────────────
+// -─ Message type ------------------------------─
 interface Msg { role: "user" | "assistant"; text: string; ts: number }
 
-// ─── Agent Chat ───────────────────────────────────────────────────────────────
+// -─ Agent Chat -------------------------------─
 function AgentChat({ agent, user }: { agent: typeof AGENTS[0]; user: User }) {
   const [msgs, setMsgs] = useState<Msg[]>([{
     role: "assistant",
@@ -799,7 +799,7 @@ CONTEXTE SESSION :
   )
 }
 
-// ─── Agent button ─────────────────────────────────────────────────────────────
+// -─ Agent button ------------------------------─
 function AgentBtn({ a, isActive, onSelect }: { a: typeof AGENTS[0]; isActive: boolean; onSelect: () => void }) {
   return (
     <button onClick={onSelect}
@@ -824,7 +824,7 @@ function AgentBtn({ a, isActive, onSelect }: { a: typeof AGENTS[0]; isActive: bo
   )
 }
 
-// ─── Section label ────────────────────────────────────────────────────────────
+// -─ Section label ------------------------------
 function SectionLabel({ level, title, sub, color }: { level: string; title: string; sub: string; color: string }) {
   return (
     <div className="flex items-center gap-2 px-1 py-1.5 mb-1">
@@ -838,7 +838,7 @@ function SectionLabel({ level, title, sub, color }: { level: string; title: stri
   )
 }
 
-// ─── Main Panel ───────────────────────────────────────────────────────────────
+// -─ Main Panel -------------------------------─
 export default function AgentsIAPanel({ user, initialAgent }: Props) {
   const [selected, setSelected] = useState(initialAgent ?? AGENTS[0].id)
   const agent = AGENTS.find(a => a.id === selected) ?? AGENTS[0]
@@ -846,7 +846,7 @@ export default function AgentsIAPanel({ user, initialAgent }: Props) {
   return (
     <div className="flex h-full gap-0 bg-slate-50" style={{ minHeight: "calc(100vh - 120px)" }}>
 
-      {/* ── Sidebar ───────────────────────────────────────────────────── */}
+      {/* - Sidebar --------------------------─ */}
       <div className="w-56 shrink-0 flex flex-col bg-white border-r border-slate-200 overflow-y-auto">
 
         {/* Brand */}
@@ -902,7 +902,7 @@ export default function AgentsIAPanel({ user, initialAgent }: Props) {
         </div>
       </div>
 
-      {/* ── Chat ──────────────────────────────────────────────────────── */}
+      {/* - Chat ---------------------------- */}
       <div className="flex-1 min-w-0">
         <AgentChat key={agent.id} agent={agent} user={user} />
       </div>

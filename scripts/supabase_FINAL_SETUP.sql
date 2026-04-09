@@ -7,16 +7,16 @@
 -- =====
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 0. EXTENSIONS
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create extension if not exists "uuid-ossp";
 create extension if not exists "pgcrypto";
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 1. CONFIG GLOBALE (vérification connexion)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_config (
   id          text primary key default 'singleton',
   app_name    text not null default 'FreshLink',
@@ -30,9 +30,9 @@ values ('singleton', 'FreshLink', '1.0.0')
 on conflict (id) do update set updated_at = now();
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 2. UTILISATEURS (fl_users)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_users (
   id              uuid primary key default uuid_generate_v4(),
   name            text not null,
@@ -78,7 +78,7 @@ create table if not exists fl_users (
 create index if not exists idx_fl_users_email on fl_users(email);
 create index if not exists idx_fl_users_role  on fl_users(role);
 
--- ── Comptes par défaut ──────────────────────────────────────
+-- - Comptes par défaut -------------------
 -- Mot de passe par défaut : superadmin2024
 -- Hash généré avec bcrypt rounds=10
 insert into fl_users (id, name, email, password_hash, role, access_type, actif,
@@ -113,9 +113,9 @@ values
 on conflict (email) do nothing;
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 3. DÉPÔTS (fl_depots)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_depots (
   id          uuid primary key default uuid_generate_v4(),
   nom         text not null,
@@ -130,9 +130,9 @@ insert into fl_depots (nom, adresse, actif) values
 on conflict do nothing;
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 4. ARTICLES (fl_articles)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_articles (
   id              uuid primary key default uuid_generate_v4(),
   nom             text not null,
@@ -154,9 +154,9 @@ create index if not exists idx_fl_articles_famille on fl_articles(famille);
 create index if not exists idx_fl_articles_actif   on fl_articles(actif);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 5. CLIENTS (fl_clients)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_clients (
   id              uuid primary key default uuid_generate_v4(),
   nom             text not null,
@@ -173,9 +173,9 @@ create table if not exists fl_clients (
 create index if not exists idx_fl_clients_secteur on fl_clients(secteur);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 6. FOURNISSEURS (fl_fournisseurs)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_fournisseurs (
   id              uuid primary key default uuid_generate_v4(),
   nom             text not null,
@@ -188,9 +188,9 @@ create table if not exists fl_fournisseurs (
 );
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 7. COMMANDES CLIENTS (fl_commandes)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_commandes (
   id              uuid primary key default uuid_generate_v4(),
   client_id       uuid references fl_clients(id) on delete restrict,
@@ -222,9 +222,9 @@ create index if not exists idx_fl_commandes_statut  on fl_commandes(statut);
 create index if not exists idx_fl_commandes_client  on fl_commandes(client_id);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 8. BONS D'ACHAT (fl_bons_achat)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_bons_achat (
   id              uuid primary key default uuid_generate_v4(),
   fournisseur_id  uuid references fl_fournisseurs(id) on delete restrict,
@@ -254,9 +254,9 @@ create index if not exists idx_fl_bons_achat_date   on fl_bons_achat(date);
 create index if not exists idx_fl_bons_achat_statut on fl_bons_achat(statut);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 9. PURCHASE ORDERS (fl_purchase_orders)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_purchase_orders (
   id              uuid primary key default uuid_generate_v4(),
   fournisseur_id  uuid references fl_fournisseurs(id) on delete restrict,
@@ -276,9 +276,9 @@ create table if not exists fl_purchase_orders (
 );
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 10. RÉCEPTIONS (fl_receptions)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_receptions (
   id              uuid primary key default uuid_generate_v4(),
   bon_achat_id    uuid references fl_bons_achat(id) on delete set null,
@@ -313,9 +313,9 @@ create table if not exists fl_reception_lignes (
 create index if not exists idx_fl_receptions_date on fl_receptions(date);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 11. BONS DE LIVRAISON (fl_bons_livraison)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_bons_livraison (
   id              uuid primary key default uuid_generate_v4(),
   commande_id     uuid references fl_commandes(id) on delete restrict,
@@ -345,9 +345,9 @@ create index if not exists idx_fl_bls_date   on fl_bons_livraison(date);
 create index if not exists idx_fl_bls_statut on fl_bons_livraison(statut);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 12. RETOURS (fl_retours)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_retours (
   id              uuid primary key default uuid_generate_v4(),
   bl_id           uuid references fl_bons_livraison(id) on delete set null,
@@ -371,9 +371,9 @@ create table if not exists fl_retour_lignes (
 );
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 13. STOCK MOUVEMENTS (fl_stock_mouvements)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_stock_mouvements (
   id              uuid primary key default uuid_generate_v4(),
   article_id      uuid references fl_articles(id) on delete restrict,
@@ -394,9 +394,9 @@ create index if not exists idx_fl_stock_mv_article on fl_stock_mouvements(articl
 create index if not exists idx_fl_stock_mv_date    on fl_stock_mouvements(date);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 14. CAISSES VIDES (fl_caisses_vides + mouvements)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_caisses_vides (
   id              uuid primary key default uuid_generate_v4(),
   type            text not null unique,        -- gros | demi | dolly | chariot
@@ -432,9 +432,9 @@ create table if not exists fl_caisses_mouvements (
 );
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 15. CONTENANTS / TARES (fl_contenants_tare)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_contenants_tare (
   id          text primary key,
   nom         text not null,
@@ -452,9 +452,9 @@ insert into fl_contenants_tare (id, nom, poids_kg, actif, notes) values
 on conflict (id) do nothing;
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 16. CASH / TRANSACTIONS (fl_cash)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_cash (
   id              uuid primary key default uuid_generate_v4(),
   date            date not null default current_date,
@@ -472,9 +472,9 @@ create table if not exists fl_cash (
 create index if not exists idx_fl_cash_date on fl_cash(date);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 17. RH — RÈGLES SALAIRES (fl_rh_regles)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_rh_regles (
   id              uuid primary key default uuid_generate_v4(),
   groupe          text not null,               -- prevendeur | logistique | achat | admin
@@ -505,9 +505,9 @@ insert into fl_rh_regles (groupe, label, type, valeur, unite) values
 on conflict do nothing;
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 18. RH — FICHES PAIE (fl_rh_fiches)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_rh_fiches (
   id                  uuid primary key default uuid_generate_v4(),
   user_id             uuid references fl_users(id) on delete restrict,
@@ -537,9 +537,9 @@ create table if not exists fl_rh_fiche_lignes (
 );
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 19. COMPTABILITE — CHARGES FIXES (fl_compta_charges)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_compta_charges (
   id          uuid primary key default uuid_generate_v4(),
   label       text not null,
@@ -559,9 +559,9 @@ insert into fl_compta_charges (label, montant, frequence) values
 on conflict do nothing;
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 20. COMPTABILITE — PÉRIODES (fl_compta_periodes)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 create table if not exists fl_compta_periodes (
   id                    uuid primary key default uuid_generate_v4(),
   periode               text not null unique,  -- ex: "2025-01"
@@ -578,9 +578,9 @@ create table if not exists fl_compta_periodes (
 );
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 21. ROW LEVEL SECURITY (RLS)
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 
 -- Activer RLS sur toutes les tables sensibles
 alter table fl_users              enable row level security;
@@ -653,9 +653,9 @@ create policy "service_role_all_compta"
   to service_role using (true) with check (true);
 
 
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- 22. VÉRIFICATION FINALE
--- ─────────────────────────────────────────────────────────────
+-- ------------------------------─
 -- Exécuter cette requête pour vérifier que tout est OK :
 select
   (select count(*) from fl_config)           as "✓ config",

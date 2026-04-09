@@ -31,7 +31,7 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
   const [detail, setDetail]   = useState("")
   const [permStep, setPermStep] = useState<PermStep>("idle")
 
-  // ── GPS fake detection ──────────────────────────────────────────────────────
+  // - GPS fake detection ──────────────────────────────────────────────────────
   const detectFakeGPS = useCallback(() => {
     return new Promise<"ok" | "fake" | "unavailable">((resolve) => {
       if (!navigator.geolocation) { resolve("unavailable"); return }
@@ -79,7 +79,7 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
     })
   }, [])
 
-  // ── Permission request ──────────────────────────────────────────────────────
+  // - Permission request ──────────────────────────────────────────────────────
   const requestPermissions = useCallback(async () => {
     setPhase("requesting_perms")
     setDetail("")
@@ -116,7 +116,7 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
     setPhase("ok")
   }, [skipGps, detectFakeGPS])
 
-  // ── Initial check ───────────────────────────────────────────────────────────
+  // - Initial check ───────────────────────────────────────────────────────────
   useEffect(() => {
     let mounted = true
 
@@ -157,7 +157,7 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
     return () => { mounted = false }
   }, [skipGps, detectFakeGPS])
 
-  // ── Render phases ───────────────────────────────────────────────────────────
+  // - Render phases ───────────────────────────────────────────────────────────
 
   if (phase === "checking") {
     return (

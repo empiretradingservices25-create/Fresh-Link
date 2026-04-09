@@ -4,10 +4,10 @@
 -- Exécuter dans l'éditeur SQL Supabase (une seule fois)
 -- ====
 
--- ── EXTENSIONS ───────────────────────────────────────────────
+-- - EXTENSIONS -----------------------─
 create extension if not exists "uuid-ossp";
 
--- ── USERS (profils applicatifs — séparé de auth.users) ───────
+-- - USERS (profils applicatifs — séparé de auth.users) ---─
 create table if not exists public.fl_users (
   id            text primary key,
   name          text not null,
@@ -55,7 +55,7 @@ create policy "fl_users_all" on public.fl_users for all using (true) with check 
 create index if not exists fl_users_role_idx on public.fl_users(role);
 create index if not exists fl_users_email_idx on public.fl_users(email);
 
--- ── CLIENTS ───────────────────────────────────────────────────
+-- - CLIENTS -------------------------─
 -- (déjà existante en script 001, on ajoute les champs manquants)
 alter table public.clients add column if not exists prevendeur_id text;
 alter table public.clients add column if not exists team_lead_id  text;
@@ -65,7 +65,7 @@ alter table public.clients add column if not exists plafond_credit    numeric;
 create index if not exists clients_secteur_idx    on public.clients(secteur);
 create index if not exists clients_prevendeur_idx on public.clients(prevendeur_id);
 
--- ── ARTICLES ──────────────────────────────────────────────────
+-- - ARTICLES -------------------------
 create table if not exists public.fl_articles (
   id                text primary key,
   nom               text not null,
@@ -88,7 +88,7 @@ alter table public.fl_articles enable row level security;
 create policy "fl_articles_all" on public.fl_articles for all using (true) with check (true);
 create index if not exists fl_articles_famille_idx on public.fl_articles(famille);
 
--- ── FOURNISSEURS ──────────────────────────────────────────────
+-- - FOURNISSEURS -----------------------
 create table if not exists public.fl_fournisseurs (
   id                text primary key,
   nom               text not null,
@@ -110,7 +110,7 @@ create table if not exists public.fl_fournisseurs (
 alter table public.fl_fournisseurs enable row level security;
 create policy "fl_fournisseurs_all" on public.fl_fournisseurs for all using (true) with check (true);
 
--- ── LIVREURS ──────────────────────────────────────────────────
+-- - LIVREURS -------------------------
 create table if not exists public.fl_livreurs (
   id                text primary key,
   type              text not null default 'interne',
@@ -131,7 +131,7 @@ create table if not exists public.fl_livreurs (
 alter table public.fl_livreurs enable row level security;
 create policy "fl_livreurs_all" on public.fl_livreurs for all using (true) with check (true);
 
--- ── MOTIFS RETOUR ─────────────────────────────────────────────
+-- - MOTIFS RETOUR ----------------------─
 create table if not exists public.fl_motifs_retour (
   id        text primary key,
   label     text not null,
@@ -141,7 +141,7 @@ create table if not exists public.fl_motifs_retour (
 alter table public.fl_motifs_retour enable row level security;
 create policy "fl_motifs_retour_all" on public.fl_motifs_retour for all using (true) with check (true);
 
--- ── COMMANDES ─────────────────────────────────────────────────
+-- - COMMANDES ------------------------─
 create table if not exists public.fl_commandes (
   id                  text primary key,
   date                text not null,
@@ -175,7 +175,7 @@ create index if not exists fl_commandes_commercial_idx   on public.fl_commandes(
 create index if not exists fl_commandes_client_idx       on public.fl_commandes(client_id);
 create index if not exists fl_commandes_statut_idx       on public.fl_commandes(statut);
 
--- ── VISITES PREVENDEUR ────────────────────────────────────────
+-- - VISITES PREVENDEUR --------------------
 create table if not exists public.fl_visites (
   id              text primary key,
   date            text not null,
@@ -194,7 +194,7 @@ create policy "fl_visites_all" on public.fl_visites for all using (true) with ch
 create index if not exists fl_visites_date_idx        on public.fl_visites(date);
 create index if not exists fl_visites_prevendeur_idx  on public.fl_visites(prevendeur_id);
 
--- ── BONS D'ACHAT ──────────────────────────────────────────────
+-- - BONS D'ACHAT -----------------------
 create table if not exists public.fl_bons_achat (
   id                  text primary key,
   date                text not null,
@@ -211,7 +211,7 @@ alter table public.fl_bons_achat enable row level security;
 create policy "fl_bons_achat_all" on public.fl_bons_achat for all using (true) with check (true);
 create index if not exists fl_bons_achat_date_idx on public.fl_bons_achat(date);
 
--- ── PURCHASE ORDERS ───────────────────────────────────────────
+-- - PURCHASE ORDERS ---------------------─
 create table if not exists public.fl_purchase_orders (
   id                text primary key,
   date              text not null,
@@ -236,7 +236,7 @@ alter table public.fl_purchase_orders enable row level security;
 create policy "fl_purchase_orders_all" on public.fl_purchase_orders for all using (true) with check (true);
 create index if not exists fl_purchase_orders_date_idx on public.fl_purchase_orders(date);
 
--- ── RECEPTIONS ────────────────────────────────────────────────
+-- - RECEPTIONS ------------------------
 create table if not exists public.fl_receptions (
   id                  text primary key,
   date                text not null,
@@ -253,7 +253,7 @@ create table if not exists public.fl_receptions (
 alter table public.fl_receptions enable row level security;
 create policy "fl_receptions_all" on public.fl_receptions for all using (true) with check (true);
 
--- ── TRIPS ─────────────────────────────────────────────────────
+-- - TRIPS --------------------------─
 create table if not exists public.fl_trips (
   id              text primary key,  -- T001, T002…
   date            text not null,
@@ -272,7 +272,7 @@ create policy "fl_trips_all" on public.fl_trips for all using (true) with check 
 create index if not exists fl_trips_date_idx     on public.fl_trips(date);
 create index if not exists fl_trips_statut_idx   on public.fl_trips(statut);
 
--- ── BONS DE LIVRAISON ─────────────────────────────────────────
+-- - BONS DE LIVRAISON --------------------─
 create table if not exists public.fl_bons_livraison (
   id                    text primary key,  -- BL-260324-001
   date                  text not null,
@@ -302,7 +302,7 @@ create index if not exists fl_bons_livraison_date_idx    on public.fl_bons_livra
 create index if not exists fl_bons_livraison_trip_idx    on public.fl_bons_livraison(trip_id);
 create index if not exists fl_bons_livraison_commande_idx on public.fl_bons_livraison(commande_id);
 
--- ── RETOURS ───────────────────────────────────────────────────
+-- - RETOURS -------------------------─
 create table if not exists public.fl_retours (
   id              text primary key,
   date            text not null,
@@ -318,7 +318,7 @@ alter table public.fl_retours enable row level security;
 create policy "fl_retours_all" on public.fl_retours for all using (true) with check (true);
 create index if not exists fl_retours_date_idx on public.fl_retours(date);
 
--- ── BONS DE PRÉPARATION ───────────────────────────────────────
+-- - BONS DE PRÉPARATION -------------------─
 create table if not exists public.fl_bons_preparation (
   id              text primary key,
   nom             text not null,
@@ -340,7 +340,7 @@ create table if not exists public.fl_bons_preparation (
 alter table public.fl_bons_preparation enable row level security;
 create policy "fl_bons_preparation_all" on public.fl_bons_preparation for all using (true) with check (true);
 
--- ── TRANSFERTS STOCK ──────────────────────────────────────────
+-- - TRANSFERTS STOCK ---------------------
 create table if not exists public.fl_transferts_stock (
   id          text primary key,
   date        text not null,
@@ -355,7 +355,7 @@ create table if not exists public.fl_transferts_stock (
 alter table public.fl_transferts_stock enable row level security;
 create policy "fl_transferts_stock_all" on public.fl_transferts_stock for all using (true) with check (true);
 
--- ── FINANCE — CHARGES ─────────────────────────────────────────
+-- - FINANCE — CHARGES --------------------─
 create table if not exists public.fl_charges (
   id          text primary key,
   date        text not null,
@@ -369,7 +369,7 @@ create table if not exists public.fl_charges (
 alter table public.fl_charges enable row level security;
 create policy "fl_charges_all" on public.fl_charges for all using (true) with check (true);
 
--- ── FINANCE — CAISSE ──────────────────────────────────────────
+-- - FINANCE — CAISSE ---------------------
 create table if not exists public.fl_caisse_entries (
   id          text primary key,
   date        text not null,
@@ -385,7 +385,7 @@ alter table public.fl_caisse_entries enable row level security;
 create policy "fl_caisse_all" on public.fl_caisse_entries for all using (true) with check (true);
 create index if not exists fl_caisse_date_idx on public.fl_caisse_entries(date);
 
--- ── FINANCE — ACTIONNAIRES ────────────────────────────────────
+-- - FINANCE — ACTIONNAIRES ------------------
 create table if not exists public.fl_actionnaires (
   id                    text primary key,
   nom                   text not null,
@@ -399,7 +399,7 @@ create table if not exists public.fl_actionnaires (
 alter table public.fl_actionnaires enable row level security;
 create policy "fl_actionnaires_all" on public.fl_actionnaires for all using (true) with check (true);
 
--- ── FINANCE — SALARIES ────────────────────────────────────────
+-- - FINANCE — SALARIES --------------------
 create table if not exists public.fl_salaries (
   id              text primary key,
   nom             text not null,
@@ -418,7 +418,7 @@ create table if not exists public.fl_salaries (
 alter table public.fl_salaries enable row level security;
 create policy "fl_salaries_all" on public.fl_salaries for all using (true) with check (true);
 
--- ── MESSAGES (WhatsApp / chat interne) ───────────────────────
+-- - MESSAGES (WhatsApp / chat interne) -----------─
 create table if not exists public.fl_messages (
   id          text primary key,
   sender_id   text not null,
@@ -431,7 +431,7 @@ alter table public.fl_messages enable row level security;
 create policy "fl_messages_all" on public.fl_messages for all using (true) with check (true);
 create index if not exists fl_messages_created_idx on public.fl_messages(created_at desc);
 
--- ── NOTICES / RÉCLAMATIONS ────────────────────────────────────
+-- - NOTICES / RÉCLAMATIONS ------------------
 create table if not exists public.fl_notices (
   id            text primary key,
   titre         text not null,
@@ -447,7 +447,7 @@ create table if not exists public.fl_notices (
 alter table public.fl_notices enable row level security;
 create policy "fl_notices_all" on public.fl_notices for all using (true) with check (true);
 
--- ── CAISSES VIDES ─────────────────────────────────────────────
+-- - CAISSES VIDES ----------------------─
 create table if not exists public.fl_caisses_vides (
   id                text primary key,
   type              text not null,
@@ -462,7 +462,7 @@ create table if not exists public.fl_caisses_vides (
 alter table public.fl_caisses_vides enable row level security;
 create policy "fl_caisses_vides_all" on public.fl_caisses_vides for all using (true) with check (true);
 
--- ── COMPANY CONFIG (single row) ───────────────────────────────
+-- - COMPANY CONFIG (single row) ---------------─
 create table if not exists public.fl_company_config (
   id                  integer primary key default 1,
   nom                 text not null default 'FreshLink Pro',
@@ -487,7 +487,7 @@ create table if not exists public.fl_company_config (
 alter table public.fl_company_config enable row level security;
 create policy "fl_company_config_all" on public.fl_company_config for all using (true) with check (true);
 
--- ── WORKFLOW CONFIG (single row) ─────────────────────────────
+-- - WORKFLOW CONFIG (single row) --------------─
 create table if not exists public.fl_workflow_config (
   id                    integer primary key default 1,
   validation_commande   text not null default 'direct',
@@ -496,7 +496,7 @@ create table if not exists public.fl_workflow_config (
 alter table public.fl_workflow_config enable row level security;
 create policy "fl_workflow_config_all" on public.fl_workflow_config for all using (true) with check (true);
 
--- ── updated_at auto-trigger (shared function) ─────────────────
+-- - updated_at auto-trigger (shared function) --------─
 create or replace function public.fl_set_updated_at()
 returns trigger language plpgsql as $$
 begin

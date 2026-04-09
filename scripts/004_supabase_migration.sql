@@ -8,7 +8,7 @@
 create extension if not exists "uuid-ossp";
 create extension if not exists "pg_trgm";
 
--- ── Trigger updated_at helper ─────────────────────────────────────────────────
+-- - Trigger updated_at helper ------------------------─
 create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;

@@ -4,10 +4,10 @@ import { useState, useEffect } from "react"
 import { store, type BonLivraison, DEFAULT_CAISSE_PRICING, type CaissePricing, DEFAULT_FRAIS_BL, type FraisBlConfig } from "@/lib/store"
 import { printBL, printFacture as printFactureLib } from "@/lib/print"
 
-// ── FMT ──────────────────────────────────────────────────────────────────
+// - FMT ---------------------------------
 const fmtDH = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " DH"
 
-// ── Legacy inline wrappers replaced by lib/print ─────────────────────────
+// - Legacy inline wrappers replaced by lib/print ------------─
 // keeping _printBLLegacy to avoid breaking anything that still references it
 function _printBLLegacy(bl: BonLivraison) {
   const company = typeof window !== "undefined" ? (() => {
@@ -165,7 +165,7 @@ function _printBLLegacy(bl: BonLivraison) {
   win.document.close()
 }
 
-// ── Print Facture (legacy — replaced by lib/print) ───────────────────────
+// - Print Facture (legacy — replaced by lib/print) -----------─
 function _printFactureLegacy(bl: BonLivraison) {
   const company = typeof window !== "undefined" ? (() => {
     try { return JSON.parse(localStorage.getItem("fl_company") || "{}") } catch { return {} }
@@ -318,7 +318,7 @@ function _printFactureLegacy(bl: BonLivraison) {
   win.document.close()
 }
 
-// ── Component ─────────────────────────────────────────────────────────────
+// - Component ------------------------------─
 const STATUT_STYLE: Record<string, { bg: string; text: string; dot: string }> = {
   émis:      { bg: "bg-amber-50",  text: "text-amber-700",  dot: "bg-amber-400" },
   encaissé:  { bg: "bg-green-50",  text: "text-green-700",  dot: "bg-green-500" },
@@ -609,7 +609,7 @@ export default function BOCash() {
         </div>
       </div>
 
-      {/* ── Frais BL Print Modal ─────────────────────────────────────────── */}
+      {/* - Frais BL Print Modal ---------------------─ */}
       {printFraisId && (() => {
         const bl = bls.find(b => b.id === printFraisId)
         if (!bl) return null

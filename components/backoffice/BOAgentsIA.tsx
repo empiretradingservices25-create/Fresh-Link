@@ -3,9 +3,9 @@
 import { useState, useRef, useEffect } from "react"
 import { store, type User } from "@/lib/store"
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Types
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 type AgentId = "jawad" | "zizi" | "ourai" | "ashel"
 
@@ -30,10 +30,10 @@ interface Agent {
   quickActions: string[]
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
  
 // API — robust with retry + fallback models
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 const ENDPOINT = "https://llm.blackbox.ai/chat/completions"
 const HEADERS = {
@@ -95,7 +95,7 @@ async function callLLM(
 }
 
 // API — calls internal server route (secrets stay server-side)
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 /* 
 // Duplicate callLLM removed to fix duplicate function implementation error.
@@ -110,9 +110,9 @@ function saveHistory(id: AgentId, msgs: Message[]) {
   localStorage.setItem(`fl_bo_hist_${id}`, JSON.stringify(msgs.slice(-60)))
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Agent definitions — SUPER-POWERED SYSTEM PROMPTS
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 const AGENTS: Agent[] = [
   {
@@ -497,9 +497,9 @@ RÉPONSE SI SALAM/SALUT : "Salam ! ASHEL actif. J'ai scanné les prix marchés c
   },
 ]
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Format markdown simple → JSX
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 function formatMessage(text: string) {
   const lines = text.split("\n")
@@ -545,9 +545,9 @@ function formatMessage(text: string) {
   return elements
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // AgentChat
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 function AgentChat({ agent, user }: { agent: Agent; user: User }) {
   const [msgs, setMsgs] = useState<Message[]>(() => {
@@ -745,9 +745,9 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Main export
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 export default function BOAgentsIA({ user }: { user?: User }) {
   const currentUser = user ?? ({ name: "User", role: "admin" } as User)

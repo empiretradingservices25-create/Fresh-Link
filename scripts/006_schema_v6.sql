@@ -13,7 +13,7 @@
 --   8. po_orders auto-push column
 -- ======
 
--- ── 1. TRIPS ──────────────────────────────────────────────────────────────────
+-- - 1. TRIPS ---------------------------------
 
 ALTER TABLE trips
   ADD COLUMN IF NOT EXISTS trip_number       TEXT,
@@ -49,14 +49,14 @@ CREATE TRIGGER trg_trip_number
 CREATE INDEX IF NOT EXISTS idx_trips_trip_number ON trips (trip_number);
 CREATE INDEX IF NOT EXISTS idx_trips_livreur_date ON trips (livreur_id, date);
 
--- ── 2. TRIP ARTICLE LINES — nb_caisses blocking gate ─────────────────────────
+-- - 2. TRIP ARTICLE LINES — nb_caisses blocking gate ------------─
 
 ALTER TABLE bon_preparation_lignes
   ADD COLUMN IF NOT EXISTS nb_caisses_gros   INT,
   ADD COLUMN IF NOT EXISTS nb_caisses_demi   INT,
   ADD COLUMN IF NOT EXISTS nb_caisses_saisie BOOLEAN NOT NULL DEFAULT FALSE;
 
--- ── 3. COMMANDES — remove stock_disponible as blocking constraint ─────────────
+-- - 3. COMMANDES — remove stock_disponible as blocking constraint ------─
 -- Assignment to a trip is allowed even when stock is not available.
 -- The loading controller validates actual quantities at departure.
 
@@ -68,7 +68,7 @@ UPDATE commandes
   SET affecte_sans_stock = FALSE
   WHERE affecte_sans_stock IS NULL;
 
--- ── 4. RECEPTION LIGNES — qte_facturee for analysis ──────────────────────────
+-- - 4. RECEPTION LIGNES — qte_facturee for analysis -------------
 
 ALTER TABLE reception_lignes
   ADD COLUMN IF NOT EXISTS qte_facturee      NUMERIC(10,3) DEFAULT 0,
@@ -101,12 +101,12 @@ FROM reception_lignes rl
 JOIN receptions r ON r.id = rl.reception_id
 GROUP BY rl.article_id, rl.article_nom, r.date;
 
--- ── 5. USERS — require_camera_auth ───────────────────────────────────────────
+-- - 5. USERS — require_camera_auth ---------------------─
 
 ALTER TABLE users
   ADD COLUMN IF NOT EXISTS require_camera_auth BOOLEAN NOT NULL DEFAULT FALSE;
 
--- ── 6. FEEDBACK TABLE ─────────────────────────────────────────────────────────
+-- - 6. FEEDBACK TABLE ----------------------------─
 
 CREATE TABLE IF NOT EXISTS feedback (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -129,7 +129,7 @@ CREATE POLICY "feedback_insert_all" ON feedback
 
 CREATE INDEX IF NOT EXISTS idx_feedback_created ON feedback (created_at DESC);
 
--- ── 7. AGENT IA CONVERSATIONS ─────────────────────────────────────────────────
+-- - 7. AGENT IA CONVERSATIONS ------------------------─
 
 CREATE TABLE IF NOT EXISTS agent_ia_conversations (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -153,7 +153,7 @@ CREATE POLICY "agent_conv_insert_all" ON agent_ia_conversations
 
 CREATE INDEX IF NOT EXISTS idx_agent_conv_agent ON agent_ia_conversations (agent_id, created_at DESC);
 
--- ── 8. PO ORDERS — auto-push to mobile acheteur ───────────────────────────────
+-- - 8. PO ORDERS — auto-push to mobile acheteur ---------------─
 
 ALTER TABLE po_orders
   ADD COLUMN IF NOT EXISTS push_mode         TEXT NOT NULL DEFAULT 'manual'
@@ -166,7 +166,7 @@ ALTER TABLE po_orders
 -- Index
 CREATE INDEX IF NOT EXISTS idx_po_orders_push ON po_orders (push_mode, vu_acheteur);
 
--- ── 9. RLS POLICIES UPDATE ────────────────────────────────────────────────────
+-- - 9. RLS POLICIES UPDATE --------------------------
 
 -- trips: livreur can read their own trips
 DROP POLICY IF EXISTS "trips_livreur_read" ON trips;
@@ -180,7 +180,7 @@ DROP POLICY IF EXISTS "commandes_insert_no_stock" ON commandes;
 CREATE POLICY "commandes_insert_no_stock" ON commandes
   FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 
--- ── 10. HELPER FUNCTION — next trip number (callable from app) ────────────────
+-- - 10. HELPER FUNCTION — next trip number (callable from app) --------
 
 CREATE OR REPLACE FUNCTION get_next_trip_number()
 RETURNS TEXT AS $$
@@ -195,5 +195,5 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- ── Done ──────────────────────────────────────────────────────────────────────
+-- - Done -----------------------------------
 -- Run: paste this script in Supabase SQL Editor → https://nbcodflwqvcvcdbpguth.supabase.co

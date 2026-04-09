@@ -4,9 +4,9 @@ import { useState, useEffect, useMemo } from "react"
 import type { User } from "@/lib/store"
 import type { FichePayroll } from "./BOResources"
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // TYPES
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 interface ChargesConfig {
   loyerEntrepot:     number
@@ -44,9 +44,9 @@ const CHARGES_LABELS: Record<keyof ChargesConfig, string> = {
   autresCharges:       "Autres charges",
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // LOCAL STORAGE HELPERS
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 const LS = {
   getFiches: (): FichePayroll[] => {
@@ -111,9 +111,9 @@ const LS = {
 const FMT = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " DH"
 const PCT = (n: number) => n.toFixed(1) + "%"
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // CHARGES CONFIG PANEL
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function ChargesPanel({ charges, onSave, onClose }: {
   charges: ChargesConfig
@@ -176,9 +176,9 @@ function ChargesPanel({ charges, onSave, onClose }: {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // FICHE DETAIL
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }: {
   fiche: FichePayroll
@@ -355,9 +355,9 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // MAIN COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 export default function BOComptabiliteRH({ user }: { user: User }) {
   const [fiches,   setFiches]   = useState<FichePayroll[]>([])
@@ -396,7 +396,7 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
     f.periode === periode && ["transmis_azmi", "payé"].includes(f.statut)
   )
 
-  // ── Calcul bénéfice net ───────────────────────────────────────────────────
+  // - Calcul bénéfice net -------------------------─
   const totalChargesFixes  = useMemo(() => Object.values(charges).reduce((s, v) => s + Number(v ?? 0), 0), [charges])
   const masseSalarialeTotal = useMemo(() => periodeFiches.reduce((s, f) => s + f.salaireBrut, 0), [periodeFiches])
 
@@ -462,7 +462,7 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
         )}
       </div>
 
-      {/* ── Tableau bénéfice net ── */}
+      {/* - Tableau bénéfice net - */}
       <div className="bg-card border border-border rounded-2xl overflow-hidden">
         <div className="px-5 py-3 border-b border-border">
           <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Calcul Bénéfice Net — {periode}</p>

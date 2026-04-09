@@ -893,7 +893,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
           manuel: "Saisie manuelle",
         }
 
-        // ── Calculs journaliers (today) ──────────────────────────
+        // - Calculs journaliers (today) -------------
         const today = store.today()
         const todayMvts = caissesMovements.filter(m => m.date === today)
         const todaySortieGros = todayMvts.filter(m => m.sens === "sortie").reduce((s, m) => s + m.nbCaisseGros, 0)
@@ -946,7 +946,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
 
         return (
           <div className="flex flex-col gap-5">
-            {/* ── Stock J-1 / Theorique / Reel / Ecart table ── */}
+            {/* - Stock J-1 / Theorique / Reel / Ecart table - */}
             <div className="bg-card rounded-2xl border border-border p-5 flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-foreground text-sm uppercase tracking-wide">Bilan Stock Caisses — {today}</h3>
@@ -1022,7 +1022,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
               </div>
             </div>
 
-            {/* ── Synthese ecart caisses ── */}
+            {/* - Synthese ecart caisses - */}
             <div className="bg-card rounded-2xl border border-border p-5 flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-foreground text-sm uppercase tracking-wide">Synthese Ecart Caisses</h3>

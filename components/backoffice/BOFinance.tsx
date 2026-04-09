@@ -11,7 +11,7 @@ import {
   CATEGORIE_CHARGE_LABELS, DELAI_RECOUVREMENT_LABELS,
 } from "@/lib/store"
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// - Helpers ---------------------------------
 const fmt = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmtMois = (s: string) => { const d = new Date(s + "-01"); return d.toLocaleDateString("fr-MA", { month: "long", year: "numeric" }) }
 
@@ -71,7 +71,7 @@ const TAB_DEF: { id: FinanceTab; label: string; labelAr: string; color: string }
 function getTauxCaisse(): number { return Number(localStorage.getItem("fl_taux_caisse") || "10") }
 function saveTauxCaisse(t: number) { localStorage.setItem("fl_taux_caisse", String(t)) }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 export default function BOFinance({ user }: { user: { id: string; name: string; role: string } }) {
   const [tab, setTab] = useState<FinanceTab>("synthese")
   const [actionnaires, setActionnaires] = useState<Actionnaire[]>([])
@@ -162,7 +162,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
 
   const toast = (msg: string) => { setSaved(msg); setTimeout(() => setSaved(""), 3000) }
 
-  // ── Finance calculations ──────────────────────────────────────────────────
+  // - Finance calculations -------------------------
   const synthese = useMemo(() => {
     const bonsAchat = store.getBonsAchat()
     const commandes = store.getCommandes()
@@ -212,7 +212,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
     total_sorties: caisse.filter(e => e.type === "sortie").reduce((s, e) => s + e.montant, 0),
   }), [caisse, caisseFiltree])
 
-  // ── Auto-enregistrement encaissements ─────────────────────────────────────
+  // - Auto-enregistrement encaissements ------------------─
   const autoSyncCaisse = () => {
     if (isReadOnly) { toast("Compte demo : lecture seule"); return }
     const commandes = store.getCommandes().filter(c => c.statut === "livre")
@@ -233,7 +233,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
     toast(added > 0 ? `${added} encaissement(s) enregistres automatiquement` : "Caisse deja a jour")
   }
 
-  // ── Snapshot reserve caisse ───────────────────────────────────────────────
+  // - Snapshot reserve caisse -----------------------─
   const saveReserveSnap = () => {
     if (isReadOnly) { toast("Compte demo : lecture seule"); return }
     const periode = periodFilter.from.slice(0, 7)
@@ -253,7 +253,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
     setShowReserveSnap(false)
   }
 
-  // ── ACTIONNAIRE handlers ──────────────────────────────────────────────────
+  // - ACTIONNAIRE handlers -------------------------
   const saveAct = () => {
     if (isReadOnly) { toast("Compte demo : lecture seule"); return }
     if (!actForm.nom || !actForm.prenom || actForm.cotisation <= 0) return
@@ -266,7 +266,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
     setEditActId(a.id)
   }
 
-  // ── CHARGE handlers ───────────────────────────────────────────────────────
+  // - CHARGE handlers ---------------------------─
   const saveChg = () => {
     if (isReadOnly) { toast("Compte demo : lecture seule"); return }
     if (!chgForm.libelle || chgForm.montant <= 0) return
@@ -279,7 +279,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
     setChgForm(EMPTY_CHG); setEditChgId(null); setShowChgForm(false); refresh()
   }
 
-  // ── CAISSE handlers ───────────────────────────────────────────────────────
+  // - CAISSE handlers ---------------------------─
   const saveCai = () => {
     if (isReadOnly) { toast("Compte demo : lecture seule"); return }
     if (!caiForm.libelle || caiForm.montant <= 0) return
@@ -287,7 +287,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
     setCaiForm(EMPTY_CAI); setShowCaiForm(false); refresh()
   }
 
-  // ── SALARIE handlers ──────────────────────────────────────────────────────
+  // - SALARIE handlers ---------------------------
   const saveSal = () => {
     if (isReadOnly) { toast("Compte demo : lecture seule"); return }
     if (!salForm.nom || !salForm.prenom || !salForm.poste || salForm.salaireBrut <= 0) return
@@ -317,7 +317,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
 
   const activeColor = (id: FinanceTab) => TAB_DEF.find(t => t.id === id)?.color || "#000"
 
-  // ── RENDER ────────────────────────────────────────────────────────────────
+  // - RENDER --------------------------------
   return (
     <div className="flex flex-col gap-5">
       {/* Read-only banner */}

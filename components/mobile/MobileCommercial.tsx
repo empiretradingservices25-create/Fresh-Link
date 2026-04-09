@@ -922,7 +922,7 @@ export default function MobileCommercial({ user }: Props) {
         {/* Coordinates intentionally hidden from prevendeur screen */}
       </div>
 
-      {/* ── HABITUDES TAB ─────────────────────────────────────────────────── */}
+      {/* - HABITUDES TAB -------------------------─ */}
       {commTab === "habitudes" ? (
         <div className="flex flex-col gap-3">
           <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
@@ -1015,7 +1015,7 @@ export default function MobileCommercial({ user }: Props) {
       )}
 
       {/* placeholder to close previous structure */}
-      {/* INLINE ARTICLE SELECTOR ─────────────────────────────────────────── */}
+      {/* INLINE ARTICLE SELECTOR ---------------------─ */}
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
@@ -1113,7 +1113,7 @@ export default function MobileCommercial({ user }: Props) {
         </div>
       </div>
 
-      {/* ARTICLES lines ──────────────────────────────────────────────────── */}
+      {/* ARTICLES lines -------------------------- */}
       <div className="flex flex-col gap-3">
 
         {lignes.map((ligne, i) => {
@@ -1327,7 +1327,7 @@ export default function MobileCommercial({ user }: Props) {
           : <><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>Enregistrer la commande / تسجيل الطلبية</>}
       </button>
 
-      {/* ── VISITE SANS COMMANDE ───────────────────────────────────── */}
+      {/* - VISITE SANS COMMANDE ------------------─ */}
       <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <div>
@@ -1370,7 +1370,7 @@ export default function MobileCommercial({ user }: Props) {
       {/* END nouvelle commande tab */}
       </>)}
 
-      {/* ── MES COMMANDES TAB ─────────────────────────────────────── */}
+      {/* - MES COMMANDES TAB -------------------─ */}
       {commTab === "mes_commandes" && (
         <div className="flex flex-col gap-3">
           {myCommandes.length === 0 ? (

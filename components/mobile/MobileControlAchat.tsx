@@ -22,7 +22,7 @@ interface ScanEntry {
   photos: string[]          // base64 data URLs — min 1 required per article
 }
 
-// ── Camera capture hook ────────────────────────────────────────────────────
+// - Camera capture hook --------------------------
 function useCameraCapture() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -145,7 +145,7 @@ export default function MobileControlAchat({ user }: Props) {
     }))
   }
 
-  // ── Camera actions ─────────────────────────────────────────────────────────
+  // - Camera actions ----------------------------─
   const openCamera = async (artId: string) => {
     setCamTarget(artId)
     await cam.start()
@@ -220,7 +220,7 @@ export default function MobileControlAchat({ user }: Props) {
     setSubmitted(true)
   }
 
-  // ── Camera overlay ─────────────────────────────────────────────────────────
+  // - Camera overlay ----------------------------─
   if (cam.active && camTarget) {
     const artNom = entries.find(e => e.articleId === camTarget)?.articleNom ?? ""
     return (
@@ -269,7 +269,7 @@ export default function MobileControlAchat({ user }: Props) {
     )
   }
 
-  // ── Success screen ─────────────────────────────────────────────────────────
+  // - Success screen ----------------------------─
   if (submitted) {
     return (
       <div className="p-4 flex flex-col gap-4 font-sans">

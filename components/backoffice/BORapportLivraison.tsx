@@ -89,7 +89,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
     return true
   })
 
-  // ── Per-livreur aggregation ───────────────────────────────────────────
+  // - Per-livreur aggregation ---------------------─
   const livreurPerfMap: Record<string, LivreurPerf> = {}
 
   for (const trip of filteredTrips) {
@@ -134,7 +134,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
     tauxRetour: p.clients > 0 ? Math.round((p.retours / p.clients) * 100) : 0,
   })).sort((a, b) => b.tauxLivraison - a.tauxLivraison)
 
-  // ── Global KPIs ──────────────────────────────────────────────────────
+  // - Global KPIs ---------------------------
   const totalTrips = filteredTrips.length
   const totalClients = livreurPerfs.reduce((s, p) => s + p.clients, 0)
   const totalLivres = livreurPerfs.reduce((s, p) => s + p.livres, 0)

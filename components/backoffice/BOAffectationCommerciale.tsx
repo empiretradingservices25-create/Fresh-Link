@@ -5,7 +5,7 @@ import { store, type User, type Client, ROLE_LABELS } from "@/lib/store"
 
 interface Props { user: User }
 
-// ── helpers ──────────────────────────────────────────────────────────────────
+// - helpers ---------------------------------
 function uniq(arr: string[]) { return [...new Set(arr)].filter(Boolean).sort() }
 
 export default function BOAffectationCommerciale({ user }: Props) {
@@ -42,7 +42,7 @@ export default function BOAffectationCommerciale({ user }: Props) {
     [clients, prevendeurs]
   )
 
-  // ── filtered clients ──────────────────────────────────────────────────────
+  // - filtered clients ---------------------------
   const filteredClients = useMemo(() => {
     return clients.filter(c => {
       const matchSearch = !searchClient || c.nom.toLowerCase().includes(searchClient.toLowerCase())
@@ -52,7 +52,7 @@ export default function BOAffectationCommerciale({ user }: Props) {
     })
   }, [clients, searchClient, filterSecteur, filterPrevendeur])
 
-  // ── save helpers ──────────────────────────────────────────────────────────
+  // - save helpers -----------------------------
   const flash = () => { setSaved(true); setTimeout(() => setSaved(false), 2000) }
 
   const assignClientSecteur = (clientId: string, secteur: string) => {
@@ -143,7 +143,7 @@ export default function BOAffectationCommerciale({ user }: Props) {
         ))}
       </div>
 
-      {/* ── TAB: CLIENTS ─────────────────────────────────────────────────────── */}
+      {/* - TAB: CLIENTS ---------------------------─ */}
       {tab === "clients" && (
         <div className="flex flex-col gap-4">
 
@@ -258,7 +258,7 @@ export default function BOAffectationCommerciale({ user }: Props) {
         </div>
       )}
 
-      {/* ── TAB: PREVENDEURS ─────────────────────────────────────────────────── */}
+      {/* - TAB: PREVENDEURS -------------------------─ */}
       {tab === "prevendeurs" && (
         <div className="flex flex-col gap-4">
 

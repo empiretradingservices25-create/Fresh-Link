@@ -4,10 +4,10 @@
 -- Run in Supabase SQL Editor → Execute
 -- ====
 
--- ── EXTENSIONS ────────────────────────────────────────────────
+-- - EXTENSIONS ------------------------
 create extension if not exists "pgcrypto";
 
--- ── ENUMS ─────────────────────────────────────────────────────
+-- - ENUMS --------------------------─
 do $$ begin
   create type user_role as enum (
     'super_admin','admin','resp_commercial','team_leader',
@@ -37,7 +37,7 @@ do $$ begin
   );
 exception when duplicate_object then null; end $$;
 
--- ── TABLE: depots ──────────────────────────────────────────────
+-- - TABLE: depots -----------------------
 create table if not exists depots (
   id              uuid primary key default gen_random_uuid(),
   nom             text not null,
@@ -48,7 +48,7 @@ create table if not exists depots (
   created_at      timestamptz not null default now()
 );
 
--- ── TABLE: users ──────────────────────────────────────────────
+-- - TABLE: users -----------------------
 -- Maps 1:1 to Supabase Auth (auth.users). id = auth.users.id
 create table if not exists users (
   id              uuid primary key references auth.users(id) on delete cascade,
@@ -157,7 +157,7 @@ create trigger users_matricule
   before insert on users
   for each row execute function generate_matricule();
 
--- ── TABLE: products / catalogue ───────────────────────────────
+-- - TABLE: products / catalogue ---------------─
 create table if not exists products (
   id              uuid primary key default gen_random_uuid(),
   sku             text not null unique,
@@ -182,7 +182,7 @@ create trigger products_updated_at
   before update on products
   for each row execute function set_updated_at();
 
--- ── TABLE: clients ────────────────────────────────────────────
+-- - TABLE: clients ----------------------
 create table if not exists clients (
   id              uuid primary key default gen_random_uuid(),
   name            text not null,
@@ -208,7 +208,7 @@ create trigger clients_updated_at
   before update on clients
   for each row execute function set_updated_at();
 
--- ── TABLE: fournisseurs ───────────────────────────────────────
+-- - TABLE: fournisseurs -------------------─
 create table if not exists fournisseurs (
   id              uuid primary key default gen_random_uuid(),
   name            text not null,
@@ -228,7 +228,7 @@ create table if not exists fournisseurs (
   updated_at      timestamptz not null default now()
 );
 
--- ── TABLE: prix_historique_fournisseur ────────────────────────
+-- - TABLE: prix_historique_fournisseur ------------
 -- Historique prix par SKU/fournisseur — used by ASHEL & Simohammed
 create table if not exists prix_historique_fournisseur (
   id              uuid primary key default gen_random_uuid(),
@@ -246,7 +246,7 @@ create table if not exists prix_historique_fournisseur (
 create index if not exists idx_prix_historique_fournisseur_product
   on prix_historique_fournisseur(product_id, date_achat desc);
 
--- ── TABLE: orders (commandes) ─────────────────────────────────
+-- - TABLE: orders (commandes) ----------------─
 create table if not exists orders (
   id              uuid primary key default gen_random_uuid(),
   reference       text unique,    -- CMD-YYYYMMDD-NNN
@@ -270,7 +270,7 @@ create trigger orders_updated_at
   before update on orders
   for each row execute function set_updated_at();
 
--- ── TABLE: order_lines ────────────────────────────────────────
+-- - TABLE: order_lines --------------------
 create table if not exists order_lines (
   id              uuid primary key default gen_random_uuid(),
   order_id        uuid not null references orders(id) on delete cascade,
@@ -282,7 +282,7 @@ create table if not exists order_lines (
   notes           text
 );
 
--- ── TABLE: hr_docs ────────────────────────────────────────────
+-- - TABLE: hr_docs ----------------------
 -- Documents RH générés par OURAI (contrats, fiches de paie, attestations)
 create table if not exists hr_docs (
   id              uuid primary key default gen_random_uuid(),
@@ -307,7 +307,7 @@ create table if not exists hr_docs (
 create index if not exists idx_hr_docs_user_periode
   on hr_docs(user_id, periode_annee desc, periode_mois desc);
 
--- ── TABLE: logistics_trips ────────────────────────────────────
+-- - TABLE: logistics_trips ------------------
 -- Tournées livreurs — used by Jawad for route optimization
 create table if not exists logistics_trips (
   id              uuid primary key default gen_random_uuid(),
@@ -325,7 +325,7 @@ create table if not exists logistics_trips (
   created_at      timestamptz not null default now()
 );
 
--- ── TABLE: ai_sessions ────────────────────────────────────────
+-- - TABLE: ai_sessions --------------------
 -- Log des conversations agents IA (audit & apprentissage)
 create table if not exists ai_sessions (
   id              uuid primary key default gen_random_uuid(),
@@ -337,7 +337,7 @@ create table if not exists ai_sessions (
   created_at      timestamptz not null default now()
 );
 
--- ── ROW LEVEL SECURITY ────────────────────────────────────────
+-- - ROW LEVEL SECURITY --------------------
 alter table users enable row level security;
 alter table products enable row level security;
 alter table clients enable row level security;
@@ -402,7 +402,7 @@ create policy "hr_docs_select" on hr_docs
     )
   );
 
--- ── INDEXES ───────────────────────────────────────────────────
+-- - INDEXES -------------------------─
 create index if not exists idx_users_role on users(role);
 create index if not exists idx_users_depot on users(depot_id);
 create index if not exists idx_orders_client on orders(client_id);
@@ -412,7 +412,7 @@ create index if not exists idx_order_lines_order on order_lines(order_id);
 create index if not exists idx_clients_prevendeur on clients(prevendeur_id);
 create index if not exists idx_logistics_livreur on logistics_trips(livreur_id, date_tournee desc);
 
--- ── SEED: default depot ───────────────────────────────────────
+-- - SEED: default depot -------------------─
 insert into depots (id, nom, ville, actif)
 values
   ('00000000-0000-0000-0000-000000000001', 'Depot Principal — Casa Centre', 'Casablanca', true),

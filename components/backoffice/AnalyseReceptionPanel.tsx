@@ -7,10 +7,10 @@ import {
   LineChart, Line, PieChart, Pie, Legend,
 } from "recharts"
 
-// ─── Tabs ─────────────────────────────────────────────────────────────────
+// -─ Tabs --------------------------------─
 type View = "global" | "qte_article" | "article" | "client" | "article_client" | "facturation"
 
-// ─── Custom tooltip ───────────────────────────────────────────────────────
+// -─ Custom tooltip ---------------------------─
 function CTip({ active, payload, label }: { active?: boolean; payload?: { value: number; name: string; color: string }[]; label?: string }) {
   if (!active || !payload?.length) return null
   return (
@@ -23,7 +23,7 @@ function CTip({ active, payload, label }: { active?: boolean; payload?: { value:
   )
 }
 
-// ─── KPI tile ──────────────────────────────────────────────────────────────
+// -─ KPI tile -------------------------------
 function KPI({ label, value, sub, color = "#60a5fa" }: { label: string; value: string | number; sub?: string; color?: string }) {
   return (
     <div className="flex-1 min-w-0 rounded-2xl px-4 py-3" style={{ background: "#0f1a2e", border: "1px solid #1a2535" }}>
@@ -34,7 +34,7 @@ function KPI({ label, value, sub, color = "#60a5fa" }: { label: string; value: s
   )
 }
 
-// ─── Tab button ────────────────────────────────────────────────────────────
+// -─ Tab button ------------------------------
 function TabBtn({ id, label, active, onClick }: { id: View; label: string; active: boolean; onClick: () => void }) {
   return (
     <button onClick={onClick}
@@ -62,7 +62,7 @@ export default function AnalyseReceptionPanel() {
     contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
-  // ─── Raw data ────────────────────────────────────────────────────────────
+  // -─ Raw data ------------------------------
   const receptions: Reception[] = useMemo(() => {
     return store.getReceptions().filter(r => r.date >= dateFrom && r.date <= dateTo)
   }, [dateFrom, dateTo])
@@ -71,7 +71,7 @@ export default function AnalyseReceptionPanel() {
     return store.getBonsLivraison().filter(b => b.date >= dateFrom && b.date <= dateTo)
   }, [dateFrom, dateTo])
 
-  // ─── GLOBAL metrics ──────────────────────────────────────────────────────
+  // -─ GLOBAL metrics ---------------------------
   const globalMetrics = useMemo(() => {
     const totalCmd   = receptions.reduce((s, r) => s + r.lignes.reduce((ls, l) => ls + l.quantiteCommandee, 0), 0)
     const totalRec   = receptions.reduce((s, r) => s + r.lignes.reduce((ls, l) => ls + l.quantiteRecue, 0), 0)
@@ -82,7 +82,7 @@ export default function AnalyseReceptionPanel() {
     return { totalCmd, totalRec, totalMont, totalFact, totalQtyFact, taux, reliquat: totalCmd - totalRec }
   }, [receptions, bls])
 
-  // ─── Daily trend (14 days) ───────────────────────────────────────────────
+  // -─ Daily trend (14 days) -----------------------─
   const dailyTrend = useMemo(() => {
     const days: Record<string, { date: string; recu: number; facture: number }> = {}
     receptions.forEach(r => {
@@ -97,7 +97,7 @@ export default function AnalyseReceptionPanel() {
       .map(d => ({ ...d, date: d.date.slice(5) }))
   }, [receptions, bls])
 
-  // ─── Per article ─────────────────────────────────────────────────────────
+  // -─ Per article ----------------------------─
   const byArticle = useMemo(() => {
     const map: Record<string, { nom: string; qteCmd: number; qteRec: number; montRec: number; qteFacture: number; montFacture: number }> = {}
     receptions.forEach(r => {
@@ -119,7 +119,7 @@ export default function AnalyseReceptionPanel() {
     return Object.values(map).sort((a, b) => b.montFacture - a.montFacture)
   }, [receptions, bls])
 
-  // ─── Per client ──────────────────────────────────────────────────────────
+  // -─ Per client -----------------------------
   const byClient = useMemo(() => {
     const map: Record<string, { nom: string; qteFacture: number; montFacture: number; nbBL: number }> = {}
     bls.forEach(b => {
@@ -131,7 +131,7 @@ export default function AnalyseReceptionPanel() {
     return Object.values(map).sort((a, b) => b.montFacture - a.montFacture)
   }, [bls])
 
-  // ─── Article x Client cross ───────────────────────────────────────────────
+  // -─ Article x Client cross -----------------------─
   const crossData = useMemo(() => {
     const rows: Record<string, Record<string, { qte: number; mont: number }>> = {}
     bls.forEach(b => {
@@ -148,7 +148,7 @@ export default function AnalyseReceptionPanel() {
   const allClients = useMemo(() => Array.from(new Set(bls.map(b => b.clientNom))).sort(), [bls])
   const allArticles = useMemo(() => Object.keys(crossData).sort(), [crossData])
 
-  // ─── Filtered lists ───────────────────────────────────────────────────────
+  // -─ Filtered lists ---------------------------─
   const filteredByArticle = filterArticle
     ? byArticle.filter(a => a.nom.toLowerCase().includes(filterArticle.toLowerCase()))
     : byArticle
@@ -165,7 +165,7 @@ export default function AnalyseReceptionPanel() {
     ? allClients.filter(c => c.toLowerCase().includes(filterClient.toLowerCase()))
     : allClients
 
-  // ─── Export CSV ───────────────────────────────────────────────────────────
+  // -─ Export CSV -----------------------------─
   const exportCSV = () => {
     const rows: string[][] = [["Article","Qte Commande","Qte Recue","Taux Service","Reliquat","Mont Reception","Qte Facture","Mont Facture","Ecart Qte","Ecart Mont"]]
     byArticle.forEach(a => {
@@ -242,7 +242,7 @@ export default function AnalyseReceptionPanel() {
         ))}
       </div>
 
-      {/* ── GLOBAL ─────────────────────────────────────────────────────────── */}
+      {/* - GLOBAL -----------------------------─ */}
       {view === "global" && (
         <div className="flex flex-col gap-4">
           {/* KPI row */}
@@ -317,7 +317,7 @@ export default function AnalyseReceptionPanel() {
         </div>
       )}
 
-      {/* ── QTE PAR ARTICLE ────────────────────────────────────────────────── */}
+      {/* - QTE PAR ARTICLE ------------------------- */}
       {view === "qte_article" && (
         <div className="flex flex-col gap-4">
           <input value={filterArticle} onChange={e => setFilterArticle(e.target.value)}
@@ -495,7 +495,7 @@ export default function AnalyseReceptionPanel() {
         </div>
       )}
 
-      {/* ── PAR ARTICLE ────────────────────────────────────────────────────── */}
+      {/* - PAR ARTICLE --------------------------- */}
       {view === "article" && (
         <div className="flex flex-col gap-4">
           <input value={filterArticle} onChange={e => setFilterArticle(e.target.value)}
@@ -561,7 +561,7 @@ export default function AnalyseReceptionPanel() {
         </div>
       )}
 
-      {/* ── PAR CLIENT ──────────────────────────────────────────────────────── */}
+      {/* - PAR CLIENT ---------------------------- */}
       {view === "client" && (
         <div className="flex flex-col gap-4">
           <input value={filterClient} onChange={e => setFilterClient(e.target.value)}
@@ -610,7 +610,7 @@ export default function AnalyseReceptionPanel() {
         </div>
       )}
 
-      {/* ── ARTICLE × CLIENT ──────────────────────────────────────────────── */}
+      {/* - ARTICLE × CLIENT ------------------------ */}
       {view === "article_client" && (
         <div className="flex flex-col gap-4">
           <div className="flex gap-2">
@@ -677,7 +677,7 @@ export default function AnalyseReceptionPanel() {
         </div>
       )}
 
-      {/* ── FACTURATION ─────────────────────────────────────────────────────── */}
+      {/* - FACTURATION ---------------------------─ */}
       {view === "facturation" && (
         <div className="flex flex-col gap-4">
           <div className="flex gap-3 flex-wrap">

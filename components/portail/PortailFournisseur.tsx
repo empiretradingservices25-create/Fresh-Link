@@ -4,11 +4,11 @@ import { useState, useEffect } from "react"
 import { store, type User, type PurchaseOrder, type Article, type Fournisseur, type Reception } from "@/lib/store"
 import FreshLinkLogo from "@/components/ui/FreshLinkLogo"
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // CROSS-DOC PREPARATION COMPONENT
 // Shows recently received articles from this supplier and allows
 // generating a preparation proposal for the next delivery.
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 interface CrossDocItem {
   articleId: string
@@ -230,7 +230,7 @@ function CrossDocPreparation({ fournisseurId, orders, articles }: CrossDocPrepar
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 interface Props { user: User; onLogout: () => void }
 

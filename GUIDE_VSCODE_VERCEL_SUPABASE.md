@@ -177,21 +177,21 @@ Désormais, chaque `git push` déclenche un déploiement automatique.
 
 ```
 freshlink/
-├── .env.local          ← variables locales (NE PAS commiter)
-├── .env.example        ← template des variables (à commiter)
-├── .gitignore          ← s'assurer que .env.local est dedans
-├── app/
-│   └── page.tsx
-├── components/
-│   ├── backoffice/
-│   ├── mobile/
-│   └── portail/
-├── lib/
-│   ├── store.ts
-│   └── supabase/
-├── scripts/
-│   └── supabase_FINAL_SETUP.sql
-└── GUIDE_VSCODE_VERCEL_SUPABASE.md
+├- .env.local          ← variables locales (NE PAS commiter)
+├- .env.example        ← template des variables (à commiter)
+├- .gitignore          ← s'assurer que .env.local est dedans
+├- app/
+│   └- page.tsx
+├- components/
+│   ├- backoffice/
+│   ├- mobile/
+│   └- portail/
+├- lib/
+│   ├- store.ts
+│   └- supabase/
+├- scripts/
+│   └- supabase_FINAL_SETUP.sql
+└- GUIDE_VSCODE_VERCEL_SUPABASE.md
 ```
 
 ### Extensions VS Code recommandées

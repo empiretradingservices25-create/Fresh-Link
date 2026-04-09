@@ -1,6 +1,6 @@
 /**
  * lib/print.ts
- * ─────────────────────────────────────────────────────────────────
+ * --------------------------------─
  * Professional print functions for FreshLink Pro documents.
  * All functions open a new window with clean HTML/CSS, then trigger
  * window.print() automatically.
@@ -10,12 +10,12 @@
  *  - printFacture  → Facture (même données que BL, mise en page facture)
  *  - printBonCommande → Bon de Commande interne (commande prévendeur)
  *  - printPO       → Purchase Order vers fournisseur
- * ─────────────────────────────────────────────────────────────────
+ * --------------------------------─
  */
 
 import type { BonLivraison, Commande, PurchaseOrder } from "./store"
 
-// ── Shared helpers ──────────────────────────────────────────────────────────
+// - Shared helpers -----------------------------
 
 function getCompany() {
   try {
@@ -37,7 +37,7 @@ body {
   background: #fff;
   padding: 28px 32px;
 }
-/* ── Header ── */
+/* - Header - */
 .doc-header {
   display: flex;
   justify-content: space-between;
@@ -51,7 +51,7 @@ body {
 .doc-number { font-size: 18pt; font-weight: 900; color: #111; }
 .doc-date { font-size: 9pt; color: #777; margin-top: 3px; }
 
-/* ── Info grid ── */
+/* - Info grid - */
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -76,7 +76,7 @@ body {
 .info-box .value { font-size: 11pt; font-weight: 700; color: #111; }
 .info-box .sub { font-size: 9pt; color: #6b7280; margin-top: 2px; }
 
-/* ── Table ── */
+/* - Table - */
 table { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
 thead tr { background: var(--accent); }
 thead th {
@@ -98,7 +98,7 @@ tfoot td { padding: 7px 10px; font-size: 10pt; }
 tfoot td.r { text-align: right; }
 .grand-total { font-size: 13pt; font-weight: 900; color: var(--accent); }
 
-/* ── Totaux box ── */
+/* - Totaux box - */
 .totaux-wrap { display: flex; justify-content: flex-end; margin-bottom: 20px; }
 .totaux-box {
   border: 2px solid var(--accent);
@@ -118,7 +118,7 @@ tfoot td.r { text-align: right; }
   margin-bottom: 0;
 }
 
-/* ── Badges ── */
+/* - Badges - */
 .badge {
   display: inline-block;
   padding: 3px 9px;
@@ -133,7 +133,7 @@ tfoot td.r { text-align: right; }
 .badge-orange{ background: #ffedd5; color: #9a3412; }
 .badge-red   { background: #fee2e2; color: #991b1b; }
 
-/* ── Retour notice ── */
+/* - Retour notice - */
 .retour-notice {
   margin-bottom: 16px;
   padding: 10px 14px;
@@ -144,7 +144,7 @@ tfoot td.r { text-align: right; }
   color: #9a3412;
 }
 
-/* ── Signatures ── */
+/* - Signatures - */
 .signatures {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -162,7 +162,7 @@ tfoot td.r { text-align: right; }
 }
 .sig-label { font-size: 8pt; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-/* ── Footer ── */
+/* - Footer - */
 .doc-footer {
   margin-top: 32px;
   padding-top: 12px;
@@ -172,7 +172,7 @@ tfoot td.r { text-align: right; }
   text-align: center;
 }
 
-/* ── UM badge inside table ── */
+/* - UM badge inside table - */
 .um-badge {
   display: inline-block;
   font-size: 8pt;
@@ -211,7 +211,7 @@ ${bodyHtml}
   win.document.close()
 }
 
-// ── 1. BON DE LIVRAISON ──────────────────────────────────────────────────────
+// - 1. BON DE LIVRAISON ---------------------------
 
 export function printBL(bl: BonLivraison) {
   const co = getCompany()
@@ -344,7 +344,7 @@ ${retourHtml}
   openPrintWindow(`BL-${bl.id.slice(0,8).toUpperCase()} — ${bl.clientNom}`, "#16a34a", body)
 }
 
-// ── 2. FACTURE ───────────────────────────────────────────────────────────────
+// - 2. FACTURE -------------------------------─
 
 export function printFacture(bl: BonLivraison, numFacture?: string) {
   const co = getCompany()
@@ -482,7 +482,7 @@ export function printFacture(bl: BonLivraison, numFacture?: string) {
   openPrintWindow(`Facture ${facNum} — ${bl.clientNom}`, "#2563eb", body)
 }
 
-// ── 3. BON DE COMMANDE (Commande prévendeur) ─────────────────────────────────
+// - 3. BON DE COMMANDE (Commande prévendeur) ----------------─
 
 export function printBonCommande(cmd: Commande) {
   const co = getCompany()
@@ -574,7 +574,7 @@ ${cmd.notes ? `<div style="margin-bottom:20px;padding:10px 14px;background:#fefc
   openPrintWindow(`BC-${cmd.id.slice(0,8).toUpperCase()} — ${cmd.clientNom}`, "#d97706", body)
 }
 
-// ── 4. PURCHASE ORDER (vers fournisseur) ─────────────────────────────────────
+// - 4. PURCHASE ORDER (vers fournisseur) ------------------─
 
 export function printPO(po: PurchaseOrder) {
   const co = getCompany()

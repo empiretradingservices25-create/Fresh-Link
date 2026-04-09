@@ -3,9 +3,9 @@
 import { useState, useEffect, useMemo } from "react"
 import { store, type User, type UserRole } from "@/lib/store"
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // TYPES
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 export type BonusMalusType =
   | "tonnage" | "visite" | "nouveau_client" | "retour_client"
@@ -64,9 +64,9 @@ export interface FichePayroll {
   validéAzmi?: boolean
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // STORE HELPERS — localStorage
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 const LS = {
   getRegles: (): RegleBonus[] => {
@@ -105,9 +105,9 @@ function groupeForRole(role: UserRole): EmployeeGroup {
 const genId = () => Math.random().toString(36).slice(2, 10)
 const nowIso = () => new Date().toISOString()
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // DEFAULT REGLES
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 const DEFAULT_REGLES: RegleBonus[] = [
   // Prévendeurs
@@ -126,17 +126,17 @@ const DEFAULT_REGLES: RegleBonus[] = [
   { id: "r11", nom: "Malus retour qualité", groupe: "achat", type: "retour_qualite", valeur: 100, unite: "dh_fixe", signe: "malus", description: "100 DH par retour motif qualité constaté", actif: true },
 ]
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // BADGE COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function Badge({ label, color }: { label: string; color: string }) {
   return <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${color}`}>{label}</span>
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // TAB: PRODUCTIVITÉ
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function ProductiviteTab({ users }: { users: User[] }) {
   const visites   = store.getVisites()
@@ -258,9 +258,9 @@ function ProductiviteTab({ users }: { users: User[] }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // TAB: CONFIGURATION RÈGLES BONUS/MALUS
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function ReglesTab({ isAdmin }: { isAdmin: boolean }) {
   const [regles, setRegles] = useState<RegleBonus[]>([])
@@ -404,9 +404,9 @@ function ReglesTab({ isAdmin }: { isAdmin: boolean }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // TAB: GRILLES SALAIRES
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function GrillesTab({ users, isAdmin }: { users: User[]; isAdmin: boolean }) {
   const [grilles, setGrilles] = useState<GrilleSalaire[]>([])
@@ -546,9 +546,9 @@ function GrillesTab({ users, isAdmin }: { users: User[]; isAdmin: boolean }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // TAB: CALCUL SALAIRES (Bulletin mensuel)
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function CalculSalaireTab({ users }: { users: User[] }) {
   const [grilles, setGrilles] = useState<GrilleSalaire[]>([])
@@ -776,9 +776,9 @@ function CalculSalaireTab({ users }: { users: User[] }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // TAB: BESOIN RECRUTEMENT
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function RecrutementTab({ users }: { users: User[] }) {
   const commandes = store.getCommandes()
@@ -860,9 +860,9 @@ function RecrutementTab({ users }: { users: User[] }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // MAIN COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 const TABS = [
   { id: "productivite", label: "Productivité équipe" },

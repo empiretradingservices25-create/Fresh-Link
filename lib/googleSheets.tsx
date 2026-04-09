@@ -76,9 +76,9 @@ export const SHEET_CONFIGS: SheetConfig[] = [
   },
 ]
 
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 // LocalStorage persistence for the 6 endpoint URLs
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 
 const LS_KEY = "fl_gsheets_config"
 
@@ -103,9 +103,9 @@ function emptyConfig(): SheetsUrlConfig {
   return { articles: "", clients: "", stock: "", commandes: "", factures: "", retours: "" }
 }
 
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 // Data serialisers — shape the payload each sheet expects
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 
 import type { Article, Client, Commande, BonLivraison, Retour } from "@/lib/store"
 
@@ -214,9 +214,9 @@ export function serializeRetours(retours: Retour[]) {
   )
 }
 
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 // Core push function
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 
 export interface PushResult {
   key: SheetKey
@@ -248,9 +248,9 @@ export async function pushToSheet(
   }
 }
 
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 // AppScript template the user will paste into each sheet
-// ────────────────────────────────────────────────────────────────────────────
+// --------------------------------------
 
 export const APPS_SCRIPT_TEMPLATE = `
 // ====

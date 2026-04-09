@@ -249,7 +249,7 @@ export default function BOAchat() {
             return (
               <div className="flex flex-col gap-0 rounded-2xl border-2 border-sidebar shadow-xl overflow-hidden">
 
-                {/* ── Toolbar (screen only, not printed) ── */}
+                {/* - Toolbar (screen only, not printed) - */}
                 <div className="flex items-center justify-between px-5 py-3 bg-sidebar text-sidebar-foreground print:hidden">
                   <div className="flex items-center gap-2">
                     <svg className="w-5 h-5 text-sidebar-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -272,7 +272,7 @@ export default function BOAchat() {
                   </div>
                 </div>
 
-                {/* ── Document canvas ── */}
+                {/* - Document canvas - */}
                 <div className="bg-white p-6 flex flex-col gap-5">
 
                   {/* Header: logo + title + ref */}
@@ -482,7 +482,7 @@ export default function BOAchat() {
                   </p>
                 </div>
 
-                {/* ── Action bar (screen only) ── */}
+                {/* - Action bar (screen only) - */}
                 <div className="flex gap-2 justify-end px-5 py-3 bg-muted border-t border-border print:hidden">
                   <button onClick={() => setShowForm(false)}
                     className="px-4 py-2 rounded-xl border border-border text-sm font-sans hover:bg-background transition-colors">

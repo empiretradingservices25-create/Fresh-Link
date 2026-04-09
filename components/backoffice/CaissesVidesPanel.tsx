@@ -12,9 +12,9 @@ import {
   AlertTriangle, ChevronDown, ChevronUp
 } from "lucide-react"
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // Helpers
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 const OPERATION_LABELS: Record<string, string> = {
   ctrl_achat:  "Contrôle Achat",
@@ -28,9 +28,9 @@ const OPERATION_LABELS: Record<string, string> = {
   bl:          "Bon Livraison",
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // Auto-sync from all flows for today
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function syncCaissesFromFlows(today: string) {
   const existing = store.getCaissesMovements()
@@ -153,9 +153,9 @@ function syncCaissesFromFlows(today: string) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // Components
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 function CaisseCard({ caisse }: { caisse: CaisseVide }) {
   const total = caisse.stock + (caisse.enCirculation ?? 0)
@@ -231,9 +231,9 @@ function MouvementRow({ m }: { m: CaisseVideMouvement }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 // Main Panel
-// ─────────────────────────────────────────────────────────────────────────────
+// --------------------------------------─
 
 export default function CaissesVidesPanel() {
   const today = store.today()

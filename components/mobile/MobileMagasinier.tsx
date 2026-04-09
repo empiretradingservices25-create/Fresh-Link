@@ -13,9 +13,9 @@ import {
   type Depot,
 } from "@/lib/store"
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Unified reception item — abstracts BonAchat + PurchaseOrder
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 interface ReceptionLigne {
   articleId: string
@@ -66,7 +66,7 @@ function poToItem(po: PurchaseOrder, articles: Article[]): ReceptionItem {
   }
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 type MagTab = "reception" | "validation_bl" | "po_achat" | "besoin_sku" | "besoin_achat"
 interface Props { user: User }
 const DH  = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2 }) + " DH"
@@ -81,9 +81,9 @@ const MOTIFS_RELIQUAT = [
   { value: "erreur_commande",    label: "Erreur de commande" },
 ]
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Main component
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 export default function MobileMagasinier({ user }: Props) {
   const [tab, setTab]                 = useState<MagTab>("reception")
@@ -289,9 +289,9 @@ export default function MobileMagasinier({ user }: Props) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // PO Achat Tab — commandes fournisseurs passees par acheteur
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 function POAchatTab({ pos, onRefresh }: { pos: PurchaseOrder[]; onRefresh: () => void }) {
   const DH = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2 }) + " DH"
   const STATUT_COLOR: Record<string, string> = {
@@ -354,9 +354,9 @@ function POAchatTab({ pos, onRefresh }: { pos: PurchaseOrder[]; onRefresh: () =>
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Besoin SKU Tab — besoins nets calcules depuis les commandes
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 function BesoinSKUTab({ besoin }: { besoin: ReturnType<typeof store.computeBesoinNet> }) {
   if (besoin.length === 0) {
     return (
@@ -426,9 +426,9 @@ function BesoinSKUTab({ besoin }: { besoin: ReturnType<typeof store.computeBesoi
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Besoin Achat Tab — bons d'achat transmis par acheteur
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 function BesoinAchatTab({ bons }: { bons: BonAchat[] }) {
   const DH = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2 }) + " DH"
   const STATUT_COLOR: Record<string, string> = {
@@ -488,9 +488,9 @@ function BesoinAchatTab({ bons }: { bons: BonAchat[] }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // RECEPTION TAB
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 function ReceptionTab({
   user, items, allItems, articles, receptions, contenants, depots,
@@ -650,7 +650,7 @@ function ReceptionTab({
     }
   }
 
-  // ── Detail view ────────────────────────────────────────────
+  // - Detail view ----------------------
   if (selected) {
     return (
       <div className="flex flex-col gap-3">
@@ -848,7 +848,7 @@ function ReceptionTab({
     )
   }
 
-  // ── List ──────────────────────────────────────────────────
+  // - List -------------------------
   const bonAchatCount = items.filter(i => i.source === "bon_achat").length
   const poCount       = items.filter(i => i.source === "purchase_order").length
 
@@ -1017,9 +1017,9 @@ function ReceptionTab({
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // VALIDATION BL TAB
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 function ValidationBLTab({
   user, bls, articles, onRefresh,

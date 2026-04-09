@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react"
 import { store, type User } from "@/lib/store"
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Types
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 interface CreditLigne {
   id: string
@@ -45,9 +45,9 @@ const STATUT_STYLE = {
 
 type ViewMode = "liste" | "par_fournisseur" | "par_acheteur"
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // Main
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 export default function BOCreditFournisseur({ user }: { user: User }) {
   const [credits, setCredits]       = useState<CreditLigne[]>(loadCredits)

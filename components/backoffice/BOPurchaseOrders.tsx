@@ -7,7 +7,7 @@ import { printPO } from "@/lib/print"
 
 const fmtDH = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " DH"
 
-// ── Calcul nb caisses pour un article ────────────────────────────────────────
+// - Calcul nb caisses pour un article --------------------
 // Logique: qte / colisageCaisses = nb caisses entières + reste → demi-caisses
 // Ex: 52 kg, caisse=30kg, demi=15kg → 1 grosse caisse (30), 1 demi (15), reste 7 → arrondi a 1 demi
 // On cherche le mix optimal: max caisses grosses, puis demi-caisses pour le reste

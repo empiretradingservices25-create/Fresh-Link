@@ -293,7 +293,7 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
   )
 }
 
-// ── Auto-sync Trip from BL + Controle Preparation + Retour ────────────────────
+// - Auto-sync Trip from BL + Controle Preparation + Retour ----------
 function buildTripFromFlows(livreurNom: string, date: string): Partial<TripCharge> & {
   sourceBLs: string[]; sourcePrepIds: string[]; sourceCaisses: { gros: number; demi: number }
 } {

@@ -8,7 +8,7 @@
 -- 5. Add require_camera_auth + km columns to existing tables
 -- =
 
--- ── 1. FRUITS & VEGETABLES WORLD MASTER TABLE ───────────────────
+-- - 1. FRUITS & VEGETABLES WORLD MASTER TABLE ---------─
 CREATE TABLE IF NOT EXISTS fl_produits_catalogue (
   id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   nom             text NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS fl_produits_catalogue (
 INSERT INTO fl_produits_catalogue
   (nom, nom_ar, nom_darija, categorie, sous_categorie, couleur, taille_standard, saison, origine_pays, duree_vie_jours, temperature_min_c, temperature_max_c)
 VALUES
--- ── AGRUMES ──────────────────────────────────────────────────────
+-- - AGRUMES ---------------------------
 ('Orange',         'برتقال',    'lbortoqal',  'agrume',    'citrus',    'orange',  'M',   'hiver',       'Maroc',        14, 5, 10),
 ('Citron',         'ليمون',     'lhamed',     'agrume',    'citrus',    'jaune',   'M',   'toute_annee', 'Maroc',        21, 7, 13),
 ('Mandarine',      'يوسفي',     'yousfi',     'agrume',    'citrus',    'orange',  'S',   'hiver',       'Maroc',        10, 5, 10),
@@ -43,7 +43,7 @@ VALUES
 ('Citron vert',    'ليمون أخضر','limone khdra','agrume',   'citrus',    'vert',    'S',   'toute_annee', 'Brésil',       14, 7, 13),
 ('Clémentine',     'كليمنتين',  'clementine', 'agrume',    'citrus',    'orange',  'S',   'automne',     'Espagne',      10, 5, 8),
 ('Bergamote',      'بيرقامون',  'bergamot',   'agrume',    'citrus',    'vert',    'M',   'hiver',       'Italie',       14, 5, 10),
--- ── FRUITS TROPICAUX ─────────────────────────────────────────────
+-- - FRUITS TROPICAUX ----------------------─
 ('Banane',         'موز',       'mouz',       'fruit',     'tropical',  'jaune',   'M',   'toute_annee', 'Équateur',      7, 13, 15),
 ('Mangue',         'مانجو',     'manga',      'fruit',     'tropical',  'jaune-rouge','M','ete',         'Inde',          7, 10, 13),
 ('Ananas',         'أناناس',    'ananas',     'fruit',     'tropical',  'jaune',   'L',   'toute_annee', 'Costa Rica',   14, 10, 15),
@@ -55,7 +55,7 @@ VALUES
 ('Corossol',       'قرصلة',     'corossol',   'fruit',     'tropical',  'vert',    'L',   'toute_annee', 'Antilles',      3, 18, 22),
 ('Carambole',      'كارامبول',  'carambole',  'fruit',     'tropical',  'jaune',   'M',   'toute_annee', 'Malaisie',      5, 8, 12),
 ('Durian',         'دوريان',    'durian',     'exotique',  'tropical',  'jaune',   'XL',  'ete',         'Thaïlande',     5, 15, 18),
--- ── FRUITS TEMPÉRÉS ──────────────────────────────────────────────
+-- - FRUITS TEMPÉRÉS -----------------------
 ('Pomme',          'تفاح',      'tefah',      'fruit',     'pomme',     'rouge',   'M',   'automne',     'Maroc',        60, 0, 4),
 ('Poire',          'كمثرى',     'kmitru',     'fruit',     'pomme',     'vert',    'M',   'automne',     'France',       30, 0, 4),
 ('Raisin',         'عنب',       'eneb',       'fruit',     'baie',      'violet',  'M',   'automne',     'Maroc',         7, 0, 2),
@@ -78,7 +78,7 @@ VALUES
 ('Kakis',          'كاكي',      'kaki',       'fruit',     'autre',     'orange',  'M',   'automne',     'Japon',        21, 0, 4),
 ('Jujube',         'عناب',      'ennab',      'fruit',     'autre',     'rouge',   'S',   'automne',     'Maroc',        30, 5, 10),
 ('Nèfle',          'نفلة',      'neffla',     'fruit',     'autre',     'orange',  'S',   'printemps',   'Maroc',         5, 5, 8),
--- ── LÉGUMES FEUILLES ─────────────────────────────────────────────
+-- - LÉGUMES FEUILLES ----------------------─
 ('Tomate',         'طماطم',     'tamtam',     'legume',    'fruit-leg', 'rouge',   'M',   'ete',         'Maroc',         7, 10, 15),
 ('Tomate cerise',  'طماطم صغيرة','tamtam sghira','legume', 'fruit-leg', 'rouge',   'S',   'ete',         'Maroc',         7, 10, 15),
 ('Poivron',        'فلفل حلو',  'felfel hlou','legume',    'fruit-leg', 'rouge',   'M',   'ete',         'Maroc',        10, 7, 12),
@@ -103,7 +103,7 @@ VALUES
 ('Courge',         'قرعة',      'qar3a',      'legume',    'cucurbit',  'orange',  'XL',  'automne',     'Maroc',        60, 10, 15),
 ('Citrouille',     'قرعة حمرا', 'qar3a hamra','legume',    'cucurbit',  'orange',  'XL',  'automne',     'Maroc',        90, 10, 15),
 ('Potimarron',     'قرعة صفراء','qar3a safra','legume',    'cucurbit',  'orange',  'L',   'automne',     'France',       60, 10, 15),
--- ── TUBERCULES & RACINES ─────────────────────────────────────────
+-- - TUBERCULES & RACINES --------------------─
 ('Pomme de terre', 'بطاطس',     'batata',     'tubercule', 'racine',    'beige',   'M',   'toute_annee', 'Maroc',        30, 4, 8),
 ('Patate douce',   'بطاطا حلوة','batata hlwa', 'tubercule', 'racine',   'orange',  'M',   'automne',     'Maroc',        21, 10, 15),
 ('Carotte',        'جزرة',      'jzara',      'legume',    'racine',    'orange',  'M',   'hiver',       'Maroc',        14, 0, 4),
@@ -116,13 +116,13 @@ VALUES
 ('Manioc',         'مانيوك',    'manyoc',     'tubercule', 'racine',    'beige',   'L',   'toute_annee', 'Brésil',        7, 15, 20),
 ('Igname',         'إيغنام',    'igname',     'tubercule', 'racine',    'beige',   'L',   'toute_annee', 'Afrique',      21, 15, 20),
 ('Taro',           'قلقاس',     'qelqas',     'tubercule', 'racine',    'marron',  'M',   'toute_annee', 'Asie',         14, 10, 15),
--- ── BULBES & ALLIUMS ─────────────────────────────────────────────
+-- - BULBES & ALLIUMS ----------------------─
 ('Oignon',         'بصل',       'bsal',       'legume',    'bulbe',     'blanc',   'M',   'toute_annee', 'Maroc',        30, 0, 4),
 ('Oignon rouge',   'بصل أحمر',  'bsal ahmar', 'legume',    'bulbe',     'violet',  'M',   'toute_annee', 'Maroc',        30, 0, 4),
 ('Ail',            'ثوم',       'tawm',       'legume',    'bulbe',     'blanc',   'S',   'toute_annee', 'Maroc',        60, 0, 4),
 ('Échalote',       'كراوية',    'chalote',    'legume',    'bulbe',     'brun',    'S',   'automne',     'France',       30, 0, 4),
 ('Ciboulette',     'قصبة',      'ciboule',    'herbe',     'bulbe',     'vert',    'S',   'toute_annee', 'France',        7, 0, 4),
--- ── HERBES AROMATIQUES ───────────────────────────────────────────
+-- - HERBES AROMATIQUES ---------------------─
 ('Persil',         'معدنوس',    'maadnos',    'herbe',     'aromatique','vert',    'S',   'toute_annee', 'Maroc',         7, 0, 4),
 ('Coriandre',      'قزبرة',     'qsbra',      'herbe',     'aromatique','vert',    'S',   'toute_annee', 'Maroc',         5, 0, 4),
 ('Menthe',         'نعنا',      'naanaa',     'herbe',     'aromatique','vert',    'S',   'toute_annee', 'Maroc',         5, 0, 4),
@@ -137,11 +137,11 @@ VALUES
 ('Marjolaine',     'مردقوش',    'marjolaine', 'herbe',     'aromatique','vert',    'S',   'ete',         'Maroc',        14, 5, 10),
 ('Gingembre',      'زنجبيل',    'zanjbil',    'herbe',     'rhizome',   'beige',   'M',   'toute_annee', 'Inde',         21, 10, 15),
 ('Curcuma',        'هرد',       'herd',       'herbe',     'rhizome',   'orange',  'M',   'toute_annee', 'Inde',         21, 10, 15),
--- ── CHAMPIGNONS ──────────────────────────────────────────────────
+-- - CHAMPIGNONS -------------------------
 ('Champignon blanc','فطر أبيض', 'ftor',       'legume',    'champignon','blanc',   'S',   'toute_annee', 'France',        7, 2, 4),
 ('Portobello',     'بورتوبيللو', 'portobello','legume',    'champignon','marron',  'L',   'toute_annee', 'France',        7, 2, 4),
 ('Shiitake',       'شيتاكي',    'shiitake',   'legume',    'champignon','marron',  'M',   'toute_annee', 'Japon',         7, 2, 4),
--- ── FRUITS SECS & NOIX ───────────────────────────────────────────
+-- - FRUITS SECS & NOIX ---------------------─
 ('Amande',         'لوز',       'lwz',        'fruit',     'noix',      'beige',   'S',   'ete',         'Maroc',        365, 5, 10),
 ('Noix',           'جوز',       'joz',        'fruit',     'noix',      'marron',  'M',   'automne',     'France',       365, 5, 10),
 ('Datte',          'تمر',       'tmar',       'fruit',     'drupe',     'marron',  'S',   'automne',     'Maroc',        365, 5, 10),
@@ -149,7 +149,7 @@ VALUES
 ('Figue sèche',    'تين ناشف',  'tin nachef', 'fruit',     'noix',      'marron',  'S',   'toute_annee', 'Maroc',        180, 10, 20)
 ON CONFLICT DO NOTHING;
 
--- ── 2. AI AGENTS TABLE ────────────────────────────────────────────
+-- - 2. AI AGENTS TABLE ----------------------
 CREATE TABLE IF NOT EXISTS fl_agents_ia (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   code          text UNIQUE NOT NULL,   -- 'mustapha' | 'simohammed' | 'jawad' | 'zizi' | 'azmi' | 'hicham' | 'ashel'
@@ -171,7 +171,7 @@ INSERT INTO fl_agents_ia (code, nom, role_metier, niveau, system_prompt) VALUES
 ('ashel',      'ASHEL (Achat)',         'achat',          2, 'Tu es ASHEL, agent achat intelligent. À l''ouverture de l''écran Besoin d''Achat, calcule le PO suggéré : (Commandes validées + Stock de sécurité) - Stock Réel. Active la caméra lors de la réception fournisseur pour analyser fraîcheur/calibre. Affiche l''historique des 3 derniers prix pour ce fournisseur.')
 ON CONFLICT (code) DO UPDATE SET nom = EXCLUDED.nom, system_prompt = EXCLUDED.system_prompt;
 
--- ── 3. ESCALATION WORKFLOW LOG ────────────────────────────────────
+-- - 3. ESCALATION WORKFLOW LOG ------------------
 CREATE TABLE IF NOT EXISTS fl_escalation_log (
   id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   ticket_ref      text NOT NULL,        -- auto-generated: ESC-YYYYMMDD-NNNNN
@@ -214,7 +214,7 @@ CREATE TRIGGER trg_escalation_updated_at
   BEFORE UPDATE ON fl_escalation_log
   FOR EACH ROW EXECUTE FUNCTION update_escalation_updated_at();
 
--- ── 4. FEEDBACK TABLE ─────────────────────────────────────────────
+-- - 4. FEEDBACK TABLE ----------------------─
 CREATE TABLE IF NOT EXISTS fl_feedback (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id     text,
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS fl_feedback (
   created_at  timestamptz DEFAULT now()
 );
 
--- ── 5. ADD MISSING COLUMNS TO EXISTING TABLES ────────────────────
+-- - 5. ADD MISSING COLUMNS TO EXISTING TABLES ----------
 -- fl_users: require_camera_auth
 ALTER TABLE fl_users ADD COLUMN IF NOT EXISTS require_camera_auth boolean DEFAULT false;
 
@@ -242,7 +242,7 @@ ALTER TABLE fl_trips ADD COLUMN IF NOT EXISTS nb_caisses_by_article jsonb DEFAUL
 ALTER TABLE fl_receptions ADD COLUMN IF NOT EXISTS quantite_facturee numeric;
 ALTER TABLE fl_receptions ADD COLUMN IF NOT EXISTS prix_facture       numeric;
 
--- ── 6. ROW LEVEL SECURITY ─────────────────────────────────────────
+-- - 6. ROW LEVEL SECURITY --------------------─
 ALTER TABLE fl_produits_catalogue ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fl_agents_ia          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fl_escalation_log     ENABLE ROW LEVEL SECURITY;
@@ -263,7 +263,7 @@ CREATE POLICY IF NOT EXISTS "fl_escalation_write" ON fl_escalation_log FOR ALL  
 CREATE POLICY IF NOT EXISTS "fl_feedback_read"    ON fl_feedback FOR SELECT USING (true);
 CREATE POLICY IF NOT EXISTS "fl_feedback_write"   ON fl_feedback FOR ALL    USING (true);
 
--- ── 7. INDEXES ────────────────────────────────────────────────────
+-- - 7. INDEXES --------------------------
 CREATE INDEX IF NOT EXISTS idx_produits_categorie  ON fl_produits_catalogue (categorie);
 CREATE INDEX IF NOT EXISTS idx_produits_actif      ON fl_produits_catalogue (actif);
 CREATE INDEX IF NOT EXISTS idx_escalation_statut   ON fl_escalation_log (statut);

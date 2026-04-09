@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-// ─── Icons ────────────────────────────────────────────────────────────────────
+// -─ Icons ----------------------------------
 function CopyIcon() {
   return (
     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,7 +25,7 @@ function ExternalIcon() {
   )
 }
 
-// ─── Code block ───────────────────────────────────────────────────────────────
+// -─ Code block -------------------------------─
 function Code({ code, lang = "bash" }: { code: string; lang?: string }) {
   const [copied, setCopied] = useState(false)
   return (
@@ -46,7 +46,7 @@ function Code({ code, lang = "bash" }: { code: string; lang?: string }) {
   )
 }
 
-// ─── Step header ──────────────────────────────────────────────────────────────
+// -─ Step header -------------------------------
 function StepHeader({ n, title, sub, color = "blue" }: { n: number; title: string; sub: string; color?: "blue"|"green"|"purple"|"amber"|"emerald" }) {
   const colors = {
     blue:    { bg: "bg-blue-600",    text: "text-blue-800",   light: "bg-blue-50",   border: "border-blue-200" },
@@ -67,7 +67,7 @@ function StepHeader({ n, title, sub, color = "blue" }: { n: number; title: strin
   )
 }
 
-// ─── Info box ─────────────────────────────────────────────────────────────────
+// -─ Info box --------------------------------─
 function Info({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex gap-2 px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-xs leading-relaxed mb-3">
@@ -79,7 +79,7 @@ function Info({ children }: { children: React.ReactNode }) {
   )
 }
 
-// ─── Warn box ─────────────────────────────────────────────────────────────────
+// -─ Warn box --------------------------------─
 function Warn({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex gap-2 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs leading-relaxed mb-3">
@@ -91,7 +91,7 @@ function Warn({ children }: { children: React.ReactNode }) {
   )
 }
 
-// ─── Section title ────────────────────────────────────────────────────────────
+// -─ Section title ------------------------------
 function Section({ title, icon }: { title: string; icon: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 mt-6 mb-3">
@@ -102,7 +102,7 @@ function Section({ title, icon }: { title: string; icon: React.ReactNode }) {
   )
 }
 
-// ─── Link button ──────────────────────────────────────────────────────────────
+// -─ Link button -------------------------------
 function LinkBtn({ href, label }: { href: string; label: string }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer"
@@ -112,7 +112,7 @@ function LinkBtn({ href, label }: { href: string; label: string }) {
   )
 }
 
-// ─── Main panel ───────────────────────────────────────────────────────────────
+// -─ Main panel -------------------------------─
 const CHAPTERS = [
   "Introduction",
   "Supabase",
@@ -137,7 +137,7 @@ export default function DeployGuidePanel() {
   return (
     <div className="flex flex-col lg:flex-row gap-0 bg-slate-50" style={{ minHeight: "calc(100vh - 120px)" }}>
 
-      {/* ── Chapter sidebar ───────────────────────────────────── */}
+      {/* - Chapter sidebar ------------------─ */}
       <aside className="lg:w-52 shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 p-3 flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-x-visible">
         <div className="hidden lg:flex items-center gap-2 px-3 py-2 mb-2">
           <div className="w-6 h-6 rounded-lg bg-slate-800 flex items-center justify-center shrink-0">
@@ -164,11 +164,11 @@ export default function DeployGuidePanel() {
         </div>
       </aside>
 
-      {/* ── Content ───────────────────────────────────────────── */}
+      {/* - Content ----------------------─ */}
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-2xl mx-auto p-4 lg:p-6 pb-16">
 
-          {/* ── 0. Introduction ── */}
+          {/* - 0. Introduction - */}
           {chapter === 0 && (
             <div>
               <div className="flex items-center gap-3 mb-6">
@@ -227,7 +227,7 @@ export default function DeployGuidePanel() {
             </div>
           )}
 
-          {/* ── 1. Supabase ── */}
+          {/* - 1. Supabase - */}
           {chapter === 1 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Supabase — Creer votre base de donnees</h2>
@@ -311,7 +311,7 @@ export default function DeployGuidePanel() {
             </div>
           )}
 
-          {/* ── 2. Vercel ── */}
+          {/* - 2. Vercel - */}
           {chapter === 2 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Vercel — Deployer en ligne</h2>
@@ -376,7 +376,7 @@ export default function DeployGuidePanel() {
             </div>
           )}
 
-          {/* ── 3. Variables ENV ── */}
+          {/* - 3. Variables ENV - */}
           {chapter === 3 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Variables d&apos;environnement</h2>
@@ -419,7 +419,7 @@ export default function DeployGuidePanel() {
             </div>
           )}
 
-          {/* ── 4. SQL ── */}
+          {/* - 4. SQL - */}
           {chapter === 4 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Creer les tables SQL</h2>
@@ -538,7 +538,7 @@ ON CONFLICT DO NOTHING;`} />
             </div>
           )}
 
-          {/* ── 5. Depannage ── */}
+          {/* - 5. Depannage - */}
           {chapter === 5 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Depannage — Resoudre les problemes</h2>

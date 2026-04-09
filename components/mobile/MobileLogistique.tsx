@@ -11,7 +11,7 @@ interface Props { user: User }
 
 type LogTab = "validation" | "trip" | "map" | "reception"
 
-// ── tiny icon helper ─────────────────────────────────────────────────────────
+// - tiny icon helper ----------------------------─
 function Icon({ d, className = "w-5 h-5" }: { d: string; className?: string }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,7 +20,7 @@ function Icon({ d, className = "w-5 h-5" }: { d: string; className?: string }) {
   )
 }
 
-// ── Statut badge ──────────────────────────────────────────────────────────────
+// - Statut badge -------------------------------
 const STATUT_BL_COLORS: Record<string, string> = {
   livre: "bg-green-100 text-green-800",
   premier_passage: "bg-blue-100 text-blue-800",
@@ -34,7 +34,7 @@ const STATUT_BL_LABELS: Record<string, string> = {
   retour: "Retour",
 }
 
-// ── Individual Client Delivery Card ──────────────────────────────────────────
+// - Individual Client Delivery Card ---------------------
 interface DeliveryCardProps {
   commande: Commande
   motifs: MotifRetour[]
@@ -205,7 +205,7 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
   )
 }
 
-// ── Main Component ─────────────────────────────────────────────────────────────
+// - Main Component ------------------------------─
 export default function MobileLogistique({ user }: Props) {
   const [activeTab, setActiveTab] = useState<LogTab>("validation")
   const [commandes, setCommandes] = useState<Commande[]>([])
@@ -286,13 +286,13 @@ export default function MobileLogistique({ user }: Props) {
     } catch { setMapLoaded(true) }
   }
 
-  // ── Validation tab: magasinier validates en_attente commandes ──────────────
+  // - Validation tab: magasinier validates en_attente commandes -------
   const validateCommande = (id: string) => {
     store.updateCommande(id, { statut: "valide" })
     refresh()
   }
 
-  // ── Trip tab: update BL statut + create BL if not existing ────────────────
+  // - Trip tab: update BL statut + create BL if not existing --------
   const handleDeliveryUpdate = (commandeId: string, statut: BonLivraison["statutLivraison"], motif?: string, heureReelle?: string) => {
     const commande = store.getCommandes().find(c => c.id === commandeId)
     if (!commande) return
@@ -384,7 +384,7 @@ export default function MobileLogistique({ user }: Props) {
     refresh()
   }
 
-  // ── Derived data ──────────────────────────────────────────────────────────
+  // - Derived data -----------------------------
   // Only logistique admins can validate commandes — livreurs cannot
   const isLogistiqueAdmin = ["resp_logistique", "magasinier", "dispatcheur", "admin", "super_admin"].includes(user.role)
   const pendingCommandes = isLogistiqueAdmin ? commandes.filter(c => c.statut === "en_attente" || c.statut === "valide") : []
@@ -443,7 +443,7 @@ export default function MobileLogistique({ user }: Props) {
       </div>
 
       <div className="px-4 pb-4 pt-3 flex flex-col gap-4">
-        {/* ── VALIDATION TAB ───────────────────────────────────────── */}
+        {/* - VALIDATION TAB --------------------─ */}
         {activeTab === "validation" && (
           <>
             <div className="flex items-center justify-between">
@@ -529,10 +529,10 @@ export default function MobileLogistique({ user }: Props) {
           </>
         )}
 
-        {/* ── TRIP TAB ──────────────────────────────────────────────── */}
+        {/* - TRIP TAB ------------------------ */}
         {activeTab === "trip" && (
           <>
-            {/* ── PROCHAIN CLIENT: WhatsApp / SMS button ── */}
+            {/* - PROCHAIN CLIENT: WhatsApp / SMS button - */}
             {(() => {
               // Find next undelivered client in itinerary order
               const sorted = [...tripCommandes].sort((a, b) => {
@@ -774,12 +774,12 @@ export default function MobileLogistique({ user }: Props) {
           </>
         )}
 
-        {/* ── RECEPTION TAB (Magasinier) ────────────────────────────── */}
+        {/* - RECEPTION TAB (Magasinier) --------------- */}
         {activeTab === "reception" && (
           <MagasinierReceptionTab user={user} />
         )}
 
-        {/* ── MAP TAB ─────────────────────────────────────────────────── */}
+        {/* - MAP TAB -------------------------─ */}
         {activeTab === "map" && (
           <>
             <div className="flex items-center justify-between">

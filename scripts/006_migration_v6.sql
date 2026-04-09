@@ -4,11 +4,11 @@
 -- Executer dans: Supabase Dashboard → SQL Editor → New query
 -- ====
 
--- ── fl_users : ajout require_camera_auth ─────────────────────────────────────
+-- - fl_users : ajout require_camera_auth ------------------─
 alter table public.fl_users
   add column if not exists require_camera_auth boolean default false;
 
--- ── fl_trips : KM + caisses par article ──────────────────────────────────────
+-- - fl_trips : KM + caisses par article -------------------
 alter table public.fl_trips
   add column if not exists km_depart          numeric,
   add column if not exists km_arrivee         numeric,
@@ -17,7 +17,7 @@ alter table public.fl_trips
   add column if not exists caisses_validees   boolean default false,
   add column if not exists nb_caisses_by_article jsonb default '{}'::jsonb;
 
--- ── fl_receptions : quantite_facturee et prix_facture par ligne ───────────────
+-- - fl_receptions : quantite_facturee et prix_facture par ligne -------─
 -- Les lignes reception sont stockees en JSONB (tableau) donc on ne modifie
 -- pas les colonnes mais on documente le nouveau schema attendu:
 --
@@ -29,11 +29,11 @@ alter table public.fl_trips
 -- Aucune migration DDL requise car la colonne `lignes` est deja JSONB.
 -- L'application mettra a jour le schema au prochain upsert.
 
--- ── fl_purchase_orders : notification status ─────────────────────────────────
+-- - fl_purchase_orders : notification status ----------------─
 -- Le champ statut existant gere deja "ouvert"/"envoye"/"receptionne"/"annule"
 -- Aucune modification DDL requise.
 
--- ── Politique RLS — s'assurer qu'elles existent bien ─────────────────────────
+-- - Politique RLS — s'assurer qu'elles existent bien ------------─
 do $$ begin
   -- fl_trips
   if not exists (
@@ -57,7 +57,7 @@ do $$ begin
   end if;
 end $$;
 
--- ── Commentaires ─────────────────────────────────────────────────────────────
+-- - Commentaires ------------------------------─
 comment on column public.fl_trips.km_depart          is 'KM compteur au depart — obligatoire avant validation chargement';
 comment on column public.fl_trips.km_arrivee         is 'KM compteur a l'arrivee — saisi par livreur';
 comment on column public.fl_trips.km_total           is 'KM parcourus = km_arrivee - km_depart';

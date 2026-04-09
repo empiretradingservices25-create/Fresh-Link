@@ -249,7 +249,7 @@ export default function BODashboard({ user }: Props) {
 
   const isAdmin = ["super_admin", "admin", "resp_commercial", "team_leader"].includes(user.role)
 
-  // ── Credit analysis ────────────────────────────────────────────────────────
+  // - Credit analysis ----------------------------
   // For each client with credit enabled, compute: solde, delai, statut, overdue flag
   const creditClients = useMemo(() => {
     const now = Date.now()

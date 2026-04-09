@@ -16,12 +16,12 @@ import type {
   TransfertStock, Message, Notice,
 } from "@/lib/store"
 
-// ── Helper: vérifie si Supabase est joignable ─────────────────────────────────
+// - Helper: vérifie si Supabase est joignable ----------------─
 function sb() {
   return createClient()
 }
 
-// ── serialise un objet User (camelCase → snake_case) pour Supabase ────────────
+// - serialise un objet User (camelCase → snake_case) pour Supabase ------
 function userToRow(u: User) {
   return {
     id: u.id,
@@ -61,7 +61,7 @@ function userToRow(u: User) {
   }
 }
 
-// ── USERS ─────────────────────────────────────────────────────────────────────
+// - USERS ----------------------------------─
 
 export async function upsertUser(u: User) {
   // Save local first (instant UI)
@@ -144,7 +144,7 @@ function rowToUser(r: Record<string, unknown>): User {
   } as unknown as User
 }
 
-// ── CLIENTS ───────────────────────────────────────────────────────────────────
+// - CLIENTS ---------------------------------─
 
 export async function upsertClient(c: Client) {
   const all = store.getClients()
@@ -200,7 +200,7 @@ export async function importClients(rows: Client[]): Promise<{ inserted: number;
   return { inserted, updated, errors }
 }
 
-// ── ARTICLES ──────────────────────────────────────────────────────────────────
+// - ARTICLES ---------------------------------
 
 export async function upsertArticle(a: Article) {
   const all = store.getArticles()
@@ -240,7 +240,7 @@ export async function fetchArticles(): Promise<Article[]> {
   return store.getArticles()
 }
 
-// ── FOURNISSEURS ──────────────────────────────────────────────────────────────
+// - FOURNISSEURS -------------------------------
 
 export async function upsertFournisseur(f: Fournisseur) {
   const all = store.getFournisseurs()
@@ -270,7 +270,7 @@ export async function fetchFournisseurs(): Promise<Fournisseur[]> {
   return store.getFournisseurs()
 }
 
-// ── COMMANDES ─────────────────────────────────────────────────────────────────
+// - COMMANDES --------------------------------─
 
 export async function upsertCommande(c: Commande) {
   const all = store.getCommandes()
@@ -313,7 +313,7 @@ export async function fetchCommandes(dateFilter?: string): Promise<Commande[]> {
   return dateFilter ? all.filter(c => c.date === dateFilter) : all
 }
 
-// ── VISITES ───────────────────────────────────────────────────────────────────
+// - VISITES ---------------------------------─
 
 export async function upsertVisite(v: Visite) {
   const all = store.getVisites()
@@ -329,7 +329,7 @@ export async function upsertVisite(v: Visite) {
   }
 }
 
-// ── TRIPS ─────────────────────────────────────────────────────────────────────
+// - TRIPS ----------------------------------─
 
 export async function upsertTrip(t: Trip) {
   const all = store.getTrips()
@@ -359,7 +359,7 @@ export async function fetchTrips(): Promise<Trip[]> {
   return store.getTrips()
 }
 
-// ── BONS LIVRAISON ────────────────────────────────────────────────────────────
+// - BONS LIVRAISON ------------------------------
 
 export async function upsertBonLivraison(b: BonLivraison) {
   const all = store.getBonsLivraison()
@@ -389,7 +389,7 @@ export async function fetchBonsLivraison(): Promise<BonLivraison[]> {
   return store.getBonsLivraison()
 }
 
-// ── RETOURS ───────────────────────────────────────────────────────────────────
+// - RETOURS ---------------------------------─
 
 export async function upsertRetour(r: Retour) {
   const all = store.getRetours()
@@ -419,7 +419,7 @@ export async function fetchRetours(): Promise<Retour[]> {
   return store.getRetours()
 }
 
-// ── BONS ACHAT ────────────────────────────────────────────────────────────────
+// - BONS ACHAT --------------------------------
 
 export async function upsertBonAchat(b: BonAchat) {
   const all = store.getBonsAchat()
@@ -435,7 +435,7 @@ export async function upsertBonAchat(b: BonAchat) {
   }
 }
 
-// ── PURCHASE ORDERS ───────────────────────────────────────────────────────────
+// - PURCHASE ORDERS -----------------------------─
 
 export async function upsertPurchaseOrder(p: PurchaseOrder) {
   const all = store.getPurchaseOrders()
@@ -451,7 +451,7 @@ export async function upsertPurchaseOrder(p: PurchaseOrder) {
   }
 }
 
-// ── RECEPTIONS ────────────────────────────────────────────────────────────────
+// - RECEPTIONS --------------------------------
 
 export async function upsertReception(r: Reception) {
   const all = store.getReceptions()
@@ -467,7 +467,7 @@ export async function upsertReception(r: Reception) {
   }
 }
 
-// ── BONS PREPARATION ─────────────────────────────────────────────────────────
+// - BONS PREPARATION ----------------------------─
 
 export async function upsertBonPreparation(b: BonPreparation) {
   const all = store.getBonsPreparation()
@@ -483,7 +483,7 @@ export async function upsertBonPreparation(b: BonPreparation) {
   }
 }
 
-// ── TRANSFERTS STOCK ──────────────────────────────────────────────────────────
+// - TRANSFERTS STOCK -----------------------------
 
 export async function upsertTransfert(t: TransfertStock) {
   const all = store.getTransferts()
@@ -499,7 +499,7 @@ export async function upsertTransfert(t: TransfertStock) {
   }
 }
 
-// ── LIVREURS ──────────────────────────────────────────────────────────────────
+// - LIVREURS ---------------------------------
 
 export async function upsertLivreur(l: Livreur) {
   const all = store.getLivreurs?.() ?? []
@@ -515,7 +515,7 @@ export async function upsertLivreur(l: Livreur) {
   }
 }
 
-// ── MOTIFS ────────────────────────────────────────────────────────────────────
+// - MOTIFS ----------------------------------
 
 export async function upsertMotif(m: MotifRetour) {
   const all = store.getMotifs()
@@ -531,7 +531,7 @@ export async function upsertMotif(m: MotifRetour) {
   }
 }
 
-// ── MESSAGES ──────────────────────────────────────────────────────────────────
+// - MESSAGES ---------------------------------
 
 export async function upsertMessage(m: Message) {
   const all = store.getMessages()
@@ -547,7 +547,7 @@ export async function upsertMessage(m: Message) {
   }
 }
 
-// ── NOTICES ───────────────────────────────────────────────────────────────────
+// - NOTICES ---------------------------------─
 
 export async function upsertNotice(n: Notice) {
   const all = store.getNotices()
@@ -563,7 +563,7 @@ export async function upsertNotice(n: Notice) {
   }
 }
 
-// ── SYNC INITIAL: charge toutes les données de Supabase vers localStorage ─────
+// - SYNC INITIAL: charge toutes les données de Supabase vers localStorage --─
 export async function syncFromSupabase(): Promise<{
   ok: boolean
   tables: string[]

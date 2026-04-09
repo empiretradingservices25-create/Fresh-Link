@@ -6,7 +6,7 @@ import { fetchClients, upsertClient, importClients } from "@/lib/supabase/db"
 
 const DH = (n: number) => `${n.toLocaleString("fr-MA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} DH`
 
-// ── CSV parser ──────────────────────────────────────────────────────────────
+// - CSV parser -------------------------------
 function parseCSV(text: string): Record<string, string>[] {
   const lines = text.trim().split(/\r?\n/)
   if (lines.length < 2) return []

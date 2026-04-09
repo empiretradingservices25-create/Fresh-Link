@@ -45,7 +45,7 @@ function resolveQty(l: LigneForm, art?: Article): number {
   return raw * art.colisageParUM
 }
 
-// ── Besoin achat par SKU ─────────────────────────────────────────────────────
+// - Besoin achat par SKU --------------------------─
 interface BesoinSKU {
   articleId: string
   articleNom: string
@@ -86,7 +86,7 @@ function calcBesoinSKU(articles: Article[]): BesoinSKU[] {
     .sort((a, b) => b.besoinNet - a.besoinNet) // urgent first
 }
 
-// ── Self-contained camera capture — isolates useRef from MobileAchat ─────────
+// - Self-contained camera capture — isolates useRef from MobileAchat ----─
 function POCameraCapture({ value, onChange }: { value: string; onChange: (url: string) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [active, setActive] = useState(false)
@@ -191,12 +191,12 @@ export default function MobileAchat({ user }: Props) {
   const [poPushMode, setPoPushMode] = useState<"auto" | "click">("auto")
   const [pendingPOs, setPendingPOs] = useState(store.getPendingPOsForAcheteur())
 
-  // ── Depot selector ─────────────────────────────────────────────────────────
+  // - Depot selector ----------------------------─
   const [depots, setDepots] = useState<import("@/lib/store").Depot[]>([])
   // Pre-select user's assigned depot, otherwise first available
   const [selectedDepotId, setSelectedDepotId] = useState<string>(user.depotId ?? "")
 
-  // ── Article inline selector state ──────────────────────────────────────────
+  // - Article inline selector state ---------------------
   const [artSearch, setArtSearch] = useState("")
   type ArtSort = "rotation" | "stock" | "nom"
   const [artSort, setArtSort] = useState<ArtSort>("nom")
@@ -223,7 +223,7 @@ export default function MobileAchat({ user }: Props) {
     return list
   }, [articles, artSearch, artSort, globalRotation])
 
-  // ── PO Detail Modal — opened when acheteur clicks "Prendre en charge" ────────
+  // - PO Detail Modal — opened when acheteur clicks "Prendre en charge" ----
   const [poModalId, setPoModalId] = useState<string | null>(null)
   const [poDetail, setPoDetail] = useState({
     quantite: "",
@@ -782,7 +782,7 @@ export default function MobileAchat({ user }: Props) {
         )}
       </div>
 
-      {/* ── Inline Article Selector ─────────────────────────────────────────── */}
+      {/* - Inline Article Selector ---------------------─ */}
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
@@ -1211,7 +1211,7 @@ export default function MobileAchat({ user }: Props) {
                   />
                 </div>
 
-                {/* ── Photo obligatoire ── */}
+                {/* - Photo obligatoire - */}
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-bold text-slate-700 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" />
@@ -1254,9 +1254,9 @@ export default function MobileAchat({ user }: Props) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // CHARGES PAR ARTICLE — balance, manutentionnaire, chariot, etc.
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 const TYPES_CHARGES = [
   { id: "balance",        label: "Balance",           icon: "M3 6h18M3 12h18M3 18h18" },
@@ -1485,9 +1485,9 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
   )
 }
 
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 // AVIS MODULE (mobile — clients / fournisseurs / équipe)
-// ─────────────────────────────────────────────────────────────
+// ------------------------------─
 
 interface AvisEntry {
   id: string

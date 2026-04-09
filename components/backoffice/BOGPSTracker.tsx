@@ -124,7 +124,7 @@ export default function BOGPSTracker({ user }: Props) {
   const isSuperAdmin = user.role === "super_admin" || user.role === "admin"
   const canUseCamera = user.role === "super_admin"
 
-  // ── Load saved positions from localStorage and merge with users ──
+  // - Load saved positions from localStorage and merge with users -
   const refreshTracked = useCallback(() => {
     const saved = loadAllPositions()
     const merged: TrackedUser[] = allUsers
@@ -147,20 +147,20 @@ export default function BOGPSTracker({ user }: Props) {
     setTracked(merged)
   }, [allUsers])
 
-  // ── Load clients for ETA ──
+  // - Load clients for ETA -
   useEffect(() => {
     const all = store.getClients().filter(c => c.gpsLat && c.gpsLng)
     setEtaClients(all)
   }, [])
 
-  // ── Start GPS watch on mount ──
+  // - Start GPS watch on mount -
   useEffect(() => {
     refreshTracked()
     const interval = setInterval(refreshTracked, 10000)
     return () => clearInterval(interval)
   }, [refreshTracked])
 
-  // ── Track current user's position ──
+  // - Track current user's position -
   const startTracking = useCallback(() => {
     if (!navigator.geolocation) {
       setGpsError("GPS non disponible sur cet appareil")
@@ -206,7 +206,7 @@ export default function BOGPSTracker({ user }: Props) {
 
   useEffect(() => { return () => { if (watchIdRef.current !== null) navigator.geolocation.clearWatch(watchIdRef.current) } }, [])
 
-  // ── Camera ──────────────────────────────────────────────────
+  // - Camera -------------------------
   const openCamera = async () => {
     if (!canUseCamera) return
     try {
@@ -260,7 +260,7 @@ export default function BOGPSTracker({ user }: Props) {
     return true
   })
 
-  // ── ETA calculations ────────────────────────────────────────────
+  // - ETA calculations ----------------------
   const etaResults = useMemo(() => {
     if (!etaStartLat || !etaStartLng || etaOrderedIds.length === 0) return []
 
@@ -300,7 +300,7 @@ export default function BOGPSTracker({ user }: Props) {
   const activeCount = tracked.filter(t => t.status === "actif" || t.status === "en_route").length
   const inRouteCount = tracked.filter(t => t.status === "en_route").length
 
-  // ── ETA helper: use my GPS as start point ──────────────────────
+  // - ETA helper: use my GPS as start point -----------
   const useMyGPSAsStart = () => {
     if (myPosition) {
       setEtaStartLat(myPosition.coords.latitude)
@@ -308,7 +308,7 @@ export default function BOGPSTracker({ user }: Props) {
     }
   }
 
-  // ── ETA helper: add client to ordered list ─────────────────────
+  // - ETA helper: add client to ordered list ----------─
   const addClientToRoute = (c: Client) => {
     if (!etaOrderedIds.includes(c.id)) setEtaOrderedIds([...etaOrderedIds, c.id])
   }

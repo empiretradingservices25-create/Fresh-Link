@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// -─ Types ----------------------------------
 
 interface ContentPart {
   type: "text" | "image_url"
@@ -29,7 +29,7 @@ interface ChatRequestBody {
   response_format?: "text" | "json"
 }
 
-// ─── Rate limiting (in-memory, per IP) ───────────────────────────────────────
+// -─ Rate limiting (in-memory, per IP) -------------------─
 
 const RATE_LIMIT_WINDOW_MS = 60_000 // 1 minute
 const RATE_LIMIT_MAX = 20 // max requests per window per IP
@@ -61,7 +61,7 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-// ─── Provider config (server-side only) ──────────────────────────────────────
+// -─ Provider config (server-side only) -------------------
 
 const AI_ENDPOINT =
   process.env.AI_ENDPOINT ?? "https://llm.blackbox.ai/chat/completions"
@@ -85,7 +85,7 @@ function getModelChain(): string[] {
   return DEFAULT_MODEL_CHAIN
 }
 
-// ─── LLM call with fallback chain ────────────────────────────────────────────
+// -─ LLM call with fallback chain ----------------------
 
 async function callProvider(
   messages: ProviderMessage[],
@@ -135,7 +135,7 @@ async function callProvider(
   }
 }
 
-// ─── Route handler ────────────────────────────────────────────────────────────
+// -─ Route handler ------------------------------
 
 const MAX_HISTORY = 18
 

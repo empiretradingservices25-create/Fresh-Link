@@ -49,7 +49,7 @@ function calcCaissesSuggestion(qte: number, colGros: number, colDemi: number) {
   return { gros, demi, reste: totalKg - qte, totalKg }
 }
 
-// ── Tiny QR-code generator (pure JS, no library needed) ──────────────────────
+// - Tiny QR-code generator (pure JS, no library needed) -----------
 // We use a Data URL approach: encode text as a URL and render via Google Charts QR API
 function QRCode({ data, size = 160 }: { data: string; size?: number }) {
   const url = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(data)}&size=${size}x${size}&margin=2&color=0d1a2e&bgcolor=f0f9ff`
@@ -60,7 +60,7 @@ function QRCode({ data, size = 160 }: { data: string; size?: number }) {
   )
 }
 
-// ── Camera hook ──────────────────────────────────────────────────────────────
+// - Camera hook -------------------------------
 function useCam() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -95,7 +95,7 @@ function useCam() {
   return { videoRef, canvasRef, active, error, start, stop, capture }
 }
 
-// ── QR Scanner using camera + pattern matching ───────────────────────────────
+// - QR Scanner using camera + pattern matching ---------------─
 function QRScannerModal({ onScan, onClose }: { onScan: (data: string) => void; onClose: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
@@ -405,7 +405,7 @@ export default function MobileControlPrep({ user }: Props) {
 
   const activeTc = tripControls.find(t => t.trip.id === activeTrip)
 
-  // ── Camera overlay ──────────────────────────────────────────────────────────
+  // - Camera overlay -----------------------------
   if (cam.active && camTarget) {
     const artNom = activeTc?.lines.find(l => l.articleId === camTarget.artId)?.articleNom ?? ""
     return (
@@ -448,7 +448,7 @@ export default function MobileControlPrep({ user }: Props) {
     )
   }
 
-  // ── QR display modal ────────────────────────────────────────────────────────
+  // - QR display modal ----------------------------
   if (showQR) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 px-6 gap-6">
@@ -468,7 +468,7 @@ export default function MobileControlPrep({ user }: Props) {
     )
   }
 
-  // ── QR Scanner modal ─────────────────────────────────────────────────────────
+  // - QR Scanner modal ----------------------------─
   if (showScanner) {
     return <QRScannerModal onScan={data => handleScanResult(showScanner, data)} onClose={() => setShowScanner(null)} />
   }
@@ -543,7 +543,7 @@ export default function MobileControlPrep({ user }: Props) {
             ))}
           </div>
 
-          {/* ── SECTION QR Commandes ── */}
+          {/* - SECTION QR Commandes - */}
           <div className="bg-card rounded-2xl border border-border p-4 flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <div>
@@ -589,7 +589,7 @@ export default function MobileControlPrep({ user }: Props) {
             )}
           </div>
 
-          {/* ── SECTION Articles ── */}
+          {/* - SECTION Articles - */}
           <div className="flex flex-col gap-3">
             {activeTc.lines.map(line => {
               const prepared = Number(line.qtePrepared)

@@ -9,7 +9,7 @@
 --   4. Table fl_feedback            (avis utilisateurs)
 -- ====
 
--- ── 0. Extensions ────────────────────────────────────────────────────────────
+-- - 0. Extensions ------------------------------
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- ====
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS fl_produits_catalogue (
 CREATE INDEX IF NOT EXISTS idx_catalogue_categorie  ON fl_produits_catalogue(categorie);
 CREATE INDEX IF NOT EXISTS idx_catalogue_nom        ON fl_produits_catalogue(nom);
 
--- ── Données : Fruits & Légumes mondiaux exhaustifs ───────────────────────────
+-- - Données : Fruits & Légumes mondiaux exhaustifs -------------─
 INSERT INTO fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_categorie, couleur, taille_standard, region_origine, saison, unite_mesure, prix_moyen_dh, shelf_life_jours, bio_disponible) VALUES
 
 -- AGRUMES
