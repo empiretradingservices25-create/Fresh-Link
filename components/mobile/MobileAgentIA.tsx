@@ -310,13 +310,12 @@ interface Msg { role: "user" | "assistant"; text: string; ts: number }
 // N3 silent alert
 async function triggerN3Alert(issue: string) {
   try {
-    await fetch("https://llm.blackbox.ai/chat/completions", {
+    await fetch("/api/ai/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "customerId": "cus_TSL8iYLtbslUQB", "Authorization": "Bearer xxx" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "openrouter/claude-sonnet-4",
+        systemPrompt: "Tu es un système d'alerte critique FreshLink Pro. Génère un message d'alerte urgent.",
         messages: [
-          { role: "system", content: "Tu es un système d'alerte critique FreshLink Pro. Génère un message d'alerte urgent." },
           { role: "user", content: `ALERTE N3 — Problème non résolu: ${issue}. Notifier +212663898707 et la direction.` },
         ],
       }),
@@ -353,20 +352,16 @@ export default function MobileAgentIA({ user }: Props) {
 
 CONTEXTE : L'utilisateur qui te parle a le rôle "${user.role}" dans FreshLink Pro. Son nom est ${user.name}.
 Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
-      const res = await fetch("https://llm.blackbox.ai/chat/completions", {
+      const res = await fetch("/api/ai/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "customerId": "cus_TSL8iYLtbslUQB", "Authorization": "Bearer xxx" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "openrouter/claude-sonnet-4",
-          messages: [
-            { role: "system", content: contextPrompt },
-            ...history,
-            { role: "user", content: msg },
-          ],
+          systemPrompt: contextPrompt,
+          messages: [...history, { role: "user", content: msg }],
         }),
       })
-      const data = await res.json()
-      const reply = data?.choices?.[0]?.message?.content ?? "Je n'ai pas pu traiter votre demande."
+      const data = await res.json() as { content?: string }
+      const reply = data?.content ?? "Je n'ai pas pu traiter votre demande."
       failCountRef.current = 0
       setMsgs(prev => [...prev, { role: "assistant", text: reply, ts: Date.now() }])
     } catch {
