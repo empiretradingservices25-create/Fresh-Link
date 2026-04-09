@@ -11,6 +11,7 @@ interface LigneForm {
   quantite: string    // always the count IN the chosen unit (UM count or base units)
   prixVente: string   // DH per base unit (kg / piece / ...)
   uniteMode: string   // "base" = article.unite, or art.um label = UM mode
+}
 
 type CommTab = "nouvelle" | "mes_commandes" | "habitudes"
 type ArticleSort = "rotation" | "stock" | "tous"
@@ -718,12 +719,11 @@ export default function MobileCommercial({ user }: Props) {
             const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null
             return (
 
-              <button key={c.id} onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
-
-              <div key={c.id} role="button" tabIndex={0}
+              <button key={c.id}
                 onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
                 onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedClientId(c.id); setShowClientDropdown(false) } }}
+                role="button"
+                tabIndex={0}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border cursor-pointer ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
 
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">
@@ -744,8 +744,6 @@ export default function MobileCommercial({ user }: Props) {
                 </div>
 
               </button>
-
-              </div>
 
             )
           })}
@@ -925,7 +923,7 @@ export default function MobileCommercial({ user }: Props) {
       </div>
 
       {/* ── HABITUDES TAB ─────────────────────────────────────────────────── */}
-      {commTab === "habitudes" && (
+      {commTab === "habitudes" ? (
         <div className="flex flex-col gap-3">
           <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
             <div className="flex items-center gap-2">

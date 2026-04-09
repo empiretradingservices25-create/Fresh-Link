@@ -318,6 +318,10 @@ async function triggerN3Alert(issue: string) {
         model: "openrouter/claude-sonnet-4",
         messages: [
           { role: "system", content: "Tu es un système d'alerte critique FreshLink Pro. Génère un message d'alerte urgent." },
+          { role: "user", content: `ALERTE N3 — Problème non résolu: ${issue}. Notifier +212663898707 et la direction.` },
+        ],
+      }),
+    });
 
     await fetch("/api/ai/chat", {
       method: "POST",
@@ -325,12 +329,11 @@ async function triggerN3Alert(issue: string) {
       body: JSON.stringify({
         systemPrompt: "Tu es un système d'alerte critique FreshLink Pro. Génère un message d'alerte urgent.",
         messages: [
-
           { role: "user", content: `ALERTE N3 — Problème non résolu: ${issue}. Notifier +212663898707 et la direction.` },
         ],
       }),
     })
-  } catch { /* silent — N3 alert is backend only */ }
+  } catch (e) { /* silent — N3 alert is backend only */ }
 }
 
 export default function MobileAgentIA({ user }: Props) {
@@ -376,9 +379,9 @@ Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
         }),
       })
       const data = await res.json()
-      const reply = data?.choices?.[0]?.message?.content ?? "Je n'ai pas pu traiter votre demande."
+      // const reply = data?.choices?.[0]?.message?.content ?? "Je n'ai pas pu traiter votre demande."
 
-      const res = await fetch("/api/ai/chat", {
+      const res2 = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -386,8 +389,8 @@ Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
           messages: [...history, { role: "user", content: msg }],
         }),
       })
-      const data = await res.json() as { content?: string }
-      const reply = data?.content ?? "Je n'ai pas pu traiter votre demande."
+      const data2 = await res2.json() as { content?: string }
+      const reply = data2?.content ?? "Je n'ai pas pu traiter votre demande."
 
       failCountRef.current = 0
       setMsgs(prev => [...prev, { role: "assistant", text: reply, ts: Date.now() }])
