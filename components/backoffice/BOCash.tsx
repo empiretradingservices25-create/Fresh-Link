@@ -636,14 +636,14 @@ export default function BOCash() {
                   <p className="font-semibold" className="text-xs font-bold text-foreground">Frais d&apos;impression</p>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex flex-col gap-1">
-                      <label className="text-[11px] font-semibold text-slate-700">DH / feuille</label>
+                      <label className="text-[11px] font-semibold text-slate-800">DH / feuille</label>
                       <input type="number" min="0" step="0.5"
                         value={fraisConfig.fraisImpressionParFeuille}
                         onChange={e => saveFraisConfig({ ...fraisConfig, fraisImpressionParFeuille: Number(e.target.value) })}
                         className="px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary" />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="text-[11px] font-semibold text-slate-700">Nb feuilles</label>
+                      <label className="text-[11px] font-semibold text-slate-800">Nb feuilles</label>
                       <input type="number" min="1" step="1"
                         value={fraisConfig.nbFeuilles}
                         onChange={e => saveFraisConfig({ ...fraisConfig, nbFeuilles: Number(e.target.value) })}
@@ -659,7 +659,7 @@ export default function BOCash() {
                 <div className="p-3 rounded-xl border border-border bg-muted/30 flex flex-col gap-2">
                   <p className="font-semibold" className="text-xs font-bold text-foreground">Frais de service</p>
                   <div className="flex flex-col gap-1">
-                    <label className="text-[11px] font-semibold text-slate-700">DH / caisse (gros + demi)</label>
+                    <label className="text-[11px] font-semibold text-slate-800">DH / caisse (gros + demi)</label>
                     <input type="number" min="0" step="0.5"
                       value={fraisConfig.fraisServiceParCaisse}
                       onChange={e => saveFraisConfig({ ...fraisConfig, fraisServiceParCaisse: Number(e.target.value) })}

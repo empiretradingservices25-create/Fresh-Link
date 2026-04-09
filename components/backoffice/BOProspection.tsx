@@ -78,7 +78,7 @@ const ARTICLES_SUGGESTIONS: Record<Activite, string[]> = {
 const POTENTIEL_CFG: Record<Potentiel, { label: string; labelAr: string; cls: string; dot: string }> = {
   fort:   { label: "Fort",   labelAr: "عالي",    cls: "bg-green-50 text-green-700 border-green-200",   dot: "bg-green-500" },
   moyen:  { label: "Moyen",  labelAr: "متوسط",   cls: "bg-amber-50 text-amber-700 border-amber-200",   dot: "bg-amber-500" },
-  faible: { label: "Faible", labelAr: "ضعيف",    cls: "bg-slate-100 text-slate-600 border-slate-200",  dot: "bg-slate-400" },
+  faible: { label: "Faible", labelAr: "ضعيف",    cls: "bg-slate-100 text-slate-800 border-slate-200",  dot: "bg-slate-400" },
 }
 
 const LS_KEY = "fl_prospects_v2"
@@ -629,7 +629,7 @@ export default function BOProspection({ user }: { user: User }) {
           { label: "Total actifs",  labelAr: "المجموع",    value: kpis.total,     cls: "text-foreground",   bg: "bg-card" },
           { label: "Fort",          labelAr: "عالي",        value: kpis.fort,      cls: "text-green-700",    bg: "bg-green-50" },
           { label: "Moyen",         labelAr: "متوسط",       value: kpis.moyen,     cls: "text-amber-700",    bg: "bg-amber-50" },
-          { label: "Faible",        labelAr: "ضعيف",        value: kpis.faible,    cls: "text-slate-600",    bg: "bg-slate-50" },
+          { label: "Faible",        labelAr: "ضعيف",        value: kpis.faible,    cls: "text-slate-800",    bg: "bg-slate-50" },
           { label: "Analyses IA",   labelAr: "محللون",      value: kpis.analyses,  cls: "text-blue-700",     bg: "bg-blue-50" },
           { label: "Convertis",     labelAr: "تم التحويل",  value: kpis.convertis, cls: "text-purple-700",   bg: "bg-purple-50" },
         ].map(k => (

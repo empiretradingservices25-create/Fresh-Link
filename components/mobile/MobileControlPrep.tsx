@@ -117,7 +117,7 @@ function QRScannerModal({ onScan, onClose }: { onScan: (data: string) => void; o
       <div className="flex items-center justify-between px-4 py-3">
         <div>
           <p className="font-semibold" className="text-white font-bold text-sm">Scanner QR Commande</p>
-          <p className="font-semibold" className="text-gray-400 text-xs">Pointez la camera vers le QR code de la commande</p>
+          <p className="font-semibold" className="text-gray-800 text-xs">Pointez la camera vers le QR code de la commande</p>
         </div>
         <button onClick={onClose} className="text-white bg-gray-800 rounded-full p-2">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,7 +147,7 @@ function QRScannerModal({ onScan, onClose }: { onScan: (data: string) => void; o
       )}
       {/* Manual fallback always visible */}
       <div className="px-4 py-4 bg-black flex flex-col gap-2">
-        <p className="font-semibold" className="text-gray-400 text-xs text-center">Ou saisie manuelle de l&apos;ID :</p>
+        <p className="font-semibold" className="text-gray-800 text-xs text-center">Ou saisie manuelle de l&apos;ID :</p>
         <div className="flex gap-2">
           <input value={manualInput} onChange={e => setManualInput(e.target.value)}
             placeholder="ID commande"
@@ -411,7 +411,7 @@ export default function MobileControlPrep({ user }: Props) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col bg-black">
         <div className="flex items-center justify-between px-4 py-3">
-          <div><p className="font-semibold" className="text-white font-bold text-sm">{artNom}</p><p className="font-semibold" className="text-gray-400 text-xs">Photo obligatoire — min 1 par article</p></div>
+          <div><p className="font-semibold" className="text-white font-bold text-sm">{artNom}</p><p className="font-semibold" className="text-gray-800 text-xs">Photo obligatoire — min 1 par article</p></div>
           <button onClick={closeCamera} className="text-white bg-gray-800 rounded-full p-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
@@ -453,10 +453,10 @@ export default function MobileControlPrep({ user }: Props) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 px-6 gap-6">
         <div className="bg-white rounded-3xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
-          <p className="font-semibold" className="font-black text-lg text-gray-900 text-center">{showQR.cmd.clientNom}</p>
-          <p className="font-semibold" className="text-xs text-gray-500">{showQR.cmd.secteur} — {showQR.cmd.nbArticles} article(s)</p>
+          <p className="font-semibold" className="font-black text-lg text-gray-800 text-center">{showQR.cmd.clientNom}</p>
+          <p className="font-semibold" className="text-xs text-gray-800">{showQR.cmd.secteur} — {showQR.cmd.nbArticles} article(s)</p>
           <QRCode data={showQR.cmd.qrData} size={200} />
-          <p className="font-semibold" className="text-xs text-gray-400 font-mono break-all text-center">{showQR.cmd.commandeId}</p>
+          <p className="font-semibold" className="text-xs text-gray-800 font-mono break-all text-center">{showQR.cmd.commandeId}</p>
           <p className="font-semibold" className="text-sm font-bold text-gray-800">{showQR.cmd.montant.toFixed(2)} DH</p>
           <button onClick={() => setShowQR(null)}
             className="w-full py-3 rounded-xl font-bold text-white"

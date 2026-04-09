@@ -31,10 +31,10 @@ function Code({ code, lang = "bash" }: { code: string; lang?: string }) {
   return (
     <div className="rounded-xl overflow-hidden border border-slate-200 mt-2 mb-1">
       <div className="flex items-center justify-between px-4 py-1.5 bg-slate-100 border-b border-slate-200">
-        <span className="text-[10px] font-mono font-semibold text-slate-400 uppercase">{lang}</span>
+        <span className="text-[10px] font-mono font-semibold text-slate-800 uppercase">{lang}</span>
         <button
           onClick={() => { navigator.clipboard.writeText(code); setCopied(true); setTimeout(() => setCopied(false), 2000) }}
-          className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold transition-colors ${copied ? "text-green-700 bg-green-100" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200"}`}
+          className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold transition-colors ${copied ? "text-green-700 bg-green-100" : "text-slate-800 hover:text-slate-800 hover:bg-slate-200"}`}
         >
           {copied ? <><CheckIcon /> Copie !</> : <><CopyIcon /> Copier</>}
         </button>
@@ -61,7 +61,7 @@ function StepHeader({ n, title, sub, color = "blue" }: { n: number; title: strin
       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black text-white shrink-0 ${c.bg}`}>{n}</div>
       <div>
         <p className="font-semibold" className={`text-sm font-black ${c.text}`}>{title}</p>
-        <p className="font-semibold" className="text-xs text-slate-500 mt-0.5 leading-relaxed">{sub}</p>
+        <p className="font-semibold" className="text-xs text-slate-800 mt-0.5 leading-relaxed">{sub}</p>
       </div>
     </div>
   )
@@ -149,15 +149,15 @@ export default function DeployGuidePanel() {
         </div>
         {CHAPTERS.map((ch, i) => (
           <button key={i} onClick={() => setChapter(i)}
-            className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap lg:w-full ${chapter === i ? "bg-slate-800 text-white" : "text-slate-600 hover:bg-slate-100"}`}>
-            <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black shrink-0 ${chapter === i ? "bg-white/20" : "bg-slate-200 text-slate-500"}`}>{i + 1}</span>
+            className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap lg:w-full ${chapter === i ? "bg-slate-800 text-white" : "text-slate-800 hover:bg-slate-100"}`}>
+            <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black shrink-0 ${chapter === i ? "bg-white/20" : "bg-slate-200 text-slate-800"}`}>{i + 1}</span>
             {ch}
           </button>
         ))}
         <div className="hidden lg:block mt-auto px-3 pt-4">
-          <p className="font-semibold" className="text-[10px] text-slate-400 leading-relaxed">
+          <p className="font-semibold" className="text-[10px] text-slate-800 leading-relaxed">
             <span className="font-bold text-emerald-600">FRESH</span>
-            <span className="font-bold text-slate-700">LINK</span> PRO
+            <span className="font-bold text-slate-800">LINK</span> PRO
             <br />Guide de connexion
             <br />Supabase + Vercel
           </p>
@@ -179,7 +179,7 @@ export default function DeployGuidePanel() {
                 </div>
                 <div>
                   <h2 className="text-lg font-black text-slate-800">Guide de connexion — de A a Z</h2>
-                  <p className="font-semibold" className="text-xs text-slate-500 mt-0.5">Pour debutants — Supabase + Vercel en 6 etapes</p>
+                  <p className="font-semibold" className="text-xs text-slate-800 mt-0.5">Pour debutants — Supabase + Vercel en 6 etapes</p>
                 </div>
               </div>
 
@@ -199,20 +199,20 @@ export default function DeployGuidePanel() {
                 ].map(s => (
                   <div key={s.n} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black text-white shrink-0 ${s.color}`}>{s.n}</div>
-                    <p className="font-semibold" className="text-xs font-semibold text-slate-700">{s.t}</p>
+                    <p className="font-semibold" className="text-xs font-semibold text-slate-800">{s.t}</p>
                   </div>
                 ))}
               </div>
 
               <div className="p-4 rounded-xl bg-slate-800 text-slate-800 text-xs leading-relaxed mb-4">
                 <p className="font-semibold" className="font-black text-white mb-2">Vos identifiants FreshLink Pro</p>
-                <p className="font-semibold" className="mb-1"><span className="text-slate-400">URL Supabase :</span><br/>
+                <p className="font-semibold" className="mb-1"><span className="text-slate-800">URL Supabase :</span><br/>
                   <span className="font-mono text-emerald-400 text-[11px] break-all">https://nphrncmuxbwahqnzdyxp.supabase.co</span>
                 </p>
-                <p className="font-semibold" className="mb-1"><span className="text-slate-400">Anon Key :</span><br/>
+                <p className="font-semibold" className="mb-1"><span className="text-slate-800">Anon Key :</span><br/>
                   <span className="font-mono text-blue-400 text-[10px] break-all">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5bmJlamNpdXplZHp1cnhoc3VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MDg0MjYsImV4cCI6MjA5MDE4NDQyNn0.vPgtRBu37SguLxpb7qs95_17U9ksX1S0tkyJSwP5wBg</span>
                 </p>
-                <p><span className="text-slate-400">Publishable Key :</span><br/>
+                <p><span className="text-slate-800">Publishable Key :</span><br/>
                   <span className="font-mono text-purple-400 text-[11px]">sb_publishable_E9U29ypEbSzd40ZJ1AjbVw_SeK7cszs</span>
                 </p>
               </div>
@@ -231,7 +231,7 @@ export default function DeployGuidePanel() {
           {chapter === 1 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Supabase — Creer votre base de donnees</h2>
-              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Supabase est votre base de donnees en ligne. C&apos;est gratuit pour commencer.</p>
+              <p className="font-semibold" className="text-xs text-slate-800 mb-4">Supabase est votre base de donnees en ligne. C&apos;est gratuit pour commencer.</p>
 
               <StepHeader n={1} title="Creer un compte Supabase" sub="Allez sur supabase.com et creez un compte gratuit." color="emerald" />
               <div className="pl-4 mb-4">
@@ -243,7 +243,7 @@ export default function DeployGuidePanel() {
                     { id:"s1d", t:"Confirmer votre email si demande" },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -267,7 +267,7 @@ export default function DeployGuidePanel() {
                     { id:"s2e", t:'Cliquer "Create new project" et attendre 1-2 minutes' },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -286,7 +286,7 @@ export default function DeployGuidePanel() {
                     { id:"s3b", t:'Copier "anon public" key → c\'est votre NEXT_PUBLIC_SUPABASE_ANON_KEY' },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -295,7 +295,7 @@ export default function DeployGuidePanel() {
                   ))}
                 </div>
                 <div className="p-3 rounded-xl bg-slate-800 text-xs font-mono text-slate-800">
-                  <p className="font-semibold" className="text-slate-400 mb-1">Vos cles actuelles :</p>
+                  <p className="font-semibold" className="text-slate-800 mb-1">Vos cles actuelles :</p>
                   <p className="font-semibold" className="text-emerald-400 break-all text-[10px]">https://nphrncmuxbwahqnzdyxp.supabase.co</p>
                   <p className="font-semibold" className="text-blue-400 break-all text-[10px] mt-1">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..._4bA9RtIVMUjNgxd2ojd9</p>
                 </div>
@@ -315,7 +315,7 @@ export default function DeployGuidePanel() {
           {chapter === 2 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Vercel — Deployer en ligne</h2>
-              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Vercel met votre application en ligne gratuitement. Aucune carte bancaire requise.</p>
+              <p className="font-semibold" className="text-xs text-slate-800 mb-4">Vercel met votre application en ligne gratuitement. Aucune carte bancaire requise.</p>
 
               <StepHeader n={1} title="Creer un compte Vercel" sub="Allez sur vercel.com et connectez-vous avec GitHub." color="blue" />
               <div className="pl-4 mb-4">
@@ -327,7 +327,7 @@ export default function DeployGuidePanel() {
                     { id:"v1d", t:"Autoriser Vercel a acceder a votre GitHub" },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -351,7 +351,7 @@ export default function DeployGuidePanel() {
                     { id:"v2d", t:'Ne pas encore cliquer "Deploy" — ajouter d\'abord les variables ENV' },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -380,13 +380,13 @@ export default function DeployGuidePanel() {
           {chapter === 3 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Variables d&apos;environnement</h2>
-              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Les variables ENV permettent a votre application de savoir comment se connecter a Supabase, sans exposer vos cles dans le code.</p>
+              <p className="font-semibold" className="text-xs text-slate-800 mb-4">Les variables ENV permettent a votre application de savoir comment se connecter a Supabase, sans exposer vos cles dans le code.</p>
 
               <Warn>Ne partagez jamais vos cles API publiquement. Les variables ENV sont chiffrees par Vercel.</Warn>
 
               <StepHeader n={1} title="Dans Vercel — Ajouter les variables" sub="Project → Settings → Environment Variables" color="amber" />
               <div className="pl-4 mb-4">
-                <p className="font-semibold" className="text-xs text-slate-600 font-semibold mb-2">Copiez-collez exactement ces variables :</p>
+                <p className="font-semibold" className="text-xs text-slate-800 font-semibold mb-2">Copiez-collez exactement ces variables :</p>
                 <Code lang="env" code={`NEXT_PUBLIC_SUPABASE_URL=https://nphrncmuxbwahqnzdyxp.supabase.co\nNEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5waHJuY211eGJ3YWhxbnpkeXhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDUyNDUsImV4cCI6MjA5MDUyMTI0NX0._4bA9RtIVMUjNgxd2ojd9_3b6vzGRddpPPbioalRsMw`} />
                 <Info>Selectionnez <strong>Production, Preview, Development</strong> pour les 3 environnements, puis cliquez Save.</Info>
                 <div className="space-y-2 mt-3">
@@ -399,7 +399,7 @@ export default function DeployGuidePanel() {
                     { id:"e1f", t:"Redeclencher un deploiement : Deployments → ... → Redeploy" },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -423,7 +423,7 @@ export default function DeployGuidePanel() {
           {chapter === 4 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Creer les tables SQL</h2>
-              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Les tables sont les &quot;feuilles Excel&quot; de votre base de donnees. Vous devez les creer une seule fois.</p>
+              <p className="font-semibold" className="text-xs text-slate-800 mb-4">Les tables sont les &quot;feuilles Excel&quot; de votre base de donnees. Vous devez les creer une seule fois.</p>
 
               <StepHeader n={1} title="Ouvrir l'editeur SQL Supabase" sub="Dans votre projet Supabase, cliquer sur SQL Editor dans le menu gauche." color="green" />
               <div className="pl-4 mb-4">
@@ -434,7 +434,7 @@ export default function DeployGuidePanel() {
                     { id:"q1c", t:'Cliquer "+ New query"' },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -512,7 +512,7 @@ ON CONFLICT DO NOTHING;`} />
                     { id:"q2d", t:'Verifier que vous voyez "Success" en bas' },
                   ].map(s => (
                     <button key={s.id} onClick={() => toggle(s.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-xs text-left transition-all ${done(s.id) ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-white border-slate-200 text-slate-800 hover:border-slate-300"}`}>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${done(s.id) ? "border-emerald-500 bg-emerald-500 text-white" : "border-slate-300"}`}>
                         {done(s.id) && <CheckIcon />}
                       </div>
@@ -542,7 +542,7 @@ ON CONFLICT DO NOTHING;`} />
           {chapter === 5 && (
             <div>
               <h2 className="text-lg font-black text-slate-800 mb-1">Depannage — Resoudre les problemes</h2>
-              <p className="font-semibold" className="text-xs text-slate-500 mb-4">Si quelque chose ne fonctionne pas, voici les solutions les plus courantes.</p>
+              <p className="font-semibold" className="text-xs text-slate-800 mb-4">Si quelque chose ne fonctionne pas, voici les solutions les plus courantes.</p>
 
               {[
                 {
@@ -584,9 +584,9 @@ ON CONFLICT DO NOTHING;`} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold" className="text-xs font-bold text-slate-800">{item.q}</p>
-                      {done(`faq${i}`) && <p className="font-semibold" className="text-xs text-slate-600 mt-2 leading-relaxed">{item.a}</p>}
+                      {done(`faq${i}`) && <p className="font-semibold" className="text-xs text-slate-800 mt-2 leading-relaxed">{item.a}</p>}
                     </div>
-                    <svg className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${done(`faq${i}`) ? "rotate-90" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-4 h-4 text-slate-800 shrink-0 transition-transform ${done(`faq${i}`) ? "rotate-90" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </button>

@@ -141,7 +141,7 @@ function POCameraCapture({ value, onChange }: { value: string; onChange: (url: s
           </svg>
           Capturer
         </button>
-        <button onClick={stop} className="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">Annuler</button>
+        <button onClick={stop} className="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold border border-slate-200">Annuler</button>
       </div>
     </div>
   )
@@ -1110,9 +1110,9 @@ export default function MobileAchat({ user }: Props) {
                 <div>
                   <p className="font-semibold" className="text-xs font-black uppercase tracking-widest text-green-700">Confirmer le bon d&apos;achat</p>
                   <p className="font-semibold" className="text-base font-bold text-slate-800 mt-0.5">{po.articleNom}</p>
-                  <p className="font-semibold" className="text-xs text-slate-500 font-mono">{po.id}</p>
+                  <p className="font-semibold" className="text-xs text-slate-800 font-mono">{po.id}</p>
                 </div>
-                <button onClick={() => setPoModalId(null)} className="p-2 rounded-lg hover:bg-green-100 text-slate-500">
+                <button onClick={() => setPoModalId(null)} className="p-2 rounded-lg hover:bg-green-100 text-slate-800">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -1124,7 +1124,7 @@ export default function MobileAchat({ user }: Props) {
                 {/* Qty + Prix */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Quantite ({po.articleUnite}) *</label>
+                    <label className="text-xs font-bold text-slate-800 block mb-1">Quantite ({po.articleUnite}) *</label>
                     <input
                       type="number" min="0"
                       value={poDetail.quantite}
@@ -1134,7 +1134,7 @@ export default function MobileAchat({ user }: Props) {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Prix unitaire (DH/{po.articleUnite}) *</label>
+                    <label className="text-xs font-bold text-slate-800 block mb-1">Prix unitaire (DH/{po.articleUnite}) *</label>
                     <input
                       type="number" min="0" step="0.01"
                       value={poDetail.prixUnitaire}
@@ -1155,7 +1155,7 @@ export default function MobileAchat({ user }: Props) {
 
                 {/* Fournisseur */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Fournisseur *</label>
+                  <label className="text-xs font-bold text-slate-800 block mb-1">Fournisseur *</label>
                   <select
                     value={poDetail.fournisseurId}
                     onChange={e => setPoDetail(p => ({ ...p, fournisseurId: e.target.value }))}
@@ -1167,7 +1167,7 @@ export default function MobileAchat({ user }: Props) {
 
                 {/* Paiement */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Etat de paiement *</label>
+                  <label className="text-xs font-bold text-slate-800 block mb-1">Etat de paiement *</label>
                   <div className="grid grid-cols-3 gap-2">
                     {(["impaye", "partiel", "solde"] as const).map(s => (
                       <button key={s} type="button"
@@ -1177,7 +1177,7 @@ export default function MobileAchat({ user }: Props) {
                             ? s === "solde" ? "bg-green-600 text-white border-green-600"
                               : s === "partiel" ? "bg-amber-500 text-white border-amber-500"
                               : "bg-red-500 text-white border-red-500"
-                            : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+                            : "bg-white text-slate-800 border-slate-200 hover:bg-slate-50"
                         }`}>
                         {s === "impaye" ? "Impaye" : s === "partiel" ? "Partiel" : "Solde"}
                       </button>
@@ -1188,7 +1188,7 @@ export default function MobileAchat({ user }: Props) {
                 {/* Montant paye si partiel */}
                 {poDetail.statutPaiement === "partiel" && (
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Montant deja paye (DH)</label>
+                    <label className="text-xs font-bold text-slate-800 block mb-1">Montant deja paye (DH)</label>
                     <input
                       type="number" min="0" step="0.01"
                       value={poDetail.montantPaye}
@@ -1201,7 +1201,7 @@ export default function MobileAchat({ user }: Props) {
 
                 {/* Note */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Note de paiement (optionnel)</label>
+                  <label className="text-xs font-bold text-slate-800 block mb-1">Note de paiement (optionnel)</label>
                   <input
                     type="text"
                     value={poDetail.notePaiement}
@@ -1213,7 +1213,7 @@ export default function MobileAchat({ user }: Props) {
 
                 {/* ── Photo obligatoire ── */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-bold text-slate-700 flex items-center gap-1">
+                  <label className="text-xs font-bold text-slate-800 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" />
                     Photo marchandise (obligatoire)
                   </label>
@@ -1336,7 +1336,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
       <div className="grid grid-cols-3 gap-2">
         <div className="bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-center">
           <p className="font-semibold" className="text-xl font-black text-slate-800">{entries.length}</p>
-          <p className="font-semibold" className="text-[10px] text-slate-500">Achats charges</p>
+          <p className="font-semibold" className="text-[10px] text-slate-800">Achats charges</p>
         </div>
         <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-center">
           <p className="font-semibold" className="text-sm font-black text-amber-700">{entries.reduce((s, e) => s + e.totalCharges, 0).toLocaleString("fr-MA")} DH</p>
@@ -1369,14 +1369,14 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
 
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="text-xs font-semibold text-slate-600 block mb-1">Qte achetee *</label>
+              <label className="text-xs font-semibold text-slate-800 block mb-1">Qte achetee *</label>
               <input type="number" min="0" value={form.qteAchetee}
                 onChange={e => setForm(p => ({ ...p, qteAchetee: e.target.value }))}
                 className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
                 placeholder="0" />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-600 block mb-1">Prix achat/unite *</label>
+              <label className="text-xs font-semibold text-slate-800 block mb-1">Prix achat/unite *</label>
               <input type="number" min="0" step="0.01" value={form.prixAchat}
                 onChange={e => setForm(p => ({ ...p, prixAchat: e.target.value }))}
                 className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
@@ -1384,7 +1384,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
             </div>
           </div>
 
-          <p className="font-semibold" className="text-xs font-bold text-slate-700 mt-1">Charges liees (saisir uniquement celles applicables)</p>
+          <p className="font-semibold" className="text-xs font-bold text-slate-800 mt-1">Charges liees (saisir uniquement celles applicables)</p>
           <div className="flex flex-col gap-2">
             {TYPES_CHARGES.map((t, i) => (
               <div key={t.id} className="flex items-center gap-2 bg-slate-50 rounded-xl px-3 py-2 border border-slate-100">
@@ -1393,7 +1393,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={t.icon} />
                   </svg>
                 </div>
-                <span className="text-xs font-semibold text-slate-700 w-28 shrink-0">{t.label}</span>
+                <span className="text-xs font-semibold text-slate-800 w-28 shrink-0">{t.label}</span>
                 <input
                   type="number" min="0" step="0.5"
                   placeholder="DH"
@@ -1413,7 +1413,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
             <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3">
               <p className="font-semibold" className="text-xs text-green-700 font-semibold mb-1">Cout de revient unitaire estime</p>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-500">Achat: {(qteNum * paNum).toLocaleString("fr-MA")} DH + Charges: {totalChargesForForm.toLocaleString("fr-MA")} DH</span>
+                <span className="text-xs text-slate-800">Achat: {(qteNum * paNum).toLocaleString("fr-MA")} DH + Charges: {totalChargesForForm.toLocaleString("fr-MA")} DH</span>
                 <span className="text-base font-black text-green-700">{coutRevient.toFixed(2)} DH / unite</span>
               </div>
             </div>
@@ -1421,7 +1421,7 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
 
           <div className="flex gap-2">
             <button onClick={() => setShowForm(false)}
-              className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 text-slate-600">
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 text-slate-800">
               Annuler
             </button>
             <button onClick={save}
@@ -1436,11 +1436,11 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
       {/* Entries list */}
       {entries.length === 0 && !showForm && (
         <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center">
-          <svg className="w-10 h-10 text-slate-700 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-10 h-10 text-slate-800 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M12 7h.01M9 7H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2h-2" />
           </svg>
-          <p className="font-semibold" className="text-sm text-slate-500">Aucune charge saisie</p>
-          <p className="font-semibold" className="text-xs text-slate-400 mt-1">Saisissez les charges balance, manutentionnaire, chariot, triporteur, etc.</p>
+          <p className="font-semibold" className="text-sm text-slate-800">Aucune charge saisie</p>
+          <p className="font-semibold" className="text-xs text-slate-800 mt-1">Saisissez les charges balance, manutentionnaire, chariot, triporteur, etc.</p>
         </div>
       )}
 
@@ -1450,9 +1450,9 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
             <div className="flex items-start justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
               <div>
                 <p className="font-semibold" className="font-bold text-slate-800 text-sm">{entry.articleNom}</p>
-                <p className="font-semibold" className="text-xs text-slate-500">{entry.date} — {entry.qteAchetee} {entry.unite} a {entry.prixAchat} DH</p>
+                <p className="font-semibold" className="text-xs text-slate-800">{entry.date} — {entry.qteAchetee} {entry.unite} a {entry.prixAchat} DH</p>
               </div>
-              <button onClick={() => remove(entry.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+              <button onClick={() => remove(entry.id)} className="p-1.5 text-slate-800 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
@@ -1463,14 +1463,14 @@ function ChargesParArticle({ articles, acheteurNom }: { articles: Article[]; ach
                 const type = TYPES_CHARGES.find(t => t.id === c.typeId)
                 return (
                   <div key={c.typeId} className="flex items-center justify-between text-xs">
-                    <span className="text-slate-600 font-medium">{type?.label ?? c.typeId}</span>
+                    <span className="text-slate-800 font-medium">{type?.label ?? c.typeId}</span>
                     <span className="font-bold text-slate-800">{c.montant.toLocaleString("fr-MA")} DH</span>
                   </div>
                 )
               })}
-              {entry.charges.length === 0 && <p className="font-semibold" className="text-xs text-slate-400">Aucune charge detail</p>}
+              {entry.charges.length === 0 && <p className="font-semibold" className="text-xs text-slate-800">Aucune charge detail</p>}
               <div className="border-t border-slate-100 pt-2 mt-1 flex items-center justify-between">
-                <span className="text-xs text-slate-500">Total charges</span>
+                <span className="text-xs text-slate-800">Total charges</span>
                 <span className="text-sm font-black text-amber-600">{entry.totalCharges.toLocaleString("fr-MA")} DH</span>
               </div>
               <div className="bg-green-50 border border-green-100 rounded-xl px-3 py-2 flex items-center justify-between">

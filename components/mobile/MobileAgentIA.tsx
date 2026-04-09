@@ -429,7 +429,7 @@ Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
               Actif
             </span>
           </div>
-          <p className="font-semibold" className="text-xs font-medium text-slate-500 mt-0.5 truncate">{agent.fullName}</p>
+          <p className="font-semibold" className="text-xs font-medium text-slate-800 mt-0.5 truncate">{agent.fullName}</p>
           <p className="font-semibold" className="text-[10px] font-semibold mt-0.5" style={{ color: agent.color }}>{agent.roleLabel}</p>
         </div>
       </div>

@@ -285,7 +285,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
       {/* Header */}
       <div>
         <h2 className="text-base font-bold text-slate-800">Qualite IA — Analyse Produit</h2>
-        <p className="font-semibold" className="text-xs text-slate-500">Capturez une photo pour evaluer la fraicheur et le calibre</p>
+        <p className="font-semibold" className="text-xs text-slate-800">Capturez une photo pour evaluer la fraicheur et le calibre</p>
       </div>
 
       {/* Article + Fournisseur selectors */}
@@ -327,15 +327,15 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             <div className="grid grid-cols-3 gap-2 text-center">
               <div>
                 <p className="font-semibold" className="text-sm font-black text-green-700">{min.toFixed(2)} DH</p>
-                <p className="font-semibold" className="text-[10px] text-slate-500">Min achete</p>
+                <p className="font-semibold" className="text-[10px] text-slate-800">Min achete</p>
               </div>
               <div>
                 <p className="font-semibold" className="text-sm font-black text-blue-700">{avg.toFixed(2)} DH</p>
-                <p className="font-semibold" className="text-[10px] text-slate-500">Moyenne</p>
+                <p className="font-semibold" className="text-[10px] text-slate-800">Moyenne</p>
               </div>
               <div>
                 <p className="font-semibold" className="text-sm font-black text-amber-700">{max.toFixed(2)} DH</p>
-                <p className="font-semibold" className="text-[10px] text-slate-500">Max paye</p>
+                <p className="font-semibold" className="text-[10px] text-slate-800">Max paye</p>
               </div>
             </div>
             <p className="font-semibold" className="text-[10px] text-blue-600 mt-1.5 font-semibold">
@@ -350,12 +350,12 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
         <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => setCameraMode("capture")}
-            className={`py-2 rounded-xl text-xs font-bold border transition-all ${cameraMode === "capture" ? "bg-green-600 text-white border-green-600" : "bg-white text-slate-600 border-slate-200"}`}>
+            className={`py-2 rounded-xl text-xs font-bold border transition-all ${cameraMode === "capture" ? "bg-green-600 text-white border-green-600" : "bg-white text-slate-800 border-slate-200"}`}>
             Camera
           </button>
           <button
             onClick={() => setCameraMode("upload")}
-            className={`py-2 rounded-xl text-xs font-bold border transition-all ${cameraMode === "upload" ? "bg-green-600 text-white border-green-600" : "bg-white text-slate-600 border-slate-200"}`}>
+            className={`py-2 rounded-xl text-xs font-bold border transition-all ${cameraMode === "upload" ? "bg-green-600 text-white border-green-600" : "bg-white text-slate-800 border-slate-200"}`}>
             Depuis galerie
           </button>
         </div>
@@ -391,7 +391,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             </div>
           ) : (
             <button onClick={startCamera}
-              className="w-full py-12 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center gap-3 text-slate-600 hover:border-green-400 hover:bg-green-50 transition-colors">
+              className="w-full py-12 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center gap-3 text-slate-800 hover:border-green-400 hover:bg-green-50 transition-colors">
               <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
                 <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -399,8 +399,8 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
                 </svg>
               </div>
               <div className="text-center">
-                <p className="font-semibold" className="text-sm font-bold text-slate-700">Activer la camera</p>
-                <p className="font-semibold" className="text-xs text-slate-500">Pointez vers le produit a analyser</p>
+                <p className="font-semibold" className="text-sm font-bold text-slate-800">Activer la camera</p>
+                <p className="font-semibold" className="text-xs text-slate-800">Pointez vers le produit a analyser</p>
               </div>
             </button>
           )}
@@ -413,15 +413,15 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
           <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full py-12 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center gap-3 text-slate-600 hover:border-green-400 hover:bg-green-50 transition-colors">
+            className="w-full py-12 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col items-center gap-3 text-slate-800 hover:border-green-400 hover:bg-green-50 transition-colors">
             <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
               <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
             <div className="text-center">
-              <p className="font-semibold" className="text-sm font-bold text-slate-700">Choisir une photo</p>
-              <p className="font-semibold" className="text-xs text-slate-500">Depuis la galerie de votre telephone</p>
+              <p className="font-semibold" className="text-sm font-bold text-slate-800">Choisir une photo</p>
+              <p className="font-semibold" className="text-xs text-slate-800">Depuis la galerie de votre telephone</p>
             </div>
           </button>
         </div>
@@ -484,7 +484,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
           )}
           {!capturedImage && (
             <button onClick={() => setError("")}
-              className="self-start px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 text-xs font-bold">
+              className="self-start px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-xs font-bold">
               Fermer
             </button>
           )}
@@ -502,14 +502,14 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             : "bg-red-50 border-b border-red-200"
           }`}>
             <div>
-              <p className="font-semibold" className="text-xs font-bold text-slate-500 uppercase tracking-wider">Resultat analyse</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-800 uppercase tracking-wider">Resultat analyse</p>
               <div className="flex items-center gap-3 mt-1">
                 <span className={`text-3xl font-black border-2 px-3 py-1 rounded-xl ${gradeColor(result.grade)}`}>
                   {result.grade}
                 </span>
                 <div>
                   <p className="font-semibold" className="text-lg font-black text-slate-800">{result.score}/100</p>
-                  <p className="font-semibold" className="text-xs text-slate-500">{articles.find(a => a.id === selectedArticleId)?.nom}</p>
+                  <p className="font-semibold" className="text-xs text-slate-800">{articles.find(a => a.id === selectedArticleId)?.nom}</p>
                 </div>
               </div>
             </div>
@@ -521,7 +521,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
           <div className="px-5 py-4 flex flex-col gap-4">
             {/* Score bar */}
             <div>
-              <div className="flex justify-between text-xs font-semibold text-slate-600 mb-1">
+              <div className="flex justify-between text-xs font-semibold text-slate-800 mb-1">
                 <span>Score qualite</span>
                 <span>{result.score}%</span>
               </div>
@@ -538,11 +538,11 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             {/* Details grid */}
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-slate-50 rounded-xl p-3">
-                <p className="font-semibold" className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Fraicheur</p>
+                <p className="font-semibold" className="text-[10px] font-bold text-slate-800 uppercase tracking-wider mb-1">Fraicheur</p>
                 <p className="font-semibold" className="text-sm font-semibold text-slate-800">{result.fraicheur}</p>
               </div>
               <div className="bg-slate-50 rounded-xl p-3">
-                <p className="font-semibold" className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Calibre</p>
+                <p className="font-semibold" className="text-[10px] font-bold text-slate-800 uppercase tracking-wider mb-1">Calibre</p>
                 <p className="font-semibold" className="text-sm font-semibold text-slate-800">{result.calibre}</p>
               </div>
             </div>
@@ -575,17 +575,17 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
 
             {/* Justification */}
             <div className="bg-slate-50 rounded-xl px-4 py-3">
-              <p className="font-semibold" className="text-xs font-bold text-slate-700 mb-1">Justification</p>
-              <p className="font-semibold" className="text-sm text-slate-700 leading-relaxed">{result.justification}</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-800 mb-1">Justification</p>
+              <p className="font-semibold" className="text-sm text-slate-800 leading-relaxed">{result.justification}</p>
             </div>
 
             {/* Conseils */}
             {result.conseils.length > 0 && (
               <div>
-                <p className="font-semibold" className="text-xs font-bold text-slate-700 mb-2">Conseils Si-Mohammed</p>
+                <p className="font-semibold" className="text-xs font-bold text-slate-800 mb-2">Conseils Si-Mohammed</p>
                 <div className="flex flex-col gap-2">
                   {result.conseils.map((c, i) => (
-                    <div key={i} className="flex items-start gap-2 text-sm text-slate-700 bg-blue-50 rounded-xl px-3 py-2">
+                    <div key={i} className="flex items-start gap-2 text-sm text-slate-800 bg-blue-50 rounded-xl px-3 py-2">
                       <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
                       {c}
                     </div>
@@ -597,7 +597,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
             {/* Retry button */}
             <button
               onClick={resetCapture}
-              className="w-full py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+              className="w-full py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-800 hover:bg-slate-50 transition-colors">
               Analyser un autre produit
             </button>
           </div>
@@ -823,7 +823,7 @@ const text = await callAI(systemPrompt, [
     <div className="flex flex-col gap-4">
       <div>
         <h2 className="text-base font-bold text-slate-800">Comparatif Fournisseurs</h2>
-        <p className="font-semibold" className="text-xs text-slate-500">Comparez les offres avec historique prix et photos IA</p>
+        <p className="font-semibold" className="text-xs text-slate-800">Comparez les offres avec historique prix et photos IA</p>
       </div>
 
       {/* Article selector */}
@@ -852,20 +852,20 @@ const text = await callAI(systemPrompt, [
                 <div key={h.fournisseurNom} className="bg-white border border-slate-200 rounded-xl px-4 py-3">
                   <div className="flex items-center justify-between mb-1.5">
                     <p className="font-semibold" className="text-sm font-bold text-slate-800">{h.fournisseurNom}</p>
-                    <span className="text-xs text-slate-500">{h.nbAchats} achat(s)</span>
+                    <span className="text-xs text-slate-800">{h.nbAchats} achat(s)</span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div>
                       <p className="font-semibold" className="text-sm font-black text-green-700">{h.minPrix.toFixed(2)} DH</p>
-                      <p className="font-semibold" className="text-[10px] text-slate-500">Min</p>
+                      <p className="font-semibold" className="text-[10px] text-slate-800">Min</p>
                     </div>
                     <div>
                       <p className="font-semibold" className="text-sm font-black text-blue-700">{h.moyennePrix.toFixed(2)} DH</p>
-                      <p className="font-semibold" className="text-[10px] text-slate-500">Moy</p>
+                      <p className="font-semibold" className="text-[10px] text-slate-800">Moy</p>
                     </div>
                     <div>
-                      <p className="font-semibold" className="text-sm font-black text-slate-700">{h.dernierPrix.toFixed(2)} DH</p>
-                      <p className="font-semibold" className="text-[10px] text-slate-500">Dernier</p>
+                      <p className="font-semibold" className="text-sm font-black text-slate-800">{h.dernierPrix.toFixed(2)} DH</p>
+                      <p className="font-semibold" className="text-[10px] text-slate-800">Dernier</p>
                     </div>
                   </div>
                   {/* Mini bar */}
@@ -882,7 +882,7 @@ const text = await callAI(systemPrompt, [
       {/* Fournisseur entries */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <p className="font-semibold" className="text-xs font-bold text-slate-700">Fournisseurs a comparer ({entries.length}/5)</p>
+          <p className="font-semibold" className="text-xs font-bold text-slate-800">Fournisseurs a comparer ({entries.length}/5)</p>
           {entries.length < 5 && (
             <button onClick={addEntry} className="text-xs text-green-600 font-bold flex items-center gap-1">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -896,7 +896,7 @@ const text = await callAI(systemPrompt, [
         {entries.map((entry, i) => (
           <div key={i} className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-              <p className="font-semibold" className="text-xs font-black text-slate-600">Fournisseur {i + 1}</p>
+              <p className="font-semibold" className="text-xs font-black text-slate-800">Fournisseur {i + 1}</p>
               {entries.length > 2 && (
                 <button onClick={() => setEntries(prev => prev.filter((_, j) => j !== i))}
                   className="text-xs text-red-500 font-semibold">Supprimer</button>
@@ -913,7 +913,7 @@ const text = await callAI(systemPrompt, [
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[10px] font-semibold text-slate-500 block mb-0.5">
+                  <label className="text-[10px] font-semibold text-slate-800 block mb-0.5">
                     Prix propose (DH/{article?.unite ?? "unite"}) *
                   </label>
                   <input type="number" min="0" step="0.01" value={entry.prixPropose}
@@ -922,7 +922,7 @@ const text = await callAI(systemPrompt, [
                     className="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-400" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-semibold text-slate-500 block mb-0.5">Qte disponible</label>
+                  <label className="text-[10px] font-semibold text-slate-800 block mb-0.5">Qte disponible</label>
                   <input type="number" min="0" value={entry.quantiteDisponible}
                     onChange={e => updateEntry(i, { quantiteDisponible: e.target.value })}
                     placeholder="Qte"
@@ -969,7 +969,7 @@ const text = await callAI(systemPrompt, [
                     <input ref={el => { fileInputRefs.current[i] = el }} type="file" accept="image/*"
                       onChange={e => handleFileForEntry(i, e)} className="hidden" />
                     <button onClick={() => startCameraForEntry(i)}
-                      className="flex-1 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 flex items-center justify-center gap-1.5 hover:bg-slate-50 transition-colors">
+                      className="flex-1 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 flex items-center justify-center gap-1.5 hover:bg-slate-50 transition-colors">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -977,7 +977,7 @@ const text = await callAI(systemPrompt, [
                       Camera
                     </button>
                     <button onClick={() => fileInputRefs.current[i]?.click()}
-                      className="flex-1 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 flex items-center justify-center gap-1.5 hover:bg-slate-50 transition-colors">
+                      className="flex-1 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-800 flex items-center justify-center gap-1.5 hover:bg-slate-50 transition-colors">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
@@ -1032,20 +1032,20 @@ const text = await callAI(systemPrompt, [
           {/* Classement */}
           <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100">
-              <p className="font-semibold" className="text-xs font-bold text-slate-700">Classement</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-800">Classement</p>
             </div>
             <div className="divide-y divide-slate-100">
               {result.classement.sort((a, b) => a.rang - b.rang).map(c => (
                 <div key={c.nom} className="flex items-center gap-3 px-4 py-3">
                   <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 ${
-                    c.rang === 1 ? "bg-amber-400 text-white" : c.rang === 2 ? "bg-slate-300 text-slate-700" : "bg-slate-200 text-slate-500"
+                    c.rang === 1 ? "bg-amber-400 text-white" : c.rang === 2 ? "bg-slate-300 text-slate-800" : "bg-slate-200 text-slate-800"
                   }`}>{c.rang}</span>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold" className="text-sm font-bold text-slate-800 truncate">{c.nom}</p>
-                    <p className="font-semibold" className="text-xs text-slate-500 truncate">{c.raison}</p>
+                    <p className="font-semibold" className="text-xs text-slate-800 truncate">{c.raison}</p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="font-semibold" className="text-sm font-black text-slate-700">{c.score}/100</p>
+                    <p className="font-semibold" className="text-sm font-black text-slate-800">{c.score}/100</p>
                     <div className="w-16 h-1.5 bg-slate-100 rounded-full mt-1">
                       <div className="h-full bg-green-500 rounded-full" style={{ width: `${c.score}%` }} />
                     </div>
@@ -1057,8 +1057,8 @@ const text = await callAI(systemPrompt, [
 
           {/* Analyse */}
           <div className="bg-slate-50 rounded-2xl px-4 py-4">
-            <p className="font-semibold" className="text-xs font-bold text-slate-700 mb-2">Analyse ASHEL</p>
-            <p className="font-semibold" className="text-sm text-slate-700 leading-relaxed">{result.analyse}</p>
+            <p className="font-semibold" className="text-xs font-bold text-slate-800 mb-2">Analyse ASHEL</p>
+            <p className="font-semibold" className="text-sm text-slate-800 leading-relaxed">{result.analyse}</p>
           </div>
 
           {/* Prix cibles pour negociation */}
@@ -1073,7 +1073,7 @@ const text = await callAI(systemPrompt, [
                     <p className="font-semibold" className="text-sm font-bold text-slate-800">{p.fournisseurNom}</p>
                     <span className="text-sm font-black text-green-700">{p.prixCible} DH</span>
                   </div>
-                  <p className="font-semibold" className="text-xs text-slate-500 italic">{p.argument}</p>
+                  <p className="font-semibold" className="text-xs text-slate-800 italic">{p.argument}</p>
                 </div>
               ))}
             </div>

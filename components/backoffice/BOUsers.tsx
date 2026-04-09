@@ -334,10 +334,10 @@ function PermissionsTabs({
                         <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${isOn ? "left-4" : "left-0.5"}`} />
                       </button>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold" className="text-xs font-semibold text-slate-700 truncate">{page.label}</p>
-                        <p className="font-semibold" className="text-[10px] text-slate-400" dir="rtl">{page.labelAr}</p>
+                        <p className="font-semibold" className="text-xs font-semibold text-slate-800 truncate">{page.label}</p>
+                        <p className="font-semibold" className="text-[10px] text-slate-800" dir="rtl">{page.labelAr}</p>
                       </div>
-                      <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold shrink-0 ${isOn ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-400"}`}>
+                      <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold shrink-0 ${isOn ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-800"}`}>
                         {isOn ? "OUI" : "NON"}
                       </span>
                     </div>
@@ -689,14 +689,14 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
                         <td className="px-3 py-2.5 text-center">
                           {(r.acces.includes("Mobile") || r.acces.includes("Portail"))
                             ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-100 text-green-600"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg></span>
-                            : <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 text-slate-400"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg></span>
+                            : <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 text-slate-800"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg></span>
                           }
                         </td>
                         {/* Back-office access */}
                         <td className="px-3 py-2.5 text-center">
                           {(r.acces.includes("Back-office") || r.acces.includes("complet"))
                             ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 text-blue-600"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg></span>
-                            : <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 text-slate-400"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg></span>
+                            : <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-100 text-slate-800"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg></span>
                           }
                         </td>
                         <td className="px-4 py-2.5 text-muted-foreground text-[11px]">{r.droits}</td>

@@ -167,7 +167,7 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
             <LeafIcon />
           </div>
           <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "oklch(0.58 0.18 148)", borderTopColor: "transparent" }} />
-          <p className="font-semibold" className="text-sm font-medium" style={{ color: "oklch(0.52 0.010 145)" }}>Verification securite...</p>
+          <p className="font-semibold text-sm font-medium" style={{ color: "oklch(0.52 0.010 145)" }}>Verification securite...</p>
         </div>
       </div>
     )
@@ -187,12 +187,12 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
             </div>
             <div>
               <h2 className="font-bold text-lg mb-1" style={{ color: "oklch(0.96 0.006 100)" }}>GPS fictif detecte</h2>
-              <p className="font-semibold" className="text-sm leading-relaxed" style={{ color: "oklch(0.52 0.010 145)" }}>
+              <p className="font-semibold text-sm leading-relaxed" style={{ color: "oklch(0.52 0.010 145)" }}>
                 Votre localisation GPS semble falsifiee. L&apos;application FreshLink necessite une position GPS reelle pour fonctionner correctement.
               </p>
             </div>
             <div className="w-full rounded-xl p-4 text-left text-xs leading-relaxed space-y-1" style={{ background: "oklch(0.10 0.008 145)", color: "oklch(0.52 0.010 145)" }}>
-              <p className="font-semibold" className="font-semibold" style={{ color: "oklch(0.65 0.22 27)" }}>Comment resoudre :</p>
+              <p className="font-semibold" style={{ color: "oklch(0.65 0.22 27)" }}>Comment resoudre :</p>
               <p>1. Desactivez toute application de simulation GPS.</p>
               <p>2. Desactivez le mode developpeur Android si actif.</p>
               <p>3. Redemarrez l&apos;application apres correction.</p>
@@ -226,12 +226,12 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
               <h2 className="font-bold text-lg mb-1" style={{ color: "oklch(0.96 0.006 100)" }}>
                 Acces {detail === "camera" ? "camera" : "microphone"} refuse
               </h2>
-              <p className="font-semibold" className="text-sm leading-relaxed" style={{ color: "oklch(0.52 0.010 145)" }}>
+              <p className="font-semibold text-sm leading-relaxed" style={{ color: "oklch(0.52 0.010 145)" }}>
                 FreshLink necessite l&apos;acces {detail === "camera" ? "a la camera" : "au microphone"} pour le controle qualite, les photos de livraison et la verification des produits.
               </p>
             </div>
             <div className="w-full rounded-xl p-4 text-left text-xs leading-relaxed space-y-1.5" style={{ background: "oklch(0.10 0.008 145)", color: "oklch(0.52 0.010 145)" }}>
-              <p className="font-semibold" className="font-semibold" style={{ color: "oklch(0.65 0.22 27)" }}>Activer les permissions :</p>
+              <p className="font-semibold" style={{ color: "oklch(0.65 0.22 27)" }}>Activer les permissions :</p>
               <p><span className="font-medium" style={{ color: "oklch(0.75 0.12 100)" }}>Android :</span> Parametres &gt; Applications &gt; Navigateur &gt; Autorisations</p>
               <p><span className="font-medium" style={{ color: "oklch(0.75 0.12 100)" }}>iPhone :</span> Reglages &gt; Safari &gt; {detail === "camera" ? "Camera" : "Microphone"} &gt; Autoriser</p>
               <p><span className="font-medium" style={{ color: "oklch(0.75 0.12 100)" }}>Chrome :</span> Icone cadenas URL &gt; Autorisations de site</p>
@@ -258,7 +258,7 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
                 </button>
               ) : (
                 <div className="rounded-xl p-4 text-xs space-y-2" style={{ background: "oklch(0.10 0.008 145)", border: "1px solid oklch(0.22 0.012 145)" }}>
-                  <p className="font-semibold" className="font-bold text-sm mb-1" style={{ color: "oklch(0.85 0.006 100)" }}>
+                  <p className="font-bold text-sm mb-1" style={{ color: "oklch(0.85 0.006 100)" }}>
                     Activez la permission {detail === "camera" ? "Camera" : "Microphone"} :
                   </p>
                   <p className="font-semibold" style={{ color: "oklch(0.62 0.008 145)" }}>
@@ -325,8 +325,8 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
                     </svg>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold" className="text-sm font-semibold" style={{ color: "oklch(0.85 0.008 145)" }}>{item.label}</p>
-                    <p className="font-semibold" className="text-xs" style={{ color: "oklch(0.50 0.008 145)" }}>{item.desc}</p>
+                    <p className="font-semibold text-sm" style={{ color: "oklch(0.85 0.008 145)" }}>{item.label}</p>
+                    <p className="font-semibold text-xs" style={{ color: "oklch(0.50 0.008 145)" }}>{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -349,7 +349,7 @@ export default function SecurityGuard({ children, skipGps = false }: Props) {
               )}
             </button>
 
-            <p className="font-semibold" className="text-[11px] leading-relaxed" style={{ color: "oklch(0.38 0.008 145)" }}>
+            <p className="font-semibold text-[11px] leading-relaxed" style={{ color: "oklch(0.38 0.008 145)" }}>
               Ces permissions sont requises uniquement pour les fonctionnalites operationnelles. Aucune donnee n&apos;est partagee avec des tiers.
             </p>
           </div>

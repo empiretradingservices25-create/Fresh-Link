@@ -98,7 +98,7 @@ export default function MobileLayout({ user, onLogout }: Props) {
               <span className="text-slate-800">FRESH</span><span className="text-green-600">LINK</span>
               <span className="text-[9px] font-black tracking-widest text-green-700 ml-0.5">PRO</span>
             </p>
-            <p className="font-semibold" className="text-[10px] font-medium text-slate-500 mt-0.5">{user.name}</p>
+            <p className="font-semibold" className="text-[10px] font-medium text-slate-800 mt-0.5">{user.name}</p>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
@@ -118,7 +118,7 @@ export default function MobileLayout({ user, onLogout }: Props) {
             </span>
           )}
           <button onClick={onLogout}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+            className="p-1.5 rounded-lg text-slate-800 hover:text-red-600 hover:bg-red-50 transition-colors"
             aria-label="Deconnexion">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -167,10 +167,10 @@ export default function MobileLayout({ user, onLogout }: Props) {
                 {isActive && (
                   <span className="absolute top-0 inset-x-3 h-0.5 rounded-full bg-green-600" />
                 )}
-                <span className={`w-5 h-5 transition-colors ${isActive ? "text-green-700" : "text-slate-400"}`}>
+                <span className={`w-5 h-5 transition-colors ${isActive ? "text-green-700" : "text-slate-800"}`}>
                   {tab.icon}
                 </span>
-                <span className={`text-[9px] font-semibold truncate max-w-full px-0.5 ${isActive ? "text-green-700" : "text-slate-400"}`}>
+                <span className={`text-[9px] font-semibold truncate max-w-full px-0.5 ${isActive ? "text-green-700" : "text-slate-800"}`}>
                   {tab.label}
                 </span>
               </button>
@@ -183,7 +183,7 @@ export default function MobileLayout({ user, onLogout }: Props) {
                 const nextHidden = allowedTabs.slice(4).find(t => t.id !== activeTab)
                 if (nextHidden) setActiveTab(nextHidden.id)
               }}
-              className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2.5 min-w-0 transition-colors text-slate-400"
+              className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2.5 min-w-0 transition-colors text-slate-800"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01" />

@@ -103,7 +103,7 @@ export default function LoginPage({ onLogin }: Props) {
             <FreshLinkLogo size={44} />
             <div className="text-center">
               <p className="font-semibold" className="text-base font-bold text-slate-800">Bonjour, {pendingUser.name}</p>
-              <p className="font-semibold" className="text-sm text-slate-500 mt-0.5">Choisissez votre interface</p>
+              <p className="font-semibold" className="text-sm text-slate-800 mt-0.5">Choisissez votre interface</p>
             </div>
           </div>
           <div className="flex flex-col gap-3">
@@ -122,7 +122,7 @@ export default function LoginPage({ onLogin }: Props) {
               Application Mobile — Terrain
             </button>
             <button onClick={() => setPendingUser(null)}
-              className="text-sm text-slate-400 hover:text-slate-600 transition-colors text-center py-1">
+              className="text-sm text-slate-800 hover:text-slate-800 transition-colors text-center py-1">
               Retour
             </button>
           </div>
@@ -158,7 +158,7 @@ export default function LoginPage({ onLogin }: Props) {
               Pilotez vos flux<br/>
               <span style={{ color: "#4ADE80" }}>de bout en bout</span>
             </h2>
-            <p className="font-semibold" className="text-sm leading-relaxed text-slate-400">
+            <p className="font-semibold" className="text-sm leading-relaxed text-slate-800">
               Achat, vente, logistique et suivi commercial — gestion complete en temps reel pour les distributeurs de fruits et legumes.
             </p>
           </div>
@@ -173,7 +173,7 @@ export default function LoginPage({ onLogin }: Props) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={feat.icon} />
                   </svg>
                 </div>
-                <span className="text-sm text-slate-700">{feat.label}</span>
+                <span className="text-sm text-slate-800">{feat.label}</span>
               </div>
             ))}
           </div>
@@ -186,14 +186,14 @@ export default function LoginPage({ onLogin }: Props) {
                 <div key={l.level} className="flex items-center gap-2.5">
                   <span className="text-[9px] font-black px-2 py-0.5 rounded text-white shrink-0"
                     style={{ background: l.color }}>{l.level}</span>
-                  <span className="text-xs text-slate-400">{l.names}</span>
+                  <span className="text-xs text-slate-800">{l.names}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        <p className="font-semibold" className="relative text-xs text-slate-600">
+        <p className="font-semibold" className="relative text-xs text-slate-800">
           &copy; {new Date().getFullYear()} FreshLink Pro — Tous droits reserves
         </p>
       </div>
@@ -210,7 +210,7 @@ export default function LoginPage({ onLogin }: Props) {
           {/* Heading */}
           <div>
             <h1 className="text-2xl font-black text-slate-800">Connexion</h1>
-            <p className="font-semibold" className="text-sm text-slate-500 mt-1">
+            <p className="font-semibold" className="text-sm text-slate-800 mt-1">
               {clientMode ? "Portail client — entrez votre nom" : "Email ou nom d'utilisateur"}
             </p>
           </div>
@@ -218,11 +218,11 @@ export default function LoginPage({ onLogin }: Props) {
           {/* Mode switcher */}
           <div className="flex rounded-xl overflow-hidden p-1 bg-slate-100 border border-slate-200">
             <button type="button" onClick={() => { setClientMode(false); setError("") }}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${!clientMode ? "bg-white text-slate-800 shadow-sm" : "text-slate-500"}`}>
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${!clientMode ? "bg-white text-slate-800 shadow-sm" : "text-slate-800"}`}>
               Personnel / Equipe
             </button>
             <button type="button" onClick={() => { setClientMode(true); setError("") }}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${clientMode ? "bg-white text-slate-800 shadow-sm" : "text-slate-500"}`}>
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${clientMode ? "bg-white text-slate-800 shadow-sm" : "text-slate-800"}`}>
               Externe / خارجي
             </button>
           </div>
@@ -231,11 +231,11 @@ export default function LoginPage({ onLogin }: Props) {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {/* Identifier */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-slate-700">
+              <label className="text-sm font-semibold text-slate-800">
                 {clientMode ? "Nom client" : "Email ou identifiant"}
               </label>
               <div className="relative">
-                <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-800 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 <input
@@ -253,14 +253,14 @@ export default function LoginPage({ onLogin }: Props) {
             {!clientMode && (
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-semibold text-slate-700">Mot de passe</label>
+                  <label className="text-sm font-semibold text-slate-800">Mot de passe</label>
                   <button type="button" onClick={() => { setShowForgot(true); setForgotStatus("idle") }}
                     className="text-xs text-green-600 hover:text-green-700 font-semibold transition-colors">
                     Mot de passe oublie ?
                   </button>
                 </div>
                 <div className="relative">
-                  <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-800 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                   <input
@@ -272,7 +272,7 @@ export default function LoginPage({ onLogin }: Props) {
                     autoComplete="current-password"
                   />
                   <button type="button" onClick={() => setShowPwd(v => !v)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-800 hover:text-slate-800 transition-colors">
                     {showPwd
                       ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
                       : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
@@ -315,7 +315,7 @@ export default function LoginPage({ onLogin }: Props) {
           {/* Demo accounts */}
           <div className="border border-dashed border-slate-300 rounded-2xl overflow-hidden">
             <button type="button" onClick={() => setShowDemo(v => !v)}
-              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
+              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50 transition-colors">
               <span className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
@@ -333,7 +333,7 @@ export default function LoginPage({ onLogin }: Props) {
                 <div className="flex border-b border-slate-100 bg-slate-50">
                   {DEMO_GROUPS.map(g => (
                     <button key={g} type="button" onClick={() => setSelectedGroup(g)}
-                      className={`flex-1 py-2 text-[11px] font-bold transition-colors border-b-2 ${selectedGroup === g ? "border-green-600 text-green-700" : "border-transparent text-slate-400 hover:text-slate-600"}`}>
+                      className={`flex-1 py-2 text-[11px] font-bold transition-colors border-b-2 ${selectedGroup === g ? "border-green-600 text-green-700" : "border-transparent text-slate-800 hover:text-slate-800"}`}>
                       {g}
                     </button>
                   ))}
@@ -351,10 +351,10 @@ export default function LoginPage({ onLogin }: Props) {
                         {acc.label.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold" className="text-xs font-semibold text-slate-700 truncate">{acc.label}</p>
-                        <p className="font-semibold" className="text-[10px] text-slate-400 truncate">{acc.note}</p>
+                        <p className="font-semibold" className="text-xs font-semibold text-slate-800 truncate">{acc.label}</p>
+                        <p className="font-semibold" className="text-[10px] text-slate-800 truncate">{acc.note}</p>
                       </div>
-                      <span className="text-[10px] text-slate-400 font-mono shrink-0">{acc.password}</span>
+                      <span className="text-[10px] text-slate-800 font-mono shrink-0">{acc.password}</span>
                     </button>
                   ))}
                 </div>
@@ -368,7 +368,7 @@ export default function LoginPage({ onLogin }: Props) {
               <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-sm p-6 flex flex-col gap-4">
                 <div>
                   <h3 className="text-base font-bold text-slate-800">Reinitialiser le mot de passe</h3>
-                  <p className="font-semibold" className="text-sm text-slate-500 mt-0.5">Un nouveau mot de passe sera envoye par email.</p>
+                  <p className="font-semibold" className="text-sm text-slate-800 mt-0.5">Un nouveau mot de passe sera envoye par email.</p>
                 </div>
                 <input
                   type="email"
@@ -381,7 +381,7 @@ export default function LoginPage({ onLogin }: Props) {
                 {forgotStatus === "sent" && <p className="font-semibold" className="text-sm text-green-700 font-medium">Nouveau mot de passe envoye par email.</p>}
                 <div className="flex gap-2">
                   <button onClick={() => { setShowForgot(false); setForgotEmail(""); setForgotStatus("idle") }}
-                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+                    className="flex-1 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 text-slate-800 hover:bg-slate-50 transition-colors">
                     Annuler
                   </button>
                   <button onClick={handleForgotPassword} disabled={forgotStatus === "sending" || forgotStatus === "sent"}
@@ -393,8 +393,8 @@ export default function LoginPage({ onLogin }: Props) {
             </div>
           )}
 
-          <p className="font-semibold" className="text-center text-xs text-slate-400">
-            &copy; {new Date().getFullYear()} <span className="font-black text-slate-600">FRESHLINK PRO</span> — Jawad
+          <p className="font-semibold" className="text-center text-xs text-slate-800">
+            &copy; {new Date().getFullYear()} <span className="font-black text-slate-800">FRESHLINK PRO</span> — Jawad
           </p>
         </div>
       </div>

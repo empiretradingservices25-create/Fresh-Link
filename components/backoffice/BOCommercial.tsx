@@ -327,7 +327,7 @@ export default function BOCommercial({ user }: Props) {
                   )}
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${statutColor[c.statut] || "bg-gray-100 text-gray-700"}`}>{statutLabel[c.statut] || c.statut}</span>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${statutColor[c.statut] || "bg-gray-100 text-gray-800"}`}>{statutLabel[c.statut] || c.statut}</span>
                 </td>
               </tr>
             ))}

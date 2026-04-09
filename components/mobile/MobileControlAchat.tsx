@@ -228,7 +228,7 @@ export default function MobileControlAchat({ user }: Props) {
         <div className="flex items-center justify-between px-4 py-3">
           <div>
             <p className="font-semibold" className="text-white font-bold text-sm">{artNom}</p>
-            <p className="font-semibold" className="text-gray-400 text-xs">Prenez au moins 1 photo de la caisse</p>
+            <p className="font-semibold" className="text-gray-800 text-xs">Prenez au moins 1 photo de la caisse</p>
           </div>
           <button onClick={closeCamera} className="text-white bg-gray-800 rounded-full p-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

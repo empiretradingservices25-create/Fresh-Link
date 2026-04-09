@@ -24,7 +24,7 @@ const FAMILLE_COLORS: Record<string, string> = {
   "Herbes aromatiques":"bg-emerald-50 text-emerald-700 border-emerald-200",
   "Champignons":       "bg-stone-50 text-stone-700 border-stone-200",
   "Fruits secs":       "bg-brown-50 text-amber-900 border-amber-300",
-  "Autre":             "bg-slate-50 text-slate-700 border-slate-200",
+  "Autre":             "bg-slate-50 text-slate-800 border-slate-200",
 }
 
 const DEFAULT_PHOTO = "https://placehold.co/120x120/e2e8f0/64748b?text=Article"
@@ -395,7 +395,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
         </button>
         {byFamille.map(f => (
           <button key={f.famille} onClick={() => setFamille(f.famille === famille ? "" : f.famille)}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${famille === f.famille ? "text-white border-transparent" : `${FAMILLE_COLORS[f.famille] || "bg-slate-50 text-slate-700 border-slate-200"}`}`}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${famille === f.famille ? "text-white border-transparent" : `${FAMILLE_COLORS[f.famille] || "bg-slate-50 text-slate-800 border-slate-200"}`}`}
             style={famille === f.famille ? { background: "oklch(0.38 0.2 260)" } : {}}>
             {f.famille} ({f.count})
           </button>
@@ -704,7 +704,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                     />
                   </div>
                   {/* Famille badge */}
-                  <div className={`absolute top-1.5 right-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${FAMILLE_COLORS[a.famille] || "bg-slate-50 text-slate-700 border-slate-200"}`}>
+                  <div className={`absolute top-1.5 right-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${FAMILLE_COLORS[a.famille] || "bg-slate-50 text-slate-800 border-slate-200"}`}>
                     {a.famille.split(" ").slice(-1)[0]}
                   </div>
                   {/* Stock badge */}
@@ -817,7 +817,7 @@ export default function BOArticles({ user }: { user: { id: string; name: string 
                         <p className="font-semibold" className="text-xs text-muted-foreground" dir="rtl">{a.nomAr}</p>
                       </td>
                       <td className="px-4 py-2">
-                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${FAMILLE_COLORS[a.famille] || "bg-slate-50 text-slate-700 border-slate-200"}`}>
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${FAMILLE_COLORS[a.famille] || "bg-slate-50 text-slate-800 border-slate-200"}`}>
                           {a.famille}
                         </span>
                       </td>

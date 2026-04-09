@@ -693,7 +693,7 @@ CONTEXTE SESSION :
             <span className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white shrink-0"
               style={{ background: agent.color }}>{agent.badge}</span>
           </div>
-          <p className="font-semibold" className="text-[11px] text-slate-500 mt-0.5 truncate">{agent.role}</p>
+          <p className="font-semibold" className="text-[11px] text-slate-800 mt-0.5 truncate">{agent.role}</p>
         </div>
         <div className="flex items-center gap-1 text-[10px] font-semibold text-emerald-600 shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -791,7 +791,7 @@ CONTEXTE SESSION :
             </svg>
           </button>
         </div>
-        <p className="font-semibold" className="text-[10px] text-slate-400 mt-1.5 text-center">
+        <p className="font-semibold" className="text-[10px] text-slate-800 mt-1.5 text-center">
           Shift+Enter pour nouvelle ligne · Enter pour envoyer
         </p>
       </div>
@@ -816,7 +816,7 @@ function AgentBtn({ a, isActive, onSelect }: { a: typeof AGENTS[0]; isActive: bo
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-semibold" className="text-xs font-bold truncate" style={isActive ? { color: a.color } : { color: "#1e293b" }}>{a.name}</p>
-          <p className="font-semibold" className="text-[10px] text-slate-400 truncate leading-tight">{a.role}</p>
+          <p className="font-semibold" className="text-[10px] text-slate-800 truncate leading-tight">{a.role}</p>
         </div>
         {isActive && <span className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse" style={{ background: a.color }} />}
       </div>
@@ -831,8 +831,8 @@ function SectionLabel({ level, title, sub, color }: { level: string; title: stri
       <span className="text-[9px] font-black px-2 py-0.5 rounded-full text-white shrink-0"
         style={{ background: color }}>{level}</span>
       <div className="min-w-0">
-        <p className="font-semibold" className="text-[10px] font-bold text-slate-700 truncate leading-none">{title}</p>
-        <p className="font-semibold" className="text-[9px] text-slate-400 truncate leading-tight">{sub}</p>
+        <p className="font-semibold" className="text-[10px] font-bold text-slate-800 truncate leading-none">{title}</p>
+        <p className="font-semibold" className="text-[9px] text-slate-800 truncate leading-tight">{sub}</p>
       </div>
     </div>
   )
@@ -864,7 +864,7 @@ export default function AgentsIAPanel({ user, initialAgent }: Props) {
                 FRESH<span className="text-green-600">LINK</span>
                 <span className="text-green-700 text-[9px] tracking-widest ml-1">PRO</span>
               </p>
-              <p className="font-semibold" className="text-[9px] text-slate-400">{AGENTS.length} agents IA actifs</p>
+              <p className="font-semibold" className="text-[9px] text-slate-800">{AGENTS.length} agents IA actifs</p>
             </div>
           </div>
         </div>
@@ -893,9 +893,9 @@ export default function AgentsIAPanel({ user, initialAgent }: Props) {
         <div className="px-3 py-3">
           <div className="flex items-center gap-1.5 mb-1">
             <span className="text-[9px] font-black px-2 py-0.5 rounded-full text-white bg-amber-500 shrink-0">N3</span>
-            <p className="font-semibold" className="text-[10px] font-bold text-slate-700">Alerte Direction</p>
+            <p className="font-semibold" className="text-[10px] font-bold text-slate-800">Alerte Direction</p>
           </div>
-          <p className="font-semibold" className="text-[10px] text-slate-500 leading-relaxed px-1">
+          <p className="font-semibold" className="text-[10px] text-slate-800 leading-relaxed px-1">
             Declenchement automatique si N1+N2 ne resolvent pas.
           </p>
           <p className="font-semibold" className="text-[10px] font-bold text-amber-600 mt-1 px-1">+212663898707</p>

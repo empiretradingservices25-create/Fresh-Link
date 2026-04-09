@@ -432,7 +432,7 @@ function BesoinSKUTab({ besoin }: { besoin: ReturnType<typeof store.computeBesoi
 function BesoinAchatTab({ bons }: { bons: BonAchat[] }) {
   const DH = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2 }) + " DH"
   const STATUT_COLOR: Record<string, string> = {
-    brouillon:    "bg-slate-100 text-slate-600",
+    brouillon:    "bg-slate-100 text-slate-800",
     "validé":     "bg-amber-100 text-amber-700",
     "receptionné":"bg-emerald-100 text-emerald-700",
   }

@@ -507,7 +507,7 @@ function formatMessage(text: string) {
   let tableBuffer: string[] = []
 
   const flushTable = (key: string) => {
-    if (tableBuffer.length < 2) { tableBuffer.forEach((l, i) => elements.push(<p className="font-semibold" key={`${key}_${i}`} className="text-xs text-slate-600">{l}</p>)); tableBuffer = []; return }
+    if (tableBuffer.length < 2) { tableBuffer.forEach((l, i) => elements.push(<p className="font-semibold" key={`${key}_${i}`} className="text-xs text-slate-800">{l}</p>)); tableBuffer = []; return }
     const rows = tableBuffer.filter(l => l.trim().startsWith("|") && !l.match(/^\|[-| ]+\|$/))
     if (rows.length === 0) { tableBuffer.forEach((l, i) => elements.push(<p className="font-semibold" key={`${key}_${i}`} className="text-xs">{l}</p>)); tableBuffer = []; return }
     const header = rows[0].split("|").filter(Boolean).map(c => c.trim())
@@ -515,10 +515,10 @@ function formatMessage(text: string) {
     elements.push(
       <div key={key} className="overflow-x-auto my-2 rounded-lg border border-slate-200">
         <table className="min-w-full text-[11px]">
-          <thead><tr className="bg-slate-100">{header.map((h, i) => <th key={i} className="px-2 py-1.5 text-left font-bold text-slate-700 whitespace-nowrap">{h}</th>)}</tr></thead>
+          <thead><tr className="bg-slate-100">{header.map((h, i) => <th key={i} className="px-2 py-1.5 text-left font-bold text-slate-800 whitespace-nowrap">{h}</th>)}</tr></thead>
           <tbody>{body.map((row, ri) => {
             const cells = row.split("|").filter(Boolean).map(c => c.trim())
-            return <tr key={ri} className={ri % 2 === 0 ? "bg-white" : "bg-slate-50"}>{cells.map((c, ci) => <td key={ci} className="px-2 py-1.5 text-slate-700 whitespace-nowrap">{c}</td>)}</tr>
+            return <tr key={ri} className={ri % 2 === 0 ? "bg-white" : "bg-slate-50"}>{cells.map((c, ci) => <td key={ci} className="px-2 py-1.5 text-slate-800 whitespace-nowrap">{c}</td>)}</tr>
           })}</tbody>
         </table>
       </div>
@@ -531,15 +531,15 @@ function formatMessage(text: string) {
     if (line.trim().startsWith("|")) { tableBuffer.push(line); return }
     if (tableBuffer.length) flushTable(`table_${i}`)
     if (!line.trim()) { elements.push(<div key={key} className="h-1.5" />); return }
-    if (line.startsWith("## ")) { elements.push(<h3 key={key} className="font-black text-sm text-slate-900 mt-3 mb-1">{line.replace(/^## /, "").replace(/[*#]/g, "")}</h3>); return }
-    if (line.startsWith("# ")) { elements.push(<h2 key={key} className="font-black text-base text-slate-900 mt-3 mb-1">{line.replace(/^# /, "").replace(/[*#]/g, "")}</h2>); return }
+    if (line.startsWith("## ")) { elements.push(<h3 key={key} className="font-black text-sm text-slate-800 mt-3 mb-1">{line.replace(/^## /, "").replace(/[*#]/g, "")}</h3>); return }
+    if (line.startsWith("# ")) { elements.push(<h2 key={key} className="font-black text-base text-slate-800 mt-3 mb-1">{line.replace(/^# /, "").replace(/[*#]/g, "")}</h2>); return }
     if (line.startsWith("- ") || line.startsWith("* ")) {
       const content = line.replace(/^[*-] /, "")
       const html = content.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code class="bg-slate-100 px-1 rounded text-xs font-mono">$1</code>')
-      elements.push(<div key={key} className="flex gap-1.5 ml-2 text-xs text-slate-700"><span className="text-slate-400 shrink-0 mt-0.5">•</span><span dangerouslySetInnerHTML={{ __html: html }} /></div>); return
+      elements.push(<div key={key} className="flex gap-1.5 ml-2 text-xs text-slate-800"><span className="text-slate-800 shrink-0 mt-0.5">•</span><span dangerouslySetInnerHTML={{ __html: html }} /></div>); return
     }
     const html = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code class="bg-slate-100 px-1 rounded text-xs font-mono">$1</code>').replace(/\[([A-Z_]+)\]/g, '<span class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-mono text-[10px] font-bold">[$1]</span>')
-    elements.push(<p className="font-semibold" key={key} className="text-xs text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: html }} />)
+    elements.push(<p className="font-semibold" key={key} className="text-xs text-slate-800 leading-relaxed" dangerouslySetInnerHTML={{ __html: html }} />)
   })
   if (tableBuffer.length) flushTable(`table_final`)
   return elements
@@ -620,17 +620,17 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
             <p className="font-semibold" className="font-bold text-slate-800 text-sm">{agent.name}</p>
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              <p className="font-semibold" className="text-[11px] text-slate-500">{agent.department}</p>
+              <p className="font-semibold" className="text-[11px] text-slate-800">{agent.department}</p>
             </div>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
           <button onClick={() => setShowPrompt(s => !s)}
-            className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] text-slate-500 hover:bg-slate-50 transition-colors">
+            className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] text-slate-800 hover:bg-slate-50 transition-colors">
             {showPrompt ? "Masquer" : "Prompt"}
           </button>
           <button onClick={clearHistory}
-            className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] text-slate-500 hover:bg-slate-50 transition-colors">
+            className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] text-slate-800 hover:bg-slate-50 transition-colors">
             Effacer
           </button>
         </div>
@@ -639,7 +639,7 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
       {/* Prompt editor */}
       {showPrompt && (
         <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 shrink-0">
-          <p className="font-semibold" className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">System Prompt</p>
+          <p className="font-semibold" className="text-[10px] font-bold text-slate-800 uppercase tracking-widest mb-1.5">System Prompt</p>
           <textarea value={sysprompt} onChange={e => setSysprompt(e.target.value)} rows={5}
             className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-200 resize-none" />
         </div>
@@ -676,7 +676,7 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
                   : <span>{msg.content}</span>
                 }
               </div>
-              <p className="font-semibold" className="text-[9px] text-slate-400 px-1">
+              <p className="font-semibold" className="text-[9px] text-slate-800 px-1">
                 {new Date(msg.ts).toLocaleTimeString("fr-MA", { hour: "2-digit", minute: "2-digit" })}
               </p>
             </div>
@@ -733,9 +733,9 @@ function AgentChat({ agent, user }: { agent: Agent; user: User }) {
           </button>
         </div>
         <div className="flex items-center justify-between mt-1.5">
-          <p className="font-semibold" className="text-[10px] text-slate-400">Shift+Enter nouvelle ligne · Enter envoyer</p>
+          <p className="font-semibold" className="text-[10px] text-slate-800">Shift+Enter nouvelle ligne · Enter envoyer</p>
           {loading && (
-            <p className="font-semibold" className="text-[10px] text-slate-400 animate-pulse">
+            <p className="font-semibold" className="text-[10px] text-slate-800 animate-pulse">
               {agent.name} analyse...
             </p>
           )}
@@ -765,8 +765,8 @@ export default function BOAgentsIA({ user }: { user?: User }) {
       {/* Sidebar agents */}
       <div className="w-52 shrink-0 flex flex-col bg-white border-r border-slate-200 overflow-y-auto">
         <div className="px-4 py-3 border-b border-slate-100">
-          <p className="font-semibold" className="text-[11px] font-black text-slate-700 uppercase tracking-widest">Agents IA</p>
-          <p className="font-semibold" className="text-[10px] text-slate-400 mt-0.5">Experts FreshLink Pro</p>
+          <p className="font-semibold" className="text-[11px] font-black text-slate-800 uppercase tracking-widest">Agents IA</p>
+          <p className="font-semibold" className="text-[10px] text-slate-800 mt-0.5">Experts FreshLink Pro</p>
         </div>
         <div className="p-2 flex flex-col gap-1">
           {AGENTS.map(a => {
@@ -783,7 +783,7 @@ export default function BOAgentsIA({ user }: { user?: User }) {
                     style={{ background: color }}>{a.avatar}</div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold" className="text-xs font-bold truncate" style={isActive ? { color } : { color: "#1e293b" }}>{a.name}</p>
-                    <p className="font-semibold" className="text-[10px] text-slate-400 truncate leading-tight">{a.department}</p>
+                    <p className="font-semibold" className="text-[10px] text-slate-800 truncate leading-tight">{a.department}</p>
                   </div>
                   {isActive && <span className="w-1.5 h-1.5 rounded-full animate-pulse shrink-0" style={{ background: color }} />}
                 </div>

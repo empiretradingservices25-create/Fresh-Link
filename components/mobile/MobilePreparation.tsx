@@ -6,7 +6,7 @@ import { store, type User, type BonPreparation } from "@/lib/store"
 interface Props { user: User }
 
 function StatusBadge({ s }: { s: BonPreparation["statut"] }) {
-  const map = { brouillon: "bg-gray-100 text-gray-700", en_cours: "bg-amber-100 text-amber-800", valide: "bg-green-100 text-green-700" }
+  const map = { brouillon: "bg-gray-100 text-gray-800", en_cours: "bg-amber-100 text-amber-800", valide: "bg-green-100 text-green-700" }
   const labels = { brouillon: "Brouillon", en_cours: "En cours", valide: "Validé" }
   return <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${map[s]}`}>{labels[s]}</span>
 }

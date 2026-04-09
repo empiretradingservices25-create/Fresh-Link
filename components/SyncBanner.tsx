@@ -93,7 +93,7 @@ export default function SyncBanner() {
           <div className="w-80 rounded-2xl shadow-2xl border border-gray-700 bg-gray-900 overflow-hidden">
             <div className="px-4 py-3 border-b border-gray-800 flex items-center justify-between">
               <p className="font-semibold" className="text-xs font-bold text-white">Test connexion Supabase</p>
-              <button onClick={() => setShowConnTest(false)} className="text-gray-500 hover:text-gray-700">
+              <button onClick={() => setShowConnTest(false)} className="text-gray-800 hover:text-gray-800">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -102,12 +102,12 @@ export default function SyncBanner() {
             <div className="px-4 py-3 flex flex-col gap-2.5">
               {/* URL */}
               <div>
-                <p className="font-semibold" className="text-[10px] text-gray-500 font-semibold uppercase mb-0.5">URL Supabase</p>
+                <p className="font-semibold" className="text-[10px] text-gray-800 font-semibold uppercase mb-0.5">URL Supabase</p>
                 <p className="font-semibold" className="text-xs font-mono text-emerald-400 break-all">{SUPABASE_URL}</p>
               </div>
               {/* Anon key */}
               <div>
-                <p className="font-semibold" className="text-[10px] text-gray-500 font-semibold uppercase mb-0.5">Anon Key</p>
+                <p className="font-semibold" className="text-[10px] text-gray-800 font-semibold uppercase mb-0.5">Anon Key</p>
                 <p className="font-semibold" className="text-xs font-mono text-blue-400">{ANON_KEY_PREVIEW}</p>
               </div>
               {/* Status */}
@@ -115,7 +115,7 @@ export default function SyncBanner() {
                 connStatus === "connected" ? "bg-green-900/40 border-green-700 text-green-400" :
                 connStatus === "error"     ? "bg-red-900/40 border-red-700 text-red-400" :
                 connStatus === "checking"  ? "bg-blue-900/40 border-blue-700 text-blue-400" :
-                "bg-gray-800 border-gray-700 text-gray-400"
+                "bg-gray-800 border-gray-700 text-gray-800"
               }`}>
                 {connStatus === "checking" ? (
                   <div className="w-3.5 h-3.5 border-2 border-t-transparent rounded-full animate-spin shrink-0 mt-0.5"
@@ -137,7 +137,7 @@ export default function SyncBanner() {
                 }</span>
               </div>
               {connDetail && (
-                <p className="font-semibold" className="text-[10px] text-gray-500 font-mono break-all">{connDetail}</p>
+                <p className="font-semibold" className="text-[10px] text-gray-800 font-mono break-all">{connDetail}</p>
               )}
               <button
                 onClick={runConnectionTest}
@@ -156,7 +156,7 @@ export default function SyncBanner() {
             className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold shadow-lg border transition-all ${
               connStatus === "connected" ? "border-green-600 bg-gray-800 text-green-400" :
               connStatus === "error"     ? "border-red-600 bg-gray-800 text-red-400" :
-              "border-gray-700 bg-gray-800 text-gray-400 hover:text-gray-800"
+              "border-gray-700 bg-gray-800 text-gray-800 hover:text-gray-800"
             }`}
             title="Tester la connexion Supabase">
             <span className={`w-2 h-2 rounded-full ${
@@ -169,7 +169,7 @@ export default function SyncBanner() {
           </button>
           <button
             onClick={handleManualSync}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold shadow-lg border border-gray-700 bg-gray-800 text-gray-400 hover:text-gray-800 hover:bg-gray-700 transition-all"
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold shadow-lg border border-gray-700 bg-gray-800 text-gray-800 hover:text-gray-800 hover:bg-gray-700 transition-all"
             title="Synchroniser les donnees locales vers Supabase">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -206,18 +206,18 @@ export default function SyncBanner() {
               ? progress.errors > 0 ? `Sync termine avec ${progress.errors} erreur(s)` : "Sync Supabase complete"
               : "Synchronisation en cours..."}
           </p>
-          <p className="font-semibold" className="text-[11px] text-gray-500 truncate">{progress.step}</p>
+          <p className="font-semibold" className="text-[11px] text-gray-800 truncate">{progress.step}</p>
         </div>
         <div className="flex items-center gap-1">
           <button onClick={() => setExpanded(!expanded)}
-            className="p-1 rounded hover:bg-gray-700 text-gray-500 transition-colors">
+            className="p-1 rounded hover:bg-gray-700 text-gray-800 transition-colors">
             <svg className={`w-4 h-4 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           {progress.finished && (
             <button onClick={() => { setVisible(false); setManualTriggered(false) }}
-              className="p-1 rounded hover:bg-gray-700 text-gray-500 transition-colors">
+              className="p-1 rounded hover:bg-gray-700 text-gray-800 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>

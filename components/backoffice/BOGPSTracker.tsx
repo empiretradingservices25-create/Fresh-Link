@@ -49,7 +49,7 @@ const ROLE_COLORS: Record<string, string> = {
 
 const STATUS_CONFIG = {
   actif:    { label: "Actif",    class: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
-  inactif:  { label: "Inactif",  class: "bg-gray-500/20 text-gray-400 border-gray-500/30" },
+  inactif:  { label: "Inactif",  class: "bg-gray-500/20 text-gray-800 border-gray-500/30" },
   en_route: { label: "En route", class: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
   en_pause: { label: "En pause", class: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
 }
@@ -352,7 +352,7 @@ export default function BOGPSTracker({ user }: Props) {
                 : "GPS non actif — cliquez sur Activer pour partager votre position"}
             </p>
             {myPosition && (
-              <p className="font-semibold" className="text-xs text-gray-400">
+              <p className="font-semibold" className="text-xs text-gray-800">
                 Precision: {myPosition.coords.accuracy.toFixed(0)}m
                 {myPosition.coords.speed != null && ` — Vitesse: ${(myPosition.coords.speed * 3.6).toFixed(1)} km/h`}
               </p>
@@ -442,8 +442,8 @@ export default function BOGPSTracker({ user }: Props) {
               loading="lazy"
             />
           ) : (
-            <div className="h-72 flex flex-col items-center justify-center text-gray-500 gap-3">
-              <svg className="w-12 h-12 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="h-72 flex flex-col items-center justify-center text-gray-800 gap-3">
+              <svg className="w-12 h-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
               <p className="font-semibold" className="text-sm">Activez votre GPS ou selectionnez un acteur pour afficher la carte</p>
@@ -492,7 +492,7 @@ export default function BOGPSTracker({ user }: Props) {
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors border ${
-                    filter === f ? "bg-blue-600 border-blue-500 text-white" : "bg-gray-800 border-gray-700 text-gray-400 hover:text-gray-800"
+                    filter === f ? "bg-blue-600 border-blue-500 text-white" : "bg-gray-800 border-gray-700 text-gray-800 hover:text-gray-800"
                   }`}
                 >
                   {f === "all" ? "Tous" : f === "livreur" ? "Livreurs" : "Commerciaux"}
@@ -502,7 +502,7 @@ export default function BOGPSTracker({ user }: Props) {
           </div>
           <div className="flex-1 overflow-y-auto max-h-80 divide-y divide-gray-800/50">
             {filteredTracked.length === 0 ? (
-              <div className="p-8 text-center text-gray-500 text-sm">Aucun acteur trace</div>
+              <div className="p-8 text-center text-gray-800 text-sm">Aucun acteur trace</div>
             ) : (
               filteredTracked.map(t => {
                 const distKm = haversineKm(DEPOT_LAT, DEPOT_LNG, t.lat, t.lng)
@@ -522,9 +522,9 @@ export default function BOGPSTracker({ user }: Props) {
                         <p className="font-semibold" className="text-sm font-semibold text-white truncate">{t.name}{isMe ? " (Moi)" : ""}</p>
                         <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium flex-shrink-0 ${st.class}`}>{st.label}</span>
                       </div>
-                      <p className="font-semibold" className="text-xs text-gray-400">{ROLE_LABELS[t.role] ?? t.role}</p>
+                      <p className="font-semibold" className="text-xs text-gray-800">{ROLE_LABELS[t.role] ?? t.role}</p>
                       <div className="flex items-center gap-3 mt-1 flex-wrap">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-800">
                           {t.lat.toFixed(4)}, {t.lng.toFixed(4)}
                         </span>
                         <span className="text-xs text-blue-400 font-medium">{distKm.toFixed(1)} km du depot</span>
@@ -532,7 +532,7 @@ export default function BOGPSTracker({ user }: Props) {
                           <span className="text-xs text-cyan-400">{(t.speed * 3.6).toFixed(1)} km/h</span>
                         )}
                       </div>
-                      <p className="font-semibold" className="text-[10px] text-gray-600 mt-0.5">{timeSince(t.timestamp)}</p>
+                      <p className="font-semibold" className="text-[10px] text-gray-800 mt-0.5">{timeSince(t.timestamp)}</p>
                     </div>
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${t.status === "en_route" || t.status === "actif" ? "bg-emerald-500 animate-pulse" : "bg-gray-600"}`} />
                   </button>
@@ -553,13 +553,13 @@ export default function BOGPSTracker({ user }: Props) {
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">{selected.name}</h3>
-                <p className="font-semibold" className="text-sm text-gray-400">{ROLE_LABELS[selected.role] ?? selected.role}</p>
+                <p className="font-semibold" className="text-sm text-gray-800">{ROLE_LABELS[selected.role] ?? selected.role}</p>
                 <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${STATUS_CONFIG[selected.status].class}`}>
                   {STATUS_CONFIG[selected.status].label}
                 </span>
               </div>
             </div>
-            <button onClick={() => setSelected(null)} className="p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-400 transition-colors">
+            <button onClick={() => setSelected(null)} className="p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-800 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -614,7 +614,7 @@ export default function BOGPSTracker({ user }: Props) {
                 </svg>
                 Studio Camera & Micro
               </h3>
-              <button onClick={closeCamera} className="p-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-400 transition-colors">
+              <button onClick={closeCamera} className="p-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-800 transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -644,7 +644,7 @@ export default function BOGPSTracker({ user }: Props) {
               <div className="flex flex-wrap gap-2 justify-center">
                 <button
                   onClick={takePhoto}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-100 rounded-xl text-sm font-bold text-gray-900 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-100 rounded-xl text-sm font-bold text-gray-800 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth={2} />
@@ -690,7 +690,7 @@ export default function BOGPSTracker({ user }: Props) {
               {/* Audio playback */}
               {camera.audioBlob && (
                 <div className="p-3 bg-gray-800 rounded-xl">
-                  <p className="font-semibold" className="text-xs text-gray-400 mb-2">Enregistrement audio:</p>
+                  <p className="font-semibold" className="text-xs text-gray-800 mb-2">Enregistrement audio:</p>
                   <audio controls src={camera.audioBlob} className="w-full h-8" />
                 </div>
               )}
@@ -715,7 +715,7 @@ function KpiCard({ label, value, icon, color }: { label: string; value: string; 
     blue:    "bg-blue-500/10 border-blue-500/20 text-blue-400",
     emerald: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
     cyan:    "bg-cyan-500/10 border-cyan-500/20 text-cyan-400",
-    gray:    "bg-gray-500/10 border-gray-500/20 text-gray-400",
+    gray:    "bg-gray-500/10 border-gray-500/20 text-gray-800",
   }
   return (
     <div className="bg-gray-900 rounded-2xl border border-gray-800 p-4">
@@ -725,7 +725,7 @@ function KpiCard({ label, value, icon, color }: { label: string; value: string; 
         </svg>
       </div>
       <p className="font-semibold" className="text-xl font-bold text-white">{value}</p>
-      <p className="font-semibold" className="text-xs text-gray-400 mt-0.5">{label}</p>
+      <p className="font-semibold" className="text-xs text-gray-800 mt-0.5">{label}</p>
     </div>
   )
 }
@@ -733,7 +733,7 @@ function KpiCard({ label, value, icon, color }: { label: string; value: string; 
 function InfoBox({ label, value }: { label: string; value: string }) {
   return (
     <div className="bg-gray-800/50 rounded-xl p-3">
-      <p className="font-semibold" className="text-xs text-gray-500 mb-0.5">{label}</p>
+      <p className="font-semibold" className="text-xs text-gray-800 mb-0.5">{label}</p>
       <p className="font-semibold" className="text-sm font-semibold text-white">{value}</p>
     </div>
   )

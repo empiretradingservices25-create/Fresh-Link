@@ -91,7 +91,7 @@ const GROUPES: { key: EmployeeGroup; label: string; color: string }[] = [
   { key: "logistique",  label: "Logistique",   color: "bg-emerald-100 text-emerald-700" },
   { key: "achat",       label: "Achat",        color: "bg-amber-100 text-amber-700" },
   { key: "admin",       label: "Admin / RH",   color: "bg-purple-100 text-purple-700" },
-  { key: "autre",       label: "Autre",        color: "bg-slate-100 text-slate-700" },
+  { key: "autre",       label: "Autre",        color: "bg-slate-100 text-slate-800" },
 ]
 
 function groupeForRole(role: UserRole): EmployeeGroup {
@@ -729,7 +729,7 @@ function CalculSalaireTab({ users }: { users: User[] }) {
                     f.statut === "payé" ? "bg-emerald-100 text-emerald-700" :
                     f.statut === "transmis_azmi" ? "bg-blue-100 text-blue-700" :
                     f.statut === "validé_rh" ? "bg-amber-100 text-amber-700" :
-                    "bg-slate-100 text-slate-600"
+                    "bg-slate-100 text-slate-800"
                   }`}>{f.statut.replace(/_/g, " ")}</span>
                 </div>
                 <p className="font-semibold" className="text-xs text-muted-foreground">{f.userRole.replace(/_/g, " ")}</p>

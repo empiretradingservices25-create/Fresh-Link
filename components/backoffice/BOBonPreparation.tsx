@@ -18,7 +18,7 @@ const MODE_LABELS: Record<ModePreparation, { label: string; desc: string }> = {
 
 function StatusBadge({ s }: { s: BonPreparation["statut"] }) {
   const styles: Record<BonPreparation["statut"], string> = {
-    brouillon: "bg-gray-100 text-gray-700 border-gray-200",
+    brouillon: "bg-gray-100 text-gray-800 border-gray-200",
     en_cours:  "bg-amber-100 text-amber-800 border-amber-200",
     valide:    "bg-green-100 text-green-700 border-green-200",
   }
@@ -908,7 +908,7 @@ export default function BOBonPreparation({ user }: Props) {
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${bon.type === "cross_dock" ? "bg-orange-50 text-orange-700 border-orange-200" : "bg-blue-50 text-blue-700 border-blue-200"}`}>
                         {bon.type === "cross_dock" ? "Cross-dock" : "Stockage"}
                       </span>
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${bon.format === "numerique" ? "bg-purple-50 text-purple-700 border-purple-200" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${bon.format === "numerique" ? "bg-purple-50 text-purple-700 border-purple-200" : "bg-gray-50 text-gray-800 border-gray-200"}`}>
                         {bon.format === "numerique" ? "Numerique" : "Papier"}
                       </span>
                       <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">

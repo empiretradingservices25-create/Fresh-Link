@@ -33,7 +33,7 @@ class PanelErrorBoundary extends Component<{ children: React.ReactNode; label: s
           </div>
           <div>
             <p className="font-semibold" className="font-bold text-slate-800 text-base">{this.props.label} — Erreur de chargement</p>
-            <p className="font-semibold" className="text-xs text-slate-500 mt-1 max-w-xs font-mono break-all">{this.state.msg}</p>
+            <p className="font-semibold" className="text-xs text-slate-800 mt-1 max-w-xs font-mono break-all">{this.state.msg}</p>
           </div>
           <button
             onClick={() => this.setState({ hasError: false, msg: "" })}
@@ -480,7 +480,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
           <div className="flex items-center gap-3 min-w-0">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-xl hover:bg-slate-100 text-slate-600 transition-colors shrink-0"
+              className="lg:hidden p-2 rounded-xl hover:bg-slate-100 text-slate-800 transition-colors shrink-0"
               aria-label="Ouvrir le menu">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -489,22 +489,22 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
 
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="text-[11px] text-slate-400 hidden sm:inline font-medium">
+                <span className="text-[11px] text-slate-800 hidden sm:inline font-medium">
                   {NAV_GROUPS.find(g => g.items.some(i => i.id === activeTab))?.label ?? "Dashboard"}
                 </span>
-                <svg className="w-3 h-3 text-slate-700 hidden sm:block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 text-slate-800 hidden sm:block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
                 <h1 className="text-sm font-bold text-slate-800 truncate">
                   {activeItem?.label ?? "Tableau de bord"}
                 </h1>
                 {activeItem?.labelAr && (
-                  <span className="text-[10px] text-slate-400 hidden md:inline shrink-0">
+                  <span className="text-[10px] text-slate-800 hidden md:inline shrink-0">
                     {activeItem.labelAr}
                   </span>
                 )}
               </div>
-              <p className="font-semibold" className="text-[11px] text-slate-400 hidden sm:block">
+              <p className="font-semibold" className="text-[11px] text-slate-800 hidden sm:block">
                 {new Date().toLocaleDateString("fr-MA", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
               </p>
             </div>
@@ -531,7 +531,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
                 "flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border cursor-default select-none",
                 sbStatus === "connected"  ? "bg-sky-50   border-sky-200   text-sky-700"
                 : sbStatus === "error"    ? "bg-rose-50  border-rose-200  text-rose-700"
-                                          : "bg-slate-50 border-slate-200 text-slate-500"
+                                          : "bg-slate-50 border-slate-200 text-slate-800"
               ].join(" ")}>
               <span className={`w-1.5 h-1.5 rounded-full ${
                 sbStatus === "connected"  ? "bg-sky-500 animate-pulse"
@@ -566,15 +566,15 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
                 </div>
               )}
               <div className="hidden sm:block text-left">
-                <p className="font-semibold" className="text-xs font-semibold text-slate-700 leading-none">{user.name}</p>
-                <p className="font-semibold" className="text-[10px] text-slate-400">{ROLE_LABELS[user.role]}</p>
+                <p className="font-semibold" className="text-xs font-semibold text-slate-800 leading-none">{user.name}</p>
+                <p className="font-semibold" className="text-[10px] text-slate-800">{ROLE_LABELS[user.role]}</p>
               </div>
             </button>
 
             {/* Logout */}
             <button
               onClick={onLogout}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs text-slate-600 hover:bg-red-50 hover:border-red-200 hover:text-red-700 transition-colors">
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs text-slate-800 hover:bg-red-50 hover:border-red-200 hover:text-red-700 transition-colors">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
@@ -609,7 +609,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
           <div className="p-4 lg:p-6 min-h-full">
             <PanelErrorBoundary key={activeTab} label={allItems.find(i => i.id === activeTab)?.label ?? activeTab}>
               {PANELS[activeTab]?.(user) ?? (
-                <div className="flex items-center justify-center h-64 text-slate-400 text-sm">
+                <div className="flex items-center justify-center h-64 text-slate-800 text-sm">
                   Section non disponible
                 </div>
               )}
@@ -619,12 +619,12 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
 
         {/* ── Footer ─────────────────────────────────────── */}
         <footer className="shrink-0 border-t border-slate-200 bg-white px-6 py-2.5 flex items-center justify-between">
-          <p className="font-semibold" className="text-[11px] text-slate-400">
+          <p className="font-semibold" className="text-[11px] text-slate-800">
             &copy; 2026{" "}
-            <span className="font-black text-slate-700">FRESH<span className="text-green-600">LINK</span> PRO</span>
+            <span className="font-black text-slate-800">FRESH<span className="text-green-600">LINK</span> PRO</span>
             {" "}— By <span className="font-bold text-blue-600">Jawad</span>
           </p>
-          <p className="font-semibold" className="text-[11px] text-slate-400 hidden sm:block">
+          <p className="font-semibold" className="text-[11px] text-slate-800 hidden sm:block">
             جميع الحقوق محفوظة
           </p>
         </footer>
@@ -688,7 +688,7 @@ function SidebarContent({
               <span className="text-slate-800">FRESH</span><span className="text-green-600">LINK</span>{" "}
               <span className="text-[9px] font-black tracking-widest text-green-700 uppercase">PRO</span>
             </p>
-            <p className="font-semibold" className="text-[10px] text-slate-400 font-medium truncate">Distribution &amp; Logistique</p>
+            <p className="font-semibold" className="text-[10px] text-slate-800 font-medium truncate">Distribution &amp; Logistique</p>
           </div>
         )}
       </div>
@@ -703,7 +703,7 @@ function SidebarContent({
             sidebarCollapsed ? "justify-center p-2.5" : "px-3 py-2.5",
             activeTab === "dashboard"
               ? "bg-blue-600 text-white shadow-sm"
-              : "text-slate-600 hover:bg-slate-100 hover:text-slate-800",
+              : "text-slate-800 hover:bg-slate-100 hover:text-slate-800",
           ].join(" ")}
         >
           <svg className={`w-[18px] h-[18px] flex-shrink-0 transition-transform group-hover:scale-110 ${activeTab === "dashboard" ? "text-white" : "text-blue-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -719,7 +719,7 @@ function SidebarContent({
       {!sidebarCollapsed && (
         <div className="px-3 py-2 border-b border-slate-200">
           <div className="relative">
-            <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-800 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -727,10 +727,10 @@ function SidebarContent({
               value={navSearch}
               onChange={e => setNavSearch(e.target.value)}
               placeholder="Rechercher..."
-              className="w-full pl-8 pr-3 py-1.5 rounded-lg text-xs border border-slate-200 text-slate-700 placeholder-slate-400 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg text-xs border border-slate-200 text-slate-800 placeholder-slate-400 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all"
             />
             {navSearch && (
-              <button onClick={() => setNavSearch("")} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <button onClick={() => setNavSearch("")} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-800 hover:text-slate-800">
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -743,18 +743,18 @@ function SidebarContent({
       {/* Nav groups */}
       <nav className="flex-1 overflow-y-auto py-2 space-y-0.5 px-2 thin-scroll">
         {!sidebarCollapsed && searchQ && (
-          <p className="font-semibold" className="px-3 py-1 text-[10px] text-slate-400">
+          <p className="font-semibold" className="px-3 py-1 text-[10px] text-slate-800">
             {filteredGroups.flatMap(g => g.items).length} resultat(s) pour &quot;{navSearch}&quot;
           </p>
         )}
         {filteredGroups.map(group => {
-          const iconColor = GROUP_ICON_COLOR[group.label] ?? "text-slate-500"
+          const iconColor = GROUP_ICON_COLOR[group.label] ?? "text-slate-800"
           return (
             <div key={group.label} className="mb-1">
               {/* Group label */}
               {!sidebarCollapsed && !searchQ && (
                 <div className="flex items-center gap-2 px-3 py-1.5 mb-0.5">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-800">
                     {group.label}
                   </span>
                   <div className="flex-1 h-px bg-slate-200" />
@@ -773,7 +773,7 @@ function SidebarContent({
                       sidebarCollapsed ? "justify-center p-2.5" : "px-3 py-2",
                       isActive
                         ? "bg-blue-600 text-white font-semibold shadow-sm"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-800 font-medium",
+                        : "text-slate-800 hover:bg-slate-100 hover:text-slate-800 font-medium",
                     ].join(" ")}
                   >
                     <span className={`shrink-0 transition-transform group-hover:scale-110 ${isActive ? "text-white" : iconColor}`}>
@@ -801,7 +801,7 @@ function SidebarContent({
         })}
         {/* Empty search state */}
         {searchQ && filteredGroups.length === 0 && (
-          <div className="flex flex-col items-center gap-2 py-8 text-slate-400">
+          <div className="flex flex-col items-center gap-2 py-8 text-slate-800">
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -814,7 +814,7 @@ function SidebarContent({
       <div className="px-2 py-2 border-t border-slate-200 hidden lg:block">
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-all text-xs"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-slate-800 hover:bg-slate-100 hover:text-slate-800 transition-all text-xs"
         >
           <svg className={`w-4 h-4 transition-transform ${sidebarCollapsed ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
@@ -843,8 +843,8 @@ function SidebarContent({
     {!sidebarCollapsed && (
       <>
         <div className="flex-1 min-w-0">
-          <p className="font-semibold" className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
-          <p className="font-semibold" className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
+          <p className="font-semibold" className="text-xs font-semibold truncate text-slate-800">{user.name}</p>
+          <p className="font-semibold" className="text-[10px] truncate text-slate-800">{ROLE_LABELS[user.role]}</p>
         </div>
         {/* CORRECT : bouton logout = span accessible */}
         <span
@@ -859,7 +859,7 @@ function SidebarContent({
             }
           }}
           title="Deconnexion"
-          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0 inline-flex items-center"
+          className="p-1.5 rounded-lg text-slate-800 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0 inline-flex items-center"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -889,7 +889,7 @@ function TabPill({ id, activeTab, navigate, label }: {
         "shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold transition-all whitespace-nowrap",
         isActive
           ? "bg-blue-600 text-white shadow-sm"
-          : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-800",
+          : "bg-gray-800 text-gray-800 hover:bg-gray-700 hover:text-gray-800",
       ].join(" ")}
     >
       {label}

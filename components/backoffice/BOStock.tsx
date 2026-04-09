@@ -332,7 +332,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <tr className="bg-slate-100 text-slate-800 border-b border-slate-200">
                   <th className="px-4 py-3 w-10">
                     <input type="checkbox"
                       checked={filtered.length > 0 && filtered.every(a => selectedStockIds.has(a.id))}
@@ -441,7 +441,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <tr className="bg-slate-100 text-slate-800 border-b border-slate-200">
                   <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">Article</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">Famille</th>
                   <th className="text-right px-4 py-3 text-xs font-semibold uppercase tracking-wide">Prix achat (DH)</th>
@@ -487,7 +487,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <tr className="bg-slate-100 text-slate-800 border-b border-slate-200">
                   <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">Article / المنتج</th>
                   <th className="text-right px-4 py-3 text-xs font-semibold uppercase tracking-wide">PA (DH/kg) / سعر الشراء</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">Méthode PV / طريقة البيع</th>
@@ -539,7 +539,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <tr className="bg-slate-100 text-slate-800 border-b border-slate-200">
                   <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">Date</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">Article</th>
                   <th className="text-right px-4 py-3 text-xs font-semibold uppercase tracking-wide">Quantité (kg)</th>
@@ -628,7 +628,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
+                  <tr className="bg-slate-100 text-slate-800 border-b border-slate-200">
                     <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">Article</th>
                     <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide">UM</th>
                     <th className="text-right px-4 py-3 text-xs font-semibold uppercase tracking-wide">Stock theorique</th>
@@ -982,7 +982,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
+                    <tr className="bg-slate-100 text-slate-800 border-b border-slate-200">
                       {["Type caisse", "Stock J-1", "Retournes auj.", "Sorties auj.", "Stock Theorique", "Stock Reel", "Ecart"].map(h => (
                         <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide whitespace-nowrap">{h}</th>
                       ))}
@@ -1127,7 +1127,7 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
+                    <tr className="bg-slate-100 text-slate-800 border-b border-slate-200">
                       {["Date / Heure", "Source", "Sens", "Gros caisses", "Demi-caisses", "Total", "Ref. doc", "Operateur", "Notes"].map(h => (
                         <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide whitespace-nowrap">{h}</th>
                       ))}

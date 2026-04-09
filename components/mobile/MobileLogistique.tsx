@@ -70,7 +70,7 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className={`px-2 py-1 rounded-full text-xs font-semibold ${STATUT_BL_COLORS[currentStatut] ?? "bg-gray-100 text-gray-700"}`}>
+          <span className={`px-2 py-1 rounded-full text-xs font-semibold ${STATUT_BL_COLORS[currentStatut] ?? "bg-gray-100 text-gray-800"}`}>
             {STATUT_BL_LABELS[currentStatut] ?? currentStatut}
           </span>
           <Icon d={showDetails ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} className="w-4 h-4 text-muted-foreground" />
@@ -1015,7 +1015,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
       <div className="grid grid-cols-3 gap-2">
         <div className="bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-center">
           <p className="font-semibold" className="text-xl font-black text-slate-800">{receptions.length}</p>
-          <p className="font-semibold" className="text-[10px] text-slate-500">Total receptions</p>
+          <p className="font-semibold" className="text-[10px] text-slate-800">Total receptions</p>
         </div>
         <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-center">
           <p className="font-semibold" className="text-xl font-black text-amber-700">{pendingPOs.length}</p>
@@ -1052,7 +1052,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
             {(["purchase_order", "manuel"] as const).map(s => (
               <button key={s} type="button"
                 onClick={() => { setSource(s); setSelectedPOId(""); setLignes([{ articleId: "", articleNom: "", unite: "", quantiteCommandee: 0, quantiteRecue: "", prixAchat: "", prixFacture: "", dlc: "", motifReliquat: "" }]) }}
-                className={`py-2 rounded-xl text-xs font-bold border transition-all ${source === s ? "bg-green-600 text-white border-green-600" : "bg-white text-slate-600 border-slate-200"}`}>
+                className={`py-2 rounded-xl text-xs font-bold border transition-all ${source === s ? "bg-green-600 text-white border-green-600" : "bg-white text-slate-800 border-slate-200"}`}>
                 {s === "purchase_order" ? "Depuis PO" : "Saisie manuelle"}
               </button>
             ))}
@@ -1061,7 +1061,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
           {/* PO selector */}
           {source === "purchase_order" && (
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">Bon de commande *</label>
+              <label className="text-xs font-bold text-slate-800 block mb-1">Bon de commande *</label>
               <select value={selectedPOId} onChange={e => handlePOSelect(e.target.value)}
                 className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-400">
                 <option value="">-- Selectionner un PO --</option>
@@ -1075,7 +1075,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
           {/* Fournisseur (manual mode) */}
           {source === "manuel" && (
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">Fournisseur</label>
+              <label className="text-xs font-bold text-slate-800 block mb-1">Fournisseur</label>
               <select value={fournisseurId} onChange={e => setFournisseurId(e.target.value)}
                 className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-400">
                 <option value="">-- Fournisseur (optionnel) --</option>
@@ -1087,7 +1087,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
           {/* Lignes articles */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <p className="font-semibold" className="text-xs font-bold text-slate-700">Articles recus</p>
+              <p className="font-semibold" className="text-xs font-bold text-slate-800">Articles recus</p>
               {source === "manuel" && (
                 <button type="button"
                   onClick={() => setLignes(p => [...p, { articleId: "", articleNom: "", unite: "", quantiteCommandee: 0, quantiteRecue: "", prixAchat: "", prixFacture: "", dlc: "", motifReliquat: "" }])}
@@ -1110,13 +1110,13 @@ function MagasinierReceptionTab({ user }: { user: User }) {
                 ) : (
                   <div className="flex items-center justify-between">
                     <p className="font-semibold" className="text-sm font-bold text-slate-800">{l.articleNom}</p>
-                    <span className="text-xs text-slate-500">{l.quantiteCommandee} {l.unite} command.</span>
+                    <span className="text-xs text-slate-800">{l.quantiteCommandee} {l.unite} command.</span>
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="text-[10px] font-semibold text-slate-600 block mb-0.5">Qte recue * ({l.unite})</label>
+                    <label className="text-[10px] font-semibold text-slate-800 block mb-0.5">Qte recue * ({l.unite})</label>
                     <input type="number" min="0" value={l.quantiteRecue}
                       onChange={e => updateLigne(i, { quantiteRecue: e.target.value })}
                       className="w-full px-2.5 py-2 rounded-lg border border-slate-200 bg-white text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-400"
@@ -1126,7 +1126,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
                     )}
                   </div>
                   <div>
-                    <label className="text-[10px] font-semibold text-slate-600 block mb-0.5">Prix facture (DH/{l.unite})</label>
+                    <label className="text-[10px] font-semibold text-slate-800 block mb-0.5">Prix facture (DH/{l.unite})</label>
                     <input type="number" min="0" step="0.01" value={l.prixFacture}
                       onChange={e => updateLigne(i, { prixFacture: e.target.value })}
                       className="w-full px-2.5 py-2 rounded-lg border border-slate-200 bg-white text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-400"
@@ -1136,7 +1136,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
 
                 {/* DLC — تاريخ الصلاحية */}
                 <div>
-                  <label className="text-[10px] font-semibold text-slate-600 block mb-0.5">
+                  <label className="text-[10px] font-semibold text-slate-800 block mb-0.5">
                     DLC / تاريخ الصلاحية (Shelf Life)
                   </label>
                   <input type="date" value={l.dlc}
@@ -1170,7 +1170,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
 
           {/* Notes */}
           <div>
-            <label className="text-xs font-bold text-slate-700 block mb-1">Notes de reception (optionnel)</label>
+            <label className="text-xs font-bold text-slate-800 block mb-1">Notes de reception (optionnel)</label>
             <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={2}
               placeholder="Observations, problemes qualite, etc."
               className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-green-400 resize-none" />
@@ -1178,7 +1178,7 @@ function MagasinierReceptionTab({ user }: { user: User }) {
 
           <div className="flex gap-2">
             <button onClick={() => setShowForm(false)}
-              className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 text-slate-600">
+              className="flex-1 py-2.5 rounded-xl text-xs font-bold border border-slate-200 text-slate-800">
               Annuler
             </button>
             <button onClick={handleSave}
@@ -1194,8 +1194,8 @@ function MagasinierReceptionTab({ user }: { user: User }) {
       {/* History */}
       {sortedReceptions.length === 0 && !showForm ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center">
-          <p className="font-semibold" className="text-sm text-slate-500">Aucune reception enregistree</p>
-          <p className="font-semibold" className="text-xs text-slate-400 mt-1">Cliquez &quot;Nouvelle reception&quot; pour commencer</p>
+          <p className="font-semibold" className="text-sm text-slate-800">Aucune reception enregistree</p>
+          <p className="font-semibold" className="text-xs text-slate-800 mt-1">Cliquez &quot;Nouvelle reception&quot; pour commencer</p>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
@@ -1203,13 +1203,13 @@ function MagasinierReceptionTab({ user }: { user: User }) {
             <div key={r.id} className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
                 <div>
-                  <p className="font-semibold" className="text-xs font-mono text-slate-500">{r.id}</p>
+                  <p className="font-semibold" className="text-xs font-mono text-slate-800">{r.id}</p>
                   <p className="font-semibold" className="text-sm font-bold text-slate-800">{r.date} — {r.fournisseurNom || "Manuel"}</p>
                 </div>
                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                   r.statut === "validée" ? "bg-green-100 text-green-700"
                   : r.statut === "partielle" ? "bg-amber-100 text-amber-700"
-                  : "bg-slate-100 text-slate-600"
+                  : "bg-slate-100 text-slate-800"
                 }`}>
                   {r.statut === "validée" ? "Validee" : r.statut === "partielle" ? "Partielle" : r.statut}
                 </span>
@@ -1222,16 +1222,16 @@ function MagasinierReceptionTab({ user }: { user: User }) {
                     <div key={i} className="flex items-start justify-between text-xs">
                       <div>
                         <p className="font-semibold" className="font-semibold text-slate-800">{l.articleNom}</p>
-                        <p className="font-semibold" className="text-slate-500">Recu: <span className="font-bold text-green-700">{l.quantiteRecue}</span> / command: {l.quantiteCommandee}</p>
+                        <p className="font-semibold" className="text-slate-800">Recu: <span className="font-bold text-green-700">{l.quantiteRecue}</span> / command: {l.quantiteCommandee}</p>
                         {dlcEntry?.dlc && (
                           <p className="font-semibold" className="text-[10px] text-blue-600 font-semibold">DLC: {dlcEntry.dlc}</p>
                         )}
                       </div>
-                      {l.prixFacture && <span className="font-bold text-slate-700">{l.prixFacture} DH</span>}
+                      {l.prixFacture && <span className="font-bold text-slate-800">{l.prixFacture} DH</span>}
                     </div>
                   )
                 })}
-                {r.notes && <p className="font-semibold" className="text-[11px] text-slate-500 italic border-t border-slate-100 pt-1.5 mt-1">{r.notes}</p>}
+                {r.notes && <p className="font-semibold" className="text-[11px] text-slate-800 italic border-t border-slate-100 pt-1.5 mt-1">{r.notes}</p>}
               </div>
             </div>
           ))}
