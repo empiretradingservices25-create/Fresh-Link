@@ -1011,10 +1011,9 @@ export default function MobileCommercial({ user }: Props) {
               <p className="text-xs text-muted-foreground">Les habitudes se créent automatiquement après plusieurs commandes passées par ce client.</p>
             </div>
           ) : null}
-        </div> {/* Fermeture de la div parente des habitudes */}
-      )} {/* Fin du bloc conditionnel (ex: commTab === 'habitudes') - LIGNE 1015 */}
+        </div>
+      )}
 
-      {/* INLINE ARTICLE SELECTOR ------------------------- */}
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
