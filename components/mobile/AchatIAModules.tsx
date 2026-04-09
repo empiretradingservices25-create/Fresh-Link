@@ -18,11 +18,11 @@ async function callAI(
       messages: userMessages,
     }),
     signal,
-  })
-  if (!res.ok) throw new Error(`AI error ${res.status}`)
+  });
+  if (!res.ok) throw new Error(`AI error ${res.status}`);
 
-  const data = await res.json()
-  return data.choices?.[0]?.message?.content ?? ""
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content ?? "";
 }
 
 // ── Image → base64 ───────────────────────────────────────────────────────────
