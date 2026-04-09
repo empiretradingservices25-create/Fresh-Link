@@ -1,9 +1,9 @@
--- ============================================================
+-- ====
 -- FreshLink Pro — Migration v5
 -- Nouveaux champs, tables manquantes, RLS securite par role
 -- URL: https://nbcodflwqvcvcdbpguth.supabase.co
 -- Executer: Supabase Dashboard → SQL Editor → New query
--- ============================================================
+-- ====
 
 create extension if not exists "uuid-ossp";
 create extension if not exists "pg_trgm";
@@ -13,9 +13,9 @@ create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;
 
--- ============================================================
+-- ====
 -- fl_audit_log — journal securite toutes actions sensibles
--- ============================================================
+-- ====
 create table if not exists public.fl_audit_log (
   id          text primary key default gen_random_uuid()::text,
   user_id     text not null,
@@ -35,9 +35,9 @@ create index if not exists fl_audit_log_user_idx on public.fl_audit_log(user_id)
 create index if not exists fl_audit_log_action_idx on public.fl_audit_log(action);
 create index if not exists fl_audit_log_created_idx on public.fl_audit_log(created_at desc);
 
--- ============================================================
+-- ====
 -- fl_shelf_life_lots — suivi DLC par lot article
--- ============================================================
+-- ====
 create table if not exists public.fl_shelf_life_lots (
   id              text primary key,
   article_id      text not null,
@@ -65,9 +65,9 @@ drop trigger if exists fl_shelf_life_updated_at on public.fl_shelf_life_lots;
 create trigger fl_shelf_life_updated_at before update on public.fl_shelf_life_lots
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_forecasts — previsions achat automatiques
--- ============================================================
+-- ====
 create table if not exists public.fl_forecasts (
   id              text primary key,
   date_cible      text not null,          -- date de livraison prevue
@@ -87,9 +87,9 @@ alter table public.fl_forecasts enable row level security;
 drop policy if exists "fl_forecasts_all" on public.fl_forecasts;
 create policy "fl_forecasts_all" on public.fl_forecasts for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_control_photos — photos obligatoires control marche/prep
--- ============================================================
+-- ====
 create table if not exists public.fl_control_photos (
   id              text primary key,
   type_control    text not null,     -- 'marche_achat' | 'expedition_prep' | 'retour_livreur'
@@ -106,9 +106,9 @@ alter table public.fl_control_photos enable row level security;
 drop policy if exists "fl_control_photos_all" on public.fl_control_photos;
 create policy "fl_control_photos_all" on public.fl_control_photos for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_validations_retour — double validation commercial + logistique
--- ============================================================
+-- ====
 create table if not exists public.fl_validations_retour (
   id              text primary key,
   retour_id       text not null,
@@ -126,9 +126,9 @@ alter table public.fl_validations_retour enable row level security;
 drop policy if exists "fl_validations_retour_all" on public.fl_validations_retour;
 create policy "fl_validations_retour_all" on public.fl_validations_retour for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_scoring_client — scoring commercial par client
--- ============================================================
+-- ====
 create table if not exists public.fl_scoring_client (
   id              text primary key,
   client_id       text not null unique,
@@ -146,9 +146,9 @@ alter table public.fl_scoring_client enable row level security;
 drop policy if exists "fl_scoring_client_all" on public.fl_scoring_client;
 create policy "fl_scoring_client_all" on public.fl_scoring_client for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_alertes — alertes systeme (stock, credit, shelf life...)
--- ============================================================
+-- ====
 create table if not exists public.fl_alertes (
   id              text primary key default gen_random_uuid()::text,
   type            text not null,     -- 'stock_bas' | 'credit_depasse' | 'shelf_life' | 'retard_paiement' | 'forecast'
@@ -168,9 +168,9 @@ create policy "fl_alertes_all" on public.fl_alertes for all using (true) with ch
 create index if not exists fl_alertes_type_idx on public.fl_alertes(type);
 create index if not exists fl_alertes_created_idx on public.fl_alertes(created_at desc);
 
--- ============================================================
+-- ====
 -- fl_qr_commandes — QR codes par commande pour livreur
--- ============================================================
+-- ====
 create table if not exists public.fl_qr_commandes (
   id              text primary key,
   commande_id     text not null,
@@ -184,9 +184,9 @@ alter table public.fl_qr_commandes enable row level security;
 drop policy if exists "fl_qr_commandes_all" on public.fl_qr_commandes;
 create policy "fl_qr_commandes_all" on public.fl_qr_commandes for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- Nouveaux champs — fl_clients (scoring + credit workflow)
--- ============================================================
+-- ====
 alter table public.fl_clients
   add column if not exists team_lead_id           text,
   add column if not exists default_heure_livraison text,
@@ -199,9 +199,9 @@ alter table public.fl_clients
   add column if not exists scoring_score           numeric default 50,
   add column if not exists scoring_niveau          text default 'bronze';
 
--- ============================================================
+-- ====
 -- Nouveaux champs — fl_articles (shelf life + lots + colisage)
--- ============================================================
+-- ====
 alter table public.fl_articles
   add column if not exists shelf_life_jours        integer,
   add column if not exists alerte_shelf_life_jours integer default 2,
@@ -219,9 +219,9 @@ alter table public.fl_articles
   add column if not exists lots                    jsonb default '[]',
   add column if not exists historique_prix_achat   jsonb default '[]';
 
--- ============================================================
+-- ====
 -- Nouveaux champs — fl_trips (numero auto + KPIs)
--- ============================================================
+-- ====
 alter table public.fl_trips
   add column if not exists numero              text,
   add column if not exists secteur             text,
@@ -235,9 +235,9 @@ alter table public.fl_trips
   add column if not exists ca_realise          numeric default 0,
   add column if not exists validated           boolean default false;
 
--- ============================================================
+-- ====
 -- Nouveaux champs — fl_commandes (heure livraison + scoring)
--- ============================================================
+-- ====
 alter table public.fl_commandes
   add column if not exists heure_livraison     text,
   add column if not exists trip_id             text,
@@ -246,9 +246,9 @@ alter table public.fl_commandes
   add column if not exists credit_autorise     boolean default false,
   add column if not exists scoring_snapshot    numeric;
 
--- ============================================================
+-- ====
 -- Nouveaux champs — fl_retours (double validation + photos IA)
--- ============================================================
+-- ====
 alter table public.fl_retours
   add column if not exists validation_commercial   text default 'en_attente',
   add column if not exists validation_logistique   text default 'en_attente',
@@ -257,18 +257,18 @@ alter table public.fl_retours
   add column if not exists photos                  jsonb default '[]',
   add column if not exists prix_propose            numeric;
 
--- ============================================================
+-- ====
 -- Nouveaux champs — fl_bons_achat (workflow besoin auto)
--- ============================================================
+-- ====
 alter table public.fl_bons_achat
   add column if not exists genere_par_forecast boolean default false,
   add column if not exists besoin_total        numeric,
   add column if not exists validated_by        text,
   add column if not exists validated_at        timestamptz;
 
--- ============================================================
+-- ====
 -- fl_config — configuration globale applicaton
--- ============================================================
+-- ====
 create table if not exists public.fl_config (
   id              text primary key default 'singleton',
   nom_entreprise  text default 'FreshLink Pro',
@@ -288,9 +288,9 @@ create policy "fl_config_all" on public.fl_config for all using (true) with chec
 
 insert into public.fl_config (id) values ('singleton') on conflict (id) do nothing;
 
--- ============================================================
+-- ====
 -- fl_trip_charges — charges tournees livreur
--- ============================================================
+-- ====
 create table if not exists public.fl_trip_charges (
   id              text primary key,
   numero          text,
@@ -314,9 +314,9 @@ drop trigger if exists fl_trip_charges_updated_at on public.fl_trip_charges;
 create trigger fl_trip_charges_updated_at before update on public.fl_trip_charges
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_caisses_vides — suivi caisses en circulation
--- ============================================================
+-- ====
 create table if not exists public.fl_caisses_vides (
   id              text primary key,
   date            text not null,
@@ -332,9 +332,9 @@ alter table public.fl_caisses_vides enable row level security;
 drop policy if exists "fl_caisses_vides_all" on public.fl_caisses_vides;
 create policy "fl_caisses_vides_all" on public.fl_caisses_vides for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- Indexes performance
--- ============================================================
+-- ====
 create index if not exists fl_commandes_client_idx on public.fl_commandes(client_id);
 create index if not exists fl_commandes_date_idx on public.fl_commandes(date);
 create index if not exists fl_commandes_prevendeur_idx on public.fl_commandes(prevendeur_id);
@@ -347,9 +347,9 @@ create index if not exists fl_shelf_life_article_idx on public.fl_shelf_life_lot
 create index if not exists fl_shelf_life_statut_idx on public.fl_shelf_life_lots(statut);
 create index if not exists fl_forecasts_date_idx on public.fl_forecasts(date_cible);
 
--- ============================================================
+-- ====
 -- Vue: stock theorique par article
--- ============================================================
+-- ====
 create or replace view public.fl_stock_theorique as
 select
   a.id as article_id,

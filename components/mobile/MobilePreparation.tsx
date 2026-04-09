@@ -76,9 +76,9 @@ export default function MobilePreparation({ user }: Props) {
     refresh()
   }
 
-  // ============================================================
+  // ====
   // ACTIVE BON VIEW
-  // ============================================================
+  // ====
   if (activeBon) {
     const validated = activeBon.lignes.filter(l => l.valide).length
     const total = activeBon.lignes.length
@@ -192,9 +192,9 @@ export default function MobilePreparation({ user }: Props) {
     )
   }
 
-  // ============================================================
+  // ====
   // BON LIST VIEW
-  // ============================================================
+  // ====
   const activeBons = bons.filter(b => b.format === "numerique")
 
   return (

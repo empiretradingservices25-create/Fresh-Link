@@ -1,8 +1,8 @@
--- ============================================================
+-- ====
 -- FreshLink Pro — Migration v6
 -- URL: https://nbcodflwqvcvcdbpguth.supabase.co
 -- Executer dans: Supabase Dashboard → SQL Editor → New query
--- ============================================================
+-- ====
 
 -- ── fl_users : ajout require_camera_auth ─────────────────────────────────────
 alter table public.fl_users

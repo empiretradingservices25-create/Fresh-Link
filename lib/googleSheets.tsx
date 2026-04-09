@@ -253,9 +253,9 @@ export async function pushToSheet(
 // ────────────────────────────────────────────────────────────────────────────
 
 export const APPS_SCRIPT_TEMPLATE = `
-// ============================================================
+// ====
 // FreshLink Pro — AppScript Web App
-// ============================================================
+// ====
 // INSTRUCTIONS :
 //  1. Ouvrir le fichier Google Sheet cible
 //  2. Extensions → Apps Script → coller CE script → Enregistrer (Ctrl+S)
@@ -264,7 +264,7 @@ export const APPS_SCRIPT_TEMPLATE = `
 //     Qui a acces : TOUT LE MONDE (meme anonyme)
 //  5. Cliquer "Deployer" → copier l'URL generee
 //  6. Coller cette URL dans FreshLink → Parametres → Google Sheets
-// ============================================================
+// ====
 
 function doPost(e) {
   try {

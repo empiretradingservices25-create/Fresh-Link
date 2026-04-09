@@ -1,4 +1,4 @@
--- ================================================================
+-- =
 -- OPTIM'FLUX — Migration v7
 -- Supabase: https://nbcodflwqvcvcdbpguth.supabase.co
 -- 1. World fruits & vegetables master table
@@ -6,7 +6,7 @@
 -- 3. Escalation workflow log (N1 → N2 → N3 alert)
 -- 4. User feedback table
 -- 5. Add require_camera_auth + km columns to existing tables
--- ================================================================
+-- =
 
 -- ── 1. FRUITS & VEGETABLES WORLD MASTER TABLE ───────────────────
 CREATE TABLE IF NOT EXISTS fl_produits_catalogue (

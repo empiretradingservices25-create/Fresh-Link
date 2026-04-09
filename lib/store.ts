@@ -1,8 +1,8 @@
 "use client"
 
-// ============================================================
+// ====
 // TYPES
-// ============================================================
+// ====
 
 
 export type UserRole =
@@ -693,9 +693,9 @@ export interface BonPreparation {
   validatedBy?: string
 }
 
-// ============================================================
+// ====
 // FINANCE TYPES
-// ============================================================
+// ====
 
 export type PeriodeDistribution = "journalier" | "hebdomadaire" | "mensuel"
 
@@ -834,9 +834,9 @@ export interface EmailConfig {
   recapCC?: string[]
 }
 
-// ============================================================
+// ====
 // ROLE / APP CONFIG
-// ============================================================
+// ====
 
 export const ROLE_LABELS: Record<UserRole, string> = {
   super_admin: "Super Admin",
@@ -921,9 +921,9 @@ export function getUserInterface(user: User): "mobile" | "backoffice" | "both" {
   return isBackOfficeRole(user.role) ? "backoffice" : "mobile"
 }
 
-// ============================================================
+// ====
 // DEFAULT DATA
-// ============================================================
+// ====
 
 const DEFAULT_USERS: User[] = [
   // === BACKOFFICE ===
@@ -1312,9 +1312,9 @@ const DEFAULT_EMAIL_CONFIG: EmailConfig = {
   besoinPushAuto: true,
 }
 
-// ============================================================
+// ====
 // HELPERS
-// ============================================================
+// ====
 
 function getLS<T>(key: string, def: T): T {
   if (typeof window === "undefined") return def
@@ -1329,9 +1329,9 @@ function setLS<T>(key: string, val: T): void {
   localStorage.setItem(key, JSON.stringify(val))
 }
 
-// ============================================================
+// ====
 // DEMO GUARD — demo accounts cannot mutate persistent data
-// ============================================================
+// ====
 
 // Emails of the built-in demo accounts that must stay read-only
 // NOTE: super_admin (appprojet2@gmail.com) and admin (admin@freshlink.ma) are NOT demo — they have full write access
@@ -1366,9 +1366,9 @@ function guardWrite<T extends unknown[]>(
   }
 }
 
-// ============================================================
+// ====
 // STORE API
-// ============================================================
+// ====
 
 export const store = {
   // --- Users ---
@@ -1984,9 +1984,9 @@ export const store = {
   getCmdVsFacturation: (): CmdVsFacturation[] => getLS("fl_cmd_fact", DEFAULT_CMD_FACT),
 }
 
-// ============================================================
+// ====
 // NEW TYPES — Camera, Cutoff, Trip charges, Feedback, Analyse
-// ============================================================
+// ====
 
 export type FeedbackSource = "client" | "fournisseur" | "equipe"
 export type FeedbackStatut = "nouveau" | "lu" | "traite"

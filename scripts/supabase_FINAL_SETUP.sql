@@ -1,10 +1,10 @@
--- =============================================================
+-- =====
 -- FRESHLINK — SUPABASE COMPLETE SETUP SCRIPT
 -- Version finale — à coller directement dans Supabase SQL Editor
--- =============================================================
+-- =====
 -- ORDRE D'EXECUTION : copier tout ce fichier dans l'éditeur SQL
 -- de votre projet Supabase puis cliquer sur "Run"
--- =============================================================
+-- =====
 
 
 -- ─────────────────────────────────────────────────────────────

@@ -1,8 +1,8 @@
--- ============================================================
+-- ====
 -- FreshLink Pro — Migration complète Supabase
 -- Script 002 : Toutes les tables, RLS, index
 -- Exécuter dans l'éditeur SQL Supabase (une seule fois)
--- ============================================================
+-- ====
 
 -- ── EXTENSIONS ───────────────────────────────────────────────
 create extension if not exists "uuid-ossp";

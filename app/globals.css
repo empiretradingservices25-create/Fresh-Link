@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+ HEAD
 ﻿@import 'tailwindcss';
 
 @theme {
@@ -32,7 +32,7 @@ body {
 
 * {
   @apply border-border;
-=======
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -99,5 +99,5 @@ body {
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 }

@@ -1,16 +1,16 @@
--- ============================================================
+-- ====
 -- FRESHLINK — Script SQL Final pour Supabase
 -- Version: 2.0 — Complet avec super admin + test de connexion
 -- Executer dans Supabase > SQL Editor > New Query
--- ============================================================
+-- ====
 
 -- Extensions utiles
 create extension if not exists "uuid-ossp";
 
--- ============================================================
+-- ====
 -- TABLE: fl_config
 -- Paramètres globaux de l'application + test de connexion
--- ============================================================
+-- ====
 create table if not exists fl_config (
   id           text primary key default 'main',
   key          text not null,
@@ -25,10 +25,10 @@ insert into fl_config (id, key, value) values
   ('version','app_version', '"2.0"'::jsonb)
 on conflict (id) do update set value = excluded.value, updated_at = now();
 
--- ============================================================
+-- ====
 -- TABLE: fl_users
 -- Comptes utilisateurs (auth separée de Supabase Auth)
--- ============================================================
+-- ====
 create table if not exists fl_users (
   id              text primary key default gen_random_uuid()::text,
   name            text not null,
@@ -65,11 +65,11 @@ create table if not exists fl_users (
   updated_at            timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- SUPER ADMIN PAR DEFAUT
 -- Email: superadmin@freshlink.ma
 -- Password: superadmin2024
--- ============================================================
+-- ====
 insert into fl_users (
   id, name, email, password_hash, role, access_type, actif,
   can_view_achat, can_view_commercial, can_view_logistique,
@@ -92,10 +92,10 @@ insert into fl_users (
   actif = excluded.actif,
   updated_at = now();
 
--- ============================================================
+-- ====
 -- UTILISATEUR OURAI — Agent IA RH
 -- Email: ourai@freshlink.ma / Password: ourai2024
--- ============================================================
+-- ====
 insert into fl_users (
   id, name, email, password_hash, role, access_type, actif,
   can_view_rh
@@ -104,10 +104,10 @@ insert into fl_users (
   'rh_manager', 'backoffice', true, true
 ) on conflict (id) do update set updated_at = now();
 
--- ============================================================
+-- ====
 -- UTILISATEUR AZMI — Comptable
 -- Email: azmi@freshlink.ma / Password: azmi2024
--- ============================================================
+-- ====
 insert into fl_users (
   id, name, email, password_hash, role, access_type, actif,
   can_view_finance, can_view_cash, can_view_recap, can_view_rh,
@@ -119,10 +119,10 @@ insert into fl_users (
   true, 25.0
 ) on conflict (id) do update set updated_at = now();
 
--- ============================================================
+-- ====
 -- TABLE: fl_articles
 -- Catalogue des articles (produits)
--- ============================================================
+-- ====
 create table if not exists fl_articles (
   id              text primary key default gen_random_uuid()::text,
   nom             text not null,
@@ -138,9 +138,9 @@ create table if not exists fl_articles (
   created_at      timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_fournisseurs
--- ============================================================
+-- ====
 create table if not exists fl_fournisseurs (
   id            text primary key default gen_random_uuid()::text,
   nom           text not null,
@@ -155,9 +155,9 @@ create table if not exists fl_fournisseurs (
   created_at    timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_clients
--- ============================================================
+-- ====
 create table if not exists fl_clients (
   id            text primary key default gen_random_uuid()::text,
   nom           text not null,
@@ -176,9 +176,9 @@ create table if not exists fl_clients (
   created_at    timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_bons_achat
--- ============================================================
+-- ====
 create table if not exists fl_bons_achat (
   id              text primary key default gen_random_uuid()::text,
   date            date not null default current_date,
@@ -194,10 +194,10 @@ create table if not exists fl_bons_achat (
   created_at      timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_purchase_orders
 -- PO Achat — visibles par le magasinier
--- ============================================================
+-- ====
 create table if not exists fl_purchase_orders (
   id                text primary key default gen_random_uuid()::text,
   date              date not null default current_date,
@@ -217,10 +217,10 @@ create table if not exists fl_purchase_orders (
   created_at        timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_receptions
 -- Réceptions physiques des marchandises
--- ============================================================
+-- ====
 create table if not exists fl_receptions (
   id                text primary key default gen_random_uuid()::text,
   date              date not null default current_date,
@@ -236,9 +236,9 @@ create table if not exists fl_receptions (
   created_at        timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_commandes
--- ============================================================
+-- ====
 create table if not exists fl_commandes (
   id              text primary key default gen_random_uuid()::text,
   date            date not null default current_date,
@@ -260,9 +260,9 @@ create table if not exists fl_commandes (
   created_at      timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_bons_livraison
--- ============================================================
+-- ====
 create table if not exists fl_bons_livraison (
   id                    text primary key default gen_random_uuid()::text,
   date                  date not null default current_date,
@@ -287,10 +287,10 @@ create table if not exists fl_bons_livraison (
   created_at            timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_caisses_vides
 -- Mouvements caisses vides (gros, demi, dollar, chariot)
--- ============================================================
+-- ====
 create table if not exists fl_caisses_vides (
   id                text primary key default gen_random_uuid()::text,
   date              date not null default current_date,
@@ -309,10 +309,10 @@ create table if not exists fl_caisses_vides (
   created_at        timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_contenants_tare
 -- Config des poids de tare par type de contenant
--- ============================================================
+-- ====
 create table if not exists fl_contenants_tare (
   id        text primary key default gen_random_uuid()::text,
   nom       text not null,
@@ -329,10 +329,10 @@ insert into fl_contenants_tare (id, nom, poids_kg, actif, notes) values
   ('ct5', 'Palette bois',            20.0, false, 'Palette europeenne')
 on conflict (id) do update set poids_kg = excluded.poids_kg, actif = excluded.actif;
 
--- ============================================================
+-- ====
 -- TABLE: fl_depots
 -- Multi-entrepots
--- ============================================================
+-- ====
 create table if not exists fl_depots (
   id              text primary key default gen_random_uuid()::text,
   nom             text not null,
@@ -347,10 +347,10 @@ insert into fl_depots (id, nom, actif) values
   ('DEPOT_PRINCIPAL', 'Depot Principal', true)
 on conflict (id) do nothing;
 
--- ============================================================
+-- ====
 -- TABLE: fl_fiches_payroll
 -- Fiches salaires generees par Ourai et transmises a Azmi
--- ============================================================
+-- ====
 create table if not exists fl_fiches_payroll (
   id                  text primary key default gen_random_uuid()::text,
   periode             text not null,   -- "2025-01" format
@@ -370,10 +370,10 @@ create table if not exists fl_fiches_payroll (
   updated_at          timestamptz default now()
 );
 
--- ============================================================
+-- ====
 -- TABLE: fl_charges_fixes
 -- Charges fixes mensuelles pour calcul benefice net
--- ============================================================
+-- ====
 create table if not exists fl_charges_fixes (
   id          text primary key default gen_random_uuid()::text,
   label       text not null,
@@ -390,10 +390,10 @@ insert into fl_charges_fixes (id, label, montant, actif) values
   ('chf5', 'Autres charges',     1000, true)
 on conflict (id) do nothing;
 
--- ============================================================
+-- ====
 -- TABLE: fl_actionnaires
 -- Config part benefice par actionnaire
--- ============================================================
+-- ====
 create table if not exists fl_actionnaires (
   id              text primary key default gen_random_uuid()::text,
   user_id         text references fl_users(id),
@@ -409,10 +409,10 @@ insert into fl_actionnaires (id, user_id, nom, taux_benefice, taux_salaire, acti
   ('act_azmi',       'u_azmi',       'Azmi',         25.0, 0, true)
 on conflict (id) do nothing;
 
--- ============================================================
+-- ====
 -- ROW LEVEL SECURITY (RLS)
 -- Securite: lecture publique (anon), ecriture auth uniquement
--- ============================================================
+-- ====
 alter table fl_config          enable row level security;
 alter table fl_users           enable row level security;
 alter table fl_articles        enable row level security;
@@ -443,9 +443,9 @@ do $$ declare tbl text; begin
   end loop;
 end $$;
 
--- ============================================================
+-- ====
 -- VERIFICATION FINALE
--- ============================================================
+-- ====
 select
   'fl_config'          as table_name, count(*) as rows from fl_config
 union all select 'fl_users',           count(*) from fl_users

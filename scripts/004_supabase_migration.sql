@@ -1,8 +1,8 @@
--- ============================================================
+-- ====
 -- FreshLink Pro — Migration Supabase complète
 -- URL: https://nbcodflwqvcvcdbpguth.supabase.co
 -- Exécuter dans: Supabase Dashboard → SQL Editor → New query
--- ============================================================
+-- ====
 
 -- Extensions
 create extension if not exists "uuid-ossp";
@@ -13,9 +13,9 @@ create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;
 
--- ============================================================
+-- ====
 -- fl_users
--- ============================================================
+-- ====
 create table if not exists public.fl_users (
   id                            text primary key,
   name                          text not null,
@@ -61,9 +61,9 @@ drop trigger if exists fl_users_updated_at on public.fl_users;
 create trigger fl_users_updated_at before update on public.fl_users
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_clients
--- ============================================================
+-- ====
 create table if not exists public.fl_clients (
   id                  text primary key,
   nom                 text not null,
@@ -95,9 +95,9 @@ drop trigger if exists fl_clients_updated_at on public.fl_clients;
 create trigger fl_clients_updated_at before update on public.fl_clients
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_articles
--- ============================================================
+-- ====
 create table if not exists public.fl_articles (
   id                  text primary key,
   nom                 text not null,
@@ -125,9 +125,9 @@ drop trigger if exists fl_articles_updated_at on public.fl_articles;
 create trigger fl_articles_updated_at before update on public.fl_articles
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_fournisseurs
--- ============================================================
+-- ====
 create table if not exists public.fl_fournisseurs (
   id          text primary key,
   nom         text not null,
@@ -145,9 +145,9 @@ drop trigger if exists fl_fournisseurs_updated_at on public.fl_fournisseurs;
 create trigger fl_fournisseurs_updated_at before update on public.fl_fournisseurs
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_commandes
--- ============================================================
+-- ====
 create table if not exists public.fl_commandes (
   id              text primary key,
   date            text not null,
@@ -176,9 +176,9 @@ drop trigger if exists fl_commandes_updated_at on public.fl_commandes;
 create trigger fl_commandes_updated_at before update on public.fl_commandes
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_visites
--- ============================================================
+-- ====
 create table if not exists public.fl_visites (
   id              text primary key,
   date            text not null,
@@ -196,9 +196,9 @@ alter table public.fl_visites enable row level security;
 drop policy if exists "fl_visites_all" on public.fl_visites;
 create policy "fl_visites_all" on public.fl_visites for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_trips (tournées)
--- ============================================================
+-- ====
 create table if not exists public.fl_trips (
   id              text primary key,
   date            text not null,
@@ -218,9 +218,9 @@ drop trigger if exists fl_trips_updated_at on public.fl_trips;
 create trigger fl_trips_updated_at before update on public.fl_trips
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_bons_livraison
--- ============================================================
+-- ====
 create table if not exists public.fl_bons_livraison (
   id              text primary key,
   numero          text,
@@ -252,9 +252,9 @@ drop trigger if exists fl_bons_livraison_updated_at on public.fl_bons_livraison;
 create trigger fl_bons_livraison_updated_at before update on public.fl_bons_livraison
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_retours
--- ============================================================
+-- ====
 create table if not exists public.fl_retours (
   id              text primary key,
   date            text not null,
@@ -276,9 +276,9 @@ drop trigger if exists fl_retours_updated_at on public.fl_retours;
 create trigger fl_retours_updated_at before update on public.fl_retours
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_bons_achat
--- ============================================================
+-- ====
 create table if not exists public.fl_bons_achat (
   id              text primary key,
   numero          text,
@@ -301,9 +301,9 @@ drop trigger if exists fl_bons_achat_updated_at on public.fl_bons_achat;
 create trigger fl_bons_achat_updated_at before update on public.fl_bons_achat
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_purchase_orders (PO Consolidés)
--- ============================================================
+-- ====
 create table if not exists public.fl_purchase_orders (
   id              text primary key,
   numero          text,
@@ -325,9 +325,9 @@ drop trigger if exists fl_purchase_orders_updated_at on public.fl_purchase_order
 create trigger fl_purchase_orders_updated_at before update on public.fl_purchase_orders
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_receptions
--- ============================================================
+-- ====
 create table if not exists public.fl_receptions (
   id              text primary key,
   date            text not null,
@@ -348,9 +348,9 @@ drop trigger if exists fl_receptions_updated_at on public.fl_receptions;
 create trigger fl_receptions_updated_at before update on public.fl_receptions
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_bons_preparation
--- ============================================================
+-- ====
 create table if not exists public.fl_bons_preparation (
   id              text primary key,
   date            text not null,
@@ -369,9 +369,9 @@ drop trigger if exists fl_bons_preparation_updated_at on public.fl_bons_preparat
 create trigger fl_bons_preparation_updated_at before update on public.fl_bons_preparation
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- fl_transferts_stock
--- ============================================================
+-- ====
 create table if not exists public.fl_transferts_stock (
   id              text primary key,
   date            text not null,
@@ -387,9 +387,9 @@ alter table public.fl_transferts_stock enable row level security;
 drop policy if exists "fl_transferts_all" on public.fl_transferts_stock;
 create policy "fl_transferts_all" on public.fl_transferts_stock for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_livreurs
--- ============================================================
+-- ====
 create table if not exists public.fl_livreurs (
   id          text primary key,
   nom         text not null,
@@ -402,9 +402,9 @@ alter table public.fl_livreurs enable row level security;
 drop policy if exists "fl_livreurs_all" on public.fl_livreurs;
 create policy "fl_livreurs_all" on public.fl_livreurs for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_motifs_retour
--- ============================================================
+-- ====
 create table if not exists public.fl_motifs_retour (
   id          text primary key,
   libelle     text not null,
@@ -415,9 +415,9 @@ alter table public.fl_motifs_retour enable row level security;
 drop policy if exists "fl_motifs_all" on public.fl_motifs_retour;
 create policy "fl_motifs_all" on public.fl_motifs_retour for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_messages
--- ============================================================
+-- ====
 create table if not exists public.fl_messages (
   id          text primary key,
   from_id     text,
@@ -430,9 +430,9 @@ alter table public.fl_messages enable row level security;
 drop policy if exists "fl_messages_all" on public.fl_messages;
 create policy "fl_messages_all" on public.fl_messages for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_notices (annonces)
--- ============================================================
+-- ====
 create table if not exists public.fl_notices (
   id          text primary key,
   titre       text not null,
@@ -445,9 +445,9 @@ alter table public.fl_notices enable row level security;
 drop policy if exists "fl_notices_all" on public.fl_notices;
 create policy "fl_notices_all" on public.fl_notices for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- fl_email_config
--- ============================================================
+-- ====
 create table if not exists public.fl_email_config (
   id                    text primary key default 'singleton',
   achat                 text default 'appprojet2@gmail.com',
@@ -467,9 +467,9 @@ drop policy if exists "fl_email_config_all" on public.fl_email_config;
 create policy "fl_email_config_all" on public.fl_email_config for all using (true) with check (true);
 insert into public.fl_email_config (id) values ('singleton') on conflict (id) do nothing;
 
--- ============================================================
+-- ====
 -- Indexes pour performances
--- ============================================================
+-- ====
 create index if not exists fl_commandes_date_idx     on public.fl_commandes(date);
 create index if not exists fl_commandes_statut_idx   on public.fl_commandes(statut);
 create index if not exists fl_commandes_client_idx   on public.fl_commandes(client_id);

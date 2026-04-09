@@ -350,7 +350,7 @@ export default function BODashboard({ user }: Props) {
         )}
       </div>
 
-      {/* ============================== CREDIT ALERTS BANNER ============================== */}
+      {/* == CREDIT ALERTS BANNER == */}
       {isAdmin && creditAlerts.length > 0 && (
         <div className="rounded-2xl p-4 flex flex-col gap-3" style={{ background: "oklch(0.13 0.030 27)", border: "1px solid oklch(0.30 0.14 27)" }}>
           <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -396,7 +396,7 @@ export default function BODashboard({ user }: Props) {
         </div>
       )}
 
-      {/* ============================== GLOBAL ============================== */}
+      {/* == GLOBAL == */}
       {dashTab === "global" && (
         <>
           {/* KPI row 1 — CA */}
@@ -579,7 +579,7 @@ export default function BODashboard({ user }: Props) {
         </>
       )}
 
-      {/* ============================== GRAPHES ============================== */}
+      {/* == GRAPHES == */}
       {dashTab === "graphes" && (
         <div className="flex flex-col gap-5">
 
@@ -689,7 +689,7 @@ export default function BODashboard({ user }: Props) {
         </div>
       )}
 
-      {/* ============================== RETOURS ============================== */}
+      {/* == RETOURS == */}
       {dashTab === "retours" && (
         <div className="flex flex-col gap-5">
           {/* Retour KPIs */}
@@ -833,7 +833,7 @@ export default function BODashboard({ user }: Props) {
         </div>
       )}
 
-      {/* ============================== OBJECTIFS ============================== */}
+      {/* == OBJECTIFS == */}
       {dashTab === "objectifs" && (
         <div className="flex flex-col gap-5">
           <div className="grid grid-cols-3 gap-3">
@@ -950,7 +950,7 @@ export default function BODashboard({ user }: Props) {
         </div>
       )}
 
-      {/* ============================== CREDIT ============================== */}
+      {/* == CREDIT == */}
       {dashTab === "credit" && isAdmin && (
         <div className="flex flex-col gap-5">
           {/* KPI summary */}

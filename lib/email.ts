@@ -1,11 +1,11 @@
-// ============================================================
+// ====
 // EmailJS Integration — FreshLink Pro
 // Uses EmailJS browser SDK loaded dynamically (no npm install needed)
 // Configure via Paramètres → EmailJS dans le back-office.
 //
 // Template EmailJS requis avec les variables :
 //   {{to_email}}  {{subject}}  {{message}}
-// ============================================================
+// ====
 
 // --------------- Config storage ---------------
 

@@ -1,9 +1,9 @@
--- ============================================================
+-- ====
 -- OPTIMFLUX — Migration v9 CLEAN
 -- Supabase: https://vynbejciuzedzurxhsui.supabase.co
 -- Auteur : Jawad | Date : 2026
 -- Recreer proprement toutes les tables metier
--- ============================================================
+-- ====
 
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

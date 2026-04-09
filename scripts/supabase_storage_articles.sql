@@ -1,7 +1,7 @@
--- ============================================================
+-- ====
 -- SUPABASE STORAGE — Bucket "articles" pour photos SKU
 -- Exécuter dans : Supabase Dashboard → SQL Editor
--- ============================================================
+-- ====
 
 -- 1. Créer le bucket public "articles" (idempotent)
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

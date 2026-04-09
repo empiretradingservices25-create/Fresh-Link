@@ -1,11 +1,11 @@
 "use client"
 
-// ============================================================
+// ====
 // FreshLink Pro — DB layer (Supabase + localStorage fallback)
 // Toutes les écritures vont dans Supabase EN PREMIER,
 // puis dans localStorage comme cache local.
 // Les lectures essaient Supabase, puis localStorage si offline.
-// ============================================================
+// ====
 
 import { createClient } from "@/lib/supabase/client"
 import { store } from "@/lib/store"

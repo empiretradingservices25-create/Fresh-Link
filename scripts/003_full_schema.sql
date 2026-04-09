@@ -1,8 +1,8 @@
--- ============================================================
+-- ====
 -- FreshLink Pro — Schema complet v3
 -- Toutes les tables, RLS open (petite équipe), index, triggers
 -- Exécuter UNE SEULE FOIS dans Supabase SQL Editor
--- ============================================================
+-- ====
 
 -- Extensions
 create extension if not exists "uuid-ossp";
@@ -13,9 +13,9 @@ create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
 begin new.updated_at = now(); return new; end $$;
 
--- ============================================================
+-- ====
 -- TABLE: fl_users  (profils applicatifs)
--- ============================================================
+-- ====
 create table if not exists public.fl_users (
   id                            text primary key,
   name                          text not null,
@@ -63,9 +63,9 @@ drop trigger if exists fl_users_updated_at on public.fl_users;
 create trigger fl_users_updated_at before update on public.fl_users
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_clients
--- ============================================================
+-- ====
 create table if not exists public.fl_clients (
   id                  text primary key,
   nom                 text not null,
@@ -101,9 +101,9 @@ drop trigger if exists fl_clients_updated_at on public.fl_clients;
 create trigger fl_clients_updated_at before update on public.fl_clients
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_articles
--- ============================================================
+-- ====
 create table if not exists public.fl_articles (
   id                  text primary key,
   nom                 text not null,
@@ -132,9 +132,9 @@ drop trigger if exists fl_articles_updated_at on public.fl_articles;
 create trigger fl_articles_updated_at before update on public.fl_articles
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_fournisseurs
--- ============================================================
+-- ====
 create table if not exists public.fl_fournisseurs (
   id                  text primary key,
   nom                 text not null,
@@ -161,9 +161,9 @@ drop trigger if exists fl_fournisseurs_updated_at on public.fl_fournisseurs;
 create trigger fl_fournisseurs_updated_at before update on public.fl_fournisseurs
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_livreurs
--- ============================================================
+-- ====
 create table if not exists public.fl_livreurs (
   id                  text primary key,
   type                text not null default 'interne',
@@ -193,9 +193,9 @@ drop trigger if exists fl_livreurs_updated_at on public.fl_livreurs;
 create trigger fl_livreurs_updated_at before update on public.fl_livreurs
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_motifs_retour
--- ============================================================
+-- ====
 create table if not exists public.fl_motifs_retour (
   id        text primary key,
   label     text not null,
@@ -207,9 +207,9 @@ alter table public.fl_motifs_retour enable row level security;
 drop policy if exists "fl_motifs_retour_all" on public.fl_motifs_retour;
 create policy "fl_motifs_retour_all" on public.fl_motifs_retour for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- TABLE: fl_commandes
--- ============================================================
+-- ====
 create table if not exists public.fl_commandes (
   id                  text primary key,
   date                text not null,
@@ -247,9 +247,9 @@ drop trigger if exists fl_commandes_updated_at on public.fl_commandes;
 create trigger fl_commandes_updated_at before update on public.fl_commandes
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_visites
--- ============================================================
+-- ====
 create table if not exists public.fl_visites (
   id              text primary key,
   date            text not null,
@@ -269,9 +269,9 @@ create policy "fl_visites_all" on public.fl_visites for all using (true) with ch
 create index if not exists fl_visites_date_idx        on public.fl_visites(date);
 create index if not exists fl_visites_prevendeur_idx  on public.fl_visites(prevendeur_id);
 
--- ============================================================
+-- ====
 -- TABLE: fl_bons_achat
--- ============================================================
+-- ====
 create table if not exists public.fl_bons_achat (
   id                  text primary key,
   date                text not null,
@@ -293,9 +293,9 @@ drop trigger if exists fl_bons_achat_updated_at on public.fl_bons_achat;
 create trigger fl_bons_achat_updated_at before update on public.fl_bons_achat
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_purchase_orders
--- ============================================================
+-- ====
 create table if not exists public.fl_purchase_orders (
   id                text primary key,
   date              text not null,
@@ -325,9 +325,9 @@ drop trigger if exists fl_purchase_orders_updated_at on public.fl_purchase_order
 create trigger fl_purchase_orders_updated_at before update on public.fl_purchase_orders
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_receptions
--- ============================================================
+-- ====
 create table if not exists public.fl_receptions (
   id                  text primary key,
   date                text not null,
@@ -350,9 +350,9 @@ drop trigger if exists fl_receptions_updated_at on public.fl_receptions;
 create trigger fl_receptions_updated_at before update on public.fl_receptions
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_trips
--- ============================================================
+-- ====
 create table if not exists public.fl_trips (
   id              text primary key,
   date            text not null,
@@ -375,9 +375,9 @@ drop trigger if exists fl_trips_updated_at on public.fl_trips;
 create trigger fl_trips_updated_at before update on public.fl_trips
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_bons_livraison
--- ============================================================
+-- ====
 create table if not exists public.fl_bons_livraison (
   id                    text primary key,
   date                  text not null,
@@ -412,9 +412,9 @@ drop trigger if exists fl_bl_updated_at on public.fl_bons_livraison;
 create trigger fl_bl_updated_at before update on public.fl_bons_livraison
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_retours
--- ============================================================
+-- ====
 create table if not exists public.fl_retours (
   id               text primary key,
   date             text not null,
@@ -436,9 +436,9 @@ drop trigger if exists fl_retours_updated_at on public.fl_retours;
 create trigger fl_retours_updated_at before update on public.fl_retours
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_bons_preparation
--- ============================================================
+-- ====
 create table if not exists public.fl_bons_preparation (
   id             text primary key,
   nom            text not null,
@@ -466,9 +466,9 @@ drop trigger if exists fl_bons_prep_updated_at on public.fl_bons_preparation;
 create trigger fl_bons_prep_updated_at before update on public.fl_bons_preparation
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_transferts_stock
--- ============================================================
+-- ====
 create table if not exists public.fl_transferts_stock (
   id           text primary key,
   date         text not null,
@@ -485,9 +485,9 @@ drop policy if exists "fl_transferts_all" on public.fl_transferts_stock;
 create policy "fl_transferts_all" on public.fl_transferts_stock for all using (true) with check (true);
 create index if not exists fl_transferts_date_idx on public.fl_transferts_stock(date);
 
--- ============================================================
+-- ====
 -- TABLE: fl_charges (finance)
--- ============================================================
+-- ====
 create table if not exists public.fl_charges (
   id           text primary key,
   date         text not null,
@@ -509,9 +509,9 @@ drop trigger if exists fl_charges_updated_at on public.fl_charges;
 create trigger fl_charges_updated_at before update on public.fl_charges
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_caisse_entries (cash)
--- ============================================================
+-- ====
 create table if not exists public.fl_caisse_entries (
   id             text primary key,
   date           text not null,
@@ -536,9 +536,9 @@ drop trigger if exists fl_caisse_updated_at on public.fl_caisse_entries;
 create trigger fl_caisse_updated_at before update on public.fl_caisse_entries
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_actionnaires
--- ============================================================
+-- ====
 create table if not exists public.fl_actionnaires (
   id           text primary key,
   nom          text not null,
@@ -557,9 +557,9 @@ drop trigger if exists fl_actionnaires_updated_at on public.fl_actionnaires;
 create trigger fl_actionnaires_updated_at before update on public.fl_actionnaires
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_salaries
--- ============================================================
+-- ====
 create table if not exists public.fl_salaries (
   id           text primary key,
   user_id      text,
@@ -579,9 +579,9 @@ drop trigger if exists fl_salaries_updated_at on public.fl_salaries;
 create trigger fl_salaries_updated_at before update on public.fl_salaries
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_messages (WhatsApp/internal chat)
--- ============================================================
+-- ====
 create table if not exists public.fl_messages (
   id          text primary key,
   sender_id   text not null,
@@ -595,9 +595,9 @@ drop policy if exists "fl_messages_all" on public.fl_messages;
 create policy "fl_messages_all" on public.fl_messages for all using (true) with check (true);
 create index if not exists fl_messages_created_idx on public.fl_messages(created_at desc);
 
--- ============================================================
+-- ====
 -- TABLE: fl_notices
--- ============================================================
+-- ====
 create table if not exists public.fl_notices (
   id           text primary key,
   titre        text not null,
@@ -618,9 +618,9 @@ drop trigger if exists fl_notices_updated_at on public.fl_notices;
 create trigger fl_notices_updated_at before update on public.fl_notices
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_caisses_vides
--- ============================================================
+-- ====
 create table if not exists public.fl_caisses_vides (
   id              text primary key,
   type            text not null,
@@ -641,9 +641,9 @@ drop trigger if exists fl_caisses_vides_updated_at on public.fl_caisses_vides;
 create trigger fl_caisses_vides_updated_at before update on public.fl_caisses_vides
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_company_config
--- ============================================================
+-- ====
 create table if not exists public.fl_company_config (
   id              text primary key default 'singleton',
   nom             text,
@@ -664,9 +664,9 @@ drop trigger if exists fl_config_updated_at on public.fl_company_config;
 create trigger fl_config_updated_at before update on public.fl_company_config
   for each row execute function public.set_updated_at();
 
--- ============================================================
+-- ====
 -- TABLE: fl_workflow_config
--- ============================================================
+-- ====
 create table if not exists public.fl_workflow_config (
   id              text primary key default 'singleton',
   validation_mode text not null default 'direct',
@@ -676,9 +676,9 @@ alter table public.fl_workflow_config enable row level security;
 drop policy if exists "fl_workflow_all" on public.fl_workflow_config;
 create policy "fl_workflow_all" on public.fl_workflow_config for all using (true) with check (true);
 
--- ============================================================
+-- ====
 -- Default data: motifs retour
--- ============================================================
+-- ====
 insert into public.fl_motifs_retour (id, label, label_ar, actif)
 values
   ('motif-1', 'Qualité insuffisante', 'جودة غير كافية', true),
@@ -689,16 +689,16 @@ values
   ('motif-6', 'Produit non conforme', 'المنتج غير مطابق', true)
 on conflict (id) do nothing;
 
--- ============================================================
+-- ====
 -- Default workflow config
--- ============================================================
+-- ====
 insert into public.fl_workflow_config (id, validation_mode)
 values ('singleton', 'direct')
 on conflict (id) do nothing;
 
--- ============================================================
+-- ====
 -- Default company config
--- ============================================================
+-- ====
 insert into public.fl_company_config (id)
 values ('singleton')
 on conflict (id) do nothing;

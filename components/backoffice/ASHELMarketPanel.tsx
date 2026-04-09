@@ -84,7 +84,7 @@ export default function ASHELMarketPanel() {
     setLoading(true)
 
     try {
-<<<<<<< HEAD
+ HEAD
       const res = await fetch("https://llm.blackbox.ai/chat/completions", {
         method: "POST",
         headers: {
@@ -98,25 +98,25 @@ export default function ASHELMarketPanel() {
             { role: "system", content: buildSystemPrompt() },
             ...newMessages.map(m => ({ role: m.role, content: m.content }))
           ],
-=======
+
       const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           systemPrompt: buildSystemPrompt(),
           messages: newMessages.map(m => ({ role: m.role, content: m.content })),
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
           max_tokens: 800,
         })
       })
       if (!res.ok) throw new Error(`Erreur API ${res.status}`)
-<<<<<<< HEAD
+ HEAD
       const data = await res.json()
       const content = data.choices?.[0]?.message?.content ?? "Pas de reponse."
-=======
+
       const data = await res.json() as { content: string }
       const content = data.content ?? "Pas de reponse."
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
       setMessages(prev => [...prev, { role: "assistant", content, ts: new Date().toISOString() }])
     } catch (e) {
       setMessages(prev => [...prev, {

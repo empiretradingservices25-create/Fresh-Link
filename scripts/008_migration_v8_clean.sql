@@ -1,4 +1,4 @@
--- ============================================================
+-- ====
 -- OPTIMFLUX — Migration v8 : Architecture propre Supabase
 -- Nouveau projet : https://vynbejciuzedzurxhsui.supabase.co
 -- Date : 2026-01
@@ -7,14 +7,14 @@
 --   2. Table fl_agents_ia           (hiérarchie N1/N2/N3)
 --   3. Table fl_escalation_log      (workflow alertes)
 --   4. Table fl_feedback            (avis utilisateurs)
--- ============================================================
+-- ====
 
 -- ── 0. Extensions ────────────────────────────────────────────────────────────
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- ============================================================
+-- ====
 -- 1. CATALOGUE FRUITS & LÉGUMES DU MONDE ENTIER
--- ============================================================
+-- ====
 CREATE TABLE IF NOT EXISTS fl_produits_catalogue (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   nom             TEXT        NOT NULL,
@@ -196,9 +196,9 @@ INSERT INTO fl_produits_catalogue (nom, nom_ar, nom_en, categorie, sous_categori
 
 ON CONFLICT DO NOTHING;
 
--- ============================================================
+-- ====
 -- 2. TABLE AGENTS IA — HIÉRARCHIE N1/N2/N3
--- ============================================================
+-- ====
 CREATE TABLE IF NOT EXISTS fl_agents_ia (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   code        TEXT NOT NULL UNIQUE,          -- 'MUSTAPHA', 'SIMOHAMMED', 'JAWAD'...
@@ -227,9 +227,9 @@ INSERT INTO fl_agents_ia (code, nom, prenom, niveau, role_metier, telephone, ema
 ('ADMIN',       'Direction',   'Admin',   3, 'Super Admin — Alerte Critique',                 '+212663898707', 'admin@optimflux.ma',       TRUE)
 ON CONFLICT (code) DO NOTHING;
 
--- ============================================================
+-- ====
 -- 3. TABLE ESCALATION LOG — WORKFLOW N1→N2→N3
--- ============================================================
+-- ====
 CREATE TABLE IF NOT EXISTS fl_escalation_log (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   reference       TEXT,                             -- REF auto : ESC-YYYYMMDD-XXX
@@ -272,9 +272,9 @@ CREATE TRIGGER trg_escalation_reference
   BEFORE INSERT ON fl_escalation_log
   FOR EACH ROW EXECUTE FUNCTION set_escalation_reference();
 
--- ============================================================
+-- ====
 -- 4. TABLE FEEDBACK UTILISATEURS
--- ============================================================
+-- ====
 CREATE TABLE IF NOT EXISTS fl_feedback (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id     TEXT,
@@ -293,9 +293,9 @@ CREATE TABLE IF NOT EXISTS fl_feedback (
 CREATE INDEX IF NOT EXISTS idx_feedback_type   ON fl_feedback(type);
 CREATE INDEX IF NOT EXISTS idx_feedback_statut ON fl_feedback(statut);
 
--- ============================================================
+-- ====
 -- 5. RLS — Row Level Security (optionnel, securite supplementaire)
--- ============================================================
+-- ====
 ALTER TABLE fl_produits_catalogue ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fl_agents_ia          ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fl_escalation_log     ENABLE ROW LEVEL SECURITY;

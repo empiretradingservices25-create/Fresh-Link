@@ -31,7 +31,7 @@ interface Agent {
 }
 
 // ─────────────────────────────────────────────────────────────
-<<<<<<< HEAD
+ HEAD
 // API — robust with retry + fallback models
 // ─────────────────────────────────────────────────────────────
 
@@ -92,7 +92,7 @@ async function callLLM(
     }
     throw new Error("QUOTA_EXCEEDED")
   }
-=======
+
 // API — calls internal server route (secrets stay server-side)
 // ─────────────────────────────────────────────────────────────
 
@@ -117,7 +117,7 @@ async function callLLM(
   const data = await res.json() as { content: string }
   if (!data.content || data.content.length < 2) throw new Error("EMPTY")
   return data.content
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 }
 
 function genId() { return `${Date.now()}_${Math.random().toString(36).slice(2, 7)}` }

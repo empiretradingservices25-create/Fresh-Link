@@ -1,4 +1,4 @@
--- =====================================================================
+-- ======
 -- FreshLink Pro — Migration v6
 -- Supabase: https://nbcodflwqvcvcdbpguth.supabase.co
 -- Date: 2026-03-27
@@ -11,7 +11,7 @@
 --   6. feedback table
 --   7. agent_ia_conversations table
 --   8. po_orders auto-push column
--- =====================================================================
+-- ======
 
 -- ── 1. TRIPS ──────────────────────────────────────────────────────────────────
 

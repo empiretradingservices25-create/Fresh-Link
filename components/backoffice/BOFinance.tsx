@@ -985,7 +985,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
         </div>
       )}
 
-      {/* ============================== CREDIT CLIENT ============================== */}
+      {/* == CREDIT CLIENT == */}
       {tab === "credit" && (() => {
         const now = Date.now()
         const creditClients = clients
@@ -1233,7 +1233,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
         )
       })()}
 
-      {/* ============================== CASH MAN ============================== */}
+      {/* == CASH MAN == */}
       {tab === "cashman" && (() => {
         const now = Date.now()
         // Filtered caisse entries by cashFilter date range

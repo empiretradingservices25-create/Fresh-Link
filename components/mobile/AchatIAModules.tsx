@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { type Article, type Fournisseur, type User, type HistoriquePrixAchat } from "@/lib/store"
 
 // ── Shared API call ──────────────────────────────────────────────────────────
-<<<<<<< HEAD
+ HEAD
 async function callAI(messages: { role: string; content: unknown }[], signal?: AbortSignal): Promise<string> {
   const res = await fetch("https://llm.blackbox.ai/chat/completions", {
     method: "POST",
@@ -16,7 +16,7 @@ async function callAI(messages: { role: string; content: unknown }[], signal?: A
     body: JSON.stringify({
       model: "openrouter/claude-sonnet-4",
       messages,
-=======
+
 async function callAI(
   systemPrompt: string,
   userMessages: { role: string; content: unknown }[],
@@ -28,18 +28,18 @@ async function callAI(
     body: JSON.stringify({
       systemPrompt,
       messages: userMessages,
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
     }),
     signal,
   })
   if (!res.ok) throw new Error(`AI error ${res.status}`)
-<<<<<<< HEAD
+ HEAD
   const data = await res.json()
   return data.choices?.[0]?.message?.content ?? ""
-=======
+
   const data = await res.json() as { content: string }
   return data.content ?? ""
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 }
 
 // ── Image → base64 ───────────────────────────────────────────────────────────
@@ -214,12 +214,12 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
   "conseils": ["<conseil1>", "<conseil2>"]
 }`
 
-<<<<<<< HEAD
+ HEAD
       const text = await callAI([
         { role: "system", content: systemPrompt },
-=======
+
       const text = await callAI(systemPrompt, [
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
         {
           role: "user",
           content: [
@@ -807,12 +807,12 @@ Fais une analyse comparative experte et reponds UNIQUEMENT en JSON valide:
         }
       })
 
-<<<<<<< HEAD
+ HEAD
       const text = await callAI([
         { role: "system", content: systemPrompt },
-=======
+
       const text = await callAI(systemPrompt, [
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
         { role: "user", content: contentParts }
       ])
 

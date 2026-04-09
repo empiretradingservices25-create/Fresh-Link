@@ -1,9 +1,9 @@
--- ============================================================
+-- ====
 -- OPTIMFLUX — SCHEMA FINAL v10
 -- Supabase: https://nphrncmuxbwahqnzdyxp.supabase.co
 -- Date: 2026 | Auteur: Jawad
 -- Toutes les tables metier avec RLS desactivee (gestion auth maison)
--- ============================================================
+-- ====
 
 -- Extension UUID
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
