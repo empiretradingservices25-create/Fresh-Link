@@ -4,23 +4,23 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { type Article, type Fournisseur, type User, type HistoriquePrixAchat } from "@/lib/store"
 
 // ── Shared API call ──────────────────────────────────────────────────────────
-async function callAI(messages: { role: string; content: unknown }[], signal?: AbortSignal): Promise<string> {
-  const res = await fetch("https://llm.blackbox.ai/chat/completions", {
+async function callAI(
+  systemPrompt: string,
+  userMessages: { role: string; content: unknown }[],
+  signal?: AbortSignal
+): Promise<string> {
+  const res = await fetch("/api/ai/chat", {
     method: "POST",
-    headers: {
-      "customerId": "cus_TSL8iYLtbslUQB",
-      "Content-Type": "application/json",
-      "Authorization": "Bearer xxx",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "openrouter/claude-sonnet-4",
-      messages,
+      systemPrompt,
+      messages: userMessages,
     }),
     signal,
   })
   if (!res.ok) throw new Error(`AI error ${res.status}`)
-  const data = await res.json()
-  return data.choices?.[0]?.message?.content ?? ""
+  const data = await res.json() as { content: string }
+  return data.content ?? ""
 }
 
 // ── Image → base64 ───────────────────────────────────────────────────────────
@@ -195,8 +195,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
   "conseils": ["<conseil1>", "<conseil2>"]
 }`
 
-      const text = await callAI([
-        { role: "system", content: systemPrompt },
+      const text = await callAI(systemPrompt, [
         {
           role: "user",
           content: [
@@ -784,8 +783,7 @@ Fais une analyse comparative experte et reponds UNIQUEMENT en JSON valide:
         }
       })
 
-      const text = await callAI([
-        { role: "system", content: systemPrompt },
+      const text = await callAI(systemPrompt, [
         { role: "user", content: contentParts }
       ])
 

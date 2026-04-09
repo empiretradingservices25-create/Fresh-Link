@@ -84,25 +84,18 @@ export default function ASHELMarketPanel() {
     setLoading(true)
 
     try {
-      const res = await fetch("https://llm.blackbox.ai/chat/completions", {
+      const res = await fetch("/api/ai/chat", {
         method: "POST",
-        headers: {
-          "customerId": "cus_TSL8iYLtbslUQB",
-          "Content-Type": "application/json",
-          "Authorization": "Bearer xxx",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "openrouter/claude-sonnet-4",
-          messages: [
-            { role: "system", content: buildSystemPrompt() },
-            ...newMessages.map(m => ({ role: m.role, content: m.content }))
-          ],
+          systemPrompt: buildSystemPrompt(),
+          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
           max_tokens: 800,
         })
       })
       if (!res.ok) throw new Error(`Erreur API ${res.status}`)
-      const data = await res.json()
-      const content = data.choices?.[0]?.message?.content ?? "Pas de reponse."
+      const data = await res.json() as { content: string }
+      const content = data.content ?? "Pas de reponse."
       setMessages(prev => [...prev, { role: "assistant", content, ts: new Date().toISOString() }])
     } catch (e) {
       setMessages(prev => [...prev, {
