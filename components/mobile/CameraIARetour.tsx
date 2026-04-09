@@ -63,6 +63,7 @@ export default function CameraIARetour({ articleNom, onValidate, onCancel }: Pro
     setError(null)
     try {
       const base64Data = photo.split(",")[1]
+<<<<<<< HEAD
       const res = await fetch("https://llm.blackbox.ai/chat/completions", {
         method: "POST",
         headers: {
@@ -76,6 +77,9 @@ export default function CameraIARetour({ articleNom, onValidate, onCancel }: Pro
             {
               role: "system",
               content: `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
+=======
+      const systemPrompt = `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce format exact:
 {
   "isMarchandise": boolean,
@@ -88,7 +92,17 @@ Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce 
 Article concerne: ${articleNom ?? "fruits ou legumes"}.
 Prix achat reference: ${prixAchat || "inconnu"} MAD/kg.
 Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
+<<<<<<< HEAD
             },
+=======
+
+      const res = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemPrompt,
+          messages: [
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
             {
               role: "user",
               content: [
@@ -102,8 +116,13 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
       })
 
       if (!res.ok) throw new Error(`API erreur ${res.status}`)
+<<<<<<< HEAD
       const data = await res.json()
       const content = data.choices?.[0]?.message?.content ?? ""
+=======
+      const data = await res.json() as { content: string }
+      const content = data.content ?? ""
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
       // Extract JSON from response
       const jsonMatch = content.match(/\{[\s\S]*\}/)
       if (!jsonMatch) throw new Error("Format de reponse invalide")

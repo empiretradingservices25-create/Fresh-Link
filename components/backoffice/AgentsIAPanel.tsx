@@ -5,6 +5,7 @@ import { type User } from "@/lib/store"
 
 interface Props { user: User; initialAgent?: string }
 
+<<<<<<< HEAD
 // ─── API — robust retry chain ─────────────────────────────────────────────────
 const ENDPOINT = "https://llm.blackbox.ai/chat/completions"
 const HEADERS = {
@@ -60,6 +61,30 @@ async function callLLM(systemPrompt: string, history: MsgLike[], attempt = 0): P
     }
     throw new Error("QUOTA_EXCEEDED")
   }
+=======
+// ─── API — calls internal server route (secrets stay server-side) ─────────────
+
+interface MsgLike { role: string; text: string }
+
+async function callLLM(systemPrompt: string, history: MsgLike[]): Promise<string> {
+  const res = await fetch("/api/ai/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      systemPrompt,
+      messages: history.slice(-18).map(m => ({ role: m.role, content: m.text })),
+      max_tokens: 2048,
+      temperature: 0.72,
+    }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({})) as { error?: string }
+    throw new Error(err.error ?? `HTTP_${res.status}`)
+  }
+  const data = await res.json() as { content: string }
+  if (!data.content || data.content.length < 2) throw new Error("EMPTY_RESPONSE")
+  return data.content
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 }
 
 // ─── N3 silent alert ──────────────────────────────────────────────────────────

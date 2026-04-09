@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@radix-ui/react-slot": "^1.1.0",
     "@supabase/supabase-js": "latest",
     "@tailwindcss/postcss": "^4.0.0",
@@ -25,11 +26,34 @@
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
+=======
+    "react": "latest",
+    "react-dom": "^19.0.0",
+    "next": "latest",
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "autoprefixer": "^10.4.0",
+    "@supabase/supabase-js": "latest",
+    "lucide-react": "^0.400.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^8.0.0",
+<<<<<<< HEAD
     "eslint-config-next": "^15.0.0",
     "typescript": "^5.0.0"
   }
 }
+=======
+    "eslint-config-next": "^15.0.0"
+  }
+}
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c

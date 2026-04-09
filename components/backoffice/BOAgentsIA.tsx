@@ -31,6 +31,7 @@ interface Agent {
 }
 
 // ─────────────────────────────────────────────────────────────
+<<<<<<< HEAD
 // API — robust with retry + fallback models
 // ─────────────────────────────────────────────────────────────
 
@@ -91,6 +92,32 @@ async function callLLM(
     }
     throw new Error("QUOTA_EXCEEDED")
   }
+=======
+// API — calls internal server route (secrets stay server-side)
+// ─────────────────────────────────────────────────────────────
+
+async function callLLM(
+  systemPrompt: string,
+  history: Message[],
+): Promise<string> {
+  const res = await fetch("/api/ai/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      systemPrompt,
+      messages: history.slice(-18).map(m => ({ role: m.role, content: m.content })),
+      max_tokens: 2048,
+      temperature: 0.72,
+    }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({})) as { error?: string }
+    throw new Error(err.error ?? `HTTP_${res.status}`)
+  }
+  const data = await res.json() as { content: string }
+  if (!data.content || data.content.length < 2) throw new Error("EMPTY")
+  return data.content
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 }
 
 function genId() { return `${Date.now()}_${Math.random().toString(36).slice(2, 7)}` }

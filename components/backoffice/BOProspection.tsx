@@ -207,6 +207,7 @@ Génère une analyse complète en JSON avec exactement cette structure:
   "resume": "<résumé exécutif en 1 phrase percutante>"
 }`
 
+<<<<<<< HEAD
   const res = await fetch("https://llm.blackbox.ai/chat/completions", {
     method: "POST",
     headers: {
@@ -220,14 +221,27 @@ Génère une analyse complète en JSON avec exactement cette structure:
         { role: "system", content: systemPrompt },
         { role: "user",   content: userMsg },
       ],
+=======
+  const res = await fetch("/api/ai/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      systemPrompt,
+      messages: [{ role: "user", content: userMsg }],
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
       max_tokens: 800,
       temperature: 0.4,
     }),
   })
 
   if (!res.ok) throw new Error(`API error ${res.status}`)
+<<<<<<< HEAD
   const data = await res.json()
   const raw = data.choices?.[0]?.message?.content ?? "{}"
+=======
+  const data = await res.json() as { content: string }
+  const raw = data.content ?? "{}"
+>>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
   // Extract JSON even if wrapped in ```json ... ```
   const jsonMatch = raw.match(/\{[\s\S]*\}/)
   if (!jsonMatch) throw new Error("No JSON in response")
