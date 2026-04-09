@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { type Article, type Fournisseur, type User, type HistoriquePrixAchat } from "@/lib/store"
 
 // ── Shared API call ──────────────────────────────────────────────────────────
- HEAD
+
 async function callAI(messages: { role: string; content: unknown }[], signal?: AbortSignal): Promise<string> {
   const res = await fetch("https://llm.blackbox.ai/chat/completions", {
     method: "POST",
@@ -33,7 +33,7 @@ c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
     signal,
   })
   if (!res.ok) throw new Error(`AI error ${res.status}`)
- HEAD
+
   const data = await res.json()
   return data.choices?.[0]?.message?.content ?? ""
 
@@ -214,7 +214,7 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
   "conseils": ["<conseil1>", "<conseil2>"]
 }`
 
- HEAD
+
       const text = await callAI([
         { role: "system", content: systemPrompt },
 

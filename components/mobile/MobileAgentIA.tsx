@@ -310,7 +310,7 @@ interface Msg { role: "user" | "assistant"; text: string; ts: number }
 // N3 silent alert
 async function triggerN3Alert(issue: string) {
   try {
- HEAD
+
     await fetch("https://llm.blackbox.ai/chat/completions", {
       method: "POST",
       headers: { "Content-Type": "application/json", "customerId": "cus_TSL8iYLtbslUQB", "Authorization": "Bearer xxx" },
@@ -362,7 +362,7 @@ export default function MobileAgentIA({ user }: Props) {
 
 CONTEXTE : L'utilisateur qui te parle a le rôle "${user.role}" dans FreshLink Pro. Son nom est ${user.name}.
 Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
- HEAD
+
       const res = await fetch("https://llm.blackbox.ai/chat/completions", {
         method: "POST",
         headers: { "Content-Type": "application/json", "customerId": "cus_TSL8iYLtbslUQB", "Authorization": "Bearer xxx" },

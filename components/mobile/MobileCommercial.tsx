@@ -708,7 +708,7 @@ export default function MobileCommercial({ user }: Props) {
           ) : filteredClients.map(c => {
             const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null
             return (
- HEAD
+
               <button key={c.id} onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
 
@@ -733,7 +733,7 @@ c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
                     </button>
                   )}
                 </div>
- HEAD
+
               </button>
 
               </div>

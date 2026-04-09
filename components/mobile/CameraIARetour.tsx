@@ -63,7 +63,7 @@ export default function CameraIARetour({ articleNom, onValidate, onCancel }: Pro
     setError(null)
     try {
       const base64Data = photo.split(",")[1]
- HEAD
+
       const res = await fetch("https://llm.blackbox.ai/chat/completions", {
         method: "POST",
         headers: {
@@ -92,7 +92,7 @@ Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce 
 Article concerne: ${articleNom ?? "fruits ou legumes"}.
 Prix achat reference: ${prixAchat || "inconnu"} MAD/kg.
 Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
- HEAD
+
             },
 
 
@@ -116,7 +116,7 @@ c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
       })
 
       if (!res.ok) throw new Error(`API erreur ${res.status}`)
- HEAD
+
       const data = await res.json()
       const content = data.choices?.[0]?.message?.content ?? ""
 

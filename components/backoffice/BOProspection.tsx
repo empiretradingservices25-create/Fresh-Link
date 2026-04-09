@@ -207,7 +207,7 @@ Génère une analyse complète en JSON avec exactement cette structure:
   "resume": "<résumé exécutif en 1 phrase percutante>"
 }`
 
- HEAD
+
   const res = await fetch("https://llm.blackbox.ai/chat/completions", {
     method: "POST",
     headers: {
@@ -235,7 +235,7 @@ c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
   })
 
   if (!res.ok) throw new Error(`API error ${res.status}`)
- HEAD
+
   const data = await res.json()
   const raw = data.choices?.[0]?.message?.content ?? "{}"
 
