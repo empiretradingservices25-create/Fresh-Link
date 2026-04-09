@@ -64,20 +64,6 @@ export default function CameraIARetour({ articleNom, onValidate, onCancel }: Pro
     try {
       const base64Data = photo.split(",")[1]
 
-      const res = await fetch("https://llm.blackbox.ai/chat/completions", {
-        method: "POST",
-        headers: {
-          "customerId": "cus_TSL8iYLtbslUQB",
-          "Content-Type": "application/json",
-          "Authorization": "Bearer xxx",
-        },
-        body: JSON.stringify({
-          model: "openrouter/claude-sonnet-4",
-          messages: [
-            {
-              role: "system",
-              content: `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
-
       const systemPrompt = `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
 
 Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce format exact:
@@ -91,10 +77,7 @@ Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce 
 }
 Article concerne: ${articleNom ?? "fruits ou legumes"}.
 Prix achat reference: ${prixAchat || "inconnu"} MAD/kg.
-Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
-
-            },
-
+Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`;
 
       const res = await fetch("/api/ai/chat", {
         method: "POST",
@@ -102,7 +85,6 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
         body: JSON.stringify({
           systemPrompt,
           messages: [
-
             {
               role: "user",
               content: [
@@ -116,9 +98,6 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
       })
 
       if (!res.ok) throw new Error(`API erreur ${res.status}`)
-
-      const data = await res.json()
-      const content = data.choices?.[0]?.message?.content ?? ""
 
       const data = await res.json() as { content: string }
       const content = data.content ?? ""

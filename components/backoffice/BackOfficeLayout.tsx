@@ -70,7 +70,7 @@ const BOWhatsApp             = dynamic(() => import("./BOWhatsApp"),            
 const BOAffectationCommerciale = dynamic(() => import("./BOAffectationCommerciale"), { ssr: false, loading: L("Chargement affectation...") })
 const BOGoogleSheets         = dynamic(() => import("./BOGoogleSheets"),         { ssr: false, loading: L("Chargement Google Sheets...") })
 const BOComptesExternes      = dynamic(() => import("./BOComptesExternes"),      { ssr: false, loading: L("Chargement comptes...") })
-const BOProspection          = dynamic(() => import("./BOProspection").then(mod => mod.default), { ssr: false, loading: L("Chargement prospection...") })
+const BOProspection          = dynamic(() => import("./BOProspection").then(m => m.default), { ssr: false, loading: L("Chargement prospection...") })
 const BOCreditFournisseur    = dynamic(() => import("./BOCreditFournisseur"),    { ssr: false, loading: L("Chargement credit...") })
 const AgentsIAPanel          = dynamic(() => import("./AgentsIAPanel"),          { ssr: false, loading: L("Chargement agent IA...") })
 const BOGPSTracker           = dynamic(() => import("./BOGPSTracker"),           { ssr: false, loading: L("Chargement GPS...") })
@@ -298,7 +298,7 @@ const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
   settings:          (u) => <BOSettings user={u} />,
   gsheets:           (u) => <BOGoogleSheets user={u} />,
   comptes_externes:  (u) => <BOComptesExternes user={u} />,
-  prospection:       (_u) => <BOProspection />,
+  prospection:       (u) => <BOProspection user={u} />,
   credit_fournisseur:(u) => <BOCreditFournisseur user={u} />,
   agents_ia:         (u) => <AgentsIAPanel user={u} initialAgent="ashel" />,
   azmi_agent:        (u) => <AgentsIAPanel user={u} initialAgent="azmi" />,

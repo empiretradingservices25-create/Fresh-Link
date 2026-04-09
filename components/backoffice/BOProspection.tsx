@@ -208,36 +208,18 @@ Génère une analyse complète en JSON avec exactement cette structure:
 }`
 
 
-  const res = await fetch("https://llm.blackbox.ai/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "customerId": "cus_TSL8iYLtbslUQB",
-      "Authorization": "Bearer xxx",
-    },
-    body: JSON.stringify({
-      model: "openrouter/claude-sonnet-4",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user",   content: userMsg },
-      ],
-
   const res = await fetch("/api/ai/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       systemPrompt,
       messages: [{ role: "user", content: userMsg }],
-
       max_tokens: 800,
       temperature: 0.4,
     }),
   })
 
   if (!res.ok) throw new Error(`API error ${res.status}`)
-
-  const data = await res.json()
-  const raw = data.choices?.[0]?.message?.content ?? "{}"
 
   const data = await res.json() as { content: string }
   const raw = data.content ?? "{}"
