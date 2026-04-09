@@ -1,0 +1,34 @@
+﻿@import 'tailwindcss';
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: rgb(30 41 59);
+  --color-card: #ffffff;
+  --color-card-foreground: rgb(30 41 59);
+  --color-popover: #ffffff;
+  --color-popover-foreground: rgb(30 41 59);
+  --color-muted: rgb(226 232 240);
+  --color-muted-foreground: rgb(100 116 139);
+  --color-accent: rgb(168 85 247);
+  --color-accent-foreground: #ffffff;
+  --color-destructive: rgb(239 68 68);
+  --color-destructive-foreground: #ffffff;
+  --color-border: rgb(226 232 240);
+  --color-input: rgb(226 232 240);
+  --color-ring: rgb(168 85 247);
+  --radius-base: 0.5rem;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-feature-settings: "rounding" 1;
+}
+
+* {
+  @apply border-border;
+}
