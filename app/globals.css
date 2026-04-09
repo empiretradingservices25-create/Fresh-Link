@@ -1,24 +1,4 @@
- HEAD
-﻿@import 'tailwindcss';
-
-@theme {
-  --color-background: #ffffff;
-  --color-foreground: rgb(30 41 59);
-  --color-card: #ffffff;
-  --color-card-foreground: rgb(30 41 59);
-  --color-popover: #ffffff;
-  --color-popover-foreground: rgb(30 41 59);
-  --color-muted: rgb(226 232 240);
-  --color-muted-foreground: rgb(100 116 139);
-  --color-accent: rgb(168 85 247);
-  --color-accent-foreground: #ffffff;
-  --color-destructive: rgb(239 68 68);
-  --color-destructive-foreground: #ffffff;
-  --color-border: rgb(226 232 240);
-  --color-input: rgb(226 232 240);
-  --color-ring: rgb(168 85 247);
-  --radius-base: 0.5rem;
-}
+@import 'tailwindcss';
 
 html {
   -webkit-font-smoothing: antialiased;
@@ -26,16 +6,14 @@ html {
 }
 
 body {
-  @apply bg-background text-foreground;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-feature-settings: "rounding" 1;
 }
 
-* {
-  @apply border-border;
+/* Removed empty universal selector as it is not needed */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind directives removed. Make sure to include Tailwind via your build process. */
 
 :root {
   --background: 0 0% 100%;
@@ -99,5 +77,4 @@ body {
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 }

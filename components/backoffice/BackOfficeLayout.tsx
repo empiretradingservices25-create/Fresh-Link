@@ -70,7 +70,7 @@ const BOWhatsApp             = dynamic(() => import("./BOWhatsApp"),            
 const BOAffectationCommerciale = dynamic(() => import("./BOAffectationCommerciale"), { ssr: false, loading: L("Chargement affectation...") })
 const BOGoogleSheets         = dynamic(() => import("./BOGoogleSheets"),         { ssr: false, loading: L("Chargement Google Sheets...") })
 const BOComptesExternes      = dynamic(() => import("./BOComptesExternes"),      { ssr: false, loading: L("Chargement comptes...") })
-const BOProspection          = dynamic(() => import("./BOProspection"),          { ssr: false, loading: L("Chargement prospection...") })
+const BOProspection          = dynamic(() => import("./BOProspection").then(mod => mod.default), { ssr: false, loading: L("Chargement prospection...") })
 const BOCreditFournisseur    = dynamic(() => import("./BOCreditFournisseur"),    { ssr: false, loading: L("Chargement credit...") })
 const AgentsIAPanel          = dynamic(() => import("./AgentsIAPanel"),          { ssr: false, loading: L("Chargement agent IA...") })
 const BOGPSTracker           = dynamic(() => import("./BOGPSTracker"),           { ssr: false, loading: L("Chargement GPS...") })
@@ -275,9 +275,9 @@ const NAV_GROUPS: NavGroup[] = [
 
 const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
   dashboard:         (u) => <BODashboard user={u} />,
-  achat:             (u) => <BOAchat user={u} />,
+  achat:             (_u) => <BOAchat />,
   reception:         (u) => <BOReception user={u} />,
-  po:                (u) => <BOPurchaseOrders user={u} />,
+  po:                (_u) => <BOPurchaseOrders />,
   commercial:        (u) => <BOCommercial user={u} />,
   affectation:       (u) => <BOAffectationCommerciale user={u} />,
   dispatch:          (u) => <BODispatch user={u} />,
@@ -285,20 +285,20 @@ const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
   preparation:       (u) => <BOBonPreparation user={u} />,
   rapport_livraison: (u) => <BORapportLivraison user={u} />,
   stock:             (u) => <BOStock user={u} />,
-  retour:            (u) => <BORetour user={u} />,
+  retour:            (_u) => <BORetour />,
   articles:          (u) => <BOArticles user={u} />,
   finance:           (u) => <BOFinance user={u} />,
   whatsapp:          (u) => <BOWhatsApp user={u} />,
-  cash:              (u) => <BOCash user={u} />,
-  livraisons:        (u) => <BOCash user={u} />,
-  recap:             (u) => <BORecap user={u} />,
+  cash:              (_u) => <BOCash />,
+  livraisons:        (_u) => <BOCash />,
+  recap:             (_u) => <BORecap />,
   users:             (u) => <BOUsers currentUser={u} />,
   depots:            (u) => <BODepots user={u} />,
   database:          (u) => <BODatabase user={u} />,
   settings:          (u) => <BOSettings user={u} />,
   gsheets:           (u) => <BOGoogleSheets user={u} />,
   comptes_externes:  (u) => <BOComptesExternes user={u} />,
-  prospection:       (u) => <BOProspection user={u} />,
+  prospection:       (_u) => <BOProspection />,
   credit_fournisseur:(u) => <BOCreditFournisseur user={u} />,
   agents_ia:         (u) => <AgentsIAPanel user={u} initialAgent="ashel" />,
   azmi_agent:        (u) => <AgentsIAPanel user={u} initialAgent="azmi" />,
@@ -382,7 +382,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
     if (item.permKey === "canViewDatabase") return isAdminOrAbove
     // All other permKeys: super_admin + admin bypass, others check their flag
     if (isSuperAdmin) return true
-    return (user as Record<string, unknown>)[item.permKey as string] === true
+    return ((user as unknown) as Record<string, unknown>)[item.permKey as string] === true
   }, [isSuperAdmin, isAdminOrAbove, user])
 
   const navigate = useCallback((tab: Tab) => {
