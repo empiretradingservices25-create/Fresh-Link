@@ -708,8 +708,10 @@ export default function MobileCommercial({ user }: Props) {
           ) : filteredClients.map(c => {
             const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null
             return (
-              <button key={c.id} onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
+              <div key={c.id} role="button" tabIndex={0}
+                onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
+                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedClientId(c.id); setShowClientDropdown(false) } }}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border cursor-pointer ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">
                   {c.nom[0]}
                 </div>
@@ -726,7 +728,7 @@ export default function MobileCommercial({ user }: Props) {
                     </button>
                   )}
                 </div>
-              </button>
+              </div>
             )
           })}
         </div>
