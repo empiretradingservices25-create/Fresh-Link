@@ -4,6 +4,22 @@ import { useState, useEffect, useRef, useMemo } from "react"
 import { store, type Article, type User, type Client, type Commande, DELAI_RECOUVREMENT_LABELS, type DelaiRecouvrement, MODALITE_LABELS, type ModalitePaiement } from "@/lib/store"
 import { sendEmail, buildCommandeEmail } from "@/lib/email"
 
+// Icon components
+function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+    </svg>
+  );
+}
+function EditIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.828l-4 1a1 1 0 01-1.263-1.263l1-4a4 4 0 01.828-1.414z" />
+    </svg>
+  );
+}
+
 interface Props { user: User }
 
 interface LigneForm {
@@ -541,41 +557,42 @@ export default function MobileCommercial({ user }: Props) {
   }
 
   return (
-    <div className="p-4 flex flex-col gap-4 pb-6">
-      <div>
-        <h2 className="text-lg font-bold text-foreground">
-          Prise de Commande <span className="text-muted-foreground font-normal text-base">/ تسجيل الطلبية</span>
-        </h2>
-        <p className="text-xs text-muted-foreground">{user.name} — {store.today()}</p>
-      </div>
+    <>
+      <div className="p-4 flex flex-col gap-4 pb-6">
+        <div>
+          <h2 className="text-lg font-bold text-foreground">
+            Prise de Commande <span className="text-muted-foreground font-normal text-base">/ تسجيل الطلبية</span>
+          </h2>
+          <p className="text-xs text-muted-foreground">{user.name} — {store.today()}</p>
+        </div>
 
-      {/* Tab switcher */}
-      <div className="flex gap-1 p-1 rounded-xl bg-muted">
-        <button onClick={() => { setCommTab("nouvelle"); setEditCmd(null) }}
-          className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "nouvelle" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-          Nouvelle commande
-        </button>
-        <button onClick={() => setCommTab("mes_commandes")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "mes_commandes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-          Mes cmds
-          {myCommandes.length > 0 && (
-            <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center" style={{ background: "oklch(0.38 0.2 260)" }}>
-              {myCommandes.length}
-            </span>
-          )}
-        </button>
-        <button onClick={() => setCommTab("habitudes")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "habitudes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-          Habitudes
-          {Object.keys(clientHabits).length > 0 && (
-            <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center bg-amber-500">
-              {Object.keys(clientHabits).length}
-            </span>
-          )}
-        </button>
-      </div>
+        {/* Tab switcher */}
+        <div className="flex gap-1 p-1 rounded-xl bg-muted">
+          <button onClick={() => { setCommTab("nouvelle"); setEditCmd(null) }}
+            className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "nouvelle" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+            Nouvelle commande
+          </button>
+          <button onClick={() => setCommTab("mes_commandes")}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "mes_commandes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+            Mes cmds
+            {myCommandes.length > 0 && (
+              <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center" style={{ background: "oklch(0.38 0.2 260)" }}>
+                {myCommandes.length}
+              </span>
+            )}
+          </button>
+          <button onClick={() => setCommTab("habitudes")}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "habitudes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+            Habitudes
+            {Object.keys(clientHabits).length > 0 && (
+              <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center bg-amber-500">
+                {Object.keys(clientHabits).length}
+              </span>
+            )}
+          </button>
+        </div>
 
-      {commTab === "nouvelle" && (<>
+        {commTab === "nouvelle" && (<>
 
       {success && (
         <div className={`rounded-xl p-4 flex items-start gap-3 border ${successWorkflow === "direct" ? "bg-green-50 border-green-300" : "bg-amber-50 border-amber-300"}`}>
@@ -716,16 +733,14 @@ export default function MobileCommercial({ user }: Props) {
           {filteredClients.length === 0 ? (
             <p className="text-xs text-muted-foreground px-2 py-3 text-center">Aucun client trouvé</p>
           ) : filteredClients.map(c => {
-            const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null
+            const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null;
             return (
-
               <button key={c.id}
-                onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
-                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedClientId(c.id); setShowClientDropdown(false) } }}
+                onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false); }}
+                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedClientId(c.id); setShowClientDropdown(false); } }}
                 role="button"
                 tabIndex={0}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border cursor-pointer ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
-
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">
                   {c.nom[0]}
                 </div>
@@ -736,16 +751,14 @@ export default function MobileCommercial({ user }: Props) {
                 <div className="flex items-center gap-1.5 shrink-0">
                   {dist !== null && <span className="text-xs text-muted-foreground">{dist.toFixed(1)}km</span>}
                   {c.gpsLat && (
-                    <button onClick={e => { e.stopPropagation(); openGPSGuide(c) }}
+                    <button onClick={e => { e.stopPropagation(); openGPSGuide(c); }}
                       className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
                     </button>
                   )}
                 </div>
-
               </button>
-
-            )
+            );
           })}
         </div>
 
@@ -755,10 +768,10 @@ export default function MobileCommercial({ user }: Props) {
               {selectedClient.nom[0]}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-foreground">{selectedClient.nom}</p>
+              <p className="text-sm font-bold text-foreground">{selectedClient?.nom}</p>
               <p className="text-xs text-muted-foreground">{selectedClient.telephone} · {selectedClient.secteur}</p>
             </div>
-            {selectedClient.gpsLat && (
+            {selectedClient && selectedClient.gpsLat && (
               <button onClick={() => openGPSGuide(selectedClient)} title="Itinéraire"
                 className="p-2 rounded-xl text-white flex items-center gap-1 text-xs font-semibold"
                 style={{ background: "oklch(0.60 0.16 195)" }}>
@@ -959,87 +972,68 @@ export default function MobileCommercial({ user }: Props) {
       )}
     </div>
 
-    {/* Liste des Articles Habituels */}
-    {selectedClientId && Object.keys(clientHabits).length > 0 && (
-      <div className="flex flex-col gap-2">
-        {Object.entries(clientHabits)
-          .sort(([, a], [, b]) => b.count - a.count)
-          .map(([artId, habit]) => {
-            const art = articles.find(a => a.id === artId);
-            if (!art) return null;
-            const pv = store.computePV(art);
-            const inCart = lignes.some(l => l.articleId === artId);
-            return (
-              <div key={artId} className={`flex items-center gap-3 p-3 rounded-xl border ${inCart ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
-                <img 
-                  src={art.photo || "https://placehold.co/48x48/e2e8f0/64748b?text=Art"}
-                  alt={`${art.nom} produit habituel`}
-                  className="w-11 h-11 rounded-xl object-cover shrink-0 border border-border"
-                  onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} 
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-foreground truncate">{art.nom}</p>
-                  <div className="flex items-center gap-2 flex-wrap mt-0.5">
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-lg bg-amber-100 text-amber-700">{habit.count}x commande</span>
-                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
-                      {art.stockDisponible > 0 ? `${art.stockDisponible} ${art.unite}` : "Rupture"}
-                    </span>
-                    <span className="text-[10px] text-muted-foreground">Dernier: {habit.lastDate}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end gap-1 shrink-0">
-                  <span className="text-sm font-bold text-primary">{pv} DH</span>
-                  {inCart ? (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Dans panier</span>
-                  ) : (
-                    <button
-                      disabled={art.stockDisponible <= 0}
-                      onClick={() => {
-                        const emptyIdx = lignes.findIndex(l => !l.articleId);
-                        if (emptyIdx >= 0) updateLigne(emptyIdx, "articleId", artId);
-                        else setLignes(prev => [...prev, { articleId: artId, quantite: "", prixVente: String(pv), uniteMode: "base" }]);
-                        setCommTab("nouvelle");
-                      }}
-                      className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:opacity-40"
-                    >
-                      + Ajouter
-                    </button>
-                  )}
-                </div>
+{/* Liste des Articles Habituels */}
+{selectedClientId && Object.keys(clientHabits).length > 0 && (
+  <div className="flex flex-col gap-2">
+    {Object.entries(clientHabits)
+      .sort(([, a], [, b]) => b.count - a.count)
+      .map(([artId, habit]) => {
+        const art = articles.find(a => a.id === artId);
+        if (!art) return null;
+        const pv = store.computePV(art);
+        const inCart = lignes.some(l => l.articleId === artId);
+        return (
+          <div key={artId} className={`flex items-center gap-3 p-3 rounded-xl border ${inCart ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
+            <img 
+              src={art.photo || "https://placehold.co/48x48/e2e8f0/64748b?text=Art"}
+              alt={`${art.nom} produit habituel`}
+              className="w-11 h-11 rounded-xl object-cover shrink-0 border border-border"
+              onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} 
+            />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-foreground truncate">{art.nom}</p>
+              <div className="flex items-center gap-2 flex-wrap mt-0.5">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-lg bg-amber-100 text-amber-700">{habit.count}x commande</span>
+                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
+                  {art.stockDisponible > 0 ? `${art.stockDisponible} ${art.unite}` : "Rupture"}
+                </span>
+                <span className="text-[10px] text-muted-foreground">Dernier: {habit.lastDate}</span>
               </div>
-            );
-          })}
-      </div>
-    )}
-
-    {/* État vide si aucune habitude */}
-    {selectedClientId && Object.keys(clientHabits).length === 0 && (
-      <div className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-3 text-center">
-        <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-        </svg>
-        <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistrée</p>
-        <p className="text-xs text-muted-foreground">Les habitudes se créent automatiquement après plusieurs commandes passées par ce client.</p>
-      </div>
-    )}
+            </div>
+            <div className="flex flex-col items-end gap-1 shrink-0">
+              <span className="text-sm font-bold text-primary">{pv} DH</span>
+              {inCart ? (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Dans panier</span>
+              ) : (
+                <button
+                  disabled={art.stockDisponible <= 0}
+                  onClick={() => {
+                    const emptyIdx = lignes.findIndex(l => !l.articleId);
+                    if (emptyIdx >= 0) updateLigne(emptyIdx, "articleId", artId);
+                    else setLignes(prev => [...prev, { articleId: artId, quantite: "", prixVente: String(pv), uniteMode: "base" }]);
+                    setCommTab("nouvelle");
+                  }}
+                  className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:opacity-40"
+                >
+                  + Ajouter
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      })}
   </div>
 )}
-
-      <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-          <div>
-            <p className="text-sm font-bold text-foreground">Articles / المنتجات</p>
-            <p className="text-xs text-muted-foreground">{pickerArticles.length} articles</p>
-          </div>
-          {selectedClientId && Object.keys(clientHabits).length > 0 && (
-            <button 
-              onClick={autoFillPanier}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-amber-300 text-amber-700 bg-amber-50"
-            >
-              Auto-panier
-            </button>
-          )}
-        </div>
+{/* État vide si aucune habitude */}
+{selectedClientId && Object.keys(clientHabits).length === 0 && (
+  <div className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-3 text-center">
+    <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+    </svg>
+    <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistrée</p>
+    <p className="text-xs text-muted-foreground">Les habitudes se créent automatiquement après plusieurs commandes passées par ce client.</p>
+  </div>
+)}
 
         {/* Search field */}
         <div className="px-3 py-2.5 border-b border-border">
@@ -1122,7 +1116,7 @@ export default function MobileCommercial({ user }: Props) {
             )
           })}
         </div>
-      </div>
+      {/* END habitudes tab */}
 
       {/* ARTICLES lines -------------------------- */}
       <div className="flex flex-col gap-3">
@@ -1379,7 +1373,7 @@ export default function MobileCommercial({ user }: Props) {
       </div>
 
       {/* END nouvelle commande tab */}
-      </>)}
+      )}
 
       {/* - MES COMMANDES TAB -------------------─ */}
       {commTab === "mes_commandes" && (
@@ -1391,7 +1385,7 @@ export default function MobileCommercial({ user }: Props) {
               </svg>
               <p className="text-sm font-semibold text-muted-foreground">Aucune commande aujourd&apos;hui</p>
               <button
-                onClick={() => setCommTab && setCommTab("nouvelle")}
+                onClick={() => setCommTab("nouvelle")}
                 className="mt-3 px-4 py-2 rounded-xl text-sm font-semibold text-white"
                 style={{ background: "oklch(0.38 0.2 260)" }}>
                 Passer une commande
@@ -1404,7 +1398,9 @@ export default function MobileCommercial({ user }: Props) {
                 <div className="bg-card rounded-2xl border border-primary/30 p-4 flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-bold text-foreground">Modifier — {editCmd.clientNom}</p>
+                      <p className="text-sm font-bold text-foreground">
+                        Modifier — {editCmd?.clientNom ?? ""}
+                      </p>
                       <p className="text-xs text-muted-foreground">Modification possible dans le delai d&apos;1 heure apres creation</p>
                     </div>
                     <button onClick={() => setEditCmd(null)} className="p-1.5 rounded-lg bg-muted text-muted-foreground">
@@ -1480,70 +1476,36 @@ export default function MobileCommercial({ user }: Props) {
                 const editable = canEdit(cmd)
                 const isActive = editCmd?.id === cmd.id
                 return (
-                  <div key={cmd.id} className={`rounded-xl border p-4 flex flex-col gap-2.5 ${isActive ? "border-primary/50 bg-primary/3" : "border-border bg-card"}`}>
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm text-foreground">{cmd.clientNom}</p>
-                        <p className="text-xs text-muted-foreground">{cmd.secteur} · {cmd.heurelivraison}</p>
-                        <p className="text-xs text-muted-foreground font-mono">{cmd.id}</p>
-                      </div>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                        cmd.statut === "valide" ? "bg-blue-100 text-blue-700" :
-                        cmd.statut === "livre" ? "bg-green-100 text-green-700" :
-                        cmd.statut === "en_attente_approbation" ? "bg-orange-100 text-orange-700" :
-                        "bg-yellow-100 text-yellow-700"}`}>
-                        {cmd.statut}
-                      </span>
-                    </div>
+    <div key={cmd.id} className="p-3 border-b last:border-0">
+      <div className="flex justify-between items-start">
+        {/* Infos de la commande (Client, Heure, Total) */}
+        <div>
+          <p className="font-bold text-sm">{cmd.clientNom}</p>
+          <p className="text-[10px] text-muted-foreground">{cmd.heurelivraison} • {cmd.lignes.length} articles</p>
+        </div>
 
-                    {/* Article lines summary */}
-                    <div className="flex flex-col gap-1">
-                      {cmd.lignes.map((l, i) => (
-                        <div key={i} className="flex items-center justify-between text-xs">
-                          <span className="text-foreground">{l.articleNom}</span>
-                          <span className="font-semibold text-muted-foreground">
-                            {l.quantiteUM ? `${l.quantiteUM} ${l.um} = ` : ""}{l.quantite} {l.unite} · {l.total.toLocaleString("fr-MA")} DH
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-1 border-t border-border">
-                      <span className="text-xs text-amber-600 font-semibold">{tonn.toLocaleString("fr-MA")} kg</span>
-                      <span className="text-sm font-extrabold text-primary">{total.toLocaleString("fr-MA")} DH</span>
-                    </div>
-
-                    <div className="flex gap-2">
-                      {editable && !isActive && (
-                        <button onClick={() => openEdit(cmd)}
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold border border-primary/30 text-primary hover:bg-primary/5 transition-colors">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
-                          Modifier (1h)
-                        </button>
-                      )}
-                      {editable && (
-                        <button onClick={() => handleDeleteCommande(cmd.id)}
-                          className="flex items-center justify-center gap-1 py-2 px-3 rounded-xl text-xs font-bold bg-red-50 text-red-600 hover:bg-red-100 transition-colors border border-red-200">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                          Supprimer
-                        </button>
-                      )}
-                      {!editable && (
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground px-2">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                          Verrouillee
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )
-              })}
-            </>
+        {/* Zone d'action dynamique */}
+        <div className="flex flex-col items-end gap-2">
+          {editable ? (
+            <div className="flex gap-2">
+              <button onClick={() => openEdit(cmd)} className="p-2 text-primary bg-primary/10 rounded-lg">
+                <EditIcon className="w-4 h-4" />
+              </button>
+              <button onClick={() => handleDeleteCommande(cmd.id)} className="p-2 text-destructive bg-destructive/10 rounded-lg">
+                <TrashIcon className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1 text-xs text-muted-foreground px-2 bg-muted/50 py-1 rounded-md">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              Verrouillée
+            </div>
           )}
         </div>
-      )}
+      </div>
     </div>
   );
-}
-/* (Removed duplicate or misplaced code that was outside the component and referenced myCommandes) */
-
+})}
+  

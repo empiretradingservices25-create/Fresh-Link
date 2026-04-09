@@ -5,10 +5,10 @@ import dynamic from "next/dynamic"
 import type { User } from "@/lib/store"
 import { store, ROLE_LABELS, ROLE_COLORS, isDemoUser } from "@/lib/store"
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // ERROR BOUNDARY — catches any render crash inside a panel
 // instead of letting the whole page go white
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 interface EBState { hasError: boolean; msg: string }
 class PanelErrorBoundary extends Component<{ children: React.ReactNode; label: string }, EBState> {
   constructor(props: { children: React.ReactNode; label: string }) {
@@ -70,7 +70,7 @@ const BOWhatsApp             = dynamic(() => import("./BOWhatsApp"),            
 const BOAffectationCommerciale = dynamic(() => import("./BOAffectationCommerciale"), { ssr: false, loading: L("Chargement affectation...") })
 const BOGoogleSheets         = dynamic(() => import("./BOGoogleSheets"),         { ssr: false, loading: L("Chargement Google Sheets...") })
 const BOComptesExternes      = dynamic(() => import("./BOComptesExternes"),      { ssr: false, loading: L("Chargement comptes...") })
-const BOProspection          = dynamic(() => import("./BOProspection").then(m => m.default), { ssr: false, loading: L("Chargement prospection...") })
+const BOProspection          = dynamic(() => import("./BOProspection"),          { ssr: false, loading: L("Chargement prospection...") })
 const BOCreditFournisseur    = dynamic(() => import("./BOCreditFournisseur"),    { ssr: false, loading: L("Chargement credit...") })
 const AgentsIAPanel          = dynamic(() => import("./AgentsIAPanel"),          { ssr: false, loading: L("Chargement agent IA...") })
 const BOGPSTracker           = dynamic(() => import("./BOGPSTracker"),           { ssr: false, loading: L("Chargement GPS...") })
@@ -90,9 +90,9 @@ const BOResources            = dynamic(() => import("./BOResources"),           
 const BOComptabiliteRH       = dynamic(() => import("./BOComptabiliteRH"),       { ssr: false, loading: L("Chargement compta RH...") })
 const BODatabase             = dynamic(() => import("./BODatabase"),             { ssr: false, loading: L("Chargement base de donnees...") })
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // TYPES
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
 export type Tab =
   | "dashboard" | "achat" | "reception" | "po"
@@ -127,9 +127,9 @@ interface NavGroup {
   items: NavItem[]
 }
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // ICON HELPER
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
 function Icon({ d, className = "w-[18px] h-[18px]" }: { d: string; className?: string }) {
   return (
@@ -139,12 +139,12 @@ function Icon({ d, className = "w-[18px] h-[18px]" }: { d: string; className?: s
   )
 }
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // NAV CONFIGURATION
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
 const NAV_GROUPS: NavGroup[] = [
-  // - ANALYSE & KPI -----------------------------
+  // ── ANALYSE & KPI ──────────────────────────────────────────────────────────
   {
     label: "Analyse & KPI", labelAr: "التحليل",
     items: [
@@ -153,7 +153,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: "rapport_livraison", label: "Rapport Livraison", labelAr: "تقرير التوصيل", permKey: "canViewLogistique", icon: <Icon d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /> },
     ],
   },
-  // - ACHAT ---------------------------------
+  // ── ACHAT ──────────────────────────────────────────────────────────────────
   {
     label: "Achat", labelAr: "المشتريات",
     items: [
@@ -166,7 +166,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: "analyse_reception",   label: "Analyse Reception",   labelAr: "تحليل الاستلام",     permKey: "canViewAchat", icon: <Icon d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /> },
     ],
   },
-  // - COMMERCIAL ------------------------------
+  // ── COMMERCIAL ────────────────────────────────────────────────────────────
   {
     label: "Commercial", labelAr: "التجاري",
     items: [
@@ -176,7 +176,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: "prospection",  label: "Prospection IA",     labelAr: "الاستهداف الذكي", permKey: "canViewCommercial", icon: <Icon d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> },
     ],
   },
-  // - LOGISTIQUE ------------------------------
+  // ── LOGISTIQUE ────────────────────────────────────────────────────────────
   {
     label: "Logistique", labelAr: "اللوجستيك",
     items: [
@@ -190,7 +190,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: "caisses_vides", label: "Caisses Vides",      labelAr: "الصناديق الفارغة", permKey: "canViewLogistique", icon: <Icon d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /> },
     ],
   },
-  // - DONNÉES -------------------------------─
+  // ── DONNÉES ───────────────────────────────────────────────────────────────
   {
     label: "Donnees", labelAr: "البيانات",
     items: [
@@ -198,7 +198,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: "comptes_externes", label: "Clients & Fournisseurs", labelAr: "الزبائن والموردون", permKey: "canViewExternal", icon: <Icon d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /> },
     ],
   },
-  // - COMMUNICATION ----------------------------
+  // ── COMMUNICATION ────────────────────────────────────────────────────────
   {
     label: "Communication", labelAr: "التواصل",
     items: [
@@ -212,7 +212,7 @@ const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
-  // - AGENTS IA ------------------------------─
+  // ── AGENTS IA ─────────────────────────────────────────────────────────────
   {
     label: "Agents IA", labelAr: "عملاء الذكاء",
     items: [
@@ -229,14 +229,14 @@ const NAV_GROUPS: NavGroup[] = [
       { id: "ourai_agent",  label: "OURAI — RH & Paie",          labelAr: "أوراي الموارد البشرية", permKey: "canViewRH" as keyof User, icon: <Icon d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /> },
     ],
   },
-  // - COMMUNICATION & AVIS ------------------------─
+  // ── COMMUNICATION & AVIS ─────────────────────────────────────────────────
   {
     label: "Avis & Retours", labelAr: "الآراء والتقييمات",
     items: [
       { id: "feedback", label: "Feedbacks & Avis", labelAr: "الآراء والتقييمات", icon: <Icon d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /> },
     ],
   },
-  // - RESSOURCES HUMAINES -------------------------─
+  // ── RESSOURCES HUMAINES ───────────────────────────────────────────────────
   {
     label: "Ressources Humaines", labelAr: "الموارد البشرية",
     items: [
@@ -244,7 +244,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: "rh_comptabilite", label: "Comptabilité RH — Azmi", labelAr: "محاسبة الموارد", permKey: "canViewRH" as keyof User, icon: <Icon d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01M12 7h.01M15 7h.01M9 7H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 7V5a2 2 0 012-2h8a2 2 0 012 2v2" /> },
     ],
   },
-  // - ADMINISTRATION ----------------------------
+  // ── ADMINISTRATION ────────────────────────────────────────────────────────
   {
     label: "Administration", labelAr: "الإدارة",
     items: [
@@ -269,9 +269,9 @@ const NAV_GROUPS: NavGroup[] = [
   },
 ]
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // PANELS — lazy, safe, no crashes
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
 const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
   dashboard:         (u) => <BODashboard user={u} />,
@@ -320,9 +320,9 @@ const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
   rh_comptabilite:   (u) => <BOComptabiliteRH user={u} />,
 }
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // COMPONENT
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
 interface Props { user: User; onLogout: () => void }
 
@@ -406,7 +406,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
     )
   })).filter(g => g.items.length > 0)
 
-  // - Group icon colors by group label (light-theme friendly) -
+  // ── Group icon colors by group label (light-theme friendly) ──
   const GROUP_ICON_COLOR: Record<string, string> = {
     "Analyse & KPI":    "text-emerald-600",
     "Achat":            "text-amber-600",
@@ -418,7 +418,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
     "Administration":   "text-yellow-600",
   }
 
-  // - Render ------------------------─
+  // ── Render ─────────────────────────────────────────────────
   return (
     <div className="flex h-screen overflow-hidden font-sans" style={{ background: "oklch(0.07 0.015 255)", color: "oklch(0.95 0.005 250)" }}>
 
@@ -438,7 +438,6 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
           navigate={navigate}
           onLogout={onLogout}
           onOpenProfil={() => setShowProfil(true)}
-          canUseCamera={isStrictSuperAdmin}
         />
       </div>
 
@@ -474,7 +473,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
       {/* Main column */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
-        {/* - Topbar -------------------─ */}
+        {/* ── Topbar ─────────────────────────────────────── */}
         <header className="flex items-center justify-between px-4 lg:px-5 py-3 shrink-0 gap-3 bg-white border-b border-slate-200 shadow-sm">
 
           {/* Left: hamburger + breadcrumb */}
@@ -597,7 +596,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
           </div>
         )}
 
-        {/* - Tab pill row — quick access - */}
+        {/* ── Tab pill row — quick access ── */}
         <div className="flex items-center gap-1.5 px-4 lg:px-5 py-2 border-b border-slate-200 bg-slate-50 overflow-x-auto shrink-0 no-scrollbar">
           <TabPill id="dashboard" activeTab={activeTab} navigate={navigate} label="Dashboard" />
           {NAV_GROUPS.flatMap(g => g.items.filter(isVisible)).map(item => (
@@ -605,7 +604,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
           ))}
         </div>
 
-        {/* - Content ------------------- */}
+        {/* ── Content ────────────────────────────────────── */}
         <main className="flex-1 overflow-y-auto bg-slate-50">
           <div className="p-4 lg:p-6 min-h-full">
             <PanelErrorBoundary key={activeTab} label={allItems.find(i => i.id === activeTab)?.label ?? activeTab}>
@@ -618,7 +617,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
           </div>
         </main>
 
-        {/* - Footer -------------------─ */}
+        {/* ── Footer ─────────────────────────────────────── */}
         <footer className="shrink-0 border-t border-slate-200 bg-white px-6 py-2.5 flex items-center justify-between">
           <p className="text-[11px] text-slate-400">
             &copy; 2026{" "}
@@ -631,7 +630,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
         </footer>
       </div>
 
-      {/* - Profil modal ------------------ */}
+      {/* ── Profil modal ──────────────────────────────────── */}
       {showProfil && (
         <ProfilModal
           user={user}
@@ -645,9 +644,9 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
   )
 }
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // SIDEBAR CONTENT COMPONENT — extracted to avoid remount on every render
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
 interface SidebarContentProps {
   user: User
@@ -663,13 +662,12 @@ interface SidebarContentProps {
   navigate: (t: Tab) => void
   onLogout: () => void
   onOpenProfil: () => void
-  canUseCamera: boolean
 }
 
 function SidebarContent({
   user, activeTab, sidebarCollapsed, setSidebarCollapsed,
   profilPhoto, navSearch, setNavSearch, filteredGroups, searchQ,
-  GROUP_ICON_COLOR, navigate, onLogout, onOpenProfil, canUseCamera
+  GROUP_ICON_COLOR, navigate, onLogout, onOpenProfil
 }: SidebarContentProps) {
   return (
     <aside className="flex flex-col h-full bg-white border-r border-slate-200">
@@ -826,62 +824,48 @@ function SidebarContent({
       </div>
 
       {/* User footer */}
- 
-<div className="px-2 py-3 border-t border-slate-200 flex gap-2">
-  {/* Bouton Profil */}
-  <button
-    onClick={onOpenProfil}
-    className={`flex-1 flex items-center gap-2.5 rounded-xl hover:bg-slate-100 transition-colors text-left 
-      ${sidebarCollapsed ? "justify-center p-2" : "px-2 py-2"}`}
-    type="button"
-  >
-    {profilPhoto ? (
-      <img
-        src={profilPhoto}
-        alt={user.name}
-        className="w-8 h-8 rounded-full object-cover border-2 border-slate-200 shrink-0"
-      />
-    ) : (
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 ${ROLE_COLORS[user.role]}`}>
-        {user.name[0]?.toUpperCase()}
+      <div className="px-2 py-3 border-t border-slate-200">
+        <button
+          onClick={onOpenProfil}
+          className={`w-full flex items-center gap-2.5 rounded-xl hover:bg-slate-100 transition-colors text-left ${sidebarCollapsed ? "justify-center p-2" : "px-2 py-2"}`}
+        >
+          {profilPhoto ? (
+            <img src={profilPhoto} alt={user.name}
+              className="w-8 h-8 rounded-full object-cover border-2 border-slate-200 shrink-0" />
+          ) : (
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 ${ROLE_COLORS[user.role]}`}>
+              {user.name[0]?.toUpperCase()}
+            </div>
+          )}
+          {!sidebarCollapsed && (
+            <>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
+                <p className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
+              </div>
+              <button
+                onClick={e => { e.stopPropagation(); onLogout() }}
+                title="Deconnexion"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              </button>
+            </>
+          )}
+        </button>
       </div>
-    )}
-    {!sidebarCollapsed && (
-      <div className="flex-1 min-w-0">
-        <p className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
-        <p className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
-      </div>
-    )}
-  </button>
-
-  {/* Bouton Déconnexion (affiché seulement si la sidebar n'est pas repliée) */}
-  {!sidebarCollapsed && (
-    <button
-      onClick={onLogout}
-      title="Deconnexion"
-      className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0 flex items-center"
-      type="button"
-    >
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-      </svg>
-    </button>
+    </aside>
   )
 }
 
-
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // TAB PILL — used in the quick-access strip
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
-type TabPillProps = {
-  id: Tab
-  activeTab: Tab
-  navigate: (t: Tab) => void
-  label: string
-}
-
-function TabPill({ id, activeTab, navigate, label }: TabPillProps) {
+function TabPill({ id, activeTab, navigate, label }: {
+  id: Tab; activeTab: Tab; navigate: (t: Tab) => void; label: string
+}) {
   const isActive = activeTab === id
   return (
     <button
@@ -898,9 +882,9 @@ function TabPill({ id, activeTab, navigate, label }: TabPillProps) {
   )
 }
 
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 // PROFIL MODAL
-// ------------------------------─
+// ─────────────────────────────────────────────────────────────
 
 function ProfilModal({ user, profilPhoto, setProfilPhoto, onClose, canUseCamera }: {
   user: User
