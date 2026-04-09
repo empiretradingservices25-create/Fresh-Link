@@ -1015,7 +1015,7 @@ export default function MobileCommercial({ user }: Props) {
       )}
 
       {/* placeholder to close previous structure */}
-      {/* INLINE ARTICLE SELECTOR ─────────────────────────────────────────── */}
+      {/* INLINE ARTICLE SELECTOR ------------------------------------------ */}
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
