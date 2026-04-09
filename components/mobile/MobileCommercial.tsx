@@ -394,7 +394,7 @@ export default function MobileCommercial({ user }: Props) {
     if (!art || !l.quantite) return 0
     const raw = Number(l.quantite)
     if (art.um && art.colisageParUM && l.uniteMode === art.um) {
-      return raw * art.colisageParUM   // e.g. 3 caisses �- 10 kg = 30 kg
+      return raw * art.colisageParUM   // e.g. 3 caisses- 10 kg = 30 kg
     }
     return raw   // already in base units
   }
@@ -835,7 +835,7 @@ export default function MobileCommercial({ user }: Props) {
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-foreground">Rotation</label>
               <select value={newClient.rotation} onChange={e => setNewClient({ ...newClient, rotation: e.target.value as Client["rotation"] })}
-                className="px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary">
                 {Object.entries(ROTATION_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
               </select>
             </div>
@@ -936,8 +936,8 @@ export default function MobileCommercial({ user }: Props) {
       </div>
 
       {/* SECTION HABITUDES RÉCTIFIÉE */}
-{commTab === "habitudes" && (
-  <div className="flex flex-col gap-3">
+        {commTab === "habitudes" && (
+          <div className="flex flex-col gap-3">
     {/* En-tête et Bouton Auto-Panier */}
     <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
       <div className="flex items-center gap-2">
@@ -973,11 +973,11 @@ export default function MobileCommercial({ user }: Props) {
     </div>
 
 {/* Liste des Articles Habituels */}
-{selectedClientId && Object.keys(clientHabits).length > 0 && (
-  <div className="flex flex-col gap-2">
-    {Object.entries(clientHabits)
-      .sort(([, a], [, b]) => b.count - a.count)
-      .map(([artId, habit]) => {
+            {selectedClientId && Object.keys(clientHabits).length > 0 && (
+              <div className="flex flex-col gap-2">
+                {Object.entries(clientHabits)
+                  .sort(([, a], [, b]) => b.count - a.count)
+                  .map(([artId, habit]) => {
         const art = articles.find(a => a.id === artId);
         if (!art) return null;
         const pv = store.computePV(art);
@@ -1373,7 +1373,7 @@ export default function MobileCommercial({ user }: Props) {
       </div>
 
       {/* END nouvelle commande tab */}
-      )}
+      )
 
       {/* - MES COMMANDES TAB -------------------─ */}
       {commTab === "mes_commandes" && (
@@ -1507,5 +1507,6 @@ export default function MobileCommercial({ user }: Props) {
       </div>
     </div>
   );
-})}
-  
+}
+
+export default MobileCommercial;
