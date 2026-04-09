@@ -14,13 +14,9 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-<<<<<<< HEAD
-    "jsx": "react-jsx",
-=======
-    "jsx": "preserve",
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
-    "incremental": true,
+"isolatedModules": true,
+"jsx": "react-jsx",
+"incremental": true,
     "plugins": [
       {
         "name": "next"
@@ -34,20 +30,12 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-<<<<<<< HEAD
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
-=======
-    ".next/types/**/*.ts"
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
-  ],
+  "**/*.ts",
+  "**/*.tsx",
+  ".next/types/**/*.ts",
+  ".next/dev/types/**/*.ts"
+],
   "exclude": [
     "node_modules"
   ]
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
