@@ -904,6 +904,8 @@ export default function MobileCommercial({ user }: Props) {
         {/* Coordinates intentionally hidden from prevendeur screen */}
       </div>
 
+      {/* placeholder to close previous structure */}
+
       {/* ── HABITUDES TAB ─────────────────────────────────────────────────── */}
       {commTab === "habitudes" && (
         <div className="flex flex-col gap-3">
@@ -996,7 +998,6 @@ export default function MobileCommercial({ user }: Props) {
         </div>
       )}
 
-      {/* placeholder to close previous structure */}
       {/* INLINE ARTICLE SELECTOR ─────────────────────────────────────────── */}
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
