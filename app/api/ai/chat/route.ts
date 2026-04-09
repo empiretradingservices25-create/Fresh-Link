@@ -8,7 +8,14 @@ interface ContentPart {
   image_url?: { url: string }
 }
 
-interface ChatMessage {
+/** Client-supplied conversation messages (user/assistant only — system is injected server-side). */
+interface ClientMessage {
+  role: "user" | "assistant"
+  content: string | ContentPart[]
+}
+
+/** Full message shape used when calling the external provider (includes system). */
+interface ProviderMessage {
   role: "user" | "assistant" | "system"
   content: string | ContentPart[]
 }
@@ -16,7 +23,7 @@ interface ChatMessage {
 interface ChatRequestBody {
   agentId?: string
   systemPrompt: string
-  messages: ChatMessage[]
+  messages: ClientMessage[]
   temperature?: number
   max_tokens?: number
   response_format?: "text" | "json"
@@ -39,22 +46,20 @@ function checkRateLimit(ip: string): boolean {
   const entry = rateLimitMap.get(ip)
   if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
     rateLimitMap.set(ip, { count: 1, windowStart: now })
+    // Lazy cleanup: remove stale entries to avoid unbounded growth
+    if (rateLimitMap.size > 1000) {
+      for (const [key, val] of rateLimitMap.entries()) {
+        if (now - val.windowStart > RATE_LIMIT_WINDOW_MS * 2) {
+          rateLimitMap.delete(key)
+        }
+      }
+    }
     return true
   }
   if (entry.count >= RATE_LIMIT_MAX) return false
   entry.count += 1
   return true
 }
-
-// Periodically clean old entries to avoid memory leak
-setInterval(() => {
-  const now = Date.now()
-  for (const [ip, entry] of rateLimitMap.entries()) {
-    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS * 2) {
-      rateLimitMap.delete(ip)
-    }
-  }
-}, RATE_LIMIT_WINDOW_MS * 5)
 
 // ─── Provider config (server-side only) ──────────────────────────────────────
 
@@ -83,7 +88,7 @@ function getModelChain(): string[] {
 // ─── LLM call with fallback chain ────────────────────────────────────────────
 
 async function callProvider(
-  messages: ChatMessage[],
+  messages: ProviderMessage[],
   temperature: number,
   max_tokens: number,
   attempt = 0
@@ -187,7 +192,7 @@ export async function POST(req: NextRequest) {
   const truncated = body.messages.slice(-MAX_HISTORY)
 
   // Build messages for provider
-  const providerMessages: ChatMessage[] = [
+  const providerMessages: ProviderMessage[] = [
     { role: "system", content: body.systemPrompt.trim() },
     ...truncated,
   ]
