@@ -605,7 +605,14 @@ export default function BODashboard({ user }: Props) {
                       <XAxis dataKey="date" tick={TICK} axisLine={{ stroke: GRID }} tickLine={false} />
                       <YAxis yAxisId="ca" orientation="left" tick={TICK} axisLine={false} tickLine={false} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
                       <YAxis yAxisId="ton" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={v => `${v}`} />
-                      <Tooltip contentStyle={TT_STYLE} formatter={(v: number, name: string) => name === "ca" ? DH(v) : KG(v)} />
+                      <Tooltip
+                        contentStyle={TT_STYLE}
+                        formatter={(value: number | undefined, name: string | undefined) => {
+                          if (typeof value !== "number") return "";
+                          if (name === "ca") return DH(value);
+                          return KG(value);
+                        }}
+                      />
                       <Legend wrapperStyle={{ fontSize: 12, color: "oklch(0.62 0.008 145)" }} />
                       <Line yAxisId="ca" type="monotone" dataKey="ca" stroke="#10b981" strokeWidth={2.5} dot={false} name="CA (DH)" />
                       <Line yAxisId="ton" type="monotone" dataKey="tonnage" stroke="#f59e0b" strokeWidth={2} dot={false} strokeDasharray="5 3" name="Tonnage (kg)" />
@@ -660,7 +667,7 @@ export default function BODashboard({ user }: Props) {
                           <CartesianGrid strokeDasharray="4 3" stroke={GRID} horizontal={false} />
                           <XAxis type="number" tick={TICK_SM} axisLine={{ stroke: GRID }} tickLine={false} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
                           <YAxis type="category" dataKey="name" tick={TICK_SM} axisLine={false} tickLine={false} width={70} />
-                          <Tooltip contentStyle={TT_STYLE} formatter={(v: number) => DH(v)} />
+                          <Tooltip contentStyle={TT_STYLE} formatter={(v: number | undefined) => (typeof v === "number" ? DH(v) : "")} />
                           <Bar dataKey="ca" name="CA" radius={[0, 6, 6, 0]}>
                             {secteurChartData.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                           </Bar>
@@ -824,7 +831,7 @@ export default function BODashboard({ user }: Props) {
                   <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.88 0.01 240)" />
                   <XAxis type="number" tick={{ fontSize: 10 }} tickFormatter={v => `${v}kg`} />
                   <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={80} />
-                  <Tooltip formatter={(v: number) => KG(v)} />
+                  <Tooltip formatter={(v: number | undefined) => (typeof v === "number" ? KG(v) : "")} />
                   <Bar dataKey="kg" fill="#ef4444" name="Retour (kg)" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>

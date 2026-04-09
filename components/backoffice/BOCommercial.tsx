@@ -23,7 +23,7 @@ export default function BOCommercial({ user }: Props) {
     if (user.role === "resp_commercial") return true
     // team_leader can approve commandes where teamLeadId === user.id
     if (user.role === "team_leader") return true
-    if (workflow.validationCommande === "responsable" && user.role === "resp_commercial") return true
+    // Removed unreachable condition: workflow.validationCommande === "responsable"
     return false
   })()
 

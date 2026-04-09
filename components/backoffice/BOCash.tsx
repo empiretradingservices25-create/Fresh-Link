@@ -7,6 +7,12 @@ import { printBL, printFacture as printFactureLib } from "@/lib/print"
 // - FMT ---------------------------------
 const fmtDH = (n: number) => n.toLocaleString("fr-MA", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " DH"
 
+// Format date as DD/MM/YYYY
+function fmtDate(date?: string | Date) {
+  const d = date ? new Date(date) : new Date()
+  return d.toLocaleDateString("fr-MA")
+}
+
 // - Legacy inline wrappers replaced by lib/print ------------─
 // keeping _printBLLegacy to avoid breaking anything that still references it
 function _printBLLegacy(bl: BonLivraison) {

@@ -178,7 +178,7 @@ export default function BOAchat() {
       const idx = fs.findIndex(f => f.id === editFournisseur.id)
       if (idx >= 0) fs[idx] = { ...editFournisseur, nom: fNom, contact: fContact, email: fEmail }
     } else {
-      fs.push({ id: store.genId(), nom: fNom, contact: fContact, email: fEmail })
+      fs.push({ id: store.genId(), nom: fNom, contact: fContact, email: fEmail, specialites: [], itineraires: [] })
     }
     store.saveFournisseurs(fs)
     setShowFournisseurForm(false)
