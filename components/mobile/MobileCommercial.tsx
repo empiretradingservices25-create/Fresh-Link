@@ -1007,15 +1007,14 @@ export default function MobileCommercial({ user }: Props) {
               <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistree</p>
-              <p className="text-xs text-muted-foreground">Les habitudes se creent automatiquement apres plusieurs commandes passees par ce client.</p>
+              <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistrée</p>
+              <p className="text-xs text-muted-foreground">Les habitudes se créent automatiquement après plusieurs commandes passées par ce client.</p>
             </div>
           ) : null}
-        </div>
-      )}
+        </div> {/* Fermeture de la div parente des habitudes */}
+      )} {/* Fin du bloc conditionnel (ex: commTab === 'habitudes') - LIGNE 1015 */}
 
-      {/* placeholder to close previous structure */}
-      {/* INLINE ARTICLE SELECTOR ---------------------─ */}
+      {/* INLINE ARTICLE SELECTOR ------------------------- */}
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
@@ -1023,8 +1022,10 @@ export default function MobileCommercial({ user }: Props) {
             <p className="text-xs text-muted-foreground">{pickerArticles.length} articles</p>
           </div>
           {selectedClientId && Object.keys(clientHabits).length > 0 && (
-            <button onClick={autoFillPanier}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-amber-300 text-amber-700 bg-amber-50">
+            <button 
+              onClick={autoFillPanier}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-amber-300 text-amber-700 bg-amber-50"
+            >
               Auto-panier
             </button>
           )}
@@ -1532,7 +1533,7 @@ export default function MobileCommercial({ user }: Props) {
         </div>
       )}
     </div>
-  )
+  );
 }
 /* (Removed duplicate or misplaced code that was outside the component and referenced myCommandes) */
 

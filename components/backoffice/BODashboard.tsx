@@ -680,7 +680,7 @@ export default function BODashboard({ user }: Props) {
                         <PieChart>
                           <Pie data={top10Clients.map(([, c]) => ({ name: c.nom, value: Math.round(c.ca) }))}
                             dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85} innerRadius={40}
-                            label={({ name, percent }) => `${name.split(" ")[0]} ${(percent * 100).toFixed(0)}%`}
+                            label={({ name, percent }) => `${(name ?? "").split(" ")[0]} ${((percent ?? 0) * 100).toFixed(0)}%`}
                             labelLine={false} fontSize={9}>
                             {top10Clients.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                           </Pie>
