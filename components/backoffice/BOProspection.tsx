@@ -228,7 +228,7 @@ Génère une analyse complète en JSON avec exactement cette structure:
     body: JSON.stringify({
       systemPrompt,
       messages: [{ role: "user", content: userMsg }],
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
       max_tokens: 800,
       temperature: 0.4,
     }),
@@ -241,7 +241,7 @@ c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 
   const data = await res.json() as { content: string }
   const raw = data.content ?? "{}"
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
   // Extract JSON even if wrapped in ```json ... ```
   const jsonMatch = raw.match(/\{[\s\S]*\}/)
   if (!jsonMatch) throw new Error("No JSON in response")

@@ -325,7 +325,7 @@ async function triggerN3Alert(issue: string) {
       body: JSON.stringify({
         systemPrompt: "Tu es un système d'alerte critique FreshLink Pro. Génère un message d'alerte urgent.",
         messages: [
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
           { role: "user", content: `ALERTE N3 — Problème non résolu: ${issue}. Notifier +212663898707 et la direction.` },
         ],
       }),
@@ -388,7 +388,7 @@ Adapte ton ton, ta langue et ton niveau de détail exactement selon ce rôle.`
       })
       const data = await res.json() as { content?: string }
       const reply = data?.content ?? "Je n'ai pas pu traiter votre demande."
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
       failCountRef.current = 0
       setMsgs(prev => [...prev, { role: "assistant", text: reply, ts: Date.now() }])
     } catch {

@@ -824,7 +824,7 @@ function SidebarContent({
       </div>
 
       {/* User footer */}
- HEAD
+ 
 <div className="px-2 py-3 border-t border-slate-200">
   <button
     onClick={onOpenProfil}
@@ -900,7 +900,7 @@ function SidebarContent({
           )}
         </button>
       </div>
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
     </aside>
   )
 }

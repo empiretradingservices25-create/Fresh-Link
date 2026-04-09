@@ -79,7 +79,7 @@ export default function CameraIARetour({ articleNom, onValidate, onCancel }: Pro
               content: `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
 
       const systemPrompt = `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
 Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce format exact:
 {
   "isMarchandise": boolean,
@@ -102,7 +102,7 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
         body: JSON.stringify({
           systemPrompt,
           messages: [
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
             {
               role: "user",
               content: [
@@ -122,7 +122,7 @@ c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
 
       const data = await res.json() as { content: string }
       const content = data.content ?? ""
-c0071db0ce051dcfd067fe79b9da3aa29dec2d8c
+
       // Extract JSON from response
       const jsonMatch = content.match(/\{[\s\S]*\}/)
       if (!jsonMatch) throw new Error("Format de reponse invalide")
