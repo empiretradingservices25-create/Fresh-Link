@@ -111,7 +111,9 @@ export async function POST(req: NextRequest) {
   }
 
   // ─── Build messages array (cap at MAX_MESSAGES) ─────────────────────────────
-  const windowedMessages: ChatMessage[] = (messages as ChatMessage[]).slice(-MAX_MESSAGES)
+  // Filter out any system messages from the client to avoid duplicates
+  const clientMessages = (messages as ChatMessage[]).filter(m => m.role !== "system")
+  const windowedMessages: ChatMessage[] = clientMessages.slice(-MAX_MESSAGES)
 
   // Prepend system prompt if provided
   const fullMessages: ChatMessage[] = systemPrompt
