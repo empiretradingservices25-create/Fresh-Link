@@ -4,23 +4,24 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { type Article, type Fournisseur, type User, type HistoriquePrixAchat } from "@/lib/store"
 
 // ── Shared API call ──────────────────────────────────────────────────────────
-async function callAI(messages: { role: string; content: unknown }[], signal?: AbortSignal): Promise<string> {
-  const res = await fetch("https://llm.blackbox.ai/chat/completions", {
+async function callAI(
+  agentId: string,
+  systemPrompt: string,
+  messages: { role: string; content: unknown }[],
+  signal?: AbortSignal
+): Promise<string> {
+  const res = await fetch("/api/ai/chat", {
     method: "POST",
-    headers: {
-      "customerId": "cus_TSL8iYLtbslUQB",
-      "Content-Type": "application/json",
-      "Authorization": "Bearer xxx",
-    },
-    body: JSON.stringify({
-      model: "openrouter/claude-sonnet-4",
-      messages,
-    }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ agentId, systemPrompt, messages }),
     signal,
   })
-  if (!res.ok) throw new Error(`AI error ${res.status}`)
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err?.error ?? `AI error ${res.status}`)
+  }
   const data = await res.json()
-  return data.choices?.[0]?.message?.content ?? ""
+  return data.content ?? ""
 }
 
 // ── Image → base64 ───────────────────────────────────────────────────────────
@@ -195,16 +196,20 @@ Analyse cette photo et reponds UNIQUEMENT en JSON valide avec ce schema exact:
   "conseils": ["<conseil1>", "<conseil2>"]
 }`
 
-      const text = await callAI([
-        { role: "system", content: systemPrompt },
-        {
-          role: "user",
-          content: [
-            { type: "text", text: `Analyse la qualite de cet article: ${article.nom}. Donne une recommendation d'achat.` },
-            { type: "image_url", image_url: { url: `data:${capturedMime};base64,${capturedBase64}` } }
-          ]
-        }
-      ], controller.signal)
+      const text = await callAI(
+        "si-mohammed-achat",
+        systemPrompt,
+        [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: `Analyse la qualite de cet article: ${article.nom}. Donne une recommendation d'achat.` },
+              { type: "image_url", image_url: { url: `data:${capturedMime};base64,${capturedBase64}` } }
+            ]
+          }
+        ],
+        controller.signal
+      )
 
       // Parse JSON — strip markdown fences if present
       const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
@@ -784,10 +789,11 @@ Fais une analyse comparative experte et reponds UNIQUEMENT en JSON valide:
         }
       })
 
-      const text = await callAI([
-        { role: "system", content: systemPrompt },
-        { role: "user", content: contentParts }
-      ])
+      const text = await callAI(
+        "ashel-comparatif",
+        systemPrompt,
+        [{ role: "user", content: contentParts }]
+      )
 
       const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
       const parsed = JSON.parse(cleaned) as ComparatifResult

@@ -63,19 +63,7 @@ export default function CameraIARetour({ articleNom, onValidate, onCancel }: Pro
     setError(null)
     try {
       const base64Data = photo.split(",")[1]
-      const res = await fetch("https://llm.blackbox.ai/chat/completions", {
-        method: "POST",
-        headers: {
-          "customerId": "cus_TSL8iYLtbslUQB",
-          "Content-Type": "application/json",
-          "Authorization": "Bearer xxx",
-        },
-        body: JSON.stringify({
-          model: "openrouter/claude-sonnet-4",
-          messages: [
-            {
-              role: "system",
-              content: `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
+      const systemPrompt = `Tu es un expert qualite pour une societe de distribution de fruits et legumes.
 Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce format exact:
 {
   "isMarchandise": boolean,
@@ -88,7 +76,13 @@ Analyse la photo fournie et reponds en JSON pur (aucun texte hors JSON) avec ce 
 Article concerne: ${articleNom ?? "fruits ou legumes"}.
 Prix achat reference: ${prixAchat || "inconnu"} MAD/kg.
 Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
-            },
+      const res = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          agentId: "camera-ia-retour",
+          systemPrompt,
+          messages: [
             {
               role: "user",
               content: [
@@ -101,9 +95,12 @@ Sois precis sur: fraicheur, couleur, texture visible, signes de degradation.`
         })
       })
 
-      if (!res.ok) throw new Error(`API erreur ${res.status}`)
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err?.error ?? `API erreur ${res.status}`)
+      }
       const data = await res.json()
-      const content = data.choices?.[0]?.message?.content ?? ""
+      const content = data.content ?? ""
       // Extract JSON from response
       const jsonMatch = content.match(/\{[\s\S]*\}/)
       if (!jsonMatch) throw new Error("Format de reponse invalide")

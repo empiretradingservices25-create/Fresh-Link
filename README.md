@@ -1,4 +1,4 @@
-# E-commerce app
+# Fresh-Link
 
 Generated with BLACKBOX AI Builder
 
@@ -14,7 +14,7 @@ npm install
 yarn install
 ```
 
-Then, run the development server:
+Then, set up your environment variables (see section below), then run the development server:
 
 ```bash
 pnpm dev
@@ -25,6 +25,49 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in the required values:
+
+```bash
+cp .env.example .env.local
+```
+
+### Required variables
+
+| Variable | Description |
+|---|---|
+| `AI_PROVIDER` | AI provider to use (`blackbox` by default) |
+| `BLACKBOX_CUSTOMER_ID` | Your Blackbox AI customer ID |
+| `BLACKBOX_API_KEY` | Your Blackbox AI API key |
+
+### Optional variables
+
+| Variable | Description |
+|---|---|
+| `OPENROUTER_API_KEY` | OpenRouter API key (if using `AI_PROVIDER=openrouter`) |
+
+> **Important**: Never commit `.env.local` to source control. It is already listed in `.gitignore`.
+
+### AI API route
+
+All AI calls are routed server-side through `/api/ai/chat`. Client components send requests to this internal route — no AI credentials are ever exposed to the browser.
+
+The route accepts `POST` requests with a JSON body:
+
+```json
+{
+  "agentId": "string",
+  "messages": [{ "role": "user|assistant", "content": "..." }],
+  "systemPrompt": "optional system prompt",
+  "model": "optional model override",
+  "temperature": 0.72,
+  "max_tokens": 2048
+}
+```
+
+It returns `{ "content": "string" }` on success or `{ "error": "message" }` on failure.
 
 ## Project Structure
 
@@ -44,6 +87,8 @@ To learn more about Next.js, take a look at the following resources:
 ## Deploy
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new).
+
+When deploying, add the environment variables (`BLACKBOX_CUSTOMER_ID`, `BLACKBOX_API_KEY`, etc.) in your hosting platform's environment settings — do **not** commit secrets to source control.
 
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 

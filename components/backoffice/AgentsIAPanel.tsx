@@ -5,61 +5,29 @@ import { type User } from "@/lib/store"
 
 interface Props { user: User; initialAgent?: string }
 
-// ─── API — robust retry chain ─────────────────────────────────────────────────
-const ENDPOINT = "https://llm.blackbox.ai/chat/completions"
-const HEADERS = {
-  "Content-Type": "application/json",
-  "customerId": "cus_TSL8iYLtbslUQB",
-  "Authorization": "Bearer xxx",
-}
-const MODEL_CHAIN = [
-  "openrouter/claude-sonnet-4",
-  "openrouter/anthropic/claude-3.5-haiku",
-  "openrouter/openai/gpt-4o-mini",
-  "openrouter/google/gemini-flash-1.5",
-]
-
+// ─── API — routes through server-side /api/ai/chat ───────────────────────────
 interface MsgLike { role: string; text: string }
 
-async function callLLM(systemPrompt: string, history: MsgLike[], attempt = 0): Promise<string> {
-  if (attempt >= MODEL_CHAIN.length) throw new Error("QUOTA_EXCEEDED")
-  const model = MODEL_CHAIN[attempt]
-  try {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 30000)
-    const res = await fetch(ENDPOINT, {
-      method: "POST",
-      headers: HEADERS,
-      signal: controller.signal,
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: "system", content: systemPrompt },
-          ...history.slice(-18).map(m => ({ role: m.role, content: m.text })),
-        ],
-        max_tokens: 2048,
-        temperature: 0.72,
-      }),
-    })
-    clearTimeout(timeout)
-    if (res.status === 429 || res.status === 402 || res.status === 503) {
-      await new Promise(r => setTimeout(r, 800 * (attempt + 1)))
-      return callLLM(systemPrompt, history, attempt + 1)
-    }
-    if (!res.ok) throw new Error(`HTTP_${res.status}`)
-    const data = await res.json()
-    const text = data?.choices?.[0]?.message?.content?.trim()
-    if (!text || text.length < 2) throw new Error("EMPTY_RESPONSE")
-    return text
-  } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : ""
-    if (msg === "QUOTA_EXCEEDED") throw e
-    if (attempt < MODEL_CHAIN.length - 1) {
-      await new Promise(r => setTimeout(r, 600))
-      return callLLM(systemPrompt, history, attempt + 1)
-    }
-    throw new Error("QUOTA_EXCEEDED")
+async function callLLM(systemPrompt: string, history: MsgLike[], agentId = "agent"): Promise<string> {
+  const res = await fetch("/api/ai/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      agentId,
+      systemPrompt,
+      messages: history.slice(-18).map(m => ({ role: m.role, content: m.text })),
+      max_tokens: 2048,
+      temperature: 0.72,
+    }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err?.error ?? `HTTP_${res.status}`)
   }
+  const data = await res.json()
+  const text: string = data?.content?.trim() ?? ""
+  if (!text || text.length < 2) throw new Error("EMPTY_RESPONSE")
+  return text
 }
 
 // ─── N3 silent alert ──────────────────────────────────────────────────────────
@@ -636,7 +604,7 @@ CONTEXTE SESSION :
 
       const historyForLLM = msgs.slice(-14).map(m => ({ role: m.role, text: m.text }))
       historyForLLM.push({ role: "user", text })
-      const reply = await callLLM(contextualPrompt, historyForLLM)
+      const reply = await callLLM(contextualPrompt, historyForLLM, agent.id)
       failCountRef.current = 0
       setMsgs(prev => [...prev, { role: "assistant", text: reply, ts: Date.now() }])
     } catch (e: unknown) {
