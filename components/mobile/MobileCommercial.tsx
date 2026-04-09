@@ -308,17 +308,7 @@ export default function MobileCommercial({ user }: Props) {
     return true
   }).sort((a, b) => {
     if (filterKey === "proche" && gpsLat && gpsLng && a.gpsLat && b.gpsLat) {
-      return distKm(
-        gpsLat ?? 0,
-        gpsLng ?? 0,
-        a.gpsLat ?? 0,
-        a.gpsLng ?? 0
-      ) - distKm(
-        gpsLat ?? 0,
-        gpsLng ?? 0,
-        b.gpsLat ?? 0,
-        b.gpsLng ?? 0
-      )
+      return distKm(gpsLat ?? 0, gpsLng ?? 0, a.gpsLat ?? 0, a.gpsLng ?? 0) - distKm(gpsLat ?? 0, gpsLng ?? 0, b.gpsLat ?? 0, b.gpsLng ?? 0)
     }
     return a.nom.localeCompare(b.nom)
   })
@@ -718,14 +708,8 @@ export default function MobileCommercial({ user }: Props) {
           ) : filteredClients.map(c => {
             const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null
             return (
-
-              <button key={c.id}
-                onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
-                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedClientId(c.id); setShowClientDropdown(false) } }}
-                role="button"
-                tabIndex={0}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border cursor-pointer ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
-
+              <button key={c.id} onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">
                   {c.nom[0]}
                 </div>
@@ -742,9 +726,7 @@ export default function MobileCommercial({ user }: Props) {
                     </button>
                   )}
                 </div>
-
               </button>
-
             )
           })}
         </div>
@@ -923,7 +905,7 @@ export default function MobileCommercial({ user }: Props) {
       </div>
 
       {/* ── HABITUDES TAB ─────────────────────────────────────────────────── */}
-      {commTab === "habitudes" ? (
+      {commTab === "habitudes" && (
         <div className="flex flex-col gap-3">
           <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
             <div className="flex items-center gap-2">
@@ -1015,7 +997,7 @@ export default function MobileCommercial({ user }: Props) {
       )}
 
       {/* placeholder to close previous structure */}
-      {/* INLINE ARTICLE SELECTOR ------------------------------------------ */}
+      {/* INLINE ARTICLE SELECTOR ─────────────────────────────────────────── */}
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div>
@@ -1379,10 +1361,7 @@ export default function MobileCommercial({ user }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
               <p className="text-sm font-semibold text-muted-foreground">Aucune commande aujourd&apos;hui</p>
-              <button
-                onClick={() => setCommTab && setCommTab("nouvelle")}
-                className="mt-3 px-4 py-2 rounded-xl text-sm font-semibold text-white"
-                style={{ background: "oklch(0.38 0.2 260)" }}>
+              <button onClick={() => setCommTab("nouvelle")} className="mt-3 px-4 py-2 rounded-xl text-sm font-semibold text-white" style={{ background: "oklch(0.38 0.2 260)" }}>
                 Passer une commande
               </button>
             </div>
@@ -1534,5 +1513,3 @@ export default function MobileCommercial({ user }: Props) {
     </div>
   )
 }
-/* (Removed duplicate or misplaced code that was outside the component and referenced myCommandes) */
-

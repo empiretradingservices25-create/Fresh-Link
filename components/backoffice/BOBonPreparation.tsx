@@ -278,7 +278,7 @@ export default function BOBonPreparation({ user }: Props) {
     const d = store.today()
     if (tripId) {
       const t = trips.find(t => t.id === tripId)
-      return `Prep ${d} — ${t?.nom ?? tripId}`
+      return `Prep ${d} — ${t?.livreurNom ?? tripId}`
     }
     const bons = store.getBonsPreparation()
     const seq = String(bons.filter(b => b.date === d).length + 1).padStart(2, "0")
