@@ -438,6 +438,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
           navigate={navigate}
           onLogout={onLogout}
           onOpenProfil={() => setShowProfil(true)}
+          canUseCamera={isStrictSuperAdmin}
         />
       </div>
 
@@ -662,12 +663,13 @@ interface SidebarContentProps {
   navigate: (t: Tab) => void
   onLogout: () => void
   onOpenProfil: () => void
+  canUseCamera: boolean
 }
 
 function SidebarContent({
   user, activeTab, sidebarCollapsed, setSidebarCollapsed,
   profilPhoto, navSearch, setNavSearch, filteredGroups, searchQ,
-  GROUP_ICON_COLOR, navigate, onLogout, onOpenProfil
+  GROUP_ICON_COLOR, navigate, onLogout, onOpenProfil, canUseCamera
 }: SidebarContentProps) {
   return (
     <aside className="flex flex-col h-full bg-white border-r border-slate-200">
@@ -825,93 +827,61 @@ function SidebarContent({
 
       {/* User footer */}
  
-<div className="px-2 py-3 border-t border-slate-200">
+<div className="px-2 py-3 border-t border-slate-200 flex gap-2">
+  {/* Bouton Profil */}
   <button
     onClick={onOpenProfil}
-    className={`w-full flex items-center gap-2.5 rounded-xl hover:bg-slate-100 transition-colors text-left ${sidebarCollapsed ? "justify-center p-2" : "px-2 py-2"}`}
+    className={`flex-1 flex items-center gap-2.5 rounded-xl hover:bg-slate-100 transition-colors text-left 
+      ${sidebarCollapsed ? "justify-center p-2" : "px-2 py-2"}`}
     type="button"
   >
     {profilPhoto ? (
-      <img src={profilPhoto} alt={user.name}
-        className="w-8 h-8 rounded-full object-cover border-2 border-slate-200 shrink-0" />
+      <img
+        src={profilPhoto}
+        alt={user.name}
+        className="w-8 h-8 rounded-full object-cover border-2 border-slate-200 shrink-0"
+      />
     ) : (
       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 ${ROLE_COLORS[user.role]}`}>
         {user.name[0]?.toUpperCase()}
       </div>
     )}
     {!sidebarCollapsed && (
-      <>
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
-          <p className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
-        </div>
-        {/* Correction : span role="button" pour Déconnexion ! */}
-        <span
-          role="button"
-          tabIndex={0}
-          onClick={e => { e.stopPropagation(); onLogout(); }}
-          onKeyDown={e => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              e.stopPropagation();
-              onLogout();
-            }
-          }}
-          title="Deconnexion"
-          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0 inline-flex items-center"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
-        </span>
-      </>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
+        <p className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
+      </div>
     )}
   </button>
-</div>
 
-      <div className="px-2 py-3 border-t border-slate-200">
-        <button
-          onClick={onOpenProfil}
-          className={`w-full flex items-center gap-2.5 rounded-xl hover:bg-slate-100 transition-colors text-left ${sidebarCollapsed ? "justify-center p-2" : "px-2 py-2"}`}
-        >
-          {profilPhoto ? (
-            <img src={profilPhoto} alt={user.name}
-              className="w-8 h-8 rounded-full object-cover border-2 border-slate-200 shrink-0" />
-          ) : (
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 ${ROLE_COLORS[user.role]}`}>
-              {user.name[0]?.toUpperCase()}
-            </div>
-          )}
-          {!sidebarCollapsed && (
-            <>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
-                <p className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
-              </div>
-              <button
-                onClick={e => { e.stopPropagation(); onLogout() }}
-                title="Deconnexion"
-                className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-              </button>
-            </>
-          )}
-        </button>
-      </div>
-
-    </aside>
+  {/* Bouton Déconnexion (affiché seulement si la sidebar n'est pas repliée) */}
+  {!sidebarCollapsed && (
+    <button
+      onClick={onLogout}
+      title="Deconnexion"
+      className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0 flex items-center"
+      type="button"
+    >
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      </svg>
+    </button>
   )
 }
+
 
 // ------------------------------─
 // TAB PILL — used in the quick-access strip
 // ------------------------------─
 
-function TabPill({ id, activeTab, navigate, label }: {
-  id: Tab; activeTab: Tab; navigate: (t: Tab) => void; label: string
-}) {
+type TabPillProps = {
+  id: Tab
+  activeTab: Tab
+  navigate: (t: Tab) => void
+  label: string
+}
+
+function TabPill({ id, activeTab, navigate, label }: TabPillProps) {
   const isActive = activeTab === id
   return (
     <button

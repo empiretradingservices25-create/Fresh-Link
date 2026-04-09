@@ -922,97 +922,108 @@ export default function MobileCommercial({ user }: Props) {
         {/* Coordinates intentionally hidden from prevendeur screen */}
       </div>
 
-      {/* - HABITUDES TAB -------------------------─ */}
-      {commTab === "habitudes" ? (
-        <div className="flex flex-col gap-3">
-          <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
-                <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-sm font-bold text-foreground">Habitudes du client</p>
-                <p className="text-xs text-muted-foreground">
-                  {selectedClientId
-                    ? Object.keys(clientHabits).length > 0
-                      ? `${Object.keys(clientHabits).length} articles commandes regulierement`
-                      : "Aucun historique pour ce client"
-                    : "Selectionnez un client pour voir ses habitudes"}
-                </p>
-              </div>
-            </div>
-            {selectedClientId && Object.keys(clientHabits).length > 0 && (
-              <button onClick={autoFillPanier}
-                className="w-full py-2.5 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2"
-                style={{ background: "oklch(0.38 0.2 260)" }}>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                Preparer panier automatique
-              </button>
-            )}
-          </div>
-          {selectedClientId && Object.keys(clientHabits).length > 0 && (
-            <div className="flex flex-col gap-2">
-              {Object.entries(clientHabits)
-                .sort(([, a], [, b]) => b.count - a.count)
-                .map(([artId, habit]) => {
-                  const art = articles.find(a => a.id === artId)
-                  if (!art) return null
-                  const pv = store.computePV(art)
-                  const inCart = lignes.some(l => l.articleId === artId)
-                  return (
-                    <div key={artId} className={`flex items-center gap-3 p-3 rounded-xl border ${inCart ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
-                      <img src={art.photo || "https://placehold.co/48x48/e2e8f0/64748b?text=Art"}
-                        alt={`${art.nom} produit habituel`}
-                        className="w-11 h-11 rounded-xl object-cover shrink-0 border border-border"
-                        onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-foreground truncate">{art.nom}</p>
-                        <div className="flex items-center gap-2 flex-wrap mt-0.5">
-                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-lg bg-amber-100 text-amber-700">{habit.count}x commande</span>
-                          <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
-                            {art.stockDisponible > 0 ? `${art.stockDisponible} ${art.unite}` : "Rupture"}
-                          </span>
-                          <span className="text-[10px] text-muted-foreground">Dernier: {habit.lastDate}</span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-1 shrink-0">
-                        <span className="text-sm font-bold text-primary">{pv} DH</span>
-                        {inCart ? (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Dans panier</span>
-                        ) : (
-                          <button
-                            disabled={art.stockDisponible <= 0}
-                            onClick={() => {
-                              const emptyIdx = lignes.findIndex(l => !l.articleId)
-                              if (emptyIdx >= 0) updateLigne(emptyIdx, "articleId", artId)
-                              else setLignes(prev => [...prev, { articleId: artId, quantite: "", prixVente: String(pv), uniteMode: "base" }])
-                              setCommTab("nouvelle")
-                            }}
-                            className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:opacity-40">
-                            + Ajouter
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  )
-                })}
-            </div>
-          )}
-          {selectedClientId && Object.keys(clientHabits).length === 0 ? (
-            <div className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-3 text-center">
-              <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-              <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistrée</p>
-              <p className="text-xs text-muted-foreground">Les habitudes se créent automatiquement après plusieurs commandes passées par ce client.</p>
-            </div>
-          ) : null}
+      {/* SECTION HABITUDES RÉCTIFIÉE */}
+{commTab === "habitudes" && (
+  <div className="flex flex-col gap-3">
+    {/* En-tête et Bouton Auto-Panier */}
+    <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+          <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
         </div>
+        <div>
+          <p className="text-sm font-bold text-foreground">Habitudes du client</p>
+          <p className="text-xs text-muted-foreground">
+            {selectedClientId
+              ? Object.keys(clientHabits).length > 0
+                ? `${Object.keys(clientHabits).length} articles commandés régulièrement`
+                : "Aucun historique pour ce client"
+              : "Sélectionnez un client pour voir ses habitudes"}
+          </p>
+        </div>
+      </div>
+
+      {selectedClientId && Object.keys(clientHabits).length > 0 && (
+        <button 
+          onClick={autoFillPanier}
+          className="w-full py-2.5 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2"
+          style={{ background: "oklch(0.38 0.2 260)" }}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          Préparer panier automatique
+        </button>
       )}
+    </div>
+
+    {/* Liste des Articles Habituels */}
+    {selectedClientId && Object.keys(clientHabits).length > 0 && (
+      <div className="flex flex-col gap-2">
+        {Object.entries(clientHabits)
+          .sort(([, a], [, b]) => b.count - a.count)
+          .map(([artId, habit]) => {
+            const art = articles.find(a => a.id === artId);
+            if (!art) return null;
+            const pv = store.computePV(art);
+            const inCart = lignes.some(l => l.articleId === artId);
+            return (
+              <div key={artId} className={`flex items-center gap-3 p-3 rounded-xl border ${inCart ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
+                <img 
+                  src={art.photo || "https://placehold.co/48x48/e2e8f0/64748b?text=Art"}
+                  alt={`${art.nom} produit habituel`}
+                  className="w-11 h-11 rounded-xl object-cover shrink-0 border border-border"
+                  onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} 
+                />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-foreground truncate">{art.nom}</p>
+                  <div className="flex items-center gap-2 flex-wrap mt-0.5">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-lg bg-amber-100 text-amber-700">{habit.count}x commande</span>
+                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
+                      {art.stockDisponible > 0 ? `${art.stockDisponible} ${art.unite}` : "Rupture"}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground">Dernier: {habit.lastDate}</span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end gap-1 shrink-0">
+                  <span className="text-sm font-bold text-primary">{pv} DH</span>
+                  {inCart ? (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Dans panier</span>
+                  ) : (
+                    <button
+                      disabled={art.stockDisponible <= 0}
+                      onClick={() => {
+                        const emptyIdx = lignes.findIndex(l => !l.articleId);
+                        if (emptyIdx >= 0) updateLigne(emptyIdx, "articleId", artId);
+                        else setLignes(prev => [...prev, { articleId: artId, quantite: "", prixVente: String(pv), uniteMode: "base" }]);
+                        setCommTab("nouvelle");
+                      }}
+                      className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:opacity-40"
+                    >
+                      + Ajouter
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    )}
+
+    {/* État vide si aucune habitude */}
+    {selectedClientId && Object.keys(clientHabits).length === 0 && (
+      <div className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-3 text-center">
+        <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistrée</p>
+        <p className="text-xs text-muted-foreground">Les habitudes se créent automatiquement après plusieurs commandes passées par ce client.</p>
+      </div>
+    )}
+  </div>
+)}
 
       <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
