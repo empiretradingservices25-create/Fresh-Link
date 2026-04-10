@@ -4,22 +4,6 @@ import { useState, useEffect, useRef, useMemo } from "react"
 import { store, type Article, type User, type Client, type Commande, DELAI_RECOUVREMENT_LABELS, type DelaiRecouvrement, MODALITE_LABELS, type ModalitePaiement } from "@/lib/store"
 import { sendEmail, buildCommandeEmail } from "@/lib/email"
 
-// Icon components
-function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-    </svg>
-  );
-}
-function EditIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-1.414.828l-4 1a1 1 0 01-1.263-1.263l1-4a4 4 0 01.828-1.414z" />
-    </svg>
-  );
-}
-
 interface Props { user: User }
 
 interface LigneForm {
@@ -167,64 +151,27 @@ export default function MobileCommercial({ user }: Props) {
     })
   }, [articles, clientHabits, selectedClientId])
 
-  // ==============================
-// ARTICLES MISSED (Habitudes non commandées récemment)
-// ==============================
-const missedArticles = useMemo(() => {
-  if (!selectedClientId) return []
-  if (!clientHabits || Object.keys(clientHabits).length === 0) return []
+  // Articles in habits but NOT in current cart — ordered more than 30 days ago
+  const missedArticles = useMemo(() => {
+    if (!selectedClientId || Object.keys(clientHabits).length === 0) return []
+    const inCart = new Set(lignes.map(l => l.articleId))
+    const threshold = new Date(); threshold.setDate(threshold.getDate() - 30)
+    const thresholdStr = threshold.toISOString().slice(0, 10)
+    return Object.entries(clientHabits)
+      .filter(([artId, h]) => !inCart.has(artId) && h.count >= 2 && h.lastDate < thresholdStr)
+      .sort(([,a],[,b]) => b.count - a.count)
+      .slice(0, 5)
+      .map(([artId]) => articles.find(a => a.id === artId))
+      .filter(Boolean) as Article[]
+  }, [clientHabits, lignes, articles, selectedClientId])
 
-  const inCart = new Set(lignes.map(l => l.articleId).filter(Boolean))
+  // My today's commandes (to detect duplicate + show edit/delete)
+  const [myCommandes, setMyCommandes] = useState(
+    store.getCommandes().filter(c => c.commercialId === user.id && c.date === store.today())
+  )
+  const refreshMyCommandes = () =>
+    setMyCommandes(store.getCommandes().filter(c => c.commercialId === user.id && c.date === store.today()))
 
-  const threshold = new Date()
-  threshold.setDate(threshold.getDate() - 30)
-  return Object.entries(clientHabits)
-    .filter(([artId, h]) => {
-      if (!h || !h.lastDate) return false
-      const lastDate = new Date(h.lastDate)
-      const isOld = lastDate < threshold
-      return (
-        !inCart.has(artId) &&
-        (h.count ?? 0) >= 2 &&
-        isOld
-      )
-    })
-    .sort((a, b) => (b[1]?.count ?? 0) - (a[1]?.count ?? 0))
-    .slice(0, 5)
-    .map(([artId]) => articles.find(a => a.id === artId))
-    .filter((a): a is Article => Boolean(a))
-}, [clientHabits, lignes, articles, selectedClientId])
-
-
-// ==============================
-// MY COMMANDES (aujourd'hui)
-// ==============================
-const getMyCommandes = () =>
-  store
-    .getCommandes()
-    .filter(
-      c =>
-        c.commercialId === user.id &&
-        c.date === store.today()
-    )
-
-const [myCommandes, setMyCommandes] = useState(() => getMyCommandes())
-
-
-// ==============================
-// REFRESH COMMANDES
-// ==============================
-const refreshMyCommandes = () => {
-  setMyCommandes(getMyCommandes())
-}
-
-
-// ==============================
-// OPTIONAL: auto refresh when user changes
-// ==============================
-useEffect(() => {
-  refreshMyCommandes()
-}, [user.id])
   // Edit commande state — opens inline editor
   const [editCmd, setEditCmd] = useState<Commande | null>(null)
   const [editLignes, setEditLignes] = useState<LigneForm[]>([])
@@ -361,17 +308,7 @@ useEffect(() => {
     return true
   }).sort((a, b) => {
     if (filterKey === "proche" && gpsLat && gpsLng && a.gpsLat && b.gpsLat) {
-      return distKm(
-        gpsLat ?? 0,
-        gpsLng ?? 0,
-        a.gpsLat ?? 0,
-        a.gpsLng ?? 0
-      ) - distKm(
-        gpsLat ?? 0,
-        gpsLng ?? 0,
-        b.gpsLat ?? 0,
-        b.gpsLng ?? 0
-      )
+      return distKm(gpsLat, gpsLng, a.gpsLat, a.gpsLng) - distKm(gpsLat, gpsLng, b.gpsLat, b.gpsLng)
     }
     return a.nom.localeCompare(b.nom)
   })
@@ -431,7 +368,7 @@ useEffect(() => {
     if (!art || !l.quantite) return 0
     const raw = Number(l.quantite)
     if (art.um && art.colisageParUM && l.uniteMode === art.um) {
-      return raw * art.colisageParUM   // e.g. 3 caisses- 10 kg = 30 kg
+      return raw * art.colisageParUM   // e.g. 3 caisses × 10 kg = 30 kg
     }
     return raw   // already in base units
   }
@@ -588,93 +525,47 @@ useEffect(() => {
     if (newLignes.length > 0) setLignes(newLignes)
   }
 
+  const handleDeleteCommande = (id: string) => {
+    store.deleteCommande(id)
+    refreshMyCommandes()
+  }
 
-const handleDeleteCommande = (id: string) => {
-  store.deleteCommande(id)
-  refreshMyCommandes()
-}
-
-return (
-  <>
+  return (
     <div className="p-4 flex flex-col gap-4 pb-6">
       <div>
         <h2 className="text-lg font-bold text-foreground">
-          Prise de Commande{" "}
-          <span className="text-muted-foreground font-normal text-base">
-            / تسجيل الطلبية
-          </span>
+          Prise de Commande <span className="text-muted-foreground font-normal text-base">/ تسجيل الطلبية</span>
         </h2>
-
-        <p className="text-xs text-muted-foreground">
-          {user?.name} — {store.today()}
-        </p>
+        <p className="text-xs text-muted-foreground">{user.name} — {store.today()}</p>
       </div>
 
       {/* Tab switcher */}
       <div className="flex gap-1 p-1 rounded-xl bg-muted">
-        
-        {/* TAB 1 */}
-        <button
-          type="button"
-          onClick={() => {
-            setCommTab("nouvelle")
-            setEditCmd(null)
-          }}
-          className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
-            commTab === "nouvelle"
-              ? "bg-card text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
+        <button onClick={() => { setCommTab("nouvelle"); setEditCmd(null) }}
+          className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "nouvelle" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
           Nouvelle commande
         </button>
-
-        {/* TAB 2 */}
-        <button
-          type="button"
-          onClick={() => setCommTab("mes_commandes")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
-            commTab === "mes_commandes"
-              ? "bg-card text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
+        <button onClick={() => setCommTab("mes_commandes")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "mes_commandes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
           Mes cmds
-
-          {myCommandes?.length > 0 && (
-            <span
-              className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
-              style={{ background: "oklch(0.38 0.2 260)" }}
-            >
+          {myCommandes.length > 0 && (
+            <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center" style={{ background: "oklch(0.38 0.2 260)" }}>
               {myCommandes.length}
             </span>
           )}
         </button>
-
-        {/* TAB 3 */}
-        <button
-          type="button"
-          onClick={() => setCommTab("habitudes")}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
-            commTab === "habitudes"
-              ? "bg-card text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
+        <button onClick={() => setCommTab("habitudes")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "habitudes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
           Habitudes
-
-          {Object.keys(clientHabits ?? {}).length > 0 && (
+          {Object.keys(clientHabits).length > 0 && (
             <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center bg-amber-500">
-              {Object.keys(clientHabits ?? {}).length}
+              {Object.keys(clientHabits).length}
             </span>
           )}
         </button>
-
       </div>
-    </div>
-  </>
-)
-        {commTab === "nouvelle" && (<>
+
+      {commTab === "nouvelle" && (<>
 
       {success && (
         <div className={`rounded-xl p-4 flex items-start gap-3 border ${successWorkflow === "direct" ? "bg-green-50 border-green-300" : "bg-amber-50 border-amber-300"}`}>
@@ -815,14 +706,10 @@ return (
           {filteredClients.length === 0 ? (
             <p className="text-xs text-muted-foreground px-2 py-3 text-center">Aucun client trouvé</p>
           ) : filteredClients.map(c => {
-            const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null;
+            const dist = gpsLat && c.gpsLat ? distKm(gpsLat, gpsLng!, c.gpsLat, c.gpsLng!) : null
             return (
-              <button key={c.id}
-                onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false); }}
-                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedClientId(c.id); setShowClientDropdown(false); } }}
-                role="button"
-                tabIndex={0}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border cursor-pointer ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
+              <button key={c.id} onClick={() => { setSelectedClientId(c.id); setShowClientDropdown(false) }}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border ${selectedClientId === c.id ? "border-primary bg-primary/5" : "border-transparent hover:bg-muted/60"}`}>
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">
                   {c.nom[0]}
                 </div>
@@ -833,14 +720,14 @@ return (
                 <div className="flex items-center gap-1.5 shrink-0">
                   {dist !== null && <span className="text-xs text-muted-foreground">{dist.toFixed(1)}km</span>}
                   {c.gpsLat && (
-                    <button onClick={e => { e.stopPropagation(); openGPSGuide(c); }}
+                    <button onClick={e => { e.stopPropagation(); openGPSGuide(c) }}
                       className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
                     </button>
                   )}
                 </div>
               </button>
-            );
+            )
           })}
         </div>
 
@@ -850,10 +737,10 @@ return (
               {selectedClient.nom[0]}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-foreground">{selectedClient?.nom}</p>
+              <p className="text-sm font-bold text-foreground">{selectedClient.nom}</p>
               <p className="text-xs text-muted-foreground">{selectedClient.telephone} · {selectedClient.secteur}</p>
             </div>
-            {selectedClient && selectedClient.gpsLat && (
+            {selectedClient.gpsLat && (
               <button onClick={() => openGPSGuide(selectedClient)} title="Itinéraire"
                 className="p-2 rounded-xl text-white flex items-center gap-1 text-xs font-semibold"
                 style={{ background: "oklch(0.60 0.16 195)" }}>
@@ -917,7 +804,7 @@ return (
             <div className="flex flex-col gap-1">
               <label className="text-xs font-semibold text-foreground">Rotation</label>
               <select value={newClient.rotation} onChange={e => setNewClient({ ...newClient, rotation: e.target.value as Client["rotation"] })}
-                className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                className="px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary">
                 {Object.entries(ROTATION_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
               </select>
             </div>
@@ -1002,7 +889,6 @@ return (
         </p>
       </div>
 
-
       {/* GPS capture — coordinates hidden, only status indicator shown */}
       <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-card">
         <button onClick={getGPS} disabled={gpsLoading}
@@ -1018,105 +904,113 @@ return (
         {/* Coordinates intentionally hidden from prevendeur screen */}
       </div>
 
-      {/* SECTION HABITUDES RÉCTIFIÉE */}
-        {commTab === "habitudes" && (
-          <div className="flex flex-col gap-3">
-    {/* En-tête et Bouton Auto-Panier */}
-    <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
-          <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-          </svg>
-        </div>
-        <div>
-          <p className="text-sm font-bold text-foreground">Habitudes du client</p>
-          <p className="text-xs text-muted-foreground">
-            {selectedClientId
-              ? Object.keys(clientHabits).length > 0
-                ? `${Object.keys(clientHabits).length} articles commandés régulièrement`
-                : "Aucun historique pour ce client"
-              : "Sélectionnez un client pour voir ses habitudes"}
-          </p>
-        </div>
-      </div>
-
-      {selectedClientId && Object.keys(clientHabits).length > 0 && (
-        <button 
-          onClick={autoFillPanier}
-          className="w-full py-2.5 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2"
-          style={{ background: "oklch(0.38 0.2 260)" }}
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          Préparer panier automatique
-        </button>
-      )}
-    </div>
-
-{/* Liste des Articles Habituels */}
-            {selectedClientId && Object.keys(clientHabits).length > 0 && (
-              <div className="flex flex-col gap-2">
-                {Object.entries(clientHabits)
-                  .sort(([, a], [, b]) => b.count - a.count)
-                  .map(([artId, habit]) => {
-        const art = articles.find(a => a.id === artId);
-        if (!art) return null;
-        const pv = store.computePV(art);
-        const inCart = lignes.some(l => l.articleId === artId);
-        return (
-          <div key={artId} className={`flex items-center gap-3 p-3 rounded-xl border ${inCart ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
-            <img 
-              src={art.photo || "https://placehold.co/48x48/e2e8f0/64748b?text=Art"}
-              alt={`${art.nom} produit habituel`}
-              className="w-11 h-11 rounded-xl object-cover shrink-0 border border-border"
-              onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} 
-            />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-foreground truncate">{art.nom}</p>
-              <div className="flex items-center gap-2 flex-wrap mt-0.5">
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-lg bg-amber-100 text-amber-700">{habit.count}x commande</span>
-                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
-                  {art.stockDisponible > 0 ? `${art.stockDisponible} ${art.unite}` : "Rupture"}
-                </span>
-                <span className="text-[10px] text-muted-foreground">Dernier: {habit.lastDate}</span>
+      {/* ── HABITUDES TAB ─────────────────────────────────────────────────── */}
+      {commTab === "habitudes" && (
+        <div className="flex flex-col gap-3">
+          <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+                <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-foreground">Habitudes du client</p>
+                <p className="text-xs text-muted-foreground">
+                  {selectedClientId
+                    ? Object.keys(clientHabits).length > 0
+                      ? `${Object.keys(clientHabits).length} articles commandes regulierement`
+                      : "Aucun historique pour ce client"
+                    : "Selectionnez un client pour voir ses habitudes"}
+                </p>
               </div>
             </div>
-            <div className="flex flex-col items-end gap-1 shrink-0">
-              <span className="text-sm font-bold text-primary">{pv} DH</span>
-              {inCart ? (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Dans panier</span>
-              ) : (
-                <button
-                  disabled={art.stockDisponible <= 0}
-                  onClick={() => {
-                    const emptyIdx = lignes.findIndex(l => !l.articleId);
-                    if (emptyIdx >= 0) updateLigne(emptyIdx, "articleId", artId);
-                    else setLignes(prev => [...prev, { articleId: artId, quantite: "", prixVente: String(pv), uniteMode: "base" }]);
-                    setCommTab("nouvelle");
-                  }}
-                  className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:opacity-40"
-                >
-                  + Ajouter
-                </button>
-              )}
-            </div>
+            {selectedClientId && Object.keys(clientHabits).length > 0 && (
+              <button onClick={autoFillPanier}
+                className="w-full py-2.5 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2"
+                style={{ background: "oklch(0.38 0.2 260)" }}>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Preparer panier automatique
+              </button>
+            )}
           </div>
-        );
-      })}
-    </div>
-  )}
-{/* État vide si aucune habitude */}
-{selectedClientId && Object.keys(clientHabits).length === 0 && (
-  <div className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-3 text-center">
-    <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-    </svg>
-    <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistrée</p>
-    <p className="text-xs text-muted-foreground">Les habitudes se créent automatiquement après plusieurs commandes passées par ce client.</p>
-  </div>
-)}
+          {selectedClientId && Object.keys(clientHabits).length > 0 && (
+            <div className="flex flex-col gap-2">
+              {Object.entries(clientHabits)
+                .sort(([, a], [, b]) => b.count - a.count)
+                .map(([artId, habit]) => {
+                  const art = articles.find(a => a.id === artId)
+                  if (!art) return null
+                  const pv = store.computePV(art)
+                  const inCart = lignes.some(l => l.articleId === artId)
+                  return (
+                    <div key={artId} className={`flex items-center gap-3 p-3 rounded-xl border ${inCart ? "border-primary/40 bg-primary/5" : "border-border bg-card"}`}>
+                      <img src={art.photo || "https://placehold.co/48x48/e2e8f0/64748b?text=Art"}
+                        alt={`${art.nom} produit habituel`}
+                        className="w-11 h-11 rounded-xl object-cover shrink-0 border border-border"
+                        onError={e => { e.currentTarget.src = "https://placehold.co/48x48/e2e8f0/64748b?text=Art" }} />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-foreground truncate">{art.nom}</p>
+                        <div className="flex items-center gap-2 flex-wrap mt-0.5">
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-lg bg-amber-100 text-amber-700">{habit.count}x commande</span>
+                          <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-lg ${art.stockDisponible > 0 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-600"}`}>
+                            {art.stockDisponible > 0 ? `${art.stockDisponible} ${art.unite}` : "Rupture"}
+                          </span>
+                          <span className="text-[10px] text-muted-foreground">Dernier: {habit.lastDate}</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-1 shrink-0">
+                        <span className="text-sm font-bold text-primary">{pv} DH</span>
+                        {inCart ? (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary text-primary-foreground">Dans panier</span>
+                        ) : (
+                          <button
+                            disabled={art.stockDisponible <= 0}
+                            onClick={() => {
+                              const emptyIdx = lignes.findIndex(l => !l.articleId)
+                              if (emptyIdx >= 0) updateLigne(emptyIdx, "articleId", artId)
+                              else setLignes(prev => [...prev, { articleId: artId, quantite: "", prixVente: String(pv), uniteMode: "base" }])
+                              setCommTab("nouvelle")
+                            }}
+                            className="text-[10px] font-bold px-2 py-1 rounded-xl bg-primary text-primary-foreground disabled:opacity-40">
+                            + Ajouter
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+            </div>
+          )}
+          {selectedClientId && Object.keys(clientHabits).length === 0 && (
+            <div className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-3 text-center">
+              <svg className="w-10 h-10 text-muted-foreground/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              <p className="text-sm font-semibold text-muted-foreground">Aucune habitude enregistree</p>
+              <p className="text-xs text-muted-foreground">Les habitudes se creent automatiquement apres plusieurs commandes passees par ce client.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* placeholder to close previous structure */}
+      {/* INLINE ARTICLE SELECTOR ─────────────────────────────────────────── */}
+      <div className="bg-card rounded-xl border border-border flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+          <div>
+            <p className="text-sm font-bold text-foreground">Articles / المنتجات</p>
+            <p className="text-xs text-muted-foreground">{pickerArticles.length} articles</p>
+          </div>
+          {selectedClientId && Object.keys(clientHabits).length > 0 && (
+            <button onClick={autoFillPanier}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-amber-300 text-amber-700 bg-amber-50">
+              Auto-panier
+            </button>
+          )}
+        </div>
 
         {/* Search field */}
         <div className="px-3 py-2.5 border-b border-border">
@@ -1199,9 +1093,9 @@ return (
             )
           })}
         </div>
-      {/* END habitudes tab */}
+      </div>
 
-      {/* ARTICLES lines -------------------------- */}
+      {/* ARTICLES lines ──────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-3">
 
         {lignes.map((ligne, i) => {
@@ -1415,7 +1309,7 @@ return (
           : <><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>Enregistrer la commande / تسجيل الطلبية</>}
       </button>
 
-      {/* - VISITE SANS COMMANDE ------------------─ */}
+      {/* ── VISITE SANS COMMANDE ───────────────────────────────────── */}
       <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <div>
@@ -1456,10 +1350,9 @@ return (
       </div>
 
       {/* END nouvelle commande tab */}
-        </div>
-      )}
+      </>)}
 
-      {/* TAB MES_COMMANDES */}
+      {/* ── MES COMMANDES TAB ─────────────────────────────────────── */}
       {commTab === "mes_commandes" && (
         <div className="flex flex-col gap-3">
           {myCommandes.length === 0 ? (
@@ -1468,95 +1361,155 @@ return (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
               <p className="text-sm font-semibold text-muted-foreground">Aucune commande aujourd&apos;hui</p>
-              <button
-                onClick={() => setCommTab("nouvelle")}
-                className="mt-3 px-4 py-2 rounded-xl text-sm font-semibold text-white"
-                style={{ background: "oklch(0.38 0.2 260)" }}>
+              <button onClick={() => setCommTab("nouvelle")} className="mt-3 px-4 py-2 rounded-xl text-sm font-semibold text-white" style={{ background: "oklch(0.38 0.2 260)" }}>
                 Passer une commande
               </button>
             </div>
           ) : (
             <>
+              {/* Edit form */}
               {editCmd && (
                 <div className="bg-card rounded-2xl border border-primary/30 p-4 flex flex-col gap-3">
-                  {/* Formulaire de modification */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-bold text-foreground">Modifier — {editCmd.clientNom}</p>
+                      <p className="text-xs text-muted-foreground">Modification possible dans le delai d&apos;1 heure apres creation</p>
+                    </div>
+                    <button onClick={() => setEditCmd(null)} className="p-1.5 rounded-lg bg-muted text-muted-foreground">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                  </div>
+
+                  {/* Edit heure livraison */}
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs font-semibold text-foreground">Heure de livraison</label>
+                    <input type="time" value={editHeure} onChange={e => setEditHeure(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
+                  </div>
+
+                  {/* Edit article lignes */}
+                  {editLignes.map((ligne, i) => {
+                    const art = articles.find(a => a.id === ligne.articleId)
+                    return (
+                      <div key={i} className="bg-muted/30 rounded-xl p-3 flex flex-col gap-2">
+                        <p className="text-xs font-semibold text-foreground">{art?.nom ?? "Article"}</p>
+                        {art?.um && art.colisageParUM && (
+                          <div className="flex gap-2">
+                            <button type="button" onClick={() => { const u = [...editLignes]; u[i] = { ...u[i], uniteMode: "base", quantite: "" }; setEditLignes(u) }}
+                              className={`flex-1 py-1.5 rounded-lg text-xs font-bold border-2 transition-all ${ligne.uniteMode !== art.um ? "border-primary text-white" : "border-border text-muted-foreground"}`}
+                              style={ligne.uniteMode !== art.um ? { background: "oklch(0.45 0.18 145)" } : {}}>
+                              {art.unite}
+                            </button>
+                            <button type="button" onClick={() => { const u = [...editLignes]; u[i] = { ...u[i], uniteMode: art.um!, quantite: "" }; setEditLignes(u) }}
+                              className={`flex-1 py-1.5 rounded-lg text-xs font-bold border-2 transition-all ${ligne.uniteMode === art.um ? "border-blue-500 text-white" : "border-border text-blue-600"}`}
+                              style={ligne.uniteMode === art.um ? { background: "oklch(0.45 0.18 240)" } : {}}>
+                              {art.um} = {art.colisageParUM}{art.unite}
+                            </button>
+                          </div>
+                        )}
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="flex flex-col gap-1">
+                            <label className="text-xs text-muted-foreground">Qte ({ligne.uniteMode === art?.um ? art?.um : art?.unite})</label>
+                            <input type="number" min="0" value={ligne.quantite}
+                              onChange={e => { const u = [...editLignes]; u[i] = { ...u[i], quantite: e.target.value }; setEditLignes(u) }}
+                              className="px-3 py-2 rounded-lg border border-border bg-background text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary" />
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            <label className="text-xs text-muted-foreground">PV DH/{art?.unite}</label>
+                            <input type="number" min="0" step="0.01" value={ligne.prixVente}
+                              onChange={e => { const u = [...editLignes]; u[i] = { ...u[i], prixVente: e.target.value }; setEditLignes(u) }}
+                              className="px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
+                          </div>
+                        </div>
+                        {art?.um && art.colisageParUM && ligne.uniteMode === art.um && ligne.quantite && Number(ligne.quantite) > 0 && (
+                          <p className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg">
+                            {ligne.quantite} {art.um} = {(Number(ligne.quantite) * art.colisageParUM).toFixed(1)} {art.unite}
+                          </p>
+                        )}
+                      </div>
+                    )
+                  })}
+
+                  <div className="flex gap-2">
+                    <button onClick={() => setEditCmd(null)} className="flex-1 py-2.5 rounded-xl border border-border text-sm font-semibold text-foreground hover:bg-muted">Annuler</button>
+                    <button onClick={handleSaveEdit} disabled={editSaving}
+                      className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-60"
+                      style={{ background: "oklch(0.38 0.2 260)" }}>
+                      {editSaving ? "Sauvegarde..." : "Enregistrer modifications"}
+                    </button>
+                  </div>
                 </div>
               )}
 
-             {myCommandes.map(cmd => {
-  const total = cmd?.lignes?.reduce((s, l) => s + (l.total ?? 0), 0) ?? 0
-  const tonn = cmd?.lignes?.reduce((s, l) => s + (l.quantite ?? 0), 0) ?? 0
+              {/* Commandes list */}
+              {myCommandes.map(cmd => {
+                const total = cmd.lignes.reduce((s, l) => s + l.total, 0)
+                const tonn  = cmd.lignes.reduce((s, l) => s + l.quantite, 0)
+                const editable = canEdit(cmd)
+                const isActive = editCmd?.id === cmd.id
+                return (
+                  <div key={cmd.id} className={`rounded-xl border p-4 flex flex-col gap-2.5 ${isActive ? "border-primary/50 bg-primary/3" : "border-border bg-card"}`}>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-bold text-sm text-foreground">{cmd.clientNom}</p>
+                        <p className="text-xs text-muted-foreground">{cmd.secteur} · {cmd.heurelivraison}</p>
+                        <p className="text-xs text-muted-foreground font-mono">{cmd.id}</p>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+                        cmd.statut === "valide" ? "bg-blue-100 text-blue-700" :
+                        cmd.statut === "livre" ? "bg-green-100 text-green-700" :
+                        cmd.statut === "en_attente_approbation" ? "bg-orange-100 text-orange-700" :
+                        "bg-yellow-100 text-yellow-700"}`}>
+                        {cmd.statut}
+                      </span>
+                    </div>
 
-  const editable = canEdit(cmd)
-  const isActive = editCmd?.id === cmd.id
+                    {/* Article lines summary */}
+                    <div className="flex flex-col gap-1">
+                      {cmd.lignes.map((l, i) => (
+                        <div key={i} className="flex items-center justify-between text-xs">
+                          <span className="text-foreground">{l.articleNom}</span>
+                          <span className="font-semibold text-muted-foreground">
+                            {l.quantiteUM ? `${l.quantiteUM} ${l.um} = ` : ""}{l.quantite} {l.unite} · {l.total.toLocaleString("fr-MA")} DH
+                          </span>
+                        </div>
+                      ))}
+                    </div>
 
-  return (
-    <div
-      key={cmd.id}
-      className={`p-3 border-b last:border-0 transition ${
-        isActive ? "bg-primary/5" : ""
-      }`}
-    >
-      <div className="flex justify-between items-start">
+                    <div className="flex items-center justify-between pt-1 border-t border-border">
+                      <span className="text-xs text-amber-600 font-semibold">{tonn.toLocaleString("fr-MA")} kg</span>
+                      <span className="text-sm font-extrabold text-primary">{total.toLocaleString("fr-MA")} DH</span>
+                    </div>
 
-        {/* Infos commande */}
-        <div className="min-w-0">
-          <p className="font-bold text-sm truncate">
-            {cmd?.clientNom || "Client inconnu"}
-          </p>
-
-          <p className="text-[10px] text-muted-foreground">
-            {cmd?.heurelivraison || "--:--"} • {cmd?.lignes?.length ?? 0} articles
-          </p>
-
-          {/* OPTION: affichage total utile */}
-          <p className="text-[10px] text-muted-foreground">
-            Total: <span className="font-semibold">{total.toFixed(2)} DH</span>
-          </p>
-        </div>
-
-        {/* Actions */}
-        <div className="flex flex-col items-end gap-2">
-
-          {editable ? (
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => openEdit(cmd)}
-                className="p-2 text-primary bg-primary/10 rounded-lg hover:bg-primary/20"
-              >
-                <EditIcon className="w-4 h-4" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleDeleteCommande(cmd.id)}
-                className="p-2 text-destructive bg-destructive/10 rounded-lg hover:bg-destructive/20"
-              >
-                <TrashIcon className="w-4 h-4" />
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1 text-xs text-muted-foreground px-2 bg-muted/50 py-1 rounded-md">
-              <svg
-                className="w-3.5 h-3.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-
-              Verrouillée
-            </div>
+                    <div className="flex gap-2">
+                      {editable && !isActive && (
+                        <button onClick={() => openEdit(cmd)}
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold border border-primary/30 text-primary hover:bg-primary/5 transition-colors">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                          Modifier (1h)
+                        </button>
+                      )}
+                      {editable && (
+                        <button onClick={() => handleDeleteCommande(cmd.id)}
+                          className="flex items-center justify-center gap-1 py-2 px-3 rounded-xl text-xs font-bold bg-red-50 text-red-600 hover:bg-red-100 transition-colors border border-red-200">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                          Supprimer
+                        </button>
+                      )}
+                      {!editable && (
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground px-2">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                          Verrouillee
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </>
           )}
         </div>
-      </div>
+      )}
     </div>
   )
-})}
+}
