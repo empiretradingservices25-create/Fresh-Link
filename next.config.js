@@ -4,9 +4,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // eslint config removed: not supported in Next.js 16+
   images: {
     domains: [],
     unoptimized: true, // Ajoute le support images non optimisées

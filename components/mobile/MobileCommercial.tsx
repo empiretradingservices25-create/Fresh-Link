@@ -167,27 +167,64 @@ export default function MobileCommercial({ user }: Props) {
     })
   }, [articles, clientHabits, selectedClientId])
 
-  // Articles in habits but NOT in current cart — ordered more than 30 days ago
-  const missedArticles = useMemo(() => {
-    if (!selectedClientId || Object.keys(clientHabits).length === 0) return []
-    const inCart = new Set(lignes.map(l => l.articleId))
-    const threshold = new Date(); threshold.setDate(threshold.getDate() - 30)
-    const thresholdStr = threshold.toISOString().slice(0, 10)
-    return Object.entries(clientHabits)
-      .filter(([artId, h]) => !inCart.has(artId) && h.count >= 2 && h.lastDate < thresholdStr)
-      .sort(([,a],[,b]) => b.count - a.count)
-      .slice(0, 5)
-      .map(([artId]) => articles.find(a => a.id === artId))
-      .filter(Boolean) as Article[]
-  }, [clientHabits, lignes, articles, selectedClientId])
+  // ==============================
+// ARTICLES MISSED (Habitudes non commandées récemment)
+// ==============================
+const missedArticles = useMemo(() => {
+  if (!selectedClientId) return []
+  if (!clientHabits || Object.keys(clientHabits).length === 0) return []
 
-  // My today's commandes (to detect duplicate + show edit/delete)
-  const [myCommandes, setMyCommandes] = useState(
-    store.getCommandes().filter(c => c.commercialId === user.id && c.date === store.today())
-  )
-  const refreshMyCommandes = () =>
-    setMyCommandes(store.getCommandes().filter(c => c.commercialId === user.id && c.date === store.today()))
+  const inCart = new Set(lignes.map(l => l.articleId).filter(Boolean))
 
+  const threshold = new Date()
+  threshold.setDate(threshold.getDate() - 30)
+  return Object.entries(clientHabits)
+    .filter(([artId, h]) => {
+      if (!h || !h.lastDate) return false
+      const lastDate = new Date(h.lastDate)
+      const isOld = lastDate < threshold
+      return (
+        !inCart.has(artId) &&
+        (h.count ?? 0) >= 2 &&
+        isOld
+      )
+    })
+    .sort((a, b) => (b[1]?.count ?? 0) - (a[1]?.count ?? 0))
+    .slice(0, 5)
+    .map(([artId]) => articles.find(a => a.id === artId))
+    .filter((a): a is Article => Boolean(a))
+}, [clientHabits, lignes, articles, selectedClientId])
+
+
+// ==============================
+// MY COMMANDES (aujourd'hui)
+// ==============================
+const getMyCommandes = () =>
+  store
+    .getCommandes()
+    .filter(
+      c =>
+        c.commercialId === user.id &&
+        c.date === store.today()
+    )
+
+const [myCommandes, setMyCommandes] = useState(() => getMyCommandes())
+
+
+// ==============================
+// REFRESH COMMANDES
+// ==============================
+const refreshMyCommandes = () => {
+  setMyCommandes(getMyCommandes())
+}
+
+
+// ==============================
+// OPTIONAL: auto refresh when user changes
+// ==============================
+useEffect(() => {
+  refreshMyCommandes()
+}, [user.id])
   // Edit commande state — opens inline editor
   const [editCmd, setEditCmd] = useState<Commande | null>(null)
   const [editLignes, setEditLignes] = useState<LigneForm[]>([])
@@ -551,47 +588,92 @@ export default function MobileCommercial({ user }: Props) {
     if (newLignes.length > 0) setLignes(newLignes)
   }
 
-  const handleDeleteCommande = (id: string) => {
-    store.deleteCommande(id)
-    refreshMyCommandes()
-  }
 
-  return (
-    <>
-      <div className="p-4 flex flex-col gap-4 pb-6">
-        <div>
-          <h2 className="text-lg font-bold text-foreground">
-            Prise de Commande <span className="text-muted-foreground font-normal text-base">/ تسجيل الطلبية</span>
-          </h2>
-          <p className="text-xs text-muted-foreground">{user.name} — {store.today()}</p>
-        </div>
+const handleDeleteCommande = (id: string) => {
+  store.deleteCommande(id)
+  refreshMyCommandes()
+}
 
-        {/* Tab switcher */}
-        <div className="flex gap-1 p-1 rounded-xl bg-muted">
-          <button onClick={() => { setCommTab("nouvelle"); setEditCmd(null) }}
-            className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "nouvelle" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-            Nouvelle commande
-          </button>
-          <button onClick={() => setCommTab("mes_commandes")}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "mes_commandes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-            Mes cmds
-            {myCommandes.length > 0 && (
-              <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center" style={{ background: "oklch(0.38 0.2 260)" }}>
-                {myCommandes.length}
-              </span>
-            )}
-          </button>
-          <button onClick={() => setCommTab("habitudes")}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${commTab === "habitudes" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-            Habitudes
-            {Object.keys(clientHabits).length > 0 && (
-              <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center bg-amber-500">
-                {Object.keys(clientHabits).length}
-              </span>
-            )}
-          </button>
-        </div>
+return (
+  <>
+    <div className="p-4 flex flex-col gap-4 pb-6">
+      <div>
+        <h2 className="text-lg font-bold text-foreground">
+          Prise de Commande{" "}
+          <span className="text-muted-foreground font-normal text-base">
+            / تسجيل الطلبية
+          </span>
+        </h2>
 
+        <p className="text-xs text-muted-foreground">
+          {user?.name} — {store.today()}
+        </p>
+      </div>
+
+      {/* Tab switcher */}
+      <div className="flex gap-1 p-1 rounded-xl bg-muted">
+        
+        {/* TAB 1 */}
+        <button
+          type="button"
+          onClick={() => {
+            setCommTab("nouvelle")
+            setEditCmd(null)
+          }}
+          className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
+            commTab === "nouvelle"
+              ? "bg-card text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Nouvelle commande
+        </button>
+
+        {/* TAB 2 */}
+        <button
+          type="button"
+          onClick={() => setCommTab("mes_commandes")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
+            commTab === "mes_commandes"
+              ? "bg-card text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Mes cmds
+
+          {myCommandes?.length > 0 && (
+            <span
+              className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
+              style={{ background: "oklch(0.38 0.2 260)" }}
+            >
+              {myCommandes.length}
+            </span>
+          )}
+        </button>
+
+        {/* TAB 3 */}
+        <button
+          type="button"
+          onClick={() => setCommTab("habitudes")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
+            commTab === "habitudes"
+              ? "bg-card text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Habitudes
+
+          {Object.keys(clientHabits ?? {}).length > 0 && (
+            <span className="w-4 h-4 rounded-full text-white text-[10px] font-bold flex items-center justify-center bg-amber-500">
+              {Object.keys(clientHabits ?? {}).length}
+            </span>
+          )}
+        </button>
+
+      </div>
+    </div>
+  </>
+)
         {commTab === "nouvelle" && (<>
 
       {success && (
@@ -920,6 +1002,7 @@ export default function MobileCommercial({ user }: Props) {
         </p>
       </div>
 
+
       {/* GPS capture — coordinates hidden, only status indicator shown */}
       <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-card">
         <button onClick={getGPS} disabled={gpsLoading}
@@ -1022,8 +1105,8 @@ export default function MobileCommercial({ user }: Props) {
           </div>
         );
       })}
-  </div>
-)}
+    </div>
+  )}
 {/* État vide si aucune habitude */}
 {selectedClientId && Object.keys(clientHabits).length === 0 && (
   <div className="bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-3 text-center">
@@ -1373,9 +1456,10 @@ export default function MobileCommercial({ user }: Props) {
       </div>
 
       {/* END nouvelle commande tab */}
-      )
+        </div>
+      )}
 
-      {/* - MES COMMANDES TAB -------------------─ */}
+      {/* TAB MES_COMMANDES */}
       {commTab === "mes_commandes" && (
         <div className="flex flex-col gap-3">
           {myCommandes.length === 0 ? (
@@ -1393,120 +1477,86 @@ export default function MobileCommercial({ user }: Props) {
             </div>
           ) : (
             <>
-              {/* Edit form */}
               {editCmd && (
                 <div className="bg-card rounded-2xl border border-primary/30 p-4 flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-bold text-foreground">
-                        Modifier — {editCmd?.clientNom ?? ""}
-                      </p>
-                      <p className="text-xs text-muted-foreground">Modification possible dans le delai d&apos;1 heure apres creation</p>
-                    </div>
-                    <button onClick={() => setEditCmd(null)} className="p-1.5 rounded-lg bg-muted text-muted-foreground">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
-                  </div>
-
-                  {/* Edit heure livraison */}
-                  <div className="flex flex-col gap-1">
-                    <label className="text-xs font-semibold text-foreground">Heure de livraison</label>
-                    <input type="time" value={editHeure} onChange={e => setEditHeure(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
-                  </div>
-
-                  {/* Edit article lignes */}
-                  {editLignes.map((ligne, i) => {
-                    const art = articles.find(a => a.id === ligne.articleId)
-                    return (
-                      <div key={i} className="bg-muted/30 rounded-xl p-3 flex flex-col gap-2">
-                        <p className="text-xs font-semibold text-foreground">{art?.nom ?? "Article"}</p>
-                        {art?.um && art.colisageParUM && (
-                          <div className="flex gap-2">
-                            <button type="button" onClick={() => { const u = [...editLignes]; u[i] = { ...u[i], uniteMode: "base", quantite: "" }; setEditLignes(u) }}
-                              className={`flex-1 py-1.5 rounded-lg text-xs font-bold border-2 transition-all ${ligne.uniteMode !== art.um ? "border-primary text-white" : "border-border text-muted-foreground"}`}
-                              style={ligne.uniteMode !== art.um ? { background: "oklch(0.45 0.18 145)" } : {}}>
-                              {art.unite}
-                            </button>
-                            <button type="button" onClick={() => { const u = [...editLignes]; u[i] = { ...u[i], uniteMode: art.um!, quantite: "" }; setEditLignes(u) }}
-                              className={`flex-1 py-1.5 rounded-lg text-xs font-bold border-2 transition-all ${ligne.uniteMode === art.um ? "border-blue-500 text-white" : "border-border text-blue-600"}`}
-                              style={ligne.uniteMode === art.um ? { background: "oklch(0.45 0.18 240)" } : {}}>
-                              {art.um} = {art.colisageParUM}{art.unite}
-                            </button>
-                          </div>
-                        )}
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="flex flex-col gap-1">
-                            <label className="text-xs text-muted-foreground">Qte ({ligne.uniteMode === art?.um ? art?.um : art?.unite})</label>
-                            <input type="number" min="0" value={ligne.quantite}
-                              onChange={e => { const u = [...editLignes]; u[i] = { ...u[i], quantite: e.target.value }; setEditLignes(u) }}
-                              className="px-3 py-2 rounded-lg border border-border bg-background text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary" />
-                          </div>
-                          <div className="flex flex-col gap-1">
-                            <label className="text-xs text-muted-foreground">PV DH/{art?.unite}</label>
-                            <input type="number" min="0" step="0.01" value={ligne.prixVente}
-                              onChange={e => { const u = [...editLignes]; u[i] = { ...u[i], prixVente: e.target.value }; setEditLignes(u) }}
-                              className="px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
-                          </div>
-                        </div>
-                        {art?.um && art.colisageParUM && ligne.uniteMode === art.um && ligne.quantite && Number(ligne.quantite) > 0 && (
-                          <p className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg">
-                            {ligne.quantite} {art.um} = {(Number(ligne.quantite) * art.colisageParUM).toFixed(1)} {art.unite}
-                          </p>
-                        )}
-                      </div>
-                    )
-                  })}
-
-                  <div className="flex gap-2">
-                    <button onClick={() => setEditCmd(null)} className="flex-1 py-2.5 rounded-xl border border-border text-sm font-semibold text-foreground hover:bg-muted">Annuler</button>
-                    <button onClick={handleSaveEdit} disabled={editSaving}
-                      className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-60"
-                      style={{ background: "oklch(0.38 0.2 260)" }}>
-                      {editSaving ? "Sauvegarde..." : "Enregistrer modifications"}
-                    </button>
-                  </div>
+                  {/* Formulaire de modification */}
                 </div>
               )}
 
-              {/* Commandes list */}
-              {myCommandes.map(cmd => {
-                const total = cmd.lignes.reduce((s, l) => s + l.total, 0)
-                const tonn  = cmd.lignes.reduce((s, l) => s + l.quantite, 0)
-                const editable = canEdit(cmd)
-                const isActive = editCmd?.id === cmd.id
-                return (
-    <div key={cmd.id} className="p-3 border-b last:border-0">
+             {myCommandes.map(cmd => {
+  const total = cmd?.lignes?.reduce((s, l) => s + (l.total ?? 0), 0) ?? 0
+  const tonn = cmd?.lignes?.reduce((s, l) => s + (l.quantite ?? 0), 0) ?? 0
+
+  const editable = canEdit(cmd)
+  const isActive = editCmd?.id === cmd.id
+
+  return (
+    <div
+      key={cmd.id}
+      className={`p-3 border-b last:border-0 transition ${
+        isActive ? "bg-primary/5" : ""
+      }`}
+    >
       <div className="flex justify-between items-start">
-        {/* Infos de la commande (Client, Heure, Total) */}
-        <div>
-          <p className="font-bold text-sm">{cmd.clientNom}</p>
-          <p className="text-[10px] text-muted-foreground">{cmd.heurelivraison} • {cmd.lignes.length} articles</p>
+
+        {/* Infos commande */}
+        <div className="min-w-0">
+          <p className="font-bold text-sm truncate">
+            {cmd?.clientNom || "Client inconnu"}
+          </p>
+
+          <p className="text-[10px] text-muted-foreground">
+            {cmd?.heurelivraison || "--:--"} • {cmd?.lignes?.length ?? 0} articles
+          </p>
+
+          {/* OPTION: affichage total utile */}
+          <p className="text-[10px] text-muted-foreground">
+            Total: <span className="font-semibold">{total.toFixed(2)} DH</span>
+          </p>
         </div>
 
-        {/* Zone d'action dynamique */}
+        {/* Actions */}
         <div className="flex flex-col items-end gap-2">
+
           {editable ? (
             <div className="flex gap-2">
-              <button onClick={() => openEdit(cmd)} className="p-2 text-primary bg-primary/10 rounded-lg">
+              <button
+                type="button"
+                onClick={() => openEdit(cmd)}
+                className="p-2 text-primary bg-primary/10 rounded-lg hover:bg-primary/20"
+              >
                 <EditIcon className="w-4 h-4" />
               </button>
-              <button onClick={() => handleDeleteCommande(cmd.id)} className="p-2 text-destructive bg-destructive/10 rounded-lg">
+
+              <button
+                type="button"
+                onClick={() => handleDeleteCommande(cmd.id)}
+                className="p-2 text-destructive bg-destructive/10 rounded-lg hover:bg-destructive/20"
+              >
                 <TrashIcon className="w-4 h-4" />
               </button>
             </div>
           ) : (
             <div className="flex items-center gap-1 text-xs text-muted-foreground px-2 bg-muted/50 py-1 rounded-md">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
               </svg>
+
               Verrouillée
             </div>
           )}
         </div>
       </div>
     </div>
-  );
-}
-
-export default MobileCommercial;
+  )
+})}
