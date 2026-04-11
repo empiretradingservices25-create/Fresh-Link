@@ -1,8 +1,8 @@
-/** @type {import('eslint').Linter.FlatConfig} */
-import js from "@eslint/js";
-import next from "eslint-config-next";
+// eslint.config.cjs
+const js = require("@eslint/js");
+const next = require("eslint-config-next");
 
-export default [
+module.exports = [
   js(),
   ...next(),
   {
