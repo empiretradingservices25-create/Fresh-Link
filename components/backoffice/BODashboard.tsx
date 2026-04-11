@@ -262,7 +262,7 @@ export default function BODashboard({ user }: Props) {
         const delaiMs = DELAI_MS[delai] ?? Infinity
 
         // Last invoice date: find the last BL date for this client
-        const clientBLs = bls.filter(b => b.clientId === c.id)
+        const clientBLs = bls.filter(b => b.client === c.id)
         const lastBLDate = clientBLs.length > 0
           ? clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0].date
           : null

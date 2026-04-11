@@ -262,7 +262,7 @@ export default function MobileCommercial({ user }: Props) {
   // Compute article habits from past commandes for selected client
   useEffect(() => {
     if (!selectedClientId) { setClientHabits({}); return }
-    const pastCmds = store.getCommandes().filter(c => c.clientId === selectedClientId)
+    const pastCmds = store.getCommandes().filter(c => c.client === selectedClientId)
     const habitsMap: Record<string, { count: number; lastDate: string }> = {}
     pastCmds.forEach(cmd => {
       cmd.lignes.forEach(l => {
@@ -508,7 +508,7 @@ export default function MobileCommercial({ user }: Props) {
   const autoFillPanier = () => {
     if (!selectedClientId) return
     const lastCmd = store.getCommandes()
-      .filter(c => c.clientId === selectedClientId)
+      .filter(c => c.client === selectedClientId)
       .sort((a, b) => b.date.localeCompare(a.date))[0]
     if (!lastCmd) return
     const newLignes: LigneForm[] = lastCmd.lignes

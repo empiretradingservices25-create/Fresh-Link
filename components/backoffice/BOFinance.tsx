@@ -995,7 +995,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
             const plafond = c.plafondCredit ?? 0
             const delai = c.delaiRecouvrement ?? "a_definir"
             const delaiMs = DELAI_MS[delai] ?? Infinity
-            const clientBLs = bls.filter(b => b.clientId === c.id)
+            const clientBLs = bls.filter(b => b.client === c.id)
             const lastBLDate = clientBLs.length > 0
               ? clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0].date
               : null
@@ -1393,7 +1393,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                           <td colSpan={5} className="px-4 py-8 text-center text-sm text-muted-foreground">Aucun encours credit</td>
                         </tr>
                       ) : clients.filter(c => (c.creditSolde ?? 0) > 0).map(c => {
-                        const clientBLs = bls.filter(b => b.clientId === c.id)
+                        const clientBLs = bls.filter(b => b.client === c.id)
                         const lastBL = clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0]
                         const ageMs = lastBL ? now - new Date(lastBL.date).getTime() : null
                         const ageDays = ageMs !== null ? Math.round(ageMs / (24 * 3600 * 1000)) : null

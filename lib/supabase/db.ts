@@ -57,7 +57,7 @@ function userToRow(u: User) {
     notif_recap: u.notifRecap ?? false,
     notif_besoin_achat: u.notifBesoinAchat ?? false,
     fournisseur_id: u.fournisseurId ?? null,
-    client_id: u.clientId ?? null,
+    client_id: u.client ?? null,
   }
 }
 

@@ -67,7 +67,7 @@ export default function PortailClient({ user, onLogout }: Props) {
     const myClient = allClients.find(c => c.id === myClientId) ?? null
     setClient(myClient)
     const myCommandes = myClientId
-      ? allCommandes.filter(c => c.clientId === myClientId)
+      ? allCommandes.filter(c => c.client === myClientId)
       : []
     setCommandes(myCommandes.sort((a, b) => b.date.localeCompare(a.date)))
     setArticles(allArticles)
