@@ -1,14 +1,14 @@
 {
-  "name": "E-commerce app",
+  "name": "fresh-link-pro",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
+  "start": "next start",
+  "lint": "next lint"
+},
+"dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "@supabase/supabase-js": "^2.103.0",
     "@tailwindcss/postcss": "^4.0.0",
