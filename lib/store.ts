@@ -297,6 +297,7 @@ export interface Fournisseur {
   specialites: string[]           // fruits & légumes fournis
   modalitePaiement?: ModalitePaiement
   delaiPaiement?: number          // jours
+  plafondCredit?: number          // plafond de crédit autorisé
   ice?: string                    // Identifiant commun entreprise Maroc
   rc?: string                     // Registre de commerce
   notes?: string

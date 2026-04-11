@@ -262,7 +262,8 @@ export default function BODashboard({ user }: Props) {
         const delaiMs = DELAI_MS[delai] ?? Infinity
 
         // Last invoice date: find the last BL date for this client
-        const clientBLs = bls.filter(b => b.client === c.id)
+        // Correction débutant : si BonLivraison n'a pas clientId mais a client, utilisez b.client
+        const clientBLs = bls.filter(b => (b as any).clientId === c.id || (b as any).client === c.id)
         const lastBLDate = clientBLs.length > 0
           ? clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0].date
           : null
@@ -607,7 +608,12 @@ export default function BODashboard({ user }: Props) {
                       <YAxis yAxisId="ton" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={v => `${v}`} />
                       <Tooltip
                         contentStyle={TT_STYLE}
-                        formatter={(value: number | undefined, name: string | undefined) => {
+                        formatter={(
+                          value: number | string | undefined,
+                          name?: string,
+                          item?: any,
+                          index?: number
+                        ) => {
                           if (typeof value !== "number") return "";
                           if (name === "ca") return DH(value);
                           return KG(value);
@@ -630,7 +636,16 @@ export default function BODashboard({ user }: Props) {
                         <XAxis dataKey="name" tick={TICK} axisLine={{ stroke: GRID }} tickLine={false} />
                         <YAxis yAxisId="ca" orientation="left" tick={TICK} axisLine={false} tickLine={false} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
                         <YAxis yAxisId="ton" orientation="right" tick={TICK} axisLine={false} tickLine={false} />
-                        <Tooltip contentStyle={TT_STYLE} formatter={(v: number, name: string) => name === "ca" ? DH(v) : KG(v)} />
+                        <Tooltip contentStyle={TT_STYLE} formatter={(
+                          value: number | string | undefined,
+                          name?: string,
+                          item?: any,
+                          index?: number
+                        ) => {
+                          if (typeof value !== "number") return "";
+                          if (name === "ca") return DH(value);
+                          return KG(value);
+                        }} />
                         <Legend wrapperStyle={{ fontSize: 12, color: "oklch(0.62 0.008 145)" }} />
                         <Bar yAxisId="ca" dataKey="ca" fill="#10b981" name="CA (DH)" radius={[6, 6, 0, 0]} />
                         <Bar yAxisId="ton" dataKey="tonnage" fill="#f59e0b" name="Tonnage (kg)" radius={[6, 6, 0, 0]} />
@@ -648,7 +663,12 @@ export default function BODashboard({ user }: Props) {
                         <CartesianGrid strokeDasharray="4 3" stroke={GRID} horizontal={false} />
                         <XAxis type="number" tick={TICK_SM} axisLine={{ stroke: GRID }} tickLine={false} tickFormatter={v => `${v}kg`} />
                         <YAxis type="category" dataKey="name" tick={TICK_SM} axisLine={false} tickLine={false} width={70} />
-                        <Tooltip contentStyle={TT_STYLE} formatter={(v: number) => KG(v)} />
+                        <Tooltip contentStyle={TT_STYLE} formatter={(
+                          value: number | string | undefined,
+                          name?: string,
+                          item?: any,
+                          index?: number
+                        ) => (typeof value === "number" ? KG(value) : "")} />
                         <Bar dataKey="kg" name="Tonnage" radius={[0, 6, 6, 0]}>
                           {artChartData.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                         </Bar>
@@ -667,7 +687,12 @@ export default function BODashboard({ user }: Props) {
                           <CartesianGrid strokeDasharray="4 3" stroke={GRID} horizontal={false} />
                           <XAxis type="number" tick={TICK_SM} axisLine={{ stroke: GRID }} tickLine={false} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
                           <YAxis type="category" dataKey="name" tick={TICK_SM} axisLine={false} tickLine={false} width={70} />
-                          <Tooltip contentStyle={TT_STYLE} formatter={(v: number | undefined) => (typeof v === "number" ? DH(v) : "")} />
+                          <Tooltip contentStyle={TT_STYLE} formatter={(
+                            value: number | string | undefined,
+                            name?: string,
+                            item?: any,
+                            index?: number
+                          ) => (typeof value === "number" ? DH(value) : "")} />
                           <Bar dataKey="ca" name="CA" radius={[0, 6, 6, 0]}>
                             {secteurChartData.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                           </Bar>
@@ -684,7 +709,12 @@ export default function BODashboard({ user }: Props) {
                             labelLine={false} fontSize={9}>
                             {top10Clients.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                           </Pie>
-                          <Tooltip contentStyle={TT_STYLE} formatter={(v: number) => DH(v)} />
+                          <Tooltip contentStyle={TT_STYLE} formatter={(
+                            value: number | string | undefined,
+                            name?: string,
+                            item?: any,
+                            index?: number
+                          ) => (typeof value === "number" ? DH(value) : "")} />
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
@@ -831,7 +861,12 @@ export default function BODashboard({ user }: Props) {
                   <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.88 0.01 240)" />
                   <XAxis type="number" tick={{ fontSize: 10 }} tickFormatter={v => `${v}kg`} />
                   <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={80} />
-                  <Tooltip formatter={(v: number | undefined) => (typeof v === "number" ? KG(v) : "")} />
+                  <Tooltip formatter={(
+                    value: number | string | undefined,
+                    name?: string,
+                    item?: any,
+                    index?: number
+                  ) => (typeof value === "number" ? KG(value) : "")} />
                   <Bar dataKey="kg" fill="#ef4444" name="Retour (kg)" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>

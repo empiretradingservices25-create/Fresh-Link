@@ -137,7 +137,7 @@ export default function BOCommercial({ user }: Props) {
   const boClients = store.getClients().filter(c => {
     // exclude portal-linked accounts — they have their own portal
     const users = store.getUsers()
-    const hasClientPortal = users.some(u => u.role === "client" && u.client === c.id)
+    const hasClientPortal = users.some(u => u.role === "client" && u.clientId === c.id)
     return !hasClientPortal
   })
 
