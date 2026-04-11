@@ -110,7 +110,7 @@ export default function BODispatch({ user }: Props) {
       statut: "planifié",
       itineraire: cmds
         .filter(c => c.gpsLat && c.gpsLng)
-        .map((c, i) => ({ lat: c.gpsLat, lng: c.gpsLng, clientNom: c.clientIdNom, ordre: i + 1 })),
+        .map((c, i) => ({ lat: c.gpsLat, lng: c.gpsLng, clientNom: c.clientNom, ordre: i + 1 })),
     }
     store.addTrip(trip)
     selectedCmds.forEach(id => store.updateCommande(id, { statut: "en_transit" }))
@@ -132,7 +132,7 @@ export default function BODispatch({ user }: Props) {
             const tva = 0.20
             store.addBonLivraison({
               id: store.genBL(), date: store.today(), tripId: id,
-              commandeId: cid, clientNom: cmd.clientIdNom, secteur: cmd.secteur, zone: cmd.zone,
+              commandeId: cid, clientNom: cmd.clientNom, secteur: cmd.secteur, zone: cmd.zone,
               livreurNom: trip.livreurNom, prevendeurNom: cmd.commercialNom,
               lignes: cmd.lignes.map(l => ({ articleNom: l.articleNom, quantite: l.quantite, prixUnitaire: l.prixVente ?? l.prixUnitaire ?? 0, total: l.quantite * (l.prixVente ?? l.prixUnitaire ?? 0) })),
               montantTotal: total, tva, montantTTC: total * (1 + tva),
@@ -158,7 +158,7 @@ export default function BODispatch({ user }: Props) {
           html: `<div style="background:#0891b2;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;border:2px solid white">${p.ordre}</div>`,
           className: "", iconSize: [22, 22], iconAnchor: [11, 11],
         })
-        L.marker([p.lat, p.lng], { icon }).addTo(map).bindPopup(`<b>${p.ordre}. ${p.clientIdNom}</b>`)
+        L.marker([p.lat, p.lng], { icon }).addTo(map).bindPopup(`<b>${p.ordre}. ${p.clientNom}</b>`)
       })
       mapsLoaded.current.add(trip.id)
     } catch { /* no leaflet */ }
@@ -349,7 +349,7 @@ export default function BODispatch({ user }: Props) {
                       <input type="checkbox" checked={selectedCmds.includes(c.id)} onChange={() => toggleCmd(c.id)}
                         className="w-4 h-4 mt-0.5 rounded accent-primary shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-foreground">{c.clientIdNom}</p>
+                        <p className="font-semibold text-sm text-foreground">{c.clientNom}</p>
                         <p className="text-xs text-muted-foreground">{c.zone} · {c.commercialNom} · {c.heurelivraison}</p>
                         <p className="text-xs text-muted-foreground">{c.lignes.map(l => `${l.articleNom} ×${l.quantite}`).join(", ")}</p>
                       </div>
@@ -407,7 +407,7 @@ export default function BODispatch({ user }: Props) {
                       const cmd = commandes.find(c => c.id === cid)
                       return cmd ? (
                         <span key={cid} className="px-2 py-0.5 bg-muted rounded-lg text-xs text-foreground">
-                          {cmd.clientIdNom}
+                          {cmd.clientNom}
                         </span>
                       ) : null
                     })}
@@ -684,7 +684,7 @@ export default function BODispatch({ user }: Props) {
                     <div key={f.key} className="flex items-center justify-between gap-3">
                       <label className="text-xs text-muted-foreground">{f.label}</label>
                       <input type="number" min={0} step={f.step}
-                        value={(chargeForm as Record<string, number>)[f.key]}
+                        value={chargeForm[f.key as keyof typeof chargeForm] as number}
                         onChange={e => setChargeForm(p => ({ ...p, [f.key]: Number(e.target.value) }))}
                         className="w-20 px-2 py-1 rounded-lg border border-border bg-background text-sm font-bold text-center focus:outline-none focus:ring-2 focus:ring-primary" />
                     </div>

@@ -308,7 +308,7 @@ export default function MobileCommercial({ user }: Props) {
     return true
   }).sort((a, b) => {
     if (filterKey === "proche" && gpsLat && gpsLng && a.gpsLat && b.gpsLat) {
-      return distKm(gpsLat, gpsLng, a.gpsLat, a.gpsLng) - distKm(gpsLat, gpsLng, b.gpsLat, b.gpsLng)
+      return distKm(gpsLat, gpsLng ?? 0, a.gpsLat, a.gpsLng ?? 0) - distKm(gpsLat, gpsLng ?? 0, b.gpsLat, b.gpsLng ?? 0)
     }
     return a.nom.localeCompare(b.nom)
   })
@@ -1372,7 +1372,7 @@ export default function MobileCommercial({ user }: Props) {
                 <div className="bg-card rounded-2xl border border-primary/30 p-4 flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-bold text-foreground">Modifier — {editCmd.clientIdNom}</p>
+                      <p className="text-sm font-bold text-foreground">Modifier — {editCmd.clientNom}</p>
                       <p className="text-xs text-muted-foreground">Modification possible dans le delai d&apos;1 heure apres creation</p>
                     </div>
                     <button onClick={() => setEditCmd(null)} className="p-1.5 rounded-lg bg-muted text-muted-foreground">
@@ -1451,7 +1451,7 @@ export default function MobileCommercial({ user }: Props) {
                   <div key={cmd.id} className={`rounded-xl border p-4 flex flex-col gap-2.5 ${isActive ? "border-primary/50 bg-primary/3" : "border-border bg-card"}`}>
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm text-foreground">{cmd.clientIdNom}</p>
+                        <p className="font-bold text-sm text-foreground">{cmd.clientNom}</p>
                         <p className="text-xs text-muted-foreground">{cmd.secteur} · {cmd.heurelivraison}</p>
                         <p className="text-xs text-muted-foreground font-mono">{cmd.id}</p>
                       </div>

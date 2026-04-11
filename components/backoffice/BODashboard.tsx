@@ -142,19 +142,19 @@ export default function BODashboard({ user }: Props) {
   const clientsCA: Record<string, { nom: string; ca: number; cmds: number; tonnage: number }> = {}
   commandes.forEach(c => {
     const ca = c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
-    if (!clientsCA[c.clientIdId]) clientsCA[c.clientIdId] = { nom: c.clientIdNom, ca: 0, cmds: 0, tonnage: 0 }
-    clientsCA[c.clientIdId].ca += ca
-    clientsCA[c.clientIdId].cmds++
-    clientsCA[c.clientIdId].tonnage += c.lignes.reduce((s, l) => s + l.quantite, 0)
+    if (!clientsCA[c.clientId]) clientsCA[c.clientId] = { nom: c.clientNom, ca: 0, cmds: 0, tonnage: 0 }
+    clientsCA[c.clientId].ca += ca
+    clientsCA[c.clientId].cmds++
+    clientsCA[c.clientId].tonnage += c.lignes.reduce((s, l) => s + l.quantite, 0)
   })
   const top10Clients = Object.entries(clientsCA).sort(([, a], [, b]) => b.ca - a.ca).slice(0, 10)
 
   // --- Top clients retours ---
   const clientsRetour: Record<string, { nom: string; kg: number; nb: number }> = {}
   retoursAll.forEach(r => r.lignes.forEach(l => {
-    if (!clientsRetour[l.clientIdNom]) clientsRetour[l.clientIdNom] = { nom: l.clientIdNom, kg: 0, nb: 0 }
-    clientsRetour[l.clientIdNom].kg += l.quantite
-    clientsRetour[l.clientIdNom].nb++
+    if (!clientsRetour[l.clientNom]) clientsRetour[l.clientNom] = { nom: l.clientNom, kg: 0, nb: 0 }
+    clientsRetour[l.clientNom].kg += l.quantite
+    clientsRetour[l.clientNom].nb++
   }))
   const top10RetourClients = Object.entries(clientsRetour).sort(([, a], [, b]) => b.kg - a.kg).slice(0, 10)
 
@@ -208,9 +208,9 @@ export default function BODashboard({ user }: Props) {
     return {
       caJ: caOf(cdJ), caW: caOf(cdW), caM: caOf(cdM),
       tonnageJ: tonnOf(cdJ), tonnageM: tonnOf(cdM),
-      clientsJ: new Set(cdJ.map(c => c.clientIdId)).size,
-      clientsW: new Set(cdW.map(c => c.clientIdId)).size,
-      clientsM: new Set(cdM.map(c => c.clientIdId)).size,
+      clientsJ: new Set(cdJ.map(c => c.clientId)).size,
+      clientsW: new Set(cdW.map(c => c.clientId)).size,
+      clientsM: new Set(cdM.map(c => c.clientId)).size,
       nbCmdsJ: cdJ.length, nbCmdsM: cdM.length,
     }
   }
@@ -263,7 +263,7 @@ export default function BODashboard({ user }: Props) {
 
         // Last invoice date: find the last BL date for this client
         // Correction débutant : si BonLivraison n'a pas clientId mais a client, utilisez b.clientId
-        const clientBLs = bls.filter(b => (b as any).clientIdId === c.id || (b as any).clientId === c.id)
+        const clientBLs = bls.filter(b => (b as any).clientId === c.id || (b as any).clientId === c.id)
         const lastBLDate = clientBLs.length > 0
           ? clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0].date
           : null
@@ -377,7 +377,7 @@ export default function BODashboard({ user }: Props) {
           {/* Quick preview of top 3 alerts */}
           <div className="flex flex-col gap-1.5">
             {creditAlerts.slice(0, 3).map(c => (
-              <div key={c.clientId.id} className="flex items-center justify-between rounded-xl px-3 py-2 gap-2" style={{ background: "oklch(0.10 0.012 145)", border: "1px solid oklch(0.25 0.08 27)" }}>
+              <div key={c.client.id} className="flex items-center justify-between rounded-xl px-3 py-2 gap-2" style={{ background: "oklch(0.10 0.012 145)", border: "1px solid oklch(0.25 0.08 27)" }}>
                 <div className="flex items-center gap-2 flex-1 min-w-0">
                   {c.isOverPlafond && (
                     <span className="shrink-0 px-1.5 py-0.5 rounded-full text-[10px] font-bold" style={{ background: "oklch(0.18 0.06 27)", color: "oklch(0.72 0.20 27)", border: "1px solid oklch(0.28 0.10 27)" }}>Hors plafond</span>
@@ -385,7 +385,7 @@ export default function BODashboard({ user }: Props) {
                   {c.isOverdue && !c.isOverPlafond && (
                     <span className="shrink-0 px-1.5 py-0.5 rounded-full text-[10px] font-bold" style={{ background: "oklch(0.18 0.06 72)", color: "oklch(0.80 0.18 72)", border: "1px solid oklch(0.30 0.10 72)" }}>En retard</span>
                   )}
-                  <span className="text-sm font-semibold truncate" style={{ color: "oklch(0.88 0.006 100)" }}>{c.clientId.nom}</span>
+                  <span className="text-sm font-semibold truncate" style={{ color: "oklch(0.88 0.006 100)" }}>{c.client.nom}</span>
                 </div>
                 <span className="text-sm font-black shrink-0" style={{ color: "oklch(0.72 0.20 27)" }}>{DH(c.solde)}</span>
               </div>
@@ -553,7 +553,7 @@ export default function BODashboard({ user }: Props) {
                         <td className="px-3 py-2.5 font-mono text-xs text-muted-foreground">{c.id}</td>
                         <td className="px-3 py-2.5 text-muted-foreground text-xs">{c.date}</td>
                         <td className="px-3 py-2.5 font-medium text-foreground text-xs">{c.commercialNom}</td>
-                        <td className="px-3 py-2.5 text-foreground text-xs">{c.clientIdNom}</td>
+                        <td className="px-3 py-2.5 text-foreground text-xs">{c.clientNom}</td>
                         <td className="px-3 py-2.5 text-muted-foreground text-xs">{c.secteur}</td>
                         <td className="px-3 py-2.5 font-semibold text-amber-600 text-xs">{KG(tonn)}</td>
                         <td className="px-3 py-2.5 font-bold text-primary text-xs">{DH(total)}</td>
@@ -907,7 +907,7 @@ export default function BODashboard({ user }: Props) {
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-white truncate">{pv.name}</p>
                         <p className="text-xs" style={{ color: "oklch(0.60 0.03 245)" }}>
-                          {pv.secteur ? `Secteur: ${pv.secteur}` : "Prevendeur"} · {s.nbCmdsJ} cmd(s) · {KG(s.tonnageJ)} · {s.clientIdsJ} client(s)
+                          {pv.secteur ? `Secteur: ${pv.secteur}` : "Prevendeur"} · {s.nbCmdsJ} cmd(s) · {KG(s.tonnageJ)} · {s.clientsJ} client(s)
                         </p>
                       </div>
                       <div className="flex gap-3 shrink-0">
@@ -965,18 +965,18 @@ export default function BODashboard({ user }: Props) {
                           <div className="flex flex-col gap-1">
                             <div className="flex items-center justify-between text-xs">
                               <span className="text-muted-foreground">Journalier</span>
-                              <span className="font-semibold">{s.clientIdsJ} / {pv.objectifJournalierClients ?? 0}</span>
+                              <span className="font-semibold">{s.clientsJ} / {pv.objectifJournalierClients ?? 0}</span>
                             </div>
-                            <ProgressBar value={s.clientIdsJ} max={pv.objectifJournalierClients ?? 0} color="bg-sky-500" />
+                            <ProgressBar value={s.clientsJ} max={pv.objectifJournalierClients ?? 0} color="bg-sky-500" />
                           </div>
                         )}
                         {(pv.objectifMensuelClients ?? 0) > 0 && (
                           <div className="flex flex-col gap-1">
                             <div className="flex items-center justify-between text-xs">
                               <span className="text-muted-foreground">Mensuel</span>
-                              <span className="font-semibold">{s.clientIdsM} / {pv.objectifMensuelClients ?? 0}</span>
+                              <span className="font-semibold">{s.clientsM} / {pv.objectifMensuelClients ?? 0}</span>
                             </div>
-                            <ProgressBar value={s.clientIdsM} max={pv.objectifMensuelClients ?? 0} color="bg-emerald-500" />
+                            <ProgressBar value={s.clientsM} max={pv.objectifMensuelClients ?? 0} color="bg-emerald-500" />
                           </div>
                         )}
                         {!((pv.objectifJournalierClients ?? 0) > 0 || (pv.objectifMensuelClients ?? 0) > 0) && (
@@ -1021,11 +1021,11 @@ export default function BODashboard({ user }: Props) {
                 Alertes actives ({creditAlerts.length})
               </h3>
               {creditAlerts.map(c => (
-                <div key={c.clientId.id} className="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex flex-col gap-2">
+                <div key={c.client.id} className="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex flex-col gap-2">
                   <div className="flex items-start justify-between gap-2 flex-wrap">
                     <div>
-                      <p className="font-bold text-foreground">{c.clientId.nom}</p>
-                      <p className="text-xs text-muted-foreground">{c.clientId.secteur} — {c.clientId.zone}</p>
+                      <p className="font-bold text-foreground">{c.client.nom}</p>
+                      <p className="text-xs text-muted-foreground">{c.client.secteur} — {c.client.zone}</p>
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {c.isOverPlafond && (
@@ -1096,11 +1096,11 @@ export default function BODashboard({ user }: Props) {
                         <td colSpan={7} className="px-4 py-8 text-center text-sm text-muted-foreground">Aucun client avec credit configure</td>
                       </tr>
                     ) : creditClients.map(c => (
-                      <tr key={c.clientId.id}
+                      <tr key={c.client.id}
                         className={`transition-colors ${c.isOverPlafond ? "bg-red-50" : c.isOverdue ? "bg-orange-50" : "hover:bg-muted/40"}`}>
                         <td className="px-4 py-3">
-                          <p className="font-semibold text-foreground">{c.clientId.nom}</p>
-                          <p className="text-xs text-muted-foreground">{c.clientId.secteur}</p>
+                          <p className="font-semibold text-foreground">{c.client.nom}</p>
+                          <p className="text-xs text-muted-foreground">{c.client.secteur}</p>
                         </td>
                         <td className={`px-4 py-3 text-right font-bold ${c.isOverPlafond ? "text-red-700" : c.isOverdue ? "text-orange-700" : "text-foreground"}`}>
                           {DH(c.solde)}

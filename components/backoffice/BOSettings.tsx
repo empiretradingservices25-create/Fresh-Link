@@ -238,7 +238,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
               ].map(({ f, label, placeholder }) => (
                 <div key={f} className="flex flex-col gap-1">
                   <label className="text-xs font-semibold text-foreground">{label}</label>
-                  <input type="text" value={(company as Record<string,string>)[f] || ""}
+                  <input type="text" value={company[f as keyof CompanyConfig] || ""}
                     onChange={e => setCompany(c => ({ ...c, [f]: e.target.value }))}
                     className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder={placeholder} />
@@ -274,7 +274,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
               ].map(({ f, label, placeholder }) => (
                 <div key={f} className="flex flex-col gap-1">
                   <label className="text-xs font-semibold text-foreground">{label}</label>
-                  <input type="text" value={(company as Record<string,string>)[f] || ""}
+                  <input type="text" value={(company as any)[f] || ""}
                     onChange={e => setCompany(c => ({ ...c, [f]: e.target.value }))}
                     className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder={placeholder} />

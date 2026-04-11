@@ -86,7 +86,7 @@ export default function BORetour() {
                 <tr key={r.id} className="border-t border-border hover:bg-muted/30">
                   <td className="px-4 py-3">{r.date}</td>
                   <td className="px-4 py-3 font-medium text-foreground">{r.livreurNom}</td>
-                  <td className="px-4 py-3">{r.lignes[0]?.clientIdNom}</td>
+                  <td className="px-4 py-3">{r.lignes[0]?.clientNom}</td>
                   <td className="px-4 py-3 text-muted-foreground max-w-xs truncate">
                     {r.lignes.map(l => `${l.articleNom} x${l.quantite}`).join(", ")}
                   </td>

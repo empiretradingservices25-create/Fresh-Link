@@ -21,6 +21,12 @@ function calcCaisses(qteKg: number, colisageGros = 30, colisageDemi = 15): { gro
   return { gros, demi, reste: Math.max(0, reste), totalKg }
 }
 
+// Format date as DD/MM/YYYY
+function fmtDate(dateStr?: string) {
+  const d = dateStr ? new Date(dateStr) : new Date();
+  return d.toLocaleDateString("fr-MA");
+}
+
 // legacy inline — kept for reference but replaced by lib/print
 function _printPOLegacy(po: PurchaseOrder) {
   const company = typeof window !== "undefined" ? (() => {

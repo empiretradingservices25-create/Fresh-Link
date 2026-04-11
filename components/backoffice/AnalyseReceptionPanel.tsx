@@ -123,10 +123,10 @@ export default function AnalyseReceptionPanel() {
   const byClient = useMemo(() => {
     const map: Record<string, { nom: string; qteFacture: number; montFacture: number; nbBL: number }> = {}
     bls.forEach(b => {
-      if (!map[b.clientIdNom]) map[b.clientIdNom] = { nom: b.clientIdNom, qteFacture: 0, montFacture: 0, nbBL: 0 }
-      map[b.clientIdNom].montFacture += b.montantTotal
-      map[b.clientIdNom].nbBL += 1
-      map[b.clientIdNom].qteFacture += b.lignes.reduce((s, l) => s + l.quantite, 0)
+      if (!map[b.clientNom]) map[b.clientNom] = { nom: b.clientNom, qteFacture: 0, montFacture: 0, nbBL: 0 }
+      map[b.clientNom].montFacture += b.montantTotal
+      map[b.clientNom].nbBL += 1
+      map[b.clientNom].qteFacture += b.lignes.reduce((s, l) => s + l.quantite, 0)
     })
     return Object.values(map).sort((a, b) => b.montFacture - a.montFacture)
   }, [bls])
@@ -137,15 +137,15 @@ export default function AnalyseReceptionPanel() {
     bls.forEach(b => {
       b.lignes.forEach(l => {
         if (!rows[l.articleNom]) rows[l.articleNom] = {}
-        if (!rows[l.articleNom][b.clientIdNom]) rows[l.articleNom][b.clientIdNom] = { qte: 0, mont: 0 }
-        rows[l.articleNom][b.clientIdNom].qte += l.quantite
-        rows[l.articleNom][b.clientIdNom].mont += l.total
+        if (!rows[l.articleNom][b.clientNom]) rows[l.articleNom][b.clientNom] = { qte: 0, mont: 0 }
+        rows[l.articleNom][b.clientNom].qte += l.quantite
+        rows[l.articleNom][b.clientNom].mont += l.total
       })
     })
     return rows
   }, [bls])
 
-  const allClients = useMemo(() => Array.from(new Set(bls.map(b => b.clientIdNom))).sort(), [bls])
+  const allClients = useMemo(() => Array.from(new Set(bls.map(b => b.clientNom))).sort(), [bls])
   const allArticles = useMemo(() => Object.keys(crossData).sort(), [crossData])
 
   // -─ Filtered lists ---------------------------─
@@ -704,7 +704,7 @@ export default function AnalyseReceptionPanel() {
                   {bls.sort((a,b)=>b.date.localeCompare(a.date)).map((bl, i) => (
                     <tr key={bl.id} style={{ background: i%2===0?"#0f1a2e":"#0d1520", borderBottom: "1px solid #1a2535" }}>
                       <td className="px-3 py-2 font-mono" style={{ color: "#94a3b8" }}>{bl.date}</td>
-                      <td className="px-3 py-2 font-semibold" style={{ color: "#e2e8f0" }}>{bl.clientIdNom}</td>
+                      <td className="px-3 py-2 font-semibold" style={{ color: "#e2e8f0" }}>{bl.clientNom}</td>
                       <td className="px-3 py-2" style={{ color: "#6b7280" }}>{bl.secteur}</td>
                       <td className="px-3 py-2" style={{ color: "#6b7280" }}>{bl.livreurNom}</td>
                       <td className="px-3 py-2 text-center" style={{ color: "#60a5fa" }}>{bl.lignes.length}</td>

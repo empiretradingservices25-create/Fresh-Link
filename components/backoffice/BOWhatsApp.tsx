@@ -392,7 +392,7 @@ export default function BOWhatsApp({ user }: Props) {
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-bold text-green-800 truncate">BL {selectedBL.id}</p>
                         <p className="text-[10px] text-green-600">
-                          {selectedBL.clientIdNom} — {selectedBL.montantTTC.toLocaleString("fr-MA")} DH
+                          {selectedBL.clientNom} — {selectedBL.montantTTC.toLocaleString("fr-MA")} DH
                         </p>
                       </div>
                       <button onClick={() => setSelectedBL(null)}
@@ -420,7 +420,7 @@ export default function BOWhatsApp({ user }: Props) {
                           </div>
                           <div className="overflow-y-auto" style={{ maxHeight: 200 }}>
                             {bonsLivraison
-                              .filter(bl => bl.clientIdNom.toLowerCase().includes(blSearch.toLowerCase()) || bl.id.toLowerCase().includes(blSearch.toLowerCase()))
+                              .filter(bl => bl.clientNom.toLowerCase().includes(blSearch.toLowerCase()) || bl.id.toLowerCase().includes(blSearch.toLowerCase()))
                               .slice(0, 30)
                               .map(bl => (
                                 <button key={bl.id}
@@ -428,12 +428,12 @@ export default function BOWhatsApp({ user }: Props) {
                                   className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-muted transition-colors border-b border-border/30 last:border-b-0">
                                   <div className="flex-1 min-w-0">
                                     <p className="text-xs font-semibold text-foreground truncate">{bl.id}</p>
-                                    <p className="text-[10px] text-muted-foreground">{bl.clientIdNom} — {bl.date}</p>
+                                    <p className="text-[10px] text-muted-foreground">{bl.clientNom} — {bl.date}</p>
                                   </div>
                                   <span className="text-xs font-bold text-emerald-600 shrink-0">{bl.montantTTC.toLocaleString("fr-MA")} DH</span>
                                 </button>
                               ))}
-                            {bonsLivraison.filter(bl => bl.clientIdNom.toLowerCase().includes(blSearch.toLowerCase()) || bl.id.toLowerCase().includes(blSearch.toLowerCase())).length === 0 && (
+                            {bonsLivraison.filter(bl => bl.clientNom.toLowerCase().includes(blSearch.toLowerCase()) || bl.id.toLowerCase().includes(blSearch.toLowerCase())).length === 0 && (
                               <p className="text-xs text-muted-foreground text-center py-6">Aucun BL trouvé</p>
                             )}
                           </div>

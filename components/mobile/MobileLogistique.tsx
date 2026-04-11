@@ -62,10 +62,10 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 font-bold text-white text-sm"
             style={{ background: "oklch(0.45 0.18 200)" }}>
-            {commande.clientIdNom[0]}
+            {commande.clientNom[0]}
           </div>
           <div className="text-left">
-            <p className="font-bold text-foreground text-sm">{commande.clientIdNom}</p>
+            <p className="font-bold text-foreground text-sm">{commande.clientNom}</p>
             <p className="text-xs text-muted-foreground">{commande.secteur} — {commande.zone}</p>
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function MobileLogistique({ user }: Props) {
         const bl = store.getBonsLivraison().find(b => b.commandeId === c.id)
         L.marker([c.gpsLat, c.gpsLng], { icon: bl?.statutLivraison === "livre" ? deliveredIcon : icon })
           .addTo(map)
-          .bindPopup(`<b>${c.clientIdNom}</b><br>${c.statut}<br>${c.heurelivraison}`)
+          .bindPopup(`<b>${c.clientNom}</b><br>${c.statut}<br>${c.heurelivraison}`)
       })
 
       leafletMapRef.current = map
@@ -315,7 +315,7 @@ export default function MobileLogistique({ user }: Props) {
         date: store.today(),
         tripId: activeTrip?.id ?? "",
         commandeId,
-        clientNom: commande.clientIdNom,
+        clientNom: commande.clientNom,
         secteur: commande.secteur,
         zone: commande.zone,
         livreurNom: user.name,
@@ -352,7 +352,7 @@ export default function MobileLogistique({ user }: Props) {
           store.addCaisseEntry({
             id: store.genId(),
             date: store.today(),
-            libelle: `Livraison — ${commande.clientIdNom} (${user.name})`,
+            libelle: `Livraison — ${commande.clientNom} (${user.name})`,
             type: "entree",
             categorie: "vente",
             montant: montantTotal,
@@ -372,7 +372,7 @@ export default function MobileLogistique({ user }: Props) {
         livreurNom: user.name,
         lignes: commande.lignes.map(l => ({
           commandeId,
-          clientNom: commande.clientIdNom,
+          clientNom: commande.clientNom,
           articleId: l.articleId,
           articleNom: l.articleNom,
           quantite: l.quantite,
@@ -429,7 +429,7 @@ export default function MobileLogistique({ user }: Props) {
           { id: "map",        label: "Carte GPS",  icon: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7", roles: null },
           { id: "reception",  label: "Reception",  icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", roles: ["magasinier", "resp_logistique", "admin", "super_admin"] },
         ] as const)
-          .filter(t => !t.roles || t.roles.includes(user.role))
+          .filter(t => !t.roles || (t.roles as readonly User["role"][]).includes(user.role))
           .map(t => (
           <button
             key={t.id}
@@ -462,12 +462,12 @@ export default function MobileLogistique({ user }: Props) {
             ) : (
               <div className="flex flex-col gap-3">
                 {pendingCommandes.map(c => {
-                  const clientRecord = store.getClients().find(cl => cl.id === c.clientIdId)
+                  const clientRecord = store.getClients().find(cl => cl.id === c.clientId)
                   return (
                     <div key={c.id} className="bg-card rounded-2xl border border-border p-4 flex flex-col gap-3">
                       <div className="flex items-start justify-between">
                         <div>
-                          <p className="font-bold text-foreground font-sans text-sm">{c.clientIdNom}</p>
+                          <p className="font-bold text-foreground font-sans text-sm">{c.clientNom}</p>
                           <p className="text-xs text-muted-foreground font-sans">{c.secteur} — {c.zone}</p>
                           <p className="text-xs text-muted-foreground font-sans">Heure: {c.heurelivraison}</p>
                           {/* Credit badge — shown to livreur */}
@@ -540,18 +540,18 @@ export default function MobileLogistique({ user }: Props) {
                   return (a.heurelivraison ?? "99:99").localeCompare(b.heurelivraison ?? "99:99")
                 }
                 const itineraire = activeTrip?.itineraire ?? []
-                return (itineraire.find(p => p.clientIdNom === a.clientIdNom)?.ordre ?? 999) -
-                       (itineraire.find(p => p.clientIdNom === b.clientIdNom)?.ordre ?? 999)
+                return (itineraire.find(p => p.clientNom === a.clientNom)?.ordre ?? 999) -
+                       (itineraire.find(p => p.clientNom === b.clientNom)?.ordre ?? 999)
               })
               const nextClient = sorted.find(c => {
                 const bl = bls.find(b => b.commandeId === c.id)
                 return !bl || (bl.statutLivraison !== "livre" && bl.statutLivraison !== "retour")
               })
               if (!nextClient) return null
-              const clientRecord = store.getClients().find(cl => cl.id === nextClient.clientIdId)
+              const clientRecord = store.getClients().find(cl => cl.id === nextClient.clientId)
               const phone = clientRecord?.telephone ?? ""
               const totalHT = nextClient.lignes.reduce((s, l) => s + l.quantite * (l.prixVente ?? 0), 0)
-              const msgText = `Bonjour ${nextClient.clientIdNom},\nVotre livraison FreshLink Pro est en route !\nMontant: ${totalHT.toLocaleString("fr-MA")} DH HT\nLivreur: ${user.name}\nMerci.`
+              const msgText = `Bonjour ${nextClient.clientNom},\nVotre livraison FreshLink Pro est en route !\nMontant: ${totalHT.toLocaleString("fr-MA")} DH HT\nLivreur: ${user.name}\nMerci.`
               const encodedMsg = encodeURIComponent(msgText)
               const cleanPhone = phone.replace(/\D/g, "")
               return (
@@ -562,10 +562,10 @@ export default function MobileLogistique({ user }: Props) {
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center text-white font-black text-base shrink-0">
-                      {nextClient.clientIdNom[0]}
+                      {nextClient.clientNom[0]}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-foreground text-sm truncate">{nextClient.clientIdNom}</p>
+                      <p className="font-bold text-foreground text-sm truncate">{nextClient.clientNom}</p>
                       <p className="text-xs text-muted-foreground">{nextClient.secteur} — {nextClient.zone}</p>
                       {nextClient.heurelivraison && (
                         <p className="text-xs text-blue-700 font-semibold">{nextClient.heurelivraison}</p>
@@ -660,8 +660,8 @@ export default function MobileLogistique({ user }: Props) {
                   {[...activeTrip.itineraire]
                     .sort((a, b) => a.ordre - b.ordre)
                     .map((stop, i) => {
-                      const c = commandes.find(c => c.clientIdNom === stop.clientIdNom)
-                      const bl = bls.find(b => b.clientIdNom === stop.clientIdNom)
+                      const c = commandes.find(c => c.clientNom === stop.clientNom)
+                      const bl = bls.find(b => b.clientNom === stop.clientNom)
                       return (
                         <div key={i} className="flex items-center gap-3">
                           <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0"
@@ -669,7 +669,7 @@ export default function MobileLogistique({ user }: Props) {
                             {stop.ordre}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-foreground truncate">{stop.clientIdNom}</p>
+                            <p className="text-sm font-semibold text-foreground truncate">{stop.clientNom}</p>
                           </div>
                           {bl && (
                             <span className={`px-2 py-0.5 rounded-full text-xs font-semibold shrink-0 ${STATUT_BL_COLORS[bl.statutLivraison] ?? "bg-gray-100"}`}>
@@ -726,8 +726,8 @@ export default function MobileLogistique({ user }: Props) {
                     }
                     // GPS mode: use trip itineraire order if available
                     const itineraire = activeTrip?.itineraire ?? []
-                    const orderA = itineraire.find(p => p.clientIdNom === a.clientIdNom)?.ordre ?? 999
-                    const orderB = itineraire.find(p => p.clientIdNom === b.clientIdNom)?.ordre ?? 999
+                    const orderA = itineraire.find(p => p.clientNom === a.clientNom)?.ordre ?? 999
+                    const orderB = itineraire.find(p => p.clientNom === b.clientNom)?.ordre ?? 999
                     return orderA - orderB
                   })
                   return sorted.map((c, idx) => {
@@ -750,7 +750,7 @@ export default function MobileLogistique({ user }: Props) {
                             )}
                             {deliveryMode === "gps" && activeTrip?.itineraire && (
                               (() => {
-                                const pt = activeTrip.itineraire.find(p => p.clientIdNom === c.clientIdNom)
+                                const pt = activeTrip.itineraire.find(p => p.clientNom === c.clientNom)
                                 return pt ? (
                                   <span className="text-xs font-bold text-green-700 bg-green-50 rounded-md px-2 py-0.5 border border-green-200">
                                     GPS #{pt.ordre}

@@ -63,7 +63,7 @@ export default function PortailClient({ user, onLogout }: Props) {
     const allCommandes = store.getCommandes()
     const allArticles = store.getArticles()
     const allClients = store.getClients()
-    const myClientId = user.clientIdId
+    const myClientId = user.clientId
     const myClient = allClients.find(c => c.id === myClientId) ?? null
     setClient(myClient)
     const myCommandes = myClientId

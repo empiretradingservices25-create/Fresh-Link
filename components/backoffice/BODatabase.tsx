@@ -225,7 +225,20 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
     setImportResult({ inserted, updated, errors })
     setImporting(false)
     // Refresh counts + table
-    setCounts(c => ({ ...c, [section]: (store as Record<string, () => unknown[]>)[`get${section[0].toUpperCase() + section.slice(1)}`]?.()?.length ?? c[section] }))
+    const loaders: Record<Section, () => unknown[]> = {
+      achats:       () => store.getBonsAchat(),
+      commandes:    () => store.getCommandes(),
+      receptions:   () => store.getReceptions(),
+      stock:        () => store.getArticles(),
+      livraisons:   () => store.getBonsLivraison(),
+      retours:      () => store.getRetours(),
+      trips:        () => store.getTrips(),
+      trip_charges: () => store.getTripCharges(),
+      caisses_mvt:  () => store.getCaissesMovements(),
+      clients:      () => store.getClients(),
+      users:        () => store.getUsers().map(u => ({ ...u, password: "***" })),
+    }
+    setCounts(c => ({ ...c, [section]: loaders[section]?.().length ?? c[section] }))
     setData((loaders => loaders[section]())({
       achats: () => store.getBonsAchat(),
       commandes: () => store.getCommandes(),
@@ -269,6 +282,8 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
       stock: ["id", "nom", "nomAr", "famille", "stockDisponible", "stockDefect", "prixAchat"],
       retours: ["id", "date", "livreurNom", "statut"],
       trips: ["id", "date", "livreurNom", "vehicule", "statut"],
+      trip_charges: ["id", "date", "tripId", "montant", "description"], // Example columns, adjust as needed
+      caisses_mvt: ["id", "date", "type", "quantite", "commentaire"],   // Example columns, adjust as needed
       clients: ["id", "nom", "secteur", "zone", "type", "taille", "telephone"],
       users: ["id", "name", "email", "role", "secteur", "actif"],
     }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { type User, store } from "@/lib/store"
+import { type User, store, type FeedbackSource } from "@/lib/store"
 
 interface Props { user: User }
 
@@ -29,8 +29,17 @@ export default function MobileFeedback({ user }: Props) {
     // Also push to store feedbacks if exists
     try {
       // @ts-ignore
-      if (store.getState().feedbacks !== undefined) {
-        store.getState().addFeedback?.({ ...entry, userId: user.id, userName: user.name })
+      if (store.addFeedback !== undefined) {
+        store.addFeedback?.({
+          id: store.genId?.() ?? Math.random().toString(36).slice(2),
+          source: "mobile" as FeedbackSource,
+          auteur: user.name ?? user.id ?? "anonyme",
+          sujet: category,
+          message: message.trim(),
+          note: rating,
+          date: store.today?.() ?? new Date().toLocaleString("fr-FR"),
+          statut: "nouveau"
+        })
       }
     } catch { /* silent */ }
     setSaving(false)

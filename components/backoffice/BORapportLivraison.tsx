@@ -106,7 +106,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
     }
     const p = livreurPerfMap[nom]
     p.trips++
-    p.clientIds += trip.commandeIds.length
+    p.clients += trip.commandeIds.length
     p.livres += tripBls.filter(bl => bl.statutLivraison === "livre").length
     p.retours += tripBls.filter(bl => bl.statutLivraison === "retour").length
     p.tonnage += tripBls.reduce((s, bl) => s + bl.lignes.reduce((ls, l) => ls + l.quantite, 0), 0)
@@ -130,13 +130,13 @@ export default function BORapportLivraison({ user: _user }: Props) {
   // Compute rates
   const livreurPerfs = Object.values(livreurPerfMap).map(p => ({
     ...p,
-    tauxLivraison: p.clientIds > 0 ? Math.round((p.livres / p.clientIds) * 100) : 0,
-    tauxRetour: p.clientIds > 0 ? Math.round((p.retours / p.clientIds) * 100) : 0,
+    tauxLivraison: p.clients > 0 ? Math.round((p.livres / p.clients) * 100) : 0,
+    tauxRetour: p.clients > 0 ? Math.round((p.retours / p.clients) * 100) : 0,
   })).sort((a, b) => b.tauxLivraison - a.tauxLivraison)
 
   // - Global KPIs ---------------------------
   const totalTrips = filteredTrips.length
-  const totalClients = livreurPerfs.reduce((s, p) => s + p.clientIds, 0)
+  const totalClients = livreurPerfs.reduce((s, p) => s + p.clients, 0)
   const totalLivres = livreurPerfs.reduce((s, p) => s + p.livres, 0)
   const totalRetours = livreurPerfs.reduce((s, p) => s + p.retours, 0)
   const totalTonnage = livreurPerfs.reduce((s, p) => s + p.tonnage, 0)
@@ -151,7 +151,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
   const exportCSV = () => {
     const header = "Livreur,Trips,Clients,Livrés,Retours,Taux Livraison (%),Taux Retour (%),Tonnage (kg),CA TTC (DH),A Temps,TOT,Retard 30min,Retard 1h+"
     const rows = livreurPerfs.map(p =>
-      [p.nom, p.trips, p.clientIds, p.livres, p.retours, p.tauxLivraison, p.tauxRetour,
+      [p.nom, p.trips, p.clients, p.livres, p.retours, p.tauxLivraison, p.tauxRetour,
         p.tonnage.toFixed(1), p.caTotal.toFixed(2), p.aTtemps, p.tot, p.retard30, p.retard1h].join(",")
     )
     const csv = [header, ...rows].join("\n")
@@ -308,7 +308,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
               {/* Stats grid */}
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-4">
                 {[
-                  { label: "Clients", value: p.clientIds, color: "text-blue-600" },
+                  { label: "Clients", value: p.clients, color: "text-blue-600" },
                   { label: "Livrés", value: p.livres, color: "text-green-600" },
                   { label: "Retours", value: p.retours, color: "text-red-500" },
                   { label: "Tonnage", value: `${p.tonnage.toFixed(1)} kg`, color: "text-cyan-600" },
@@ -438,7 +438,7 @@ export default function BORapportLivraison({ user: _user }: Props) {
                     style={{ borderTop: "1px solid oklch(0.87 0.012 240)", background: i % 2 === 0 ? "white" : "oklch(0.975 0.003 240)" }}>
                     <td className="px-3 py-3 font-semibold text-foreground whitespace-nowrap">{p.nom}</td>
                     <td className="px-3 py-3 text-center text-muted-foreground">{p.trips}</td>
-                    <td className="px-3 py-3 text-center font-semibold text-blue-600">{p.clientIds}</td>
+                    <td className="px-3 py-3 text-center font-semibold text-blue-600">{p.clients}</td>
                     <td className="px-3 py-3 text-center font-semibold text-green-600">{p.livres}</td>
                     <td className="px-3 py-3 text-center font-semibold text-red-500">{p.retours}</td>
                     <td className="px-3 py-3 text-center">

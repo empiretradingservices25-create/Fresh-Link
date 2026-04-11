@@ -88,7 +88,7 @@ export default function BOCommercial({ user }: Props) {
         })
         L.marker([c.gpsLat, c.gpsLng], { icon })
           .addTo(map)
-          .bindPopup(`<b>${c.clientIdNom}</b><br>Zone: ${c.zone}<br>Commercial: ${c.commercialNom}<br>Statut: ${c.statut}<br>Livraison: ${c.heurelivraison}`)
+          .bindPopup(`<b>${c.clientNom}</b><br>Zone: ${c.zone}<br>Commercial: ${c.commercialNom}<br>Statut: ${c.statut}<br>Livraison: ${c.heurelivraison}`)
       })
       leafletMapRef.current = map
     } catch (e) { /* map not available */ }
@@ -137,7 +137,7 @@ export default function BOCommercial({ user }: Props) {
   const boClients = store.getClients().filter(c => {
     // exclude portal-linked accounts — they have their own portal
     const users = store.getUsers()
-    const hasClientPortal = users.some(u => u.role === "client" && u.clientIdId === c.id)
+    const hasClientPortal = users.some(u => u.role === "client" && u.clientId === c.id)
     return !hasClientPortal
   })
 
@@ -175,7 +175,7 @@ export default function BOCommercial({ user }: Props) {
             {pendingApproval.map(c => (
               <div key={c.id} className="bg-white rounded-xl border border-orange-200 p-3 flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-sm text-foreground">{c.clientIdNom}</p>
+                  <p className="font-semibold text-sm text-foreground">{c.clientNom}</p>
                   <p className="text-xs text-muted-foreground">{c.commercialNom} — {c.zone} — {c.date} — {c.lignes.reduce((s,l) => s + l.quantite * l.prixVente, 0).toLocaleString("fr-MA")} DH</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{c.lignes.map(l => `${l.articleNom} ×${l.quantite}`).join(", ")}</p>
                 </div>
@@ -308,7 +308,7 @@ export default function BOCommercial({ user }: Props) {
                   />
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">{c.date}</td>
-                <td className="px-4 py-3 font-medium text-foreground">{c.clientIdNom}</td>
+                <td className="px-4 py-3 font-medium text-foreground">{c.clientNom}</td>
                 <td className="px-4 py-3 text-muted-foreground">{c.commercialNom}</td>
                 <td className="px-4 py-3 text-muted-foreground">{c.zone || c.secteur}</td>
                 <td className="px-4 py-3 text-muted-foreground max-w-xs truncate">
@@ -346,7 +346,7 @@ export default function BOCommercial({ user }: Props) {
               </button>
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm font-sans">
-              <div><span className="text-muted-foreground">Client:</span> <span className="font-medium text-foreground">{selected.clientIdNom}</span></div>
+              <div><span className="text-muted-foreground">Client:</span> <span className="font-medium text-foreground">{selected.clientNom}</span></div>
               <div><span className="text-muted-foreground">Prévendeur:</span> <span className="font-medium text-foreground">{selected.commercialNom}</span></div>
               <div><span className="text-muted-foreground">Zone:</span> <span className="font-medium text-foreground">{selected.zone}</span></div>
               <div><span className="text-muted-foreground">Secteur:</span> <span className="font-medium text-foreground">{selected.secteur}</span></div>

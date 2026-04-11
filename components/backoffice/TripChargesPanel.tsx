@@ -295,13 +295,13 @@ function TripRow({ trip, onUpdate }: { trip: TripCharge; onUpdate: () => void })
 
 // - Auto-sync Trip from BL + Controle Preparation + Retour ----------
 function buildTripFromFlows(livreurNom: string, date: string): Partial<TripCharge> & {
-  sourceBLs: string[]; sourcePrepIds: string[]; sourceCaisses: { gros: number; demi: number }
+  sourceBLs: string[]; sourcePrepIds: string[]; sourceCaisses: { gros: number; demi: number }; observations?: string
 } {
   const today = date || store.today()
 
   // 1. BL for this livreur on this date
   const bls = store.getBonsLivraison().filter(
-    bl => bl.date === today && (bl.livreurNom === livreurNom || bl.livreurId === livreurNom)
+    bl => bl.date === today && bl.livreurNom === livreurNom
   )
   const nbClients = bls.length
   const secteurs = [...new Set(bls.map(bl => (bl as { secteur?: string; clientSecteur?: string }).secteur || (bl as { secteur?: string; clientSecteur?: string }).clientIdSecteur || "").filter(Boolean))]
@@ -312,7 +312,7 @@ function buildTripFromFlows(livreurNom: string, date: string): Partial<TripCharg
   // 2. Bons Préparation for this livreur/date (ctrl_prep)
   const preps = store.getBonsPreparation().filter(
     p => p.date === today && p.statut === "valide" &&
-      (bls.some(bl => (bl as { bonPrepId?: string }).bonPrepId === p.id) || p.clientIdIds.length > 0)
+      (bls.some(bl => (bl as { bonPrepId?: string }).bonPrepId === p.id) || p.clientIds.length > 0)
   )
   const prepNbCaisses = preps.reduce((s, p) => {
     // Count total caisses from qteCommandee ÷ 30kg per caisse (standard)

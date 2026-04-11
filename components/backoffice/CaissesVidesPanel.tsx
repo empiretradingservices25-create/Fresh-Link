@@ -52,10 +52,10 @@ function syncCaissesFromFlows(today: string) {
       nbCaisseGros: gros,
       nbCaisseDemi: demi,
       referenceDoc: ref,
-      articleNom: (bl as { clientNom?: string }).clientIdNom ?? "",
+      articleNom: (bl as { clientNom?: string }).clientNom ?? "",
       operateurId: "auto",
       operateurNom: "Auto-BL",
-      notes: `BL auto-sync — client: ${(bl as { clientNom?: string }).clientIdNom ?? bl.id}`,
+      notes: `BL auto-sync — client: ${(bl as { clientNom?: string }).clientNom ?? bl.id}`,
     })
     existingRefs.add(ref)
   }

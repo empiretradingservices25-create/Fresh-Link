@@ -229,7 +229,7 @@ function PermissionsTabs({
 
   const handleToggleAll = (on: boolean) => {
     const update: Partial<Omit<User, "id">> = {}
-    PERM_LABELS.forEach(p => { update[p.key] = on as never })
+    PERM_LABELS.forEach(p => { update[p.key as keyof Omit<User, "id">] = on as never })
     setForm(prev => ({ ...prev, ...update }))
   }
 
@@ -461,7 +461,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
       objectifMensuelClients: u.objectifMensuelClients || 0,
       passwordMobile: u.passwordMobile, passwordBO: u.passwordBO,
       photoUrl: u.photoUrl, telephone: u.telephone,
-      requireCameraAuth: u.requireCameraAuth, fournisseurId: u.fournisseurId, clientId: u.clientIdId,
+      requireCameraAuth: u.requireCameraAuth, fournisseurId: u.fournisseurId, clientId: u.clientId,
     })
     setShowForm(true)
   }
@@ -535,7 +535,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
   // Export CSV
   const exportCSV = () => {
     const cols = ["id", "name", "email", "role", "secteur", "phone", "actif"]
-    const rows = users.map(u => cols.map(c => `"${String((u as Record<string, unknown>)[c] ?? "")}"`).join(","))
+    const rows = users.map(u => cols.map(c => `"${String(((u as unknown) as Record<string, unknown>)[c] ?? "")}"`).join(","))
     const csv = [cols.join(","), ...rows].join("\n")
     const blob = new Blob([csv], { type: "text/csv" })
     const a = document.createElement("a")

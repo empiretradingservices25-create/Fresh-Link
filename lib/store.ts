@@ -1879,7 +1879,7 @@ export const store = {
 
   // Auto-incremented Trip number: T001, T002…
   genTripNumber: (): string => {
-    const trips = getLS<Trip[]>("fl_trips") ?? []
+    const trips = getLS<Trip[]>("fl_trips", []) ?? []
     // find highest existing T-number
     let max = 0
     for (const t of trips) {
@@ -1896,7 +1896,7 @@ export const store = {
     const mm = String(now.getMonth() + 1).padStart(2, "0")
     const dd = String(now.getDate()).padStart(2, "0")
     const prefix = `BL-${yy}${mm}${dd}`
-    const bls = getLS<BonLivraison[]>("fl_bons_livraison") ?? []
+    const bls = getLS<BonLivraison[]>("fl_bons_livraison", []) ?? []
     const todayBLs = bls.filter(b => b.id.startsWith(prefix))
     const seq = String(todayBLs.length + 1).padStart(3, "0")
     return `${prefix}-${seq}` // e.g. "BL-260323-001"
@@ -1908,7 +1908,7 @@ export const store = {
     const yy = String(now.getFullYear()).slice(-2)
     const mm = String(now.getMonth() + 1).padStart(2, "0")
     const prefix = `FAC-${yy}${mm}`
-    const bls = getLS<BonLivraison[]>("fl_bons_livraison") ?? []
+    const bls = getLS<BonLivraison[]>("fl_bons_livraison", []) ?? []
     const monthBLs = bls.filter(b => b.id.startsWith(prefix))
     const seq = String(monthBLs.length + 1).padStart(3, "0")
     return `${prefix}-${seq}` // e.g. "FAC-2603-001"
@@ -1921,7 +1921,7 @@ export const store = {
     const mm = String(now.getMonth() + 1).padStart(2, "0")
     const dd = String(now.getDate()).padStart(2, "0")
     const prefix = `CMD-${yy}${mm}${dd}`
-    const cmds = getLS<Commande[]>("fl_commandes") ?? []
+    const cmds = getLS<Commande[]>("fl_commandes", []) ?? []
     const todayCmds = cmds.filter(c => c.id.startsWith(prefix))
     const seq = String(todayCmds.length + 1).padStart(3, "0")
     return `${prefix}-${seq}` // e.g. "CMD-260323-001"
@@ -2127,9 +2127,17 @@ export const DEFAULT_FEEDBACKS: Feedback[] = [
 
 export const DEFAULT_TRIP_CHARGES: TripCharge[] = [
   {
-    id: "tc1", date: "2024-01-20", livreur: "Demo Livreur", immatricule: "W-12345-A",
-    secteur: "Nord", nbCaissesFact: 48, nbClients: 5,
-    kmDepart: 42500, kmRetour: 42578, validated: true,
+    id: "tc1",
+    numero: "TRP-001",
+    date: "2024-01-20",
+    livreur: "Demo Livreur",
+    immatricule: "W-12345-A",
+    secteur: "Nord",
+    nbCaissesFact: 48,
+    nbClients: 5,
+    kmDepart: 42500,
+    kmRetour: 42578,
+    validated: true,
     charges: [{ type: "carburant", montant: 180 }, { type: "peage", montant: 40 }],
     controleRetour: {
       date: "2024-01-20", caissesPrevues: 48, caissesRetournees: 46,
@@ -2142,9 +2150,17 @@ export const DEFAULT_TRIP_CHARGES: TripCharge[] = [
     },
   },
   {
-    id: "tc2", date: "2024-01-20", livreur: "Demo Livreur", immatricule: "W-67890-B",
-    secteur: "Centre", nbCaissesFact: 32, nbClients: 4,
-    kmDepart: 61200, kmRetour: null, validated: false,
+    id: "tc2",
+    numero: "TRP-002",
+    date: "2024-01-20",
+    livreur: "Demo Livreur",
+    immatricule: "W-67890-B",
+    secteur: "Centre",
+    nbCaissesFact: 32,
+    nbClients: 4,
+    kmDepart: 61200,
+    kmRetour: null,
+    validated: false,
     charges: [],
   },
 ]

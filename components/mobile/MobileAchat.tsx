@@ -59,7 +59,7 @@ interface BesoinSKU {
 
 function calcBesoinSKU(articles: Article[]): BesoinSKU[] {
   const commandes = store.getCommandes().filter(c =>
-    c.statut === "validée" || c.statut === "livrée" || c.statut === "en_cours"
+    c.statut === "valide" || c.statut === "livre" || c.statut === "en_transit"
   )
   const qteMap: Record<string, number> = {}
   commandes.forEach(cmd => {

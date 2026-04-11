@@ -83,9 +83,9 @@ export default function MobileObjectifs({ user }: Props) {
   const caJ = cdJ.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
   const caW = cdW.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
   const caM = cdM.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
-  const clientsJ = new Set(cdJ.map(c => c.clientIdId)).size
-  const clientsW = new Set(cdW.map(c => c.clientIdId)).size
-  const clientsM = new Set(cdM.map(c => c.clientIdId)).size
+  const clientsJ = new Set(cdJ.map(c => c.clientId)).size
+  const clientsW = new Set(cdW.map(c => c.clientId)).size
+  const clientsM = new Set(cdM.map(c => c.clientId)).size
 
   const hasCA = (user.objectifJournalierCA ?? 0) > 0 || (user.objectifHebdomadaireCA ?? 0) > 0 || (user.objectifMensuelCA ?? 0) > 0
   const hasClients = (user.objectifJournalierClients ?? 0) > 0 || (user.objectifHebdomadaireClients ?? 0) > 0 || (user.objectifMensuelClients ?? 0) > 0
@@ -166,7 +166,7 @@ export default function MobileObjectifs({ user }: Props) {
               return (
                 <div key={c.id} className="flex items-center justify-between px-4 py-2.5">
                   <div>
-                    <p className="text-xs font-semibold text-foreground">{c.clientIdNom}</p>
+                    <p className="text-xs font-semibold text-foreground">{c.clientNom}</p>
                     <p className="text-[10px] text-muted-foreground">{c.date}</p>
                   </div>
                   <div className="text-right">

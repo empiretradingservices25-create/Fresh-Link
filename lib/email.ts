@@ -247,7 +247,7 @@ export function buildCommandeEmail(cmd: {
     `  COMMANDE #${cmd.id}`,
     `  Date : ${cmd.date}     Livraison : ${cmd.heurelivraison}`,
     `  Commercial : ${cmd.commercialNom}`,
-    `  Client : ${cmd.clientIdNom}`,
+    `  Client : ${cmd.clientNom}`,
     line,
     ...cmd.lignes.map(l =>
       `  • ${l.articleNom.padEnd(20)} ${String(l.quantite).padStart(6)}  x  ${fmt(l.prixVente)} DH = ${fmt(l.quantite * l.prixVente)} DH`
