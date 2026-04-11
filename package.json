@@ -12,6 +12,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@supabase/supabase-js": "^2.103.0",
     "@tailwindcss/postcss": "^4.0.0",
+    "@vercel/speed-insights": "^2.0.0",
     "autoprefixer": "^10.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@eslint/config-array": "^0.23.5",
     "@eslint/object-schema": "^3.0.5",
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
