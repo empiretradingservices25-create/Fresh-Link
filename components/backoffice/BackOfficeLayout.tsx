@@ -824,37 +824,37 @@ function SidebarContent({
       </div>
 
       {/* User footer */}
-      <div className="px-2 py-3 border-t border-slate-200">
-        <button
-          onClick={onOpenProfil}
-          className={`w-full flex items-center gap-2.5 rounded-xl hover:bg-slate-100 transition-colors text-left ${sidebarCollapsed ? "justify-center p-2" : "px-2 py-2"}`}
-        >
-          {profilPhoto ? (
-            <img src={profilPhoto} alt={user.name}
-              className="w-8 h-8 rounded-full object-cover border-2 border-slate-200 shrink-0" />
-          ) : (
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 ${ROLE_COLORS[user.role]}`}>
-              {user.name[0]?.toUpperCase()}
-            </div>
-          )}
-          {!sidebarCollapsed && (
-            <>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
-                <p className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
-              </div>
-              <button
-                onClick={e => { e.stopPropagation(); onLogout() }}
-                title="Deconnexion"
-                className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-              </button>
-            </>
-          )}
-        </button>
+      <div className="px-2 py-3 border-t border-slate-200 flex gap-2 items-center">
+  <button
+    onClick={onOpenProfil}
+    className={`flex items-center gap-2.5 rounded-xl hover:bg-slate-100 transition-colors text-left flex-1 ${sidebarCollapsed ? "justify-center p-2" : "px-2 py-2"}`}
+    style={{ minWidth: 0 }}
+    type="button"
+  >
+    {profilPhoto
+      ? <img src={profilPhoto} alt={user.name} className="w-8 h-8 rounded-full object-cover border-2 border-slate-200 shrink-0" />
+      : <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 ${ROLE_COLORS[user.role]}`}>{user.name[0]?.toUpperCase()}</div>
+    }
+    {!sidebarCollapsed && (
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-semibold truncate text-slate-700">{user.name}</p>
+        <p className="text-[10px] truncate text-slate-400">{ROLE_LABELS[user.role]}</p>
       </div>
+    )}
+  </button>
+  {!sidebarCollapsed && (
+    <button
+      onClick={e => { e.stopPropagation(); onLogout() }}
+      title="Deconnexion"
+      className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0"
+      type="button"
+    >
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      </svg>
+    </button>
+  )}
+</div>
     </aside>
   )
 }
