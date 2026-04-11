@@ -53,7 +53,7 @@ export default function BOComptesExternes({ user }: Props) {
 
   // Find linked portal user for a client/fournisseur
   const users = store.getUsers()
-  const getClientPortalUser = (clientId: string) => users.find(u => u.role === "client" && u.client === clientId)
+  const getClientPortalUser = (clientId: string) => users.find(u => u.role === "client" && u.clientId === clientId)
   const getFournisseurPortalUser = (fId: string) => users.find(u => u.role === "fournisseur" && u.fournisseurId === fId)
 
   return (
