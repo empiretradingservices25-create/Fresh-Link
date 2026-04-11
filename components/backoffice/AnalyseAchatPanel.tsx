@@ -58,7 +58,7 @@ function computeCmdVsFacturation(dateFrom: string, dateTo: string): CmdVsFactura
       }, 0)
       rows.push({
         article: ligne.articleNom,
-        client: cmd.clientNom,
+        client: cmd.clientIdNom,
         qteCmdee: ligne.quantite,
         prixCmd: ligne.quantite * ligne.prixVente,
         qteFact,
@@ -115,7 +115,7 @@ function CmdFactRow({ r }: { r: CmdVsFacturation }) {
   return (
     <tr style={{ borderBottom: "1px solid #1a253520" }}>
       <td className="px-4 py-3 font-medium" style={{ color: "#e2e8f0" }}>{r.article}</td>
-      <td className="px-4 py-3" style={{ color: "#94a3b8" }}>{r.client}</td>
+      <td className="px-4 py-3" style={{ color: "#94a3b8" }}>{r.clientId}</td>
       <td className="px-4 py-3 text-center">
         <span className="text-xs" style={{ color: "#60a5fa" }}>{r.qteCmdee} kg</span>
         <br />

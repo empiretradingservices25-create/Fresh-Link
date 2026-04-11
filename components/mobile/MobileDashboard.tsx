@@ -59,7 +59,7 @@ export default function MobileDashboard({ user }: Props) {
   // Stats
   const totalCA = forPeriod.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
   const totalTonnage = forPeriod.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite, 0), 0)
-  const uniqueClients = new Set(forPeriod.map(c => c.clientId)).size
+  const uniqueClients = new Set(forPeriod.map(c => c.clientIdId)).size
   const uniqueSKUs = new Set(forPeriod.flatMap(c => c.lignes.map(l => l.articleId))).size
 
   // Objectifs (user params)
@@ -212,7 +212,7 @@ export default function MobileDashboard({ user }: Props) {
                   return (
                     <div key={c.id} className="bg-card rounded-xl border border-border p-3">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-bold text-foreground">{c.clientNom}</span>
+                        <span className="text-sm font-bold text-foreground">{c.clientIdNom}</span>
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                           c.statut === "livre" ? "bg-green-100 text-green-700" :
                           c.statut === "en_transit" ? "bg-blue-100 text-blue-700" :

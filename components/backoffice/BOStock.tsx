@@ -918,10 +918,10 @@ export default function BOStock({ user }: { user: { id: string; name: string } }
         const todayBLs = bonLivraisons.filter(bl => bl.date === today && ((bl.nbCaisseGros ?? 0) > 0 || (bl.nbCaisseDemi ?? 0) > 0))
         const ecartParClient: Record<string, { nom: string; gros: number; demi: number; livree: number; retour: number; ecart: number }> = {}
         todayBLs.forEach(bl => {
-          if (!ecartParClient[bl.clientNom]) ecartParClient[bl.clientNom] = { nom: bl.clientNom, gros: 0, demi: 0, livree: 0, retour: 0, ecart: 0 }
-          ecartParClient[bl.clientNom].gros += bl.nbCaisseGros ?? 0
-          ecartParClient[bl.clientNom].demi += bl.nbCaisseDemi ?? 0
-          ecartParClient[bl.clientNom].livree += (bl.nbCaisseGros ?? 0) + (bl.nbCaisseDemi ?? 0)
+          if (!ecartParClient[bl.clientIdNom]) ecartParClient[bl.clientIdNom] = { nom: bl.clientIdNom, gros: 0, demi: 0, livree: 0, retour: 0, ecart: 0 }
+          ecartParClient[bl.clientIdNom].gros += bl.nbCaisseGros ?? 0
+          ecartParClient[bl.clientIdNom].demi += bl.nbCaisseDemi ?? 0
+          ecartParClient[bl.clientIdNom].livree += (bl.nbCaisseGros ?? 0) + (bl.nbCaisseDemi ?? 0)
         })
         // Retours livrés par client
         const todayRetours = retours.filter(r => r.date === today)

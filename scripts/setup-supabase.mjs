@@ -7,7 +7,7 @@ const SUPABASE_SERVICE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsYnVicGp1bmh2dmVwcGJoeHVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxNzAxOTQsImV4cCI6MjA4OTc0NjE5NH0.8acsZqE3uqfjUaAIsYrGQwva2I8tobtinQO4L-v89CA"
 
 const SQL = `
-create table if not exists public.clients (
+create table if not exists public.clientIds (
   id            text primary key,
   nom           text not null,
   secteur       text not null default '',
@@ -30,14 +30,14 @@ create table if not exists public.clients (
   created_at    timestamptz not null default now()
 );
 
-alter table public.clients enable row level security;
+alter table public.clientIds enable row level security;
 
 do $$ begin
   if not exists (
     select 1 from pg_policies
     where tablename = 'clients' and policyname = 'allow_all_clients'
   ) then
-    execute 'create policy "allow_all_clients" on public.clients for all using (true) with check (true)';
+    execute 'create policy "allow_all_clients" on public.clientIds for all using (true) with check (true)';
   end if;
 end $$;
 `

@@ -223,7 +223,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
       if (!existingRefs.has(ref)) {
         const montant = c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
         store.addCaisseEntry({
-          id: store.genId(), date: c.date, libelle: `Encaissement BL ${c.clientNom}`,
+          id: store.genId(), date: c.date, libelle: `Encaissement BL ${c.clientIdNom}`,
           type: "entree", categorie: "vente", montant, reference: ref, createdBy: user.id,
         })
         added++
@@ -995,7 +995,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
             const plafond = c.plafondCredit ?? 0
             const delai = c.delaiRecouvrement ?? "a_definir"
             const delaiMs = DELAI_MS[delai] ?? Infinity
-            const clientBLs = bls.filter(b => b.client === c.id)
+            const clientBLs = bls.filter(b => b.clientId === c.id)
             const lastBLDate = clientBLs.length > 0
               ? clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0].date
               : null
@@ -1100,8 +1100,8 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                       className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary">
                       <option value="">-- Choisir un client --</option>
                       {creditClients.filter(c => c.solde > 0).map(c => (
-                        <option key={c.client.id} value={c.client.id}>
-                          {c.client.nom} — Solde : {fmt(c.solde)} DH
+                        <option key={c.clientId.id} value={c.clientId.id}>
+                          {c.clientId.nom} — Solde : {fmt(c.solde)} DH
                         </option>
                       ))}
                     </select>
@@ -1171,11 +1171,11 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                         </td>
                       </tr>
                     ) : filtered.map(c => (
-                      <tr key={c.client.id}
+                      <tr key={c.clientId.id}
                         className={`border-t border-border transition-colors ${c.isOverPlafond ? "bg-red-50" : c.isOverdue ? "bg-orange-50" : "hover:bg-muted/30"}`}>
                         <td className="px-4 py-3">
-                          <p className="font-semibold text-foreground whitespace-nowrap">{c.client.nom}</p>
-                          <p className="text-xs text-muted-foreground">{c.client.secteur}</p>
+                          <p className="font-semibold text-foreground whitespace-nowrap">{c.clientId.nom}</p>
+                          <p className="text-xs text-muted-foreground">{c.clientId.secteur}</p>
                         </td>
                         <td className={`px-4 py-3 font-bold whitespace-nowrap ${c.isOverPlafond ? "text-red-700" : c.isOverdue ? "text-orange-700" : "text-foreground"}`}>
                           {fmt(c.solde)} DH
@@ -1217,7 +1217,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                           )}
                         </td>
                         <td className="px-4 py-3">
-                          <button onClick={() => { setCreditPaiClientId(c.client.id); setCreditPaiMontant(""); setShowCreditPaiForm(true) }}
+                          <button onClick={() => { setCreditPaiClientId(c.clientId.id); setCreditPaiMontant(""); setShowCreditPaiForm(true) }}
                             className="px-2 py-1 rounded-lg text-[11px] font-bold text-white whitespace-nowrap"
                             style={{ background: "oklch(0.38 0.18 155)" }}>
                             Encaisser
@@ -1393,7 +1393,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                           <td colSpan={5} className="px-4 py-8 text-center text-sm text-muted-foreground">Aucun encours credit</td>
                         </tr>
                       ) : clients.filter(c => (c.creditSolde ?? 0) > 0).map(c => {
-                        const clientBLs = bls.filter(b => b.client === c.id)
+                        const clientBLs = bls.filter(b => b.clientId === c.id)
                         const lastBL = clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0]
                         const ageMs = lastBL ? now - new Date(lastBL.date).getTime() : null
                         const ageDays = ageMs !== null ? Math.round(ageMs / (24 * 3600 * 1000)) : null

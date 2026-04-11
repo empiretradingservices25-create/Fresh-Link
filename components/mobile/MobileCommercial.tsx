@@ -262,7 +262,7 @@ export default function MobileCommercial({ user }: Props) {
   // Compute article habits from past commandes for selected client
   useEffect(() => {
     if (!selectedClientId) { setClientHabits({}); return }
-    const pastCmds = store.getCommandes().filter(c => c.client === selectedClientId)
+    const pastCmds = store.getCommandes().filter(c => c.clientId === selectedClientId)
     const habitsMap: Record<string, { count: number; lastDate: string }> = {}
     pastCmds.forEach(cmd => {
       cmd.lignes.forEach(l => {
@@ -508,7 +508,7 @@ export default function MobileCommercial({ user }: Props) {
   const autoFillPanier = () => {
     if (!selectedClientId) return
     const lastCmd = store.getCommandes()
-      .filter(c => c.client === selectedClientId)
+      .filter(c => c.clientId === selectedClientId)
       .sort((a, b) => b.date.localeCompare(a.date))[0]
     if (!lastCmd) return
     const newLignes: LigneForm[] = lastCmd.lignes
@@ -1372,7 +1372,7 @@ export default function MobileCommercial({ user }: Props) {
                 <div className="bg-card rounded-2xl border border-primary/30 p-4 flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-bold text-foreground">Modifier — {editCmd.clientNom}</p>
+                      <p className="text-sm font-bold text-foreground">Modifier — {editCmd.clientIdNom}</p>
                       <p className="text-xs text-muted-foreground">Modification possible dans le delai d&apos;1 heure apres creation</p>
                     </div>
                     <button onClick={() => setEditCmd(null)} className="p-1.5 rounded-lg bg-muted text-muted-foreground">
@@ -1451,7 +1451,7 @@ export default function MobileCommercial({ user }: Props) {
                   <div key={cmd.id} className={`rounded-xl border p-4 flex flex-col gap-2.5 ${isActive ? "border-primary/50 bg-primary/3" : "border-border bg-card"}`}>
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm text-foreground">{cmd.clientNom}</p>
+                        <p className="font-bold text-sm text-foreground">{cmd.clientIdNom}</p>
                         <p className="text-xs text-muted-foreground">{cmd.secteur} · {cmd.heurelivraison}</p>
                         <p className="text-xs text-muted-foreground font-mono">{cmd.id}</p>
                       </div>

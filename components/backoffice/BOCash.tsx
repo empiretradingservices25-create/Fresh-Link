@@ -105,7 +105,7 @@ function _printBLLegacy(bl: BonLivraison) {
 <div class="parties">
   <div class="party">
     <div class="label">Client</div>
-    <div class="name">${bl.clientNom}</div>
+    <div class="name">${bl.clientIdNom}</div>
     <div class="sub">${bl.secteur || ""}${bl.zone ? " — " + bl.zone : ""}</div>
   </div>
   <div class="party">
@@ -267,7 +267,7 @@ function _printFactureLegacy(bl: BonLivraison) {
   </div>
   <div class="party">
     <div class="label">Client</div>
-    <div class="name">${bl.clientNom}</div>
+    <div class="name">${bl.clientIdNom}</div>
     <div class="sub">
       Secteur : ${bl.secteur || "—"}<br/>
       Zone : ${bl.zone || "—"}<br/>
@@ -386,7 +386,7 @@ export default function BOCash() {
       store.addCaisseEntry({
         id: store.genId(),
         date: bl.date,
-        libelle: `BL encaissé — ${bl.clientNom} (${bl.livreurNom})`,
+        libelle: `BL encaissé — ${bl.clientIdNom} (${bl.livreurNom})`,
         type: "entree",
         categorie: "vente",
         montant: bl.montantTotal,
@@ -402,7 +402,7 @@ export default function BOCash() {
     if (filter.livreur && !bl.livreurNom.toLowerCase().includes(filter.livreur.toLowerCase())) return false
     if (filter.secteur && !bl.secteur.toLowerCase().includes(filter.secteur.toLowerCase())) return false
     if (filter.prevendeur && !bl.prevendeurNom.toLowerCase().includes(filter.prevendeur.toLowerCase())) return false
-    if (filter.client && !bl.clientNom.toLowerCase().includes(filter.client.toLowerCase())) return false
+    if (filter.clientId && !bl.clientIdNom.toLowerCase().includes(filter.clientId.toLowerCase())) return false
     return true
   })
 
@@ -486,7 +486,7 @@ export default function BOCash() {
           {prevendeurs.map(p => <option key={p} value={p}>{p}</option>)}
         </select>
         <input placeholder="Rechercher client..."
-          value={filter.client} onChange={e => setFilter({ ...filter, client: e.target.value })}
+          value={filter.clientId} onChange={e => setFilter({ ...filter, client: e.target.value })}
           className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm font-sans focus:outline-none focus:ring-2 focus:ring-primary" />
       </div>
 
@@ -511,7 +511,7 @@ export default function BOCash() {
                 return (
                   <tr key={bl.id} className="border-t border-border hover:bg-muted/30 transition-colors">
                     <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">{bl.date}</td>
-                    <td className="px-4 py-3 font-semibold text-foreground">{bl.clientNom}</td>
+                    <td className="px-4 py-3 font-semibold text-foreground">{bl.clientIdNom}</td>
                     <td className="px-4 py-3 text-muted-foreground">{bl.secteur}</td>
                     <td className="px-4 py-3 text-muted-foreground">{bl.livreurNom}</td>
                     <td className="px-4 py-3 text-muted-foreground">{bl.prevendeurNom || "—"}</td>
@@ -628,7 +628,7 @@ export default function BOCash() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-foreground">Frais supplementaires BL</h3>
-                  <p className="text-xs text-muted-foreground">{bl.clientNom} — {bl.date}</p>
+                  <p className="text-xs text-muted-foreground">{bl.clientIdNom} — {bl.date}</p>
                 </div>
                 <button onClick={() => setPrintFraisId(null)}
                   className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground text-sm font-bold">

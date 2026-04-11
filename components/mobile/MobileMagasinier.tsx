@@ -1040,7 +1040,7 @@ function ValidationBLTab({
     const q = searchQ.toLowerCase()
     return bls.filter(b =>
       b.id.toLowerCase().includes(q) ||
-      b.clientNom?.toLowerCase().includes(q) ||
+      b.clientIdNom?.toLowerCase().includes(q) ||
       b.livreurNom?.toLowerCase().includes(q)
     )
   }, [bls, searchQ])
@@ -1081,7 +1081,7 @@ function ValidationBLTab({
           </button>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-bold text-foreground truncate">BL {selectedBL.id}</p>
-            <p className="text-xs text-muted-foreground">{selectedBL.clientNom} — {selectedBL.date}</p>
+            <p className="text-xs text-muted-foreground">{selectedBL.clientIdNom} — {selectedBL.date}</p>
           </div>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 shrink-0">{selectedBL.statut}</span>
         </div>
@@ -1089,7 +1089,7 @@ function ValidationBLTab({
         {/* Summary */}
         <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-2">
           {[
-            { label: "Client",       value: selectedBL.clientNom },
+            { label: "Client",       value: selectedBL.clientIdNom },
             { label: "Livreur",      value: selectedBL.livreurNom ?? "—" },
             { label: "Montant",      value: DH(totalMontant) },
             { label: "Nb articles",  value: `${(selectedBL.lignes ?? []).length} ligne(s)` },
@@ -1207,7 +1207,7 @@ function ValidationBLTab({
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 shrink-0">{bl.statut}</span>
             </div>
             <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>{bl.clientNom}</span>
+              <span>{bl.clientIdNom}</span>
               <span className="font-semibold text-primary">{DH(totalMontant)}</span>
             </div>
             {bl.livreurNom && <p className="text-xs text-muted-foreground">Livreur: {bl.livreurNom}</p>}

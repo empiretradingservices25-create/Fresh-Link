@@ -57,7 +57,7 @@ function userToRow(u: User) {
     notif_recap: u.notifRecap ?? false,
     notif_besoin_achat: u.notifBesoinAchat ?? false,
     fournisseur_id: u.fournisseurId ?? null,
-    client_id: u.client ?? null,
+    client_id: u.clientId ?? null,
   }
 }
 
@@ -140,7 +140,7 @@ function rowToUser(r: Record<string, unknown>): User {
     notifRecap: r.notif_recap as boolean,
     notifBesoinAchat: r.notif_besoin_achat as boolean,
     fournisseurId: r.fournisseur_id as string,
-    clientId: r.client_id as string,
+    clientId: r.clientId_id as string,
   } as unknown as User
 }
 

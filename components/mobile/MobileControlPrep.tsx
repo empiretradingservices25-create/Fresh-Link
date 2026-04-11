@@ -227,13 +227,13 @@ export default function MobileControlPrep({ user }: Props) {
       const tripCommandes = commandes.filter(c => tripCmdIds.includes(c.id))
       const cmdQRs: CommandeQR[] = tripCommandes.map(c => ({
         commandeId: c.id,
-        clientNom: c.clientNom,
+        clientNom: c.clientIdNom,
         secteur: (c as Commande & { secteur?: string }).secteur ?? "",
         montant: c.lignes.reduce((s, l) => s + l.total, 0),
         nbArticles: c.lignes.length,
         scanned: false,
         qrData: JSON.stringify({
-          type: "fl_commande", id: c.id, client: c.clientNom,
+          type: "fl_commande", id: c.id, client: c.clientIdNom,
           trip: trip.numero ?? trip.id.slice(-6), date: today,
         }),
       }))
@@ -453,7 +453,7 @@ export default function MobileControlPrep({ user }: Props) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 px-6 gap-6">
         <div className="bg-white rounded-3xl p-6 flex flex-col items-center gap-4 w-full max-w-xs">
-          <p className="font-black text-lg text-gray-900 text-center">{showQR.cmd.clientNom}</p>
+          <p className="font-black text-lg text-gray-900 text-center">{showQR.cmd.clientIdNom}</p>
           <p className="text-xs text-gray-500">{showQR.cmd.secteur} — {showQR.cmd.nbArticles} article(s)</p>
           <QRCode data={showQR.cmd.qrData} size={200} />
           <p className="text-xs text-gray-400 font-mono break-all text-center">{showQR.cmd.commandeId}</p>
@@ -569,7 +569,7 @@ export default function MobileControlPrep({ user }: Props) {
                       cmd.scanned ? "bg-green-50 border-green-300" : "bg-card border-border"
                     }`}>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm text-foreground truncate">{cmd.clientNom}</p>
+                      <p className="font-semibold text-sm text-foreground truncate">{cmd.clientIdNom}</p>
                       <p className="text-xs text-muted-foreground">{cmd.secteur} — {cmd.nbArticles} art. — {cmd.montant.toFixed(0)} DH</p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">

@@ -57,13 +57,13 @@ create index if not exists fl_users_email_idx on public.fl_users(email);
 
 -- - CLIENTS -------------------------─
 -- (déjà existante en script 001, on ajoute les champs manquants)
-alter table public.clients add column if not exists prevendeur_id text;
-alter table public.clients add column if not exists team_lead_id  text;
-alter table public.clients add column if not exists telephone     text;
-alter table public.clients add column if not exists modalite_paiement text;
-alter table public.clients add column if not exists plafond_credit    numeric;
-create index if not exists clients_secteur_idx    on public.clients(secteur);
-create index if not exists clients_prevendeur_idx on public.clients(prevendeur_id);
+alter table public.clientIds add column if not exists prevendeur_id text;
+alter table public.clientIds add column if not exists team_lead_id  text;
+alter table public.clientIds add column if not exists telephone     text;
+alter table public.clientIds add column if not exists modalite_paiement text;
+alter table public.clientIds add column if not exists plafond_credit    numeric;
+create index if not exists clients_secteur_idx    on public.clientIds(secteur);
+create index if not exists clients_prevendeur_idx on public.clientIds(prevendeur_id);
 
 -- - ARTICLES -------------------------
 create table if not exists public.fl_articles (

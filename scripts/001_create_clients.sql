@@ -1,7 +1,7 @@
 -- FreshLink Pro — Clients table
 -- Supabase project: qlbubpjunhvveppbhxug
 
-create table if not exists public.clients (
+create table if not exists public.clientIds (
   id            text primary key,
   nom           text not null,
   secteur       text not null default '',
@@ -24,8 +24,8 @@ create table if not exists public.clients (
   created_at    timestamptz not null default now()
 );
 
-alter table public.clients enable row level security;
+alter table public.clientIds enable row level security;
 
 -- Allow full access with anon key (adjust if you add auth later)
-create policy "allow_all_clients" on public.clients
+create policy "allow_all_clients" on public.clientIds
   for all using (true) with check (true);

@@ -461,7 +461,7 @@ export default function BOUsers({ currentUser }: { currentUser: User }) {
       objectifMensuelClients: u.objectifMensuelClients || 0,
       passwordMobile: u.passwordMobile, passwordBO: u.passwordBO,
       photoUrl: u.photoUrl, telephone: u.telephone,
-      requireCameraAuth: u.requireCameraAuth, fournisseurId: u.fournisseurId, clientId: u.clientId,
+      requireCameraAuth: u.requireCameraAuth, fournisseurId: u.fournisseurId, clientId: u.clientIdId,
     })
     setShowForm(true)
   }

@@ -296,7 +296,7 @@ export function printBL(bl: BonLivraison) {
 <div class="info-grid">
   <div class="info-box">
     <span class="label">Client</span>
-    <div class="value">${bl.clientNom}</div>
+    <div class="value">${bl.clientIdNom}</div>
     <div class="sub">${bl.secteur || ""}${bl.zone ? ` — ${bl.zone}` : ""}</div>
   </div>
   <div class="info-box">
@@ -341,7 +341,7 @@ ${retourHtml}
 
 <div class="doc-footer">${coName} · Document généré le ${new Date().toLocaleDateString("fr-MA")} · Ce document vaut preuve de livraison.</div>
 `
-  openPrintWindow(`BL-${bl.id.slice(0,8).toUpperCase()} — ${bl.clientNom}`, "#16a34a", body)
+  openPrintWindow(`BL-${bl.id.slice(0,8).toUpperCase()} — ${bl.clientIdNom}`, "#16a34a", body)
 }
 
 // - 2. FACTURE -------------------------------─
@@ -428,7 +428,7 @@ export function printFacture(bl: BonLivraison, numFacture?: string) {
   </div>
   <div class="info-box">
     <span class="label">Client (Destinataire)</span>
-    <div class="value">${bl.clientNom}</div>
+    <div class="value">${bl.clientIdNom}</div>
     <div class="sub">${bl.secteur || ""}${bl.zone ? ` — ${bl.zone}` : ""}</div>
   </div>
 </div>
@@ -479,7 +479,7 @@ export function printFacture(bl: BonLivraison, numFacture?: string) {
 
 <div class="doc-footer">${coName} · Facture N° ${facNum} · Émise le ${new Date().toLocaleDateString("fr-MA")}</div>
 `
-  openPrintWindow(`Facture ${facNum} — ${bl.clientNom}`, "#2563eb", body)
+  openPrintWindow(`Facture ${facNum} — ${bl.clientIdNom}`, "#2563eb", body)
 }
 
 // - 3. BON DE COMMANDE (Commande prévendeur) ----------------─
@@ -533,7 +533,7 @@ export function printBonCommande(cmd: Commande) {
 <div class="info-grid">
   <div class="info-box">
     <span class="label">Client</span>
-    <div class="value">${cmd.clientNom}</div>
+    <div class="value">${cmd.clientIdNom}</div>
     <div class="sub">${cmd.secteur || ""}${cmd.zone ? ` — ${cmd.zone}` : ""}</div>
   </div>
   <div class="info-box">
@@ -571,7 +571,7 @@ ${cmd.notes ? `<div style="margin-bottom:20px;padding:10px 14px;background:#fefc
 
 <div class="doc-footer">${coName} · Bon de Commande BC-${cmd.id.slice(0,8).toUpperCase()} · Généré le ${new Date().toLocaleDateString("fr-MA")}</div>
 `
-  openPrintWindow(`BC-${cmd.id.slice(0,8).toUpperCase()} — ${cmd.clientNom}`, "#d97706", body)
+  openPrintWindow(`BC-${cmd.id.slice(0,8).toUpperCase()} — ${cmd.clientIdNom}`, "#d97706", body)
 }
 
 // - 4. PURCHASE ORDER (vers fournisseur) ------------------─

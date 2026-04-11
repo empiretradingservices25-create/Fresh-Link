@@ -61,7 +61,7 @@ export default function MobileControlRetour({ user }: Props) {
     const item: RetourItem = {
       id: store.genId(),
       commandeId: form.commandeId,
-      clientNom: form.clientNom,
+      clientNom: form.clientIdNom,
       articleNom: form.articleNom,
       qteRetour: parseFloat(form.qteRetour),
       unite: form.unite,
@@ -183,7 +183,7 @@ export default function MobileControlRetour({ user }: Props) {
         <div className="flex flex-col gap-4">
           <div className="bg-card border border-border rounded-2xl p-4 flex flex-col gap-3">
             <p className="text-sm font-bold text-foreground">Nouveau retour livreur</p>
-            <input type="text" value={form.clientNom} onChange={e=>setForm(f=>({...f,clientNom:e.target.value}))}
+            <input type="text" value={form.clientIdNom} onChange={e=>setForm(f=>({...f,clientNom:e.target.value}))}
               placeholder="Nom du client"
               className="px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
             <input type="text" value={form.articleNom} onChange={e=>setForm(f=>({...f,articleNom:e.target.value}))}
@@ -293,7 +293,7 @@ export default function MobileControlRetour({ user }: Props) {
           <div className="w-full max-w-sm bg-card rounded-2xl border border-border p-5 flex flex-col gap-4">
             <p className="font-bold text-foreground">Validation — {selected.articleNom}</p>
             <div className="text-xs text-muted-foreground space-y-1">
-              <p>Client : <strong>{selected.clientNom}</strong></p>
+              <p>Client : <strong>{selected.clientIdNom}</strong></p>
               <p>Quantite : <strong>{selected.qteRetour} {selected.unite}</strong></p>
               {selected.analysisResult && (
                 <p>Analyse IA : <strong className="text-foreground">{selected.analysisResult.etat} — {selected.analysisResult.shelfLifeEstime}</strong></p>
@@ -335,7 +335,7 @@ function RetourCard({ r, onAnalyseIA, onValidate, statusBadge, statusLabel, canV
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="font-bold text-sm text-foreground">{r.articleNom}</p>
-          <p className="text-xs text-muted-foreground">{r.clientNom} — {r.qteRetour} {r.unite}</p>
+          <p className="text-xs text-muted-foreground">{r.clientIdNom} — {r.qteRetour} {r.unite}</p>
           <p className="text-xs text-muted-foreground">{new Date(r.createdAt).toLocaleDateString("fr-FR")} · {r.createdBy}</p>
         </div>
         <span className={`text-[10px] px-2 py-1 rounded-full border font-bold shrink-0 ${statusBadge(r.statut)}`}>

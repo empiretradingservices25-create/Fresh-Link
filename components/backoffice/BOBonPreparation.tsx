@@ -35,14 +35,14 @@ function StatusBadge({ s }: { s: BonPreparation["statut"] }) {
 // - Sort clients by chosen mode -----------------------
 function sortClients(clients: ClientSequenceInfo[], mode: SequenceModePrep): ClientSequenceInfo[] {
   if (mode === "horaire") {
-    return [...clients].sort((a, b) => {
+    return [...clientIds].sort((a, b) => {
       const ta = a.heurelivraison ?? "99:99"
       const tb = b.heurelivraison ?? "99:99"
       return ta.localeCompare(tb)
     })
   }
   // itinéraire = GPS ordre
-  return [...clients].sort((a, b) => a.ordre - b.ordre)
+  return [...clientIds].sort((a, b) => a.ordre - b.ordre)
 }
 
 // - Print window ------------------------------─
@@ -56,12 +56,12 @@ function openPrintPrep(bon: BonPreparation, commandes: Commande[]) {
   const companyTel = company.telephone || ""
 
   const seqMode = bon.sequenceMode ?? "horaire"
-  const clientsInfo = bon.clientsInfo ?? []
+  const clientsInfo = bon.clientIdsInfo ?? []
   const orderedClients = sortClients(clientsInfo, seqMode)
 
   // Map clientId → nom
   const clientNomMap: Record<string, string> = {}
-  orderedClients.forEach(c => { clientNomMap[c.clientId] = c.clientNom })
+  orderedClients.forEach(c => { clientNomMap[c.clientIdId] = c.clientIdNom })
 
   // All articles
   const allArticleIds = bon.lignes.map(l => l.articleId)
@@ -113,9 +113,9 @@ function openPrintPrep(bon: BonPreparation, commandes: Commande[]) {
   table.matrix tbody tr{border-bottom:1px solid #e5e7eb}
   table.matrix tbody tr:nth-child(even){background:#f8fafc}
   table.matrix tbody td{padding:7px 8px;vertical-align:middle}
-  .client-seq{font-size:7pt;font-weight:700;background:#1e3a5f;color:#fff;border-radius:3px;padding:1px 5px;display:inline-block;margin-right:4px}
-  .client-heure{font-size:7.5pt;color:#0369a1;font-weight:700}
-  .client-zone{font-size:7pt;color:#6b7280}
+  .clientId-seq{font-size:7pt;font-weight:700;background:#1e3a5f;color:#fff;border-radius:3px;padding:1px 5px;display:inline-block;margin-right:4px}
+  .clientId-heure{font-size:7.5pt;color:#0369a1;font-weight:700}
+  .clientId-zone{font-size:7pt;color:#6b7280}
   .qty-cell{text-align:right;font-weight:700;color:#166534}
   .qty-empty{text-align:right;color:#d1d5db;font-size:8pt}
   .qty-total{text-align:right;font-weight:900;color:#166534;background:#f0fdf4}
@@ -209,19 +209,19 @@ function openPrintPrep(bon: BonPreparation, commandes: Commande[]) {
     ${orderedClients.map((ci, idx) => {
       const rowTotal = allArticleIds.reduce((s, artId) => {
         const ligne = bon.lignes.find(l => l.articleId === artId)
-        return s + (ligne?.qtesParClient[ci.clientId] ?? 0)
+        return s + (ligne?.qtesParClient[ci.clientIdId] ?? 0)
       }, 0)
       return `
       <tr>
         <td>
           <span class="client-seq">${idx + 1}</span>
-          <strong>${ci.clientNom}</strong>
+          <strong>${ci.clientIdNom}</strong>
           <br/><span class="client-zone">${ci.secteur}${ci.zone ? " — " + ci.zone : ""}</span>
         </td>
         <td><span class="client-heure">${ci.heurelivraison || "—"}</span></td>
         ${allArticleIds.map(artId => {
           const ligne = bon.lignes.find(l => l.articleId === artId)
-          const qty = ligne?.qtesParClient[ci.clientId] ?? 0
+          const qty = ligne?.qtesParClient[ci.clientIdId] ?? 0
           if (qty === 0) return `<td class="qty-empty">—</td>`
           return `<td class="qty-cell">${qty.toFixed(1)}</td>`
         }).join("")}
@@ -301,10 +301,10 @@ export default function BOBonPreparation({ user }: Props) {
   const buildClientsInfo = (cmds: Commande[]): ClientSequenceInfo[] => {
     const seen = new Map<string, ClientSequenceInfo>()
     cmds.forEach((cmd, idx) => {
-      if (!seen.has(cmd.clientId)) {
-        seen.set(cmd.clientId, {
-          clientId: cmd.clientId,
-          clientNom: cmd.clientNom,
+      if (!seen.has(cmd.clientIdId)) {
+        seen.set(cmd.clientIdId, {
+          clientId: cmd.clientIdId,
+          clientNom: cmd.clientIdNom,
           secteur: cmd.secteur,
           zone: cmd.zone,
           heurelivraison: cmd.heurelivraison,
@@ -319,7 +319,7 @@ export default function BOBonPreparation({ user }: Props) {
       const trip = trips.find(t => t.id === tripId)
       if (trip?.itineraire) {
         trip.itineraire.forEach(pt => {
-          const entry = [...seen.values()].find(c => c.clientNom === pt.clientNom)
+          const entry = [...seen.values()].find(c => c.clientIdNom === pt.clientIdNom)
           if (entry) entry.ordre = pt.ordre
         })
       }
@@ -333,7 +333,7 @@ export default function BOBonPreparation({ user }: Props) {
       const trip = trips.find(t => t.id === tripId)
       if (trip) cmds = commandes.filter(c => trip.commandeIds.includes(c.id))
     } else if (selectedClients.length > 0) {
-      cmds = cmdsPrepable.filter(c => selectedClients.includes(c.clientId))
+      cmds = cmdsPrepable.filter(c => selectedClients.includes(c.clientIdId))
     } else {
       cmds = cmdsPrepable
     }
@@ -345,13 +345,13 @@ export default function BOBonPreparation({ user }: Props) {
         const art = articles.find(a => a.id === ligne.articleId)
         if (existing) {
           existing.qteCommandee += ligne.quantite
-          existing.qtesParClient[cmd.clientId] = (existing.qtesParClient[cmd.clientId] || 0) + ligne.quantite
+          existing.qtesParClient[cmd.clientIdId] = (existing.qtesParClient[cmd.clientIdId] || 0) + ligne.quantite
         } else {
           map.set(ligne.articleId, {
             articleId: ligne.articleId,
             articleNom: ligne.articleNom,
             unite: ligne.unite ?? art?.unite ?? "kg",
-            qtesParClient: { [cmd.clientId]: ligne.quantite },
+            qtesParClient: { [cmd.clientIdId]: ligne.quantite },
             qteCommandee: ligne.quantite,
             qtePrepared: 0,
             valide: false,
@@ -367,11 +367,11 @@ export default function BOBonPreparation({ user }: Props) {
       const trip = trips.find(t => t.id === tripId)
       if (trip) return commandes.filter(c => trip.commandeIds.includes(c.id))
     }
-    if (selectedClients.length > 0) return cmdsPrepable.filter(c => selectedClients.includes(c.clientId))
+    if (selectedClients.length > 0) return cmdsPrepable.filter(c => selectedClients.includes(c.clientIdId))
     return cmdsPrepable
   }
 
-  const clientsAvailable = [...new Map(cmdsPrepable.map(c => [c.clientId, { id: c.clientId, nom: c.clientNom, heure: c.heurelivraison, secteur: c.secteur }])).values()]
+  const clientsAvailable = [...new Map(cmdsPrepable.map(c => [c.clientIdId, { id: c.clientIdId, nom: c.clientIdNom, heure: c.heurelivraison, secteur: c.secteur }])).values()]
 
   const effectiveNom = nomManual && nom.trim() ? nom.trim() : autoNom
 
@@ -451,7 +451,7 @@ export default function BOBonPreparation({ user }: Props) {
     )
     const [activeTab, setActiveTab] = useState<"articles" | "clients">("articles")
     const seqMode = bon.sequenceMode ?? "horaire"
-    const orderedClients = sortClients(bon.clientsInfo ?? [], seqMode)
+    const orderedClients = sortClients(bon.clientIdsInfo ?? [], seqMode)
 
     const doneCount = bon.lignes.filter(l => l.valide).length
     const pct = bon.lignes.length > 0 ? Math.round((doneCount / bon.lignes.length) * 100) : 0
@@ -529,18 +529,18 @@ export default function BOBonPreparation({ user }: Props) {
                   {/* Répartition par client (ordered) */}
                   <div className="flex flex-col gap-1 mb-3">
                     {orderedClients
-                      .filter(c => (ligne.qtesParClient[c.clientId] ?? 0) > 0)
+                      .filter(c => (ligne.qtesParClient[c.clientIdId] ?? 0) > 0)
                       .map((ci, idx) => (
-                        <div key={ci.clientId} className="flex items-center justify-between bg-muted/50 rounded-lg px-3 py-1.5">
+                        <div key={ci.clientIdId} className="flex items-center justify-between bg-muted/50 rounded-lg px-3 py-1.5">
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-bold text-white bg-primary rounded-md px-1.5 py-0.5">{idx + 1}</span>
                             <div>
-                              <span className="text-xs font-semibold text-foreground">{ci.clientNom}</span>
+                              <span className="text-xs font-semibold text-foreground">{ci.clientIdNom}</span>
                               <span className="text-xs text-muted-foreground ml-1.5">{ci.secteur}</span>
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="text-xs font-bold text-green-700">{(ligne.qtesParClient[ci.clientId] ?? 0).toFixed(1)} {ligne.unite}</span>
+                            <span className="text-xs font-bold text-green-700">{(ligne.qtesParClient[ci.clientIdId] ?? 0).toFixed(1)} {ligne.unite}</span>
                             {ci.heurelivraison && (
                               <span className="block text-xs text-blue-600">{ci.heurelivraison}</span>
                             )}
@@ -584,17 +584,17 @@ export default function BOBonPreparation({ user }: Props) {
 
           {/* === TAB: Clients (sequence order) === */}
           {activeTab === "clients" && orderedClients.map((ci, idx) => {
-            const clientTotal = bon.lignes.reduce((s, l) => s + (l.qtesParClient[ci.clientId] ?? 0), 0)
-            const clientArticles = bon.lignes.filter(l => (l.qtesParClient[ci.clientId] ?? 0) > 0)
+            const clientTotal = bon.lignes.reduce((s, l) => s + (l.qtesParClient[ci.clientIdId] ?? 0), 0)
+            const clientArticles = bon.lignes.filter(l => (l.qtesParClient[ci.clientIdId] ?? 0) > 0)
             return (
-              <div key={ci.clientId} className="bg-card rounded-2xl border border-border p-4">
+              <div key={ci.clientIdId} className="bg-card rounded-2xl border border-border p-4">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black text-white shrink-0"
                     style={{ background: "oklch(0.38 0.2 260)" }}>
                     {idx + 1}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-foreground">{ci.clientNom}</p>
+                    <p className="font-bold text-foreground">{ci.clientIdNom}</p>
                     <p className="text-xs text-muted-foreground">{ci.secteur}{ci.zone ? ` — ${ci.zone}` : ""}</p>
                   </div>
                   <div className="text-right">
@@ -611,7 +611,7 @@ export default function BOBonPreparation({ user }: Props) {
                     <div key={l.articleId} className="flex justify-between items-center px-3 py-2 bg-muted/40 rounded-xl">
                       <span className="text-sm text-foreground font-medium">{l.articleNom}</span>
                       <span className="text-sm font-bold text-green-700">
-                        {(l.qtesParClient[ci.clientId] ?? 0).toFixed(1)} {l.unite}
+                        {(l.qtesParClient[ci.clientIdId] ?? 0).toFixed(1)} {l.unite}
                       </span>
                     </div>
                   ))}
@@ -823,10 +823,10 @@ export default function BOBonPreparation({ user }: Props) {
                 </p>
                 <div className="flex flex-col gap-1">
                   {orderedPreview.map((c, i) => (
-                    <div key={c.clientId} className="flex items-center gap-2 text-xs">
+                    <div key={c.clientIdId} className="flex items-center gap-2 text-xs">
                       <span className="w-5 h-5 rounded-md text-white text-center font-bold flex items-center justify-center shrink-0"
                         style={{ background: "oklch(0.38 0.2 260)", fontSize: "10px" }}>{i + 1}</span>
-                      <span className="font-semibold text-foreground">{c.clientNom}</span>
+                      <span className="font-semibold text-foreground">{c.clientIdNom}</span>
                       <span className="text-muted-foreground">{c.secteur}</span>
                       {c.heurelivraison && <span className="text-blue-600 font-semibold ml-auto">{c.heurelivraison}</span>}
                     </div>
@@ -894,7 +894,7 @@ export default function BOBonPreparation({ user }: Props) {
       ) : (
         <div className="flex flex-col gap-3">
           {[...bons].reverse().map(bon => {
-            const ordClients = sortClients(bon.clientsInfo ?? [], bon.sequenceMode ?? "horaire")
+            const ordClients = sortClients(bon.clientIdsInfo ?? [], bon.sequenceMode ?? "horaire")
             return (
               <div key={bon.id} className="bg-card rounded-2xl border border-border p-4">
                 <div className="flex items-start justify-between gap-3">
@@ -923,9 +923,9 @@ export default function BOBonPreparation({ user }: Props) {
                     {ordClients.length > 0 && (
                       <div className="flex items-center gap-1.5 mt-2 flex-wrap">
                         {ordClients.slice(0, 5).map((c, i) => (
-                          <span key={c.clientId} className="flex items-center gap-1 text-xs text-foreground bg-muted rounded-lg px-2 py-0.5">
+                          <span key={c.clientIdId} className="flex items-center gap-1 text-xs text-foreground bg-muted rounded-lg px-2 py-0.5">
                             <span className="font-bold text-primary">{i + 1}.</span>
-                            <span className="font-medium">{c.clientNom}</span>
+                            <span className="font-medium">{c.clientIdNom}</span>
                             {c.heurelivraison && <span className="text-blue-600">{c.heurelivraison}</span>}
                           </span>
                         ))}

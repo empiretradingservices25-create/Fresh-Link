@@ -167,7 +167,7 @@ function ProductiviteTab({ users }: { users: User[] }) {
       const uvisitp = visites.filter(v => v.commercialId === u.id && v.date?.startsWith(periode))
       const ucmds = commandes.filter(c => c.commercialId === u.id && c.date?.startsWith(periode))
       const tonnage = ucmds.reduce((s, c) => s + c.lignes.reduce((a, l) => a + (l.quantite ?? 0), 0), 0)
-      const newClients = new Set(ucmds.map(c => c.clientId)).size
+      const newClients = new Set(ucmds.map(c => c.clientIdId)).size
       const retourCli = retours.filter((r: any) => r.livreurId === u.id && r.date?.startsWith(periode)).length
       return { u, groupe, kpis: [
         { label: "Visites", value: uvisitp.length, icon: "👁" },
@@ -597,7 +597,7 @@ function CalculSalaireTab({ users }: { users: User[] }) {
           detail = `${nb} visites × ${r.valeur} DH`
         } else if (r.type === "nouveau_client") {
           const ucmds = commandes.filter(c => c.commercialId === u.id && c.date?.startsWith(periode))
-          const nb = new Set(ucmds.map(c => c.clientId)).size
+          const nb = new Set(ucmds.map(c => c.clientIdId)).size
           montant = r.valeur * nb
           detail = `${nb} clients × ${r.valeur} DH`
         } else if (r.type === "retour_client") {
