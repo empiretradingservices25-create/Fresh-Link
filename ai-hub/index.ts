@@ -1,9 +1,9 @@
-export { ourai } from "./ourai";
-export { jawadayoub } from "./jawad_ayoub";
-export { ashelsimohammed } from "./ashel_simohammed";
-export { azmi } from "./azmi";
-export { zizimustapha } from "./zizi_mustapha";
-export { hicham } from "./hicham";
+export { ouraiAgent } from "./ourai";
+export { jawadAyoubAgent } from "./jawad_ayoub";
+export { ashelSimohammedAgent } from "./ashel_simohammed";
+export { azmiAgent } from "./azmi";
+export { ziziMustaphaAgent } from "./zizi_mustapha";
+export { hichamAgent } from "./hicham";
 
 // Pour routage générique :
 export const agentRegistry = {
