@@ -1,16 +1,16 @@
-export { ouraiAgent } from "./Ourai";
-export { jawadAyoubAgent } from "./jawad_ayoub";
-export { ashelSimohammedAgent } from "./ashel_simohammed";
-export { azmiAgent } from "./azmi";
-export { ziziMustaphaAgent } from "./zizi_mustapha";
-export { hichamAgent } from "./hicham";
+export { ourai } from "./ourai";
+export { jawadayoub } from "./jawad_ayoub";
+export { ashelsimohammed } from "./ashel_simohammed";
+export { azmi } from "./azmi";
+export { zizimustapha } from "./zizi_mustapha";
+export { hicham } from "./hicham";
 
 // Pour routage générique :
 export const agentRegistry = {
-  ourai: require("./ourai").OuraiAgent,
-  jawad_ayoub: require("./jawad_ayoub").jawadAyoubAgent,
-  ashel_simohammed: require("./ashel_simohammed").ashelSimohammedAgent,
-  azmi: require("./azmi").azmiAgent,
-  zizi_mustapha: require("./zizi_mustapha").ziziMustaphaAgent,
-  hicham: require("./hicham").hichamAgent
+  ourai: require("./ourai").ourai,
+  jawad_ayoub: require("./jawad_ayoub").jawadayoub,
+  ashel_simohammed: require("./ashel_simohammed").ashelsimohammed,
+  azmi: require("./azmi").azmi,
+  zizi_mustapha: require("./zizi_mustapha").zizimustapha,
+  hicham: require("./hicham").hicham
 };

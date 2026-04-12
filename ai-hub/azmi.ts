@@ -2,7 +2,7 @@
 
 import { getFinancialData } from "../services/financeService";
 
-export async function azmiAgent(context: { action: string; data?: any }): Promise<any> {
+export async function azmi(context: { action: string; data?: any }): Promise<any> {
   switch (context.action) {
     case "analyze_financials":
       const financial = await getFinancialData();

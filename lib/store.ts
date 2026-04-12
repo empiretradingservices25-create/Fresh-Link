@@ -991,7 +991,7 @@ const DEFAULT_USERS: User[] = [
   },
   // === RH — OURAI ===
   {
-    id: "u_ourai", name: "Ourai", email: "ourai@freshlink.ma", password: "ourai2024",
+    id: "u_ourai", name: "ourai", email: "ourai@freshlink.ma", password: "ourai2024",
     role: "rh_manager", actif: true, accessType: "backoffice",
     canViewRH: true,
   },

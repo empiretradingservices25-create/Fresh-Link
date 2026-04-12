@@ -2,7 +2,7 @@
 
 import { getSalesData, getCompetitorData } from "../services/salesService";
 
-export async function ziziMustaphaAgent(context: { action: string; data?: any }): Promise<any> {
+export async function zizimustapha(context: { action: string; data?: any }): Promise<any> {
   switch (context.action) {
     case "analyze_market":
       const sales = await getSalesData();

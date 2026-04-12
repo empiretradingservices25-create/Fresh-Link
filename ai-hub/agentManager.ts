@@ -2,7 +2,7 @@
 
 import { AgentInterface, Proposal } from './AgentInterface';
 // Tu importeras chaque agent ici :
-import { OuraiAgent } from './OuraiAgent';
+import { ourai } from './ourai';
 // import { AyoubJawadAgent } from './agents/ayoub-jawad/AyoubJawadAgent';
 import { AshelSimohammedAgent } from './agents/ashel-simohammed/AshelSimohammedAgent';
 import { AzmiAgent } from './agents/azmi/AzmiAgent';
@@ -11,7 +11,7 @@ import { HichamAgent } from './agents/hicham/HichamAgent';
 
 // Liste de tous les agents actifs
 export const agents: AgentInterface[] = [
-  new OuraiAgent(),
+  new ourai(),
   // new AyoubJawadAgent(),
   new AshelSimohammedAgent(),
   new AzmiAgent(),

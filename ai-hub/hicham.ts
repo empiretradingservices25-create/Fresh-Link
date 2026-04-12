@@ -2,7 +2,7 @@
 
 import { getKpiData, getProcessData } from "../services/controlService";
 
-export async function hichamAgent(context: { action: string; data?: any }): Promise<any> {
+export async function hicham(context: { action: string; data?: any }): Promise<any> {
   switch (context.action) {
     case "audit_kpi":
       const kpi = await getKpiData();

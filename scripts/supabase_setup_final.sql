@@ -100,7 +100,7 @@ insert into fl_users (
   id, name, email, password_hash, role, access_type, actif,
   can_view_rh
 ) values (
-  'u_ourai', 'Ourai', 'ourai@freshlink.ma', 'ourai2024',
+  'u_ourai', 'ourai', 'ourai@freshlink.ma', 'ourai2024',
   'rh_manager', 'backoffice', true, true
 ) on conflict (id) do update set updated_at = now();
 
@@ -349,7 +349,7 @@ on conflict (id) do nothing;
 
 -- ====
 -- TABLE: fl_fiches_payroll
--- Fiches salaires generees par Ourai et transmises a Azmi
+-- Fiches salaires generees par ourai et transmises a Azmi
 -- ====
 create table if not exists fl_fiches_payroll (
   id                  text primary key default gen_random_uuid()::text,

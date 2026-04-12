@@ -234,9 +234,9 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
 
         <div className="p-5 space-y-4 overflow-y-auto max-h-[70vh]">
 
-          {/* Calcul Ourai */}
+          {/* Calcul ourai */}
           <div className="bg-muted/40 rounded-xl p-4 space-y-2.5">
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Fiche RH — Ourai</p>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Fiche RH — ourai</p>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Salaire fixe</span>
               <span className="font-semibold">{FMT(fiche.salaireFixe)}</span>
@@ -517,7 +517,7 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <p className="text-sm text-muted-foreground font-medium">Aucune fiche transmise pour {periode}</p>
-          <p className="text-xs text-muted-foreground">Ourai doit valider et transmettre les fiches depuis le module RH</p>
+          <p className="text-xs text-muted-foreground">ourai doit valider et transmettre les fiches depuis le module RH</p>
         </div>
       ) : (
         <div className="space-y-2">

@@ -245,6 +245,6 @@ vercel ls
 | Compte | Email | Mot de passe | Rôle |
 |--------|-------|-------------|------|
 | Super Admin | superadmin@freshlink.ma | superadmin2024 | Accès complet |
-| Ourai (RH) | ourai@freshlink.ma | ourai2024 | RH & Salaires |
+| ourai (RH) | ourai@freshlink.ma | ourai2024 | RH & Salaires |
 | Azmi (Compta) | azmi@freshlink.ma | azmi2024 | Comptabilité RH |
 | Hicham (Admin) | hicham@freshlink.ma | hicham2024 | Admin général |

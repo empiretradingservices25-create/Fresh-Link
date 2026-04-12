@@ -847,7 +847,7 @@ function RecrutementTab({ users }: { users: User[] }) {
       </div>
 
       <div className="bg-card border border-border rounded-xl p-5 space-y-3">
-        <p className="font-semibold text-foreground text-sm">Synthèse RH — Recommandations Ourai</p>
+        <p className="font-semibold text-foreground text-sm">Synthèse RH — Recommandations ourai</p>
         <div className="space-y-2 text-sm text-muted-foreground">
           <p>• Tonnage moyen sur 3 mois : <strong className="text-foreground">{avgTonnage.toFixed(0)} kg / mois</strong></p>
           <p>• Commandes moyennes : <strong className="text-foreground">{avgCmds.toFixed(0)} cmd / mois</strong></p>
@@ -885,7 +885,7 @@ export default function BOResources({ user }: { user: User }) {
 
   return (
     <div className="space-y-6 p-4 md:p-6">
-      {/* Header — Ourai AI Agent */}
+      {/* Header — ourai AI Agent */}
       <div className="rounded-2xl p-5 flex items-start gap-4" style={{ background: "linear-gradient(135deg, oklch(0.15 0.05 260) 0%, oklch(0.20 0.08 280) 100%)", border: "1px solid oklch(0.30 0.1 280)" }}>
         <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 text-lg font-black"
           style={{ background: "oklch(0.45 0.22 280)", color: "white" }}>

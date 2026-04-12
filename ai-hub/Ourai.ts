@@ -2,7 +2,7 @@
 
 import { getHRData, getPayrollData, generatePayrollPDF } from "../services/hrService";
 
-export async function ouraiAgent(context: { action: string; data?: any }): Promise<any> {
+export async function ourai(context: { action: string; data?: any }): Promise<any> {
   switch(context.action) {
     case "analyze_payroll":
       const payrollData = await getPayrollData();

@@ -881,7 +881,7 @@ export default function AgentsIAPanel({ user, initialAgent }: Props) {
 
         {/* N2 */}
         <div className="px-3 py-2">
-          <SectionLabel level="N2" title="Back Office" sub="Jawad · Zizi · Azmi · Hicham · Ourai · Ashel" color="#3b82f6" />
+          <SectionLabel level="N2" title="Back Office" sub="Jawad · Zizi · Azmi · Hicham · ourai · Ashel" color="#3b82f6" />
           {N2_AGENTS.map(a => (
             <AgentBtn key={a.id} a={a} isActive={selected === a.id} onSelect={() => setSelected(a.id)} />
           ))}

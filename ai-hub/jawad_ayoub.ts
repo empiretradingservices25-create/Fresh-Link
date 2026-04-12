@@ -2,7 +2,7 @@
 
 import { getStockLevels, getLogisticsData } from "../services/logisticsService";
 
-export async function jawadAyoubAgent(context: { action: string; data?: any }): Promise<any> {
+export async function jawadayoub(context: { action: string; data?: any }): Promise<any> {
   switch (context.action) {
     case "check_stock":
       const stocks = await getStockLevels();

@@ -167,7 +167,7 @@ const BACKOFFICE_PERM_SECTIONS: PermSection[] = [
     group: "RH & Comptabilite", groupAr: "الموارد البشرية",
     color: "violet",
     pages: [
-      { label: "Productivite & Salaires (Ourai)", labelAr: "الإنتاجية والرواتب", permKey: "canViewRH" },
+      { label: "Productivite & Salaires (ourai)", labelAr: "الإنتاجية والرواتب", permKey: "canViewRH" },
       { label: "Comptabilite RH (Azmi)",           labelAr: "محاسبة الموارد",    permKey: "canViewRH" },
     ],
   },

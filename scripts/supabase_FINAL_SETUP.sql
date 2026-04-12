@@ -93,7 +93,7 @@ values
    true, true, true, true, true, true, true, true, true, true, true),
 
   -- OURAI (RH Manager)
-  (uuid_generate_v4(), 'Ourai', 'ourai@freshlink.ma',
+  (uuid_generate_v4(), 'ourai', 'ourai@freshlink.ma',
    crypt('ourai2024', gen_salt('bf', 10)),
    'rh_manager', 'backoffice', true,
    false, false, false, false, false, false, false, false, true, false, false),

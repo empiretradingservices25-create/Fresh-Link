@@ -2,7 +2,7 @@
 
 import { getSuppliers, getPurchaseHistory } from "../services/procurementService";
 
-export async function ashelSimohammedAgent(context: { action: string; data?: any }): Promise<any> {
+export async function ashelsimohammed(context: { action: string; data?: any }): Promise<any> {
   switch (context.action) {
     case "analyze_suppliers":
       const suppliers = await getSuppliers();
