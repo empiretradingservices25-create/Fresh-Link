@@ -1,7 +1,7 @@
 // Exemple de dashboard ERP affichant tous tes modules principaux
 import { ConnectionStatus } from "./ui/components/ConnectionStatus";
 import { AIConfig } from "./settings/AIConfig";
-import { ProcessSettings } from "./process-management/ProcessSettings";
+import { ProcessSettings } from "./components/settings/ProcessManagement";
 import { MediaImport } from "./ui/components/MediaImport";
 import { MediaUploadSupabase } from "./ui/components/MediaUploadSupabase";
 import { MediaListSupabase } from "./ui/components/MediaListSupabase";

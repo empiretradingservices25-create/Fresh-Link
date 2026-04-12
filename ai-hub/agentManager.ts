@@ -2,7 +2,7 @@
 
 import { AgentInterface, Proposal } from './AgentInterface';
 // Tu importeras chaque agent ici :
-import { OuraiAgent } from './agents/ourai/OuraiAgent';
+import { OuraiAgent } from './OuraiAgent';
 // import { AyoubJawadAgent } from './agents/ayoub-jawad/AyoubJawadAgent';
 import { AshelSimohammedAgent } from './agents/ashel-simohammed/AshelSimohammedAgent';
 import { AzmiAgent } from './agents/azmi/AzmiAgent';

@@ -72,7 +72,7 @@ export async function upsertUser(u: User) {
 
   // Then push to Supabase
   try {
-    const { error } = await sb().from("fl_users").upsert([userToRow(u)], { onConflict: "id" })
+const { error } = await sb().from("fl_users").upsert([userToRow(u)], { onConflict: "id" });
     if (error) console.error("[db] upsertUser:", error.message)
   } catch (e) {
     console.error("[db] upsertUser offline:", e)
