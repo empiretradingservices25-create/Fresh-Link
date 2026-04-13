@@ -1,10 +1,15 @@
 import "./globals.css";
 import SupabaseBadge from "@/components/SupabaseBadge";
 import { ReactNode } from "react";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={cn("font-sans", geist.variable)}>
       <body style={{ margin: 0, padding: 0 }}>
         <header
           style={{
