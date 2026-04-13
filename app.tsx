@@ -1,4 +1,5 @@
 // Exemple de dashboard ERP affichant tous tes modules principaux
+import SupabaseBadge from "@/components/SupabaseBadge";
 import { ConnectionStatus } from "./ui/components/ConnectionStatus";
 import { AIConfig } from "./settings/AIConfig";
 import ProcessManagement from "./components/settings/ProcessManagement";

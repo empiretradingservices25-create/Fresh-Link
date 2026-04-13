@@ -1,4 +1,5 @@
 "use client"
+import SupabaseBadge from "@/components/SupabaseBadge";
 
 import React, { useState, useEffect, useCallback, Component } from "react"
 import dynamic from "next/dynamic"
@@ -475,6 +476,7 @@ export default function BackOfficeLayout({ user, onLogout }: Props) {
 
         {/* ── Topbar ─────────────────────────────────────── */}
         <header className="flex items-center justify-between px-4 lg:px-5 py-3 shrink-0 gap-3 bg-white border-b border-slate-200 shadow-sm">
+  <SupabaseBadge />
 
           {/* Left: hamburger + breadcrumb */}
           <div className="flex items-center gap-3 min-w-0">

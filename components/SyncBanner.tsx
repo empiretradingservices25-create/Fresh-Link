@@ -1,4 +1,5 @@
 "use client"
+import SupabaseBadge from "@/components/SupabaseBadge";
 
 import { useEffect, useState } from "react"
 import { isSyncDone, runFullSync, resetSync, type SyncProgress } from "@/lib/supabase/syncManager"

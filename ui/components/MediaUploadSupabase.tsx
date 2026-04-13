@@ -1,4 +1,5 @@
 // Composant React « Upload média Supabase »
+import SupabaseBadge from "@/components/SupabaseBadge";
 // Permet de sélectionner et envoyer un ou plusieurs fichiers dans le bucket "medias" de Supabase Storage
 // Nécessite que src/supabase/client.ts exporte bien "supabase" (cf. étapes précédentes)
 

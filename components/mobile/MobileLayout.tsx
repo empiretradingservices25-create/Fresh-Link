@@ -1,4 +1,5 @@
 "use client"
+import SupabaseBadge from "@/components/SupabaseBadge";
 
 import { useState, useEffect } from "react"
 import { type User, ROLE_LABELS, ROLE_COLORS, isDemoUser } from "@/lib/store"
@@ -83,6 +84,7 @@ export default function MobileLayout({ user, onLogout }: Props) {
     <div className="min-h-screen flex flex-col w-full font-sans bg-slate-50 text-slate-800">
       {/* Header — pro light mobile — full width, adapts to all screen sizes */}
       <header className="px-4 pt-safe-top pb-3 flex items-center justify-between sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+  <SupabaseBadge />
         <div className="flex items-center gap-2.5">
           {/* FreshLink Pro brand */}
           <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 shadow-sm" style={{ background: "#1B4332" }}>

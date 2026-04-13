@@ -1,4 +1,5 @@
 "use client"
+import SupabaseBadge from "@/components/SupabaseBadge";
 
 import { useState, useEffect, useRef } from "react"
 import { store, type Commande, type Trip, type Livreur, type User, ROLE_COLORS } from "@/lib/store"

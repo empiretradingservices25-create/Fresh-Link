@@ -1,4 +1,5 @@
 /**
+import SupabaseBadge from "@/components/SupabaseBadge";
  * Google Sheets Sync — FreshLink Pro
  *
  * Architecture:

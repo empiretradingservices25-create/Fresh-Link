@@ -1,4 +1,5 @@
 // Widget d’état connexion Supabase (affiche : connecté ou pas)
+import SupabaseBadge from "@/components/SupabaseBadge";
 // Simple, débutant, extensible pour affichage en header/nav
 
 import { useEffect, useState } from "react";

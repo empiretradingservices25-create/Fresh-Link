@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import SupabaseBadge from "@/components/SupabaseBadge";
 import { Inter, Geist_Mono } from 'next/font/google'
 import './globals.css'
 

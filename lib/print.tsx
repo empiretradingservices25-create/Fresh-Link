@@ -1,4 +1,5 @@
 /**
+import SupabaseBadge from "@/components/SupabaseBadge";
  * lib/print.ts
  * --------------------------------─
  * Professional print functions for FreshLink Pro documents.

@@ -1,4 +1,5 @@
 // Composant React « MediaListSupabase »
+import SupabaseBadge from "@/components/SupabaseBadge";
 // Liste les fichiers dans le bucket "medias" de Supabase Storage
 // Affiche un lien de téléchargement pour chaque fichier, et une mini-prévisualisation si c’est une image
 

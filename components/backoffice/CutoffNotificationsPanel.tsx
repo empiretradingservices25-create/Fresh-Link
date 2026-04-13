@@ -1,4 +1,5 @@
 "use client"
+import SupabaseBadge from "@/components/SupabaseBadge";
 
 import { useState } from "react"
 import { store, CutoffNotification, UserRole, ROLE_LABELS, DEFAULT_CUTOFFS } from "@/lib/store"

@@ -1,4 +1,5 @@
 "use client"
+import SupabaseBadge from "@/components/SupabaseBadge";
 import { useState, useRef, useCallback } from "react"
 
 interface AnalysisResult {

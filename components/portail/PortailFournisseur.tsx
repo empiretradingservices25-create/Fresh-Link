@@ -1,4 +1,5 @@
 "use client"
+import SupabaseBadge from "@/components/SupabaseBadge";
 
 import { useState, useEffect } from "react"
 import { store, type User, type PurchaseOrder, type Article, type Fournisseur, type Reception } from "@/lib/store"
@@ -364,6 +365,7 @@ export default function PortailFournisseur({ user, onLogout }: Props) {
     <div className="min-h-screen flex flex-col bg-background font-sans">
       {/* Header */}
       <header className="bg-sidebar text-sidebar-foreground px-4 py-3 flex items-center justify-between sticky top-0 z-40 shadow-md">
+  <SupabaseBadge />
         <FreshLinkLogo size={34} variant="full-white" />
         <div className="flex items-center gap-3">
           <div className="text-right">

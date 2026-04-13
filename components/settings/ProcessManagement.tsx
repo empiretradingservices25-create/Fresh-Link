@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SupabaseBadge from "@/components/SupabaseBadge";
 
 const workflows = [
   { name: "HR/Payroll", key: "hr_workflow" },

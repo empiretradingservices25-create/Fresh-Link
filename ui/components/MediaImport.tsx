@@ -1,4 +1,5 @@
 // Composant React « Import Média Universel »
+import SupabaseBadge from "@/components/SupabaseBadge";
 // Permet à l’utilisateur de sélectionner/drag-&-drop un ou plusieurs fichiers (CSV, image…)
 // Affiche la liste des fichiers sélectionnés (nom, taille). Extensible pour upload plus tard.
 
