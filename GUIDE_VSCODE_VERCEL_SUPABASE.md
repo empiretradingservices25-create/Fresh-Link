@@ -34,7 +34,7 @@ Créez un fichier `.env.local` à la racine du projet :
 ```env
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://VOTRE_PROJECT_ID.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=votre_anon_key_ici
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54aXJ5cGd1b25ucnVzZWdwbWtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NDQ3OTcsImV4cCI6MjA5MTEyMDc5N30.zrYG0ZnXFgNoV4vRbqjTEn54MCkAie6NSgTKKufRKA4
 
 # (Optionnel) pour les opérations serveur
 SUPABASE_SERVICE_ROLE_KEY=votre_service_role_key_ici
@@ -65,7 +65,7 @@ npm run dev
 1. Dans votre projet Supabase → **Settings** (icône engrenage) → **API**
 2. Copiez :
    - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
-   - **anon public key** → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - **anon public key** → `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54aXJ5cGd1b25ucnVzZWdwbWtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NDQ3OTcsImV4cCI6MjA5MTEyMDc5N30.zrYG0ZnXFgNoV4vRbqjTEn54MCkAie6NSgTKKufRKA4`
    - **service_role key** → `SUPABASE_SERVICE_ROLE_KEY` (⚠️ ne jamais exposer côté client)
 
 ### Étape 3 : Exécuter le script SQL

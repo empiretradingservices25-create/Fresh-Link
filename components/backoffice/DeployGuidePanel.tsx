@@ -208,7 +208,7 @@ export default function DeployGuidePanel() {
               <div className="p-4 rounded-xl bg-slate-800 text-slate-200 text-xs leading-relaxed mb-4">
                 <p className="font-black text-white mb-2">Vos identifiants FreshLink Pro</p>
                 <p className="mb-1"><span className="text-slate-400">URL Supabase :</span><br/>
-                  <span className="font-mono text-emerald-400 text-[11px] break-all">https://nphrncmuxbwahqnzdyxp.supabase.co</span>
+                  <span className="font-mono text-emerald-400 text-[11px] break-all">https://nxirypguonnrusegpmke.supabase.co</span>
                 </p>
                 <p className="mb-1"><span className="text-slate-400">Anon Key :</span><br/>
                   <span className="font-mono text-blue-400 text-[10px] break-all">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5bmJlamNpdXplZHp1cnhoc3VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MDg0MjYsImV4cCI6MjA5MDE4NDQyNn0.vPgtRBu37SguLxpb7qs95_17U9ksX1S0tkyJSwP5wBg</span>
@@ -297,7 +297,7 @@ export default function DeployGuidePanel() {
                 </div>
                 <div className="p-3 rounded-xl bg-slate-800 text-xs font-mono text-slate-100">
                   <p className="text-slate-400 mb-1">Vos cles actuelles :</p>
-                  <p className="text-emerald-400 break-all text-[10px]">https://nphrncmuxbwahqnzdyxp.supabase.co</p>
+                  <p className="text-emerald-400 break-all text-[10px]">https://nxirypguonnrusegpmke.supabase.co</p>
                   <p className="text-blue-400 break-all text-[10px] mt-1">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..._4bA9RtIVMUjNgxd2ojd9</p>
                 </div>
               </div>
@@ -388,7 +388,7 @@ export default function DeployGuidePanel() {
               <StepHeader n={1} title="Dans Vercel — Ajouter les variables" sub="Project → Settings → Environment Variables" color="amber" />
               <div className="pl-4 mb-4">
                 <p className="text-xs text-slate-600 font-semibold mb-2">Copiez-collez exactement ces variables :</p>
-                <Code lang="env" code={`NEXT_PUBLIC_SUPABASE_URL=https://nphrncmuxbwahqnzdyxp.supabase.co\nNEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5waHJuY211eGJ3YWhxbnpkeXhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDUyNDUsImV4cCI6MjA5MDUyMTI0NX0._4bA9RtIVMUjNgxd2ojd9_3b6vzGRddpPPbioalRsMw`} />
+                <Code lang="env" code={`NEXT_PUBLIC_SUPABASE_URL=https://nxirypguonnrusegpmke.supabase.co\nNEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54aXJ5cGd1b25ucnVzZWdwbWtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NDQ3OTcsImV4cCI6MjA5MTEyMDc5N30.zrYG0ZnXFgNoV4vRbqjTEn54MCkAie6NSgTKKufRKA4`} />
                 <Info>Selectionnez <strong>Production, Preview, Development</strong> pour les 3 environnements, puis cliquez Save.</Info>
                 <div className="space-y-2 mt-3">
                   {[

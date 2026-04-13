@@ -1,6 +1,6 @@
 -- ====
 -- OPTIMFLUX — SCHEMA FINAL v10
--- Supabase: https://nphrncmuxbwahqnzdyxp.supabase.co
+-- Supabase: https://nxirypguonnrusegpmke.supabase.co
 -- Date: 2026 | Auteur: Jawad
 -- Toutes les tables metier avec RLS desactivee (gestion auth maison)
 -- ====

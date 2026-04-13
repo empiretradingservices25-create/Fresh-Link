@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 import { isSyncDone, runFullSync, resetSync, type SyncProgress } from "@/lib/supabase/syncManager"
 import { createClient } from "@/lib/supabase/client"
 
-const SUPABASE_URL = "https://nphrncmuxbwahqnzdyxp.supabase.co"
-const ANON_KEY_PREVIEW = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...SeK7cszs"
+const SUPABASE_URL = "https://nxirypguonnrusegpmke.supabase.co"
+const ANON_KEY_PREVIEW = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54aXJ5cGd1b25ucnVzZWdwbWtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NDQ3OTcsImV4cCI6MjA5MTEyMDc5N30.zrYG0ZnXFgNoV4vRbqjTEn54MCkAie6NSgTKKufRKA4"
 
 type ConnStatus = "idle" | "checking" | "connected" | "error"
 

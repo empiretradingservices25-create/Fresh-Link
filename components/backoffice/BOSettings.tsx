@@ -1034,8 +1034,8 @@ To: {{to_email}}
               n: 5, title: "Configurer les variables d environnement",
               body: "Avant de deployer, ajoutez ces variables dans Settings > Environment Variables de votre projet Vercel :",
               envVars: [
-                { key: "NEXT_PUBLIC_SUPABASE_URL", value: "https://nphrncmuxbwahqnzdyxp.supabase.co" },
-                { key: "NEXT_PUBLIC_SUPABASE_ANON_KEY", value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5waHJuY211eGJ3YWhxbnpkeXhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDUyNDUsImV4cCI6MjA5MDUyMTI0NX0._4bA9RtIVMUjNgxd2ojd9_3b6vzGRddpPPbioalRsMw" },
+                { key: "NEXT_PUBLIC_SUPABASE_URL", value: "https://nxirypguonnrusegpmke.supabase.co" },
+                { key: "NEXT_PUBLIC_SUPABASE_ANON_KEY", value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54aXJ5cGd1b25ucnVzZWdwbWtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NDQ3OTcsImV4cCI6MjA5MTEyMDc5N30.zrYG0ZnXFgNoV4vRbqjTEn54MCkAie6NSgTKKufRKA4" },
               ],
               tip: "Ces variables sont aussi requises pour que la synchronisation Supabase fonctionne en production.",
             },
