@@ -1,23 +1,23 @@
-import { getKpiData, getProcessData } from "../services/controlService";
+import { AgentBase, AgentContext, AgentDecision } from "./AgentBase";
 
-export async function hichamAgent(context: { action: string; data?: any }): Promise<any> {
-  switch (context.action) {
-    case "audit_kpi":
-      const kpi = await getKpiData();
-      const crit = kpi.filter((k: any) => k.value < k.target);
-      return {
-        message: crit.length
-          ? `🔎 ${crit.length} KPI(s) en anomalie`
-          : "Tous les KPI atteints",
-        details: crit
-      };
-    case "process_validation":
-      const process = await getProcessData();
-      return {
-        message: process.valid ? "Processus conforme ✅" : "🚩 Écarts à corriger",
-        details: process
-      };
-    default:
-      return { message: "Hicham : action inconnue." };
+export class HichamAgent extends AgentBase {
+  constructor() {
+    super({
+      name: "Hicham",
+      description: "Audit tous les KPIs, propose des actions préventives/process.",
+      category: "ManagementControl",
+      avatar: "/img/avatars/hicham.png"
+    });
+  }
+  async analyzeAndDecide(context: AgentContext): Promise<AgentDecision> {
+    let actions: string[] = [];
+    if (context.kpiOutOfBound) actions.push("🧐 Déclencher un audit KPI immédiat.");
+    if (context.processDrift) actions.push("🔍 Contrôler le respect des processus.");
+    if (context.needProcessUpdate) actions.push("🛠️ Proposer une mise à jour de process.");
+    return {
+      summary: actions.length ? "Actions Contrôle de Gestion" : "Tous KPIs conformes",
+      actions
+    };
   }
 }
+export default HichamAgent;

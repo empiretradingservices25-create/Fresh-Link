@@ -1,22 +1,23 @@
-import { getFinancialData } from "../services/financeService";
+import { AgentBase, AgentContext, AgentDecision } from "./AgentBase";
 
-export async function azmiAgent(context: { action: string; data?: any }): Promise<any> {
-  switch (context.action) {
-    case "analyze_financials":
-      const financial = await getFinancialData();
-      const lowMargin = financial.margins.filter((m: any) => m < 0.1);
-      return {
-        message: lowMargin.length
-          ? "⚠️ Marges faibles détectées"
-          : "Marges dans la normale",
-        details: lowMargin
-      };
-    case "cash_flow_alert":
-      const f = await getFinancialData();
-      return {
-        message: f.cashFlow < 10000 ? "🚨 Trésorerie faible !" : "Cashflow OK"
-      };
-    default:
-      return { message: "Azmi : action inconnue." };
+export class AzmiAgent extends AgentBase {
+  constructor() {
+    super({
+      name: "Azmi",
+      description: "Veille trésorerie, contrôle santé financière, surveille marges.",
+      category: "Finance",
+      avatar: "/img/avatars/azmi.png"
+    });
+  }
+  async analyzeAndDecide(context: AgentContext): Promise<AgentDecision> {
+    let actions: string[] = [];
+    if (context.cashFlowCritical) actions.push("⚠️ Alerte : trésorerie critique !");
+    if (context.marginLow) actions.push("📉 Proposer un contrôle des marges.");
+    if (context.paymentLate) actions.push("🚩 Suivre les clients en retard de paiement.");
+    return {
+      summary: actions.length ? "Actions Finance recommandées" : "Situation saine",
+      actions
+    };
   }
 }
+export default AzmiAgent;

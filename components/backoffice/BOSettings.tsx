@@ -1,6 +1,7 @@
 "use client"
 import SupabaseBadge from "@/components/SupabaseBadge";
-
+import AIKeysManagement from "@/components/settings/AIKeysManagement";
+import ProcessManagement from "@/components/settings/ProcessManagement";
 import { useState, useEffect, useRef } from "react"
 import { store, type EmailConfig, type MotifRetour, type CompanyConfig, type WorkflowConfig, type ContenantTare } from "@/lib/store"
 import { saveEmailJSConfig, getEmailJSConfigPublic, testEmailJSConnection } from "@/lib/email"
@@ -28,7 +29,7 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
   const [motifs, setMotifs] = useState<MotifRetour[]>([])
   const [newMotif, setNewMotif] = useState({ label: "", labelAr: "" })
   const [saved, setSaved] = useState("")
-  const [tab, setTab] = useState<"entreprise" | "workflow" | "emails" | "emailjs" | "motifs" | "contenants" | "dataguard" | "vercel">("entreprise")
+  const [tab, setTab] = useState<"entreprise" | "process" | "ai_keys" | "workflow" | "emails" | "emailjs" | "motifs" | "contenants" | "dataguard" | "vercel">("entreprise")
   const [ejsCfg, setEjsCfg] = useState({ serviceId: "", templateId: "", publicKey: "" })
   const [testResult, setTestResult] = useState<{ ok: boolean; msg: string } | null>(null)
   const [testing, setTesting] = useState(false)
@@ -144,6 +145,8 @@ export default function BOSettings({ user }: { user: { id: string; name: string;
 
   const TABS = [
     { id: "entreprise" as const, label: "Entreprise", labelAr: "معلومات الشركة" },
+    { id: "process" as const, label: "Processus IA", labelAr: "إدارة العمليات" },
+    { id: "ai_keys" as const, label: "Clés IA", labelAr: "مفاتيح الذكاء الاصطناعي" },
     { id: "workflow" as const,   label: "Validation commandes", labelAr: "الموافقة على الطلبيات" },
     { id: "emails" as const,     label: "Emails & Notifications", labelAr: "البريد الإلكتروني" },
     { id: "emailjs" as const,    label: "EmailJS (SMTP)", labelAr: "إعداد البريد" },
@@ -1172,6 +1175,13 @@ To: {{to_email}}
           </div>
         </div>
       )}
+    {/* AI Keys Management tab (moved inside return) */}
+    {tab === "ai_keys" && (
+      <AIKeysManagement />
+    )}
+    {tab === "process" && (
+      <ProcessManagement />
+    )}
     </div>
   )
 }

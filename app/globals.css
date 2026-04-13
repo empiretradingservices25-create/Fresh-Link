@@ -1,80 +1,175 @@
 @import 'tailwindcss';
 
-html {
+/* 1. PALETTE DE BASE PREMIUM */
+:root {
+  --background: #f7faff;
+  --surface: #fff;
+  --surface-soft: #f0f3fa;
+  --surface-hover: #eef4fc;
+  --surface-subtle: #e7eaf5;
+  --sidebar: #f6f7fa;
+  --border: #e8ebf3;
+  --primary: #1d355e;
+  --primary-accent: #2563eb;
+  --primary-accent-2: #35bddb;
+  --success: #12ba6a;
+  --warning: #fac710;
+  --danger: #f95141;
+  --info: #2de5e3;
+  --gray-title: #232a34;
+  --gray-sub: #757d90;
+  --gray-muted: #b2b6be;
+}
+
+/* 2. BASE GLOBALE */
+html, body {
+  background: var(--background) !important;
+  color: var(--gray-title) !important;
+  font-feature-settings: "rounding" 1;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-feature-settings: "rounding" 1;
-}
-
-/* Removed empty universal selector as it is not needed */
-
-/* Tailwind directives removed. Make sure to include Tailwind via your build process. */
-
-:root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 3.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 3.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 3.9%;
-  --primary: 0 0% 9%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 96.1%;
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 96.1%;
-  --muted-foreground: 0 0% 45.1%;
-  --accent: 0 0% 96.1%;
-  --accent-foreground: 0 0% 9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 89.8%;
-  --input: 0 0% 89.8%;
-  --ring: 0 0% 3.9%;
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
-  --radius: 0.5rem;
-}
-
-.dark {
-  --background: 0 0% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 0 0% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 98%;
-  --primary-foreground: 0 0% 9%;
-  --secondary: 0 0% 14.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
-  --accent: 0 0% 14.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 0 0% 83.1%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
+  line-height: 1.55;
 }
 
 * {
-  border-color: hsl(var(--border));
+  border-color: var(--border);
 }
 
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+/* 3. CARDS, DASHBOARDS, WIDGETS */
+.card, .widget, .dashboard, [class*="card"], [class*="widget"],
+.stats-card, .panel, .overview {
+  background: var(--surface);
+  border-radius: 15px !important;
+  border: 1.5px solid var(--border) !important;
+  box-shadow: 0 4px 24px 0 rgba(60,80,120,0.04);
+  color: var(--gray-title) !important;
+  padding: 1.2em 1.7em;
 }
+.card.stat-green, .stats-card.stat-green { background: #e9f9f1 !important; color: #209264 !important; }
+.card.stat-orange, .stats-card.stat-orange { background: #fff9ed !important; color: #a98a30 !important; }
+.card.stat-purple, .stats-card.stat-purple { background: #faf2ff !important; color: #7c3aed !important; }
+.card.stat-info, .stats-card.stat-info   { background: #f3fdff !important; color: #2299ba !important; }
+
+.card-black, .dashboard-black, .panel-black { background: var(--surface-soft) !important; color: var(--gray-title) !important; }
+
+/* 4. TABLES */
+table th, thead th {
+  background: var(--surface-hover) !important;
+  color: var(--primary) !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid var(--border) !important;
+  font-size: 1.02em;
+  letter-spacing: 0.01em;
+}
+table td, tbody td {
+  color: var(--gray-title) !important;
+  background: transparent !important;
+  font-weight: 500;
+}
+tr:hover td { background: var(--surface-soft) !important; transition: background .12s; }
+
+/* 5. SIDEBAR & NAVIGATION */
+.sidebar, .side-menu, nav[aria-label="Sidebar"] {
+  background: var(--sidebar) !important;
+  color: var(--primary) !important;
+  border-right: 1.5px solid var(--border) !important;
+}
+.sidebar .active, .side-menu .active, nav[aria-label="Sidebar"] .active {
+  background: var(--surface-subtle) !important;
+  color: var(--primary-accent) !important;
+  border-radius: 9px !important;
+}
+
+/* 6. TABS & NAV BOUTONS */
+.tab, .tab-nav, .tabs, .tab-link, nav .tab, .page-links,
+.button-outline, .btn-secondary, .btn-neutral {
+  background: var(--surface-soft) !important;
+  color: var(--gray-title) !important;
+  border-radius: 9px !important;
+  border: 1.5px solid var(--border) !important;
+  font-weight: 600 !important;
+  font-size: 1.03em;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  box-shadow: none !important;
+}
+.tab[aria-selected="true"], .tab.active, .tab.active-tab, .page-links .active,
+.button-primary, .btn-primary {
+  background: var(--primary-accent) !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 10px 0 #2563eb22;
+}
+.tab:hover, .button-outline:hover, .btn-neutral:hover {
+  background: var(--surface-hover) !important;
+  color: var(--primary-accent-2) !important;
+}
+.button-success, .btn-success { background: var(--success) !important; color: #fff !important; border: none !important; }
+.button-warning, .btn-warning { background: var(--warning) !important; color: #684d03 !important; border: none !important; }
+.button-danger, .btn-danger { background: var(--danger) !important; color: #fff !important; border: none !important; }
+
+/* 7. BADGES, TAGS, PILLS */
+.badge, .tag, .pill {
+  background: var(--surface-soft) !important;
+  color: var(--primary) !important;
+  border-radius: 100px !important;
+  font-size: 1em;
+  font-weight: 700 !important;
+  border: none !important;
+  letter-spacing: .01em;
+  padding: 0.15em 1.1em;
+  margin-right: 4px;
+}
+
+/* Status color badges */
+.badge.success, .tag.success, .pill.success   { background: #e6f9ed !important; color: var(--success) !important;}
+.badge.warning, .tag.warning, .pill.warning   { background: #fef5e6 !important; color: var(--warning) !important;}
+.badge.danger, .tag.danger, .pill.danger      { background: #fff0f2 !important; color: var(--danger) !important;}
+.badge.info, .tag.info, .pill.info            { background: #e9fafe !important; color: var(--info) !important;}
+
+/* 8. INPUT, PLACEHOLDER & SEARCH */
+input, select, textarea {
+  background: var(--surface-soft) !important;
+  border: 1.5px solid var(--border) !important;
+  color: var(--gray-title) !important;
+  border-radius: 7px !important;
+  font-size: 1em;
+  padding: 0.55em 1.1em;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-accent);
+  background: #fff;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--gray-muted) !important;
+  opacity: 1 !important;
+}
+
+/* 9. ACCORDIONS, ALERTS, NOTIFICATIONS */
+.accordion-header, .alert, .notification {
+  border-radius: 10px !important;
+  background: #f3faff !important;
+  color: var(--info) !important;
+  font-weight: 600 !important;
+}
+.alert-danger, .notification.danger { background: #fff0f2 !important; color: var(--danger) !important; border: 1.5px solid #facacf !important; }
+.alert-warning, .notification.warning { background: #fffde6 !important; color: var(--warning) !important; border: 1.5px solid #fbeaa4 !important; }
+.alert-success, .notification.success { background: #e6f9ed !important; color: var(--success) !important; border: 1.5px solid #c5eddb !important; }
+
+/* 10. TYPOGRAPHY */
+h1, .page-title        { color: var(--primary-accent); font-weight: 900 !important; font-size: 2.1em; }
+h2, h3, h4, .subtitle  { color: var(--primary); font-weight: 700 !important; }
+.section-title         { color: var(--primary-accent-2); font-weight: 800 !important;}
+strong                 { color: var(--primary-accent) !important; font-weight: 800; }
+.text-muted, .text-secondary, .desc, .label, [class*="label"], [class*="desc"], [class*="sub"], [class*="muted"], .opacity-60, .opacity-70, .opacity-80, [class*="opacity-6"], [class*="opacity-7"], [class*="opacity-8"] {
+  color: var(--gray-sub) !important; opacity: 1 !important; font-weight: 500 !important;
+}
+
+/* 11. PLACEHOLDERS */
+input::placeholder, textarea::placeholder, .placeholder { color: var(--gray-muted) !important; opacity: 1 !important; }
+
+/* 12. SCROLLBAR « discret » */
+::-webkit-scrollbar { background: #f3f7fb; width: 8px;}
+::-webkit-scrollbar-thumb { background: #e6eaf1; border-radius: 8px;}

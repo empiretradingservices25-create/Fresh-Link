@@ -1,25 +1,23 @@
-import { getStockLevels, getLogisticsData } from "../services/logisticsService";
+import { AgentBase, AgentContext, AgentDecision } from "./AgentBase";
 
-export async function jawadAyoubAgent(context: { action: string; data?: any }): Promise<any> {
-  switch (context.action) {
-    case "check_stock":
-      const stocks = await getStockLevels();
-      const critical = stocks.filter((s: any) => s.qty < s.min);
-      return {
-        message: critical.length
-          ? `⚠️ ${critical.length} article(s) sous le seuil critique`
-          : "✅ Stock OK",
-        details: critical
-      };
-
-    case "optimize_flow":
-      const logistics = await getLogisticsData();
-      return {
-        message: "Optimisation des itinéraires conseillée",
-        suggestion: logistics.routes ? "Rerouter via dépôt central" : "Flux normal"
-      };
-
-    default:
-      return { message: "Jawad & Ayoub : action inconnue." };
+export class JawadAyoubAgent extends AgentBase {
+  constructor() {
+    super({
+      name: "Jawad & Ayoub",
+      description: "Optimise les flux logistiques, détecte les ruptures et propose des itinéraires.",
+      category: "Logistics",
+      avatar: "/img/avatars/jawad_ayoub.png"
+    });
+  }
+  async analyzeAndDecide(context: AgentContext): Promise<AgentDecision> {
+    let actions: string[] = [];
+    if (context.criticalStock < 5) actions.push("🚨 Stock critique : déclencher un réapprovisionnement !");
+    if (context.deliveryDelay) actions.push("🚐 Optimiser le planning des tournées.");
+    if (context.routeChange) actions.push("🗺️ Proposition de nouvel itinéraire.");
+    return {
+      summary: actions.length ? "Actions logistiques recommandées" : "Flux optimal",
+      actions
+    };
   }
 }
+export default JawadAyoubAgent;

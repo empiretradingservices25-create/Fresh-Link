@@ -1,23 +1,24 @@
-// Ouraï - Agent RH/Paie
+import { AgentBase, AgentContext, AgentDecision } from "./AgentBase";
 
-import { getHRData, getPayrollData, generatePayrollPDF } from "../services/hrService";
-
-export async function ouraiAgent(context: { action: string; data?: any }): Promise<any> {
-  switch(context.action) {
-    case "analyze_payroll":
-      const payrollData = await getPayrollData();
-      const anomalies = payrollData.filter((item: any) => item.salary < 2000); // Typage "any" pour debug débutant
-      return {
-        message: anomalies.length > 0
-          ? `Attention: ${anomalies.length} anomalie(s) sur la paie.`
-          : "Paie conforme.",
-        details: anomalies
-      };
-    case "generate_payroll_pdf":
-      if (!context.data) throw new Error("Détails obligatoires.");
-      const pdfPath = await generatePayrollPDF(context.data);
-      return { message: "PDF paie généré.", path: pdfPath };
-    default:
-      return { message: "Ouraï : action inconnue." };
+export class OuraiAgent extends AgentBase {
+  constructor() {
+    super({
+      name: "Ouraï",
+      description: "Gère la paie, la conformit�� RH et la génération de bulletins PDF.",
+      category: "HR",
+      avatar: "/img/avatars/ourai.png"
+    });
+  }
+  async analyzeAndDecide(context: AgentContext): Promise<AgentDecision> {
+    let actions: string[] = [];
+    if (context.lateSalary) actions.push("🔔 Alerte : retard de paie détecté !");
+    if (context.checkLegal && !context.complianceOk) actions.push("⚖️ Vérifier la conformité légale RH.");
+    if (context.pdfRequest) actions.push("📄 Générer un bulletin PDF.");
+    return {
+      summary: actions.length ? "Actions RH recommandées" : "Tout est conforme",
+      actions,
+      details: { analyseDate: context.date ?? new Date().toISOString() }
+    };
   }
 }
+export default OuraiAgent;

@@ -1,5 +1,5 @@
 "use client"
-import SupabaseBadge from "@/components/SupabaseBadge";
+// import SupabaseBadge from "@/components/SupabaseBadge";
 
 import React, { useState, useEffect, useCallback, Component } from "react"
 import dynamic from "next/dynamic"
@@ -50,46 +50,48 @@ class PanelErrorBoundary extends Component<{ children: React.ReactNode; label: s
 
 // ALL panels loaded dynamically — one broken import never crashes the whole BO
 const L = (label: string) => () => <div className="p-8 text-center text-muted-foreground text-sm">{label}</div>
-const BODashboard            = dynamic(() => import("./BODashboard"),            { ssr: false, loading: L("Chargement tableau de bord...") })
-const BOAchat                = dynamic(() => import("./BOAchat"),                { ssr: false, loading: L("Chargement achats...") })
-const BOReception            = dynamic(() => import("./BOReception"),            { ssr: false, loading: L("Chargement reception...") })
-const BOCommercial           = dynamic(() => import("./BOCommercial"),           { ssr: false, loading: L("Chargement commercial...") })
-const BOStock                = dynamic(() => import("./BOStock"),                { ssr: false, loading: L("Chargement stock...") })
-const BODispatch             = dynamic(() => import("./BODispatch"),             { ssr: false, loading: L("Chargement dispatch...") })
-const BOFournisseurs         = dynamic(() => import("./BOFournisseurs"),         { ssr: false, loading: L("Chargement fournisseurs...") })
-const BORapportLivraison     = dynamic(() => import("./BORapportLivraison"),     { ssr: false, loading: L("Chargement rapport...") })
-const BOBonPreparation       = dynamic(() => import("./BOBonPreparation"),       { ssr: false, loading: L("Chargement preparation...") })
-const BOCash                 = dynamic(() => import("./BOCash"),                 { ssr: false, loading: L("Chargement cash...") })
-const BORetour               = dynamic(() => import("./BORetour"),               { ssr: false, loading: L("Chargement retours...") })
-const BORecap                = dynamic(() => import("./BORecap"),                { ssr: false, loading: L("Chargement recap...") })
-const BOPurchaseOrders       = dynamic(() => import("./BOPurchaseOrders"),       { ssr: false, loading: L("Chargement PO...") })
-const BOUsers                = dynamic(() => import("./BOUsers"),                { ssr: false, loading: L("Chargement utilisateurs...") })
-const BOSettings             = dynamic(() => import("./BOSettings"),             { ssr: false, loading: L("Chargement parametres...") })
-const BOFinance              = dynamic(() => import("./BOFinance"),              { ssr: false, loading: L("Chargement finance...") })
-const BOArticles             = dynamic(() => import("./BOArticles"),             { ssr: false, loading: L("Chargement articles...") })
-const BOWhatsApp             = dynamic(() => import("./BOWhatsApp"),             { ssr: false, loading: L("Chargement WhatsApp...") })
-const BOAffectationCommerciale = dynamic(() => import("./BOAffectationCommerciale"), { ssr: false, loading: L("Chargement affectation...") })
-const BOGoogleSheets         = dynamic(() => import("./BOGoogleSheets"),         { ssr: false, loading: L("Chargement Google Sheets...") })
-const BOComptesExternes      = dynamic(() => import("./BOComptesExternes"),      { ssr: false, loading: L("Chargement comptes...") })
-const BOProspection          = dynamic(() => import("./BOProspection"),          { ssr: false, loading: L("Chargement prospection...") })
-const BOCreditFournisseur    = dynamic(() => import("./BOCreditFournisseur"),    { ssr: false, loading: L("Chargement credit...") })
-const AgentsIAPanel          = dynamic(() => import("./AgentsIAPanel"),          { ssr: false, loading: L("Chargement agent IA...") })
-const BOGPSTracker           = dynamic(() => import("./BOGPSTracker"),           { ssr: false, loading: L("Chargement GPS...") })
-const FeedbackPanel          = dynamic(() => import("./FeedbackPanel"),          { ssr: false, loading: L("Chargement feedbacks...") })
-const TripChargesPanel       = dynamic(() => import("./TripChargesPanel"),       { ssr: false, loading: L("Chargement charges...") })
-const AnalyseAchatPanel      = dynamic(() => import("./AnalyseAchatPanel"),      { ssr: false, loading: L("Chargement analyse achat...") })
-const AnalyseReceptionPanel  = dynamic(() => import("./AnalyseReceptionPanel"),  { ssr: false, loading: L("Chargement analyse reception...") })
-const ShelfLifePanel         = dynamic(() => import("./ShelfLifePanel"),         { ssr: false, loading: L("Chargement shelf life...") })
-const ForecastPanel          = dynamic(() => import("./ForecastPanel"),          { ssr: false, loading: L("Chargement forecast...") })
-const ASHELMarketPanel       = dynamic(() => import("./ASHELMarketPanel"),       { ssr: false, loading: L("Chargement ASHEL...") })
-const CameraPermissionsPanel = dynamic(() => import("./CameraPermissionsPanel"), { ssr: false, loading: L("Chargement permissions...") })
-const CutoffNotificationsPanel = dynamic(() => import("./CutoffNotificationsPanel"), { ssr: false, loading: L("Chargement cutoffs...") })
-const CaissesVidesPanel      = dynamic(() => import("./CaissesVidesPanel"),      { ssr: false, loading: L("Chargement caisses vides...") })
-const DeployGuidePanel       = dynamic(() => import("./DeployGuidePanel"),       { ssr: false, loading: L("Chargement guide...") })
-const BODepots               = dynamic(() => import("./BODepots"),               { ssr: false, loading: L("Chargement depots...") })
-const BOResources            = dynamic(() => import("./BOResources"),            { ssr: false, loading: L("Chargement RH...") })
-const BOComptabiliteRH       = dynamic(() => import("./BOComptabiliteRH"),       { ssr: false, loading: L("Chargement compta RH...") })
-const BODatabase             = dynamic(() => import("./BODatabase"),             { ssr: false, loading: L("Chargement base de donnees...") })
+import type { ComponentType } from "react";
+
+const BODashboard: ComponentType = dynamic(() => import("./BODashboard").then(mod => mod.default), { ssr: false, loading: L("Chargement tableau de bord...") });
+const BOAchat = dynamic(() => import("./BOAchat"), { ssr: false, loading: L("Chargement achats...") }) as ComponentType<{ user: User }>;
+const BOReception = dynamic(() => import("./BOReception"), { ssr: false, loading: L("Chargement reception...") }) as ComponentType<{ user: User }>;
+const BOCommercial = dynamic(() => import("./BOCommercial"), { ssr: false, loading: L("Chargement commercial...") }) as ComponentType<{ user: User }>;
+const BOStock = dynamic(() => import("./BOStock"), { ssr: false, loading: L("Chargement stock...") }) as ComponentType<{ user: User }>;
+const BODispatch = dynamic(() => import("./BODispatch"), { ssr: false, loading: L("Chargement dispatch...") }) as ComponentType<{ user: User }>;
+const BOFournisseurs = dynamic(() => import("./BOFournisseurs"), { ssr: false, loading: L("Chargement fournisseurs...") }) as ComponentType<{ user: User }>;
+const BORapportLivraison = dynamic(() => import("./BORapportLivraison"), { ssr: false, loading: L("Chargement rapport...") }) as ComponentType<{ user: User }>;
+const BOBonPreparation = dynamic(() => import("./BOBonPreparation"), { ssr: false, loading: L("Chargement preparation...") }) as ComponentType<{ user: User }>;
+const BOCash = dynamic(() => import("./BOCash"), { ssr: false, loading: L("Chargement cash...") }) as ComponentType<{ user: User }>;
+const BORetour = dynamic(() => import("./BORetour"), { ssr: false, loading: L("Chargement retours...") }) as ComponentType<{ user: User }>;
+const BORecap = dynamic(() => import("./BORecap"), { ssr: false, loading: L("Chargement recap...") }) as ComponentType<{ user: User }>;
+const BOPurchaseOrders = dynamic(() => import("./BOPurchaseOrders"), { ssr: false, loading: L("Chargement PO...") }) as ComponentType<{ user: User }>;
+const BOUsers = dynamic(() => import("./BOUsers"), { ssr: false, loading: L("Chargement utilisateurs...") }) as ComponentType<{ currentUser: User }>;
+const BOSettings = dynamic(() => import("./BOSettings"), { ssr: false, loading: L("Chargement parametres...") }) as ComponentType<{ user: User }>;
+const BOFinance = dynamic(() => import("./BOFinance"), { ssr: false, loading: L("Chargement finance...") }) as ComponentType<{ user: User }>;
+const BOArticles = dynamic(() => import("./BOArticles"), { ssr: false, loading: L("Chargement articles...") }) as ComponentType<{ user: User }>;
+const BOWhatsApp = dynamic(() => import("./BOWhatsApp"), { ssr: false, loading: L("Chargement WhatsApp...") }) as ComponentType<{ user: User }>;
+const BOAffectationCommerciale = dynamic(() => import("./BOAffectationCommerciale"), { ssr: false, loading: L("Chargement affectation...") }) as ComponentType<{ user: User }>;
+const BOGoogleSheets = dynamic(() => import("./BOGoogleSheets"), { ssr: false, loading: L("Chargement Google Sheets...") }) as ComponentType<{ user: User }>;
+const BOComptesExternes = dynamic(() => import("./BOComptesExternes"), { ssr: false, loading: L("Chargement comptes...") }) as ComponentType<{ user: User }>;
+const BOProspection = dynamic(() => import("./BOProspection"), { ssr: false, loading: L("Chargement prospection...") }) as ComponentType<{ user: User }>;
+const BOCreditFournisseur = dynamic(() => import("./BOCreditFournisseur"), { ssr: false, loading: L("Chargement credit...") }) as ComponentType<{ user: User }>;
+const AgentsIAPanel = dynamic(() => import("./AgentsIAPanel"), { ssr: false, loading: L("Chargement agent IA...") }) as ComponentType<{ user: User; initialAgent?: string }>;
+const BOGPSTracker = dynamic(() => import("./BOGPSTracker"), { ssr: false, loading: L("Chargement GPS...") }) as ComponentType<{ user: User }>;
+const FeedbackPanel = dynamic(() => import("./FeedbackPanel"), { ssr: false, loading: L("Chargement feedbacks...") }) as ComponentType<{ user: User }>;
+const TripChargesPanel = dynamic(() => import("./TripChargesPanel"), { ssr: false, loading: L("Chargement charges...") }) as ComponentType<{ user: User }>;
+const AnalyseAchatPanel = dynamic(() => import("./AnalyseAchatPanel"), { ssr: false, loading: L("Chargement analyse achat...") }) as ComponentType<{ user: User }>;
+const AnalyseReceptionPanel = dynamic(() => import("./AnalyseReceptionPanel"), { ssr: false, loading: L("Chargement analyse reception...") }) as ComponentType<{ user: User }>;
+const ShelfLifePanel = dynamic(() => import("./ShelfLifePanel"), { ssr: false, loading: L("Chargement shelf life...") }) as ComponentType<{ user: User }>;
+const ForecastPanel = dynamic(() => import("./ForecastPanel"), { ssr: false, loading: L("Chargement forecast...") }) as ComponentType<{ user: User }>;
+const ASHELMarketPanel = dynamic(() => import("./ASHELMarketPanel"), { ssr: false, loading: L("Chargement ASHEL...") }) as ComponentType<{ user: User }>;
+const CameraPermissionsPanel = dynamic(() => import("./CameraPermissionsPanel"), { ssr: false, loading: L("Chargement permissions...") }) as ComponentType<{ currentUser: User }>;
+const CutoffNotificationsPanel = dynamic(() => import("./CutoffNotificationsPanel"), { ssr: false, loading: L("Chargement cutoffs...") }) as ComponentType<{ user: User }>;
+const CaissesVidesPanel = dynamic(() => import("./CaissesVidesPanel"), { ssr: false, loading: L("Chargement caisses vides...") }) as ComponentType<{ user: User }>;
+const DeployGuidePanel = dynamic(() => import("./DeployGuidePanel"), { ssr: false, loading: L("Chargement guide...") }) as ComponentType<{ user: User }>;
+const BODepots = dynamic(() => import("./BODepots"), { ssr: false, loading: L("Chargement depots...") }) as ComponentType<{ user: User }>;
+const BOResources = dynamic(() => import("./BOResources"), { ssr: false, loading: L("Chargement RH...") }) as ComponentType<{ user: User }>;
+const BOComptabiliteRH = dynamic(() => import("./BOComptabiliteRH"), { ssr: false, loading: L("Chargement compta RH...") }) as ComponentType<{ user: User }>;
+const BODatabase = dynamic(() => import("./BODatabase"), { ssr: false, loading: L("Chargement base de donnees...") }) as ComponentType<{ user: User }>;
 
 // ─────────────────────────────────────────────────────────────
 // TYPES
@@ -275,10 +277,10 @@ const NAV_GROUPS: NavGroup[] = [
 // ─────────────────────────────────────────────────────────────
 
 const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
-  dashboard:         (u) => <BODashboard user={u} />,
-  achat:             (_u) => <BOAchat />,
+  dashboard:         (_u) => <BODashboard />,
+  achat:             (u) => <BOAchat user={u} />,
   reception:         (u) => <BOReception user={u} />,
-  po:                (_u) => <BOPurchaseOrders />,
+  po:                (u) => <BOPurchaseOrders user={u} />,
   commercial:        (u) => <BOCommercial user={u} />,
   affectation:       (u) => <BOAffectationCommerciale user={u} />,
   dispatch:          (u) => <BODispatch user={u} />,
@@ -286,13 +288,13 @@ const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
   preparation:       (u) => <BOBonPreparation user={u} />,
   rapport_livraison: (u) => <BORapportLivraison user={u} />,
   stock:             (u) => <BOStock user={u} />,
-  retour:            (_u) => <BORetour />,
+  retour:            (u) => <BORetour user={u} />,
   articles:          (u) => <BOArticles user={u} />,
   finance:           (u) => <BOFinance user={u} />,
   whatsapp:          (u) => <BOWhatsApp user={u} />,
-  cash:              (_u) => <BOCash />,
-  livraisons:        (_u) => <BOCash />,
-  recap:             (_u) => <BORecap />,
+  cash:              (u) => <BOCash user={u} />,
+  livraisons:        (u) => <BOCash user={u} />,
+  recap:             (u) => <BORecap user={u} />,
   users:             (u) => <BOUsers currentUser={u} />,
   depots:            (u) => <BODepots user={u} />,
   database:          (u) => <BODatabase user={u} />,
@@ -301,22 +303,22 @@ const PANELS: Record<Tab, (u: User) => React.ReactNode> = {
   comptes_externes:  (u) => <BOComptesExternes user={u} />,
   prospection:       (u) => <BOProspection user={u} />,
   credit_fournisseur:(u) => <BOCreditFournisseur user={u} />,
-  agents_ia:         (u) => <AgentsIAPanel user={u} initialAgent="ashel" />,
+  agents_ia:         (u) => <AgentsIAPanel user={u} />,
   azmi_agent:        (u) => <AgentsIAPanel user={u} initialAgent="azmi" />,
   hicham_agent:      (u) => <AgentsIAPanel user={u} initialAgent="hicham" />,
   ourai_agent:       (u) => <AgentsIAPanel user={u} initialAgent="ourai" />,
   gps_tracker:       (u) => <BOGPSTracker user={u} />,
   feedback:          (u) => <FeedbackPanel user={u} />,
-  trip_charges:      (_u) => <TripChargesPanel />,
-  caisses_vides:     (_u) => <CaissesVidesPanel />,
-  analyse_achat:       (_u) => <AnalyseAchatPanel />,
-  analyse_reception:   (_u) => <AnalyseReceptionPanel />,
-  shelf_life:          (_u) => <ShelfLifePanel />,
-  forecast:            (_u) => <ForecastPanel />,
-  ashel_market:        (_u) => <ASHELMarketPanel />,
+  trip_charges:      (u) => <TripChargesPanel user={u} />,
+  caisses_vides:     (u) => <CaissesVidesPanel user={u} />,
+  analyse_achat:       (u) => <AnalyseAchatPanel user={u} />,
+  analyse_reception:   (u) => <AnalyseReceptionPanel user={u} />,
+  shelf_life:          (u) => <ShelfLifePanel user={u} />,
+  forecast:            (u) => <ForecastPanel user={u} />,
+  ashel_market:        (u) => <ASHELMarketPanel user={u} />,
   camera_perms:      (u) => <CameraPermissionsPanel currentUser={u} />,
-  cutoffs:           (_u) => <CutoffNotificationsPanel />,
-  deploy_guide:      (_u) => <DeployGuidePanel />,
+  cutoffs:           (u) => <CutoffNotificationsPanel user={u} />,
+  deploy_guide:      (u) => <DeployGuidePanel user={u} />,
   rh_productivite:   (u) => <BOResources user={u} />,
   rh_comptabilite:   (u) => <BOComptabiliteRH user={u} />,
 }

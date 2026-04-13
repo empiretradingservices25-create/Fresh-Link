@@ -1,21 +1,23 @@
-import { getSalesData, getCompetitorData } from "../services/salesService";
+import { AgentBase, AgentContext, AgentDecision } from "./AgentBase";
 
-export async function ziziMustaphaAgent(context: { action: string; data?: any }): Promise<any> {
-  switch (context.action) {
-    case "analyze_market":
-      const sales = await getSalesData();
-      const trend = sales.current - sales.lastMonth;
-      return {
-        message: trend > 0 ? "💹 Marché en croissance" : "⚠️ Baisse détectée",
-        evolution: trend
-      };
-    case "competitive_intel":
-      const competitors = await getCompetitorData();
-      return {
-        message: "Principaux concurrents analysés",
-        competitors
-      };
-    default:
-      return { message: "Zizi & Mustapha : action inconnue." };
+export class ZiziMustaphaAgent extends AgentBase {
+  constructor() {
+    super({
+      name: "Zizi & Mustapha",
+      description: "Propose des stratégies commerciales et suit la concurrence.",
+      category: "Sales",
+      avatar: "/img/avatars/zizi_mustapha.png"
+    });
+  }
+  async analyzeAndDecide(context: AgentContext): Promise<AgentDecision> {
+    let actions: string[] = [];
+    if (context.marketDrop) actions.push("📊 Analyser les tendances du marché.");
+    if (context.competitorDiscount) actions.push("🏷️ Proposer une action commerciale.");
+    if (context.kpiFalling) actions.push("💡 Ajuster la stratégie pour atteindre les KPIs.");
+    return {
+      summary: actions.length ? "Actions Commerciales recommandées" : "Marché conforme",
+      actions
+    };
   }
 }
+export default ZiziMustaphaAgent;
