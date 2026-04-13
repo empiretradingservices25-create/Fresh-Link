@@ -188,7 +188,11 @@ export async function fetchClients(): Promise<{ clients: Client[]; source: "supa
       return { clients: data as Client[], source: "supabase" }
     }
   } catch (e) {
-    console.error("[db] fetchClients offline:", e)
+    if (e instanceof Error) {
+      console.error("[db] fetchClients offline:", e.message, e.stack || "");
+    } else {
+      console.error("[db] fetchClients offline:", (typeof e === "object" && e !== null && "message" in e) ? (e as any).message : e);
+    }
   }
   return { clients: store.getClients(), source: "local" }
 }
@@ -245,7 +249,7 @@ try {
     return data as Article[]
   }
 } catch (e) {
-  console.error("[db] fetchArticles offline:", e)
+  console.error("[db] fetchArticles offline:", (typeof e === "object" && e !== null && "message" in e) ? (e as any).message : e)
 }
 return store.getArticles()
 }
@@ -276,7 +280,7 @@ try {
     return data as Fournisseur[]
   }
 } catch (e) {
-  console.error("[db] fetchFournisseurs offline:", e)
+  console.error("[db] fetchFournisseurs offline:", (typeof e === "object" && e !== null && "message" in e) ? (e as any).message : e)
 }
 return store.getFournisseurs()
 }
@@ -318,7 +322,7 @@ export async function fetchCommandes(dateFilter?: string): Promise<Commande[]> {
       return data as Commande[]
     }
   } catch (e) {
-    console.error("[db] fetchCommandes offline:", e)
+    console.error("[db] fetchCommandes offline:", (e instanceof Error && e.message) ? e.message : e)
   }
   const all = store.getCommandes()
   return dateFilter ? all.filter(c => c.date === dateFilter) : all
@@ -366,7 +370,7 @@ try {
     return data as Trip[]
   }
 } catch (e) {
-  console.error("[db] fetchTrips offline:", e)
+  console.error("[db] fetchTrips offline:", (e instanceof Error && e.message) ? e.message : e)
 }
 return store.getTrips()
 }
@@ -397,7 +401,7 @@ try {
     return data as BonLivraison[]
   }
 } catch (e) {
-  console.error("[db] fetchBonsLivraison offline:", e)
+  console.error("[db] fetchBonsLivraison offline:", (typeof e === "object" && e !== null && "message" in e) ? (e as any).message : e)
 }
 return store.getBonsLivraison()
 }
@@ -428,7 +432,7 @@ export async function fetchRetours(): Promise<Retour[]> {
       return data as Retour[]
     }
   } catch (e) {
-    console.error("[db] fetchRetours offline:", e)
+    console.error("[db] fetchRetours offline:", (e instanceof Error && e.message) ? e.message : e)
   }
   return store.getRetours()
 }
