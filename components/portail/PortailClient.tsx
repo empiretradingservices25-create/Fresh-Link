@@ -63,11 +63,11 @@ export default function PortailClient({ user, onLogout }: Props) {
     const allCommandes = store.getCommandes()
     const allArticles = store.getArticles()
     const allClients = store.getClients()
-    const myClientId = user.clientId
+    const myClientId = (user as any).clientId
     const myClient = allClients.find(c => c.id === myClientId) ?? null
     setClient(myClient)
     const myCommandes = myClientId
-      ? allCommandes.filter(c => c.clientId === myClientId)
+      ? allCommandes.filter(c => (c as any).clientId === myClientId)
       : []
     setCommandes(myCommandes.sort((a, b) => b.date.localeCompare(a.date)))
     setArticles(allArticles)
@@ -166,7 +166,7 @@ export default function PortailClient({ user, onLogout }: Props) {
   const enCours = commandes.filter(c => ["en_attente", "valide", "en_transit"].includes(c.statut)).length
   const totalCA = commandes
     .filter(c => c.statut === "livre")
-    .reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + (l.prixVente ?? 0) * l.quantite, 0), 0)
+    .reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + ((l as any).prixVente ?? 0) * l.quantite, 0), 0)
 
   const filteredArticles = articles.filter(a =>
     a.nom.toLowerCase().includes(search.toLowerCase())
@@ -312,7 +312,7 @@ export default function PortailClient({ user, onLogout }: Props) {
             ) : filtered.map(cmd => {
               const cfg = STATUT_CONFIG[cmd.statut] ?? STATUT_CONFIG.en_attente
               const isExpanded = expandedId === cmd.id
-              const total = cmd.lignes.reduce((s, l) => s + (l.prixVente ?? 0) * l.quantite, 0)
+              const total = cmd.lignes.reduce((s, l) => s + ((l as any).prixVente ?? 0) * l.quantite, 0)
               return (
                 <div key={cmd.id} className="rounded-2xl border border-border bg-card overflow-hidden">
                   <button
@@ -362,8 +362,8 @@ export default function PortailClient({ user, onLogout }: Props) {
                               <tr key={i} className="border-t border-border">
                                 <td className="px-3 py-2 font-medium">{l.articleNom}</td>
                                 <td className="px-3 py-2 text-right">{l.quantite} {l.unite || ""}</td>
-                                <td className="px-3 py-2 text-right">{(l.prixVente ?? 0).toFixed(2)} DH</td>
-                                <td className="px-3 py-2 text-right font-bold text-primary">{((l.prixVente ?? 0) * l.quantite).toFixed(2)} DH</td>
+                                <td className="px-3 py-2 text-right">{((l as any).prixVente ?? 0).toFixed(2)} DH</td>
+                                <td className="px-3 py-2 text-right font-bold text-primary">{(((l as any).prixVente ?? 0) * l.quantite).toFixed(2)} DH</td>
                               </tr>
                             ))}
                           </tbody>

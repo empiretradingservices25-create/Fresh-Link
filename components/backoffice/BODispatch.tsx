@@ -128,13 +128,13 @@ export default function BODispatch({ user }: Props) {
           const cmd = store.getCommandes().find(c => c.id === cid)
           if (cmd && cmd.statut === "en_transit") {
             store.updateCommande(cid, { statut: "livre" })
-            const total = cmd.lignes.reduce((s, l) => s + l.quantite * (l.prixVente ?? l.prixUnitaire ?? 0), 0)
+            const total = cmd.lignes.reduce((s, l) => s + l.quantite * ((l as any).prixVente ?? l.prixUnitaire ?? 0), 0)
             const tva = 0.20
             store.addBonLivraison({
               id: store.genBL(), date: store.today(), tripId: id,
               commandeId: cid, clientNom: cmd.clientNom, secteur: cmd.secteur, zone: cmd.zone,
               livreurNom: trip.livreurNom, prevendeurNom: cmd.commercialNom,
-              lignes: cmd.lignes.map(l => ({ articleNom: l.articleNom, quantite: l.quantite, prixUnitaire: l.prixVente ?? l.prixUnitaire ?? 0, total: l.quantite * (l.prixVente ?? l.prixUnitaire ?? 0) })),
+              lignes: cmd.lignes.map(l => ({ articleNom: l.articleNom, quantite: l.quantite, prixUnitaire: (l as any).prixVente ?? l.prixUnitaire ?? 0, total: l.quantite * ((l as any).prixVente ?? l.prixUnitaire ?? 0) })),
               montantTotal: total, tva, montantTTC: total * (1 + tva),
               statut: "émis", statutLivraison: "livre", valideMagasinier: false,
             })
@@ -355,7 +355,7 @@ export default function BODispatch({ user }: Props) {
                       </div>
                       <div className="text-right shrink-0">
                         <p className="text-sm font-bold" style={{ color: "oklch(0.38 0.2 260)" }}>
-                          {store.formatMAD(c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0))}
+                          {store.formatMAD(c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0))}
                         </p>
                         {c.gpsLat && <span className="text-[10px] text-green-600 font-semibold">GPS</span>}
                       </div>

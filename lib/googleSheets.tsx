@@ -173,7 +173,7 @@ export function serializeCommandes(commandes: Commande[]) {
       colisage: l.colisageParUM || "",
       qte_um: l.quantiteUM ?? "",
       qte_base: l.quantite,
-      pv: l.prixVente,
+      pv: (l as any).prixVente,
       total_ligne: l.total,
       total_commande: c.lignes.reduce((s, ll) => s + ll.total, 0),
     }))

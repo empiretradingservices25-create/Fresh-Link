@@ -82,7 +82,7 @@ const LS = {
         .filter((b: any) => (b.date ?? "").startsWith(periode) && b.statut === "livré")
         .reduce((s: number, b: any) => {
           const total = (b.lignes ?? []).reduce((ls: number, l: any) =>
-            ls + Number(l.quantite ?? 0) * Number(l.prixVente ?? 0), 0)
+            ls + Number(l.quantite ?? 0) * Number((l as any).prixVente ?? 0), 0)
           return s + total
         }, 0)
     } catch { return 0 }
@@ -190,7 +190,7 @@ function FicheDetail({ fiche, onSave, onClose, benefNetEntreprise, caisseSolde }
   const [noteAzmi, setNoteAzmi] = useState(fiche.noteAzmi ?? "")
 
   const grilles = LS.getGrilles()
-  const grille = grilles.find((g: any) => g.userId === fiche.userId)
+  const grille = grilles.find((g: any) => (g as any).userId === (fiche as any).userId)
   const actionnaire      = grille?.actionnaire ?? false
   const tauxBenef        = grille?.tauxBenef ?? 0
   const tauxSalaireBenef = grille?.tauxSalaireBenef ?? 0
@@ -524,7 +524,7 @@ export default function BOComptabiliteRH({ user }: { user: User }) {
           <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest px-1">Fiches — {periodeFiches.length} employés</p>
           {periodeFiches.map(f => {
             const grilles = LS.getGrilles()
-            const g = grilles.find((gr: any) => gr.userId === f.userId)
+            const g = grilles.find((gr: any) => (gr as any).userId === (f as any).userId)
             const isActionnaire = g?.actionnaire ?? false
             const total = f.totalActionnaire ?? f.salaireBrut
 

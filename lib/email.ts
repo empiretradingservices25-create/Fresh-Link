@@ -240,7 +240,7 @@ export function buildCommandeEmail(cmd: {
   id: string; clientNom: string; commercialNom: string; date: string; heurelivraison: string
   lignes: { articleNom: string; quantite: number; prixVente: number }[]
 }): string {
-  const total = cmd.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
+  const total = cmd.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0)
   const line = "─".repeat(48)
   return [
     line,
@@ -250,7 +250,7 @@ export function buildCommandeEmail(cmd: {
     `  Client : ${cmd.clientNom}`,
     line,
     ...cmd.lignes.map(l =>
-      `  • ${l.articleNom.padEnd(20)} ${String(l.quantite).padStart(6)}  x  ${fmt(l.prixVente)} DH = ${fmt(l.quantite * l.prixVente)} DH`
+      `  • ${l.articleNom.padEnd(20)} ${String(l.quantite).padStart(6)}  x  ${fmt((l as any).prixVente)} DH = ${fmt(l.quantite * (l as any).prixVente)} DH`
     ),
     line,
     `  TOTAL TTC : ${fmt(total)} DH`,

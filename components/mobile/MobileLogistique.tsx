@@ -50,7 +50,7 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
   )
 
   const currentStatut = bl?.statutLivraison ?? "premier_passage"
-  const totalHT = commande.lignes.reduce((s, l) => s + l.quantite * (l.prixVente ?? l.prixUnitaire ?? 0), 0)
+  const totalHT = commande.lignes.reduce((s, l) => s + l.quantite * ((l as any).prixVente ?? l.prixUnitaire ?? 0), 0)
 
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
@@ -87,7 +87,7 @@ function DeliveryCard({ commande, motifs, onUpdate }: DeliveryCardProps) {
               {commande.lignes.map((l, i) => (
                 <div key={i} className="flex items-center justify-between text-sm">
                   <span className="text-foreground font-medium">{l.articleNom}</span>
-                  <span className="text-muted-foreground font-sans">{l.quantite} × {(l.prixVente ?? l.prixUnitaire ?? 0)} DH = <strong>{(l.quantite * (l.prixVente ?? l.prixUnitaire ?? 0)).toLocaleString("fr-MA")} DH</strong></span>
+                  <span className="text-muted-foreground font-sans">{l.quantite} × {((l as any).prixVente ?? l.prixUnitaire ?? 0)} DH = <strong>{(l.quantite * ((l as any).prixVente ?? l.prixUnitaire ?? 0)).toLocaleString("fr-MA")} DH</strong></span>
                 </div>
               ))}
             </div>
@@ -298,7 +298,7 @@ export default function MobileLogistique({ user }: Props) {
     if (!commande) return
 
     const tva = 19
-    const montantTotal = commande.lignes.reduce((s, l) => s + l.quantite * (l.prixVente ?? l.prixUnitaire ?? 0), 0)
+    const montantTotal = commande.lignes.reduce((s, l) => s + l.quantite * ((l as any).prixVente ?? l.prixUnitaire ?? 0), 0)
     const montantTTC = Math.round(montantTotal * (1 + tva / 100))
 
     const existingBL = store.getBonsLivraison().find(b => b.commandeId === commandeId)
@@ -326,8 +326,8 @@ export default function MobileLogistique({ user }: Props) {
           quantite: l.quantite,
           quantiteUM: l.quantiteUM,
           um: l.um,
-          prixUnitaire: l.prixVente,
-          total: l.quantite * l.prixVente,
+          prixUnitaire: (l as any).prixVente,
+          total: l.quantite * (l as any).prixVente,
         })),
         montantTotal,
         tva,
@@ -462,7 +462,7 @@ export default function MobileLogistique({ user }: Props) {
             ) : (
               <div className="flex flex-col gap-3">
                 {pendingCommandes.map(c => {
-                  const clientRecord = store.getClients().find(cl => cl.id === c.clientId)
+                  const clientRecord = store.getClients().find(cl => cl.id === (c as any).clientId)
                   return (
                     <div key={c.id} className="bg-card rounded-2xl border border-border p-4 flex flex-col gap-3">
                       <div className="flex items-start justify-between">
@@ -504,12 +504,12 @@ export default function MobileLogistique({ user }: Props) {
                         {c.lignes.map((l, i) => (
                           <div key={i} className="flex justify-between text-xs py-0.5">
                             <span className="text-foreground">{l.articleNom}</span>
-                            <span className="text-muted-foreground font-medium">{l.quantite} × {l.prixVente} DH</span>
+                            <span className="text-muted-foreground font-medium">{l.quantite} × {(l as any).prixVente} DH</span>
                           </div>
                         ))}
                         <div className="mt-2 pt-2 border-t border-border flex justify-between text-sm font-bold">
                           <span>Total</span>
-                          <span>{c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0).toLocaleString("fr-MA")} DH</span>
+                          <span>{c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0).toLocaleString("fr-MA")} DH</span>
                         </div>
                       </div>
 
@@ -548,9 +548,9 @@ export default function MobileLogistique({ user }: Props) {
                 return !bl || (bl.statutLivraison !== "livre" && bl.statutLivraison !== "retour")
               })
               if (!nextClient) return null
-              const clientRecord = store.getClients().find(cl => cl.id === nextClient.clientId)
+              const clientRecord = store.getClients().find(cl => cl.id === (nextClient as any).clientId)
               const phone = clientRecord?.telephone ?? ""
-              const totalHT = nextClient.lignes.reduce((s, l) => s + l.quantite * (l.prixVente ?? 0), 0)
+              const totalHT = nextClient.lignes.reduce((s, l) => s + l.quantite * ((l as any).prixVente ?? 0), 0)
               const msgText = `Bonjour ${nextClient.clientNom},\nVotre livraison FreshLink Pro est en route !\nMontant: ${totalHT.toLocaleString("fr-MA")} DH HT\nLivreur: ${user.name}\nMerci.`
               const encodedMsg = encodeURIComponent(msgText)
               const cleanPhone = phone.replace(/\D/g, "")

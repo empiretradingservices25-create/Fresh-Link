@@ -164,10 +164,10 @@ function ProductiviteTab({ users }: { users: User[] }) {
   const stats = staffUsers.map(u => {
     const groupe = groupeForRole(u.role)
     if (groupe === "prevendeur") {
-      const uvisitp = visites.filter(v => v.userId === u.id && v.date?.startsWith(periode))
-      const ucmds = commandes.filter(c => c.commercialId === u.id && c.date?.startsWith(periode))
+      const uvisitp = visites.filter(v => (v as any).userId === u.id && v.date?.startsWith(periode))
+      const ucmds = commandes.filter(c => (c as any).commercialId === u.id && c.date?.startsWith(periode))
       const tonnage = ucmds.reduce((s, c) => s + c.lignes.reduce((a, l) => a + (l.quantite ?? 0), 0), 0)
-      const newClients = new Set(ucmds.map(c => c.clientId)).size
+      const newClients = new Set(ucmds.map(c => (c as any).clientId)).size
       const retourCli = retours.filter((r: any) => r.livreurId === u.id && r.date?.startsWith(periode)).length
       return { u, groupe, kpis: [
         { label: "Visites", value: uvisitp.length, icon: "👁" },
@@ -421,14 +421,14 @@ function GrillesTab({ users, isAdmin }: { users: User[]; isAdmin: boolean }) {
 
   const staff = users.filter(u => !["client", "fournisseur"].includes(u.role) && u.actif)
 
-  const getGrille = (uid: string) => grilles.find(g => g.userId === uid)
+  const getGrille = (uid: string) => grilles.find(g => (g as any).userId === uid)
 
   const saveGrille = (uid: string) => {
     if (!form.salaireFixe) return
     const u = staff.find(s => s.id === uid)!
-    const existing = grilles.find(g => g.userId === uid)
+    const existing = grilles.find(g => (g as any).userId === uid)
     const updated = existing
-      ? grilles.map(g => g.userId === uid ? { ...g, ...form, updatedAt: nowIso() } : g)
+      ? grilles.map(g => (g as any).userId === uid ? { ...g, ...form, updatedAt: nowIso() } : g)
       : [...grilles, {
           id: genId(), userId: uid, userName: u.name, userRole: u.role,
           groupe: groupeForRole(u.role), salaireFixe: form.salaireFixe ?? 3000,
@@ -574,7 +574,7 @@ function CalculSalaireTab({ users }: { users: User[] }) {
   const staff = users.filter(u => !["client", "fournisseur"].includes(u.role) && u.actif)
 
   const computeFiche = (u: User): FichePayroll => {
-    const g = grilles.find(gr => gr.userId === u.id)
+    const g = grilles.find(gr => (gr as any).userId === u.id)
     const salaireFixe = g?.salaireFixe ?? 0
     const applicableRegles = regles.filter(r => (g?.reglesIds ?? []).includes(r.id))
     const groupe = groupeForRole(u.role)
@@ -587,17 +587,17 @@ function CalculSalaireTab({ users }: { users: User[] }) {
 
       if (groupe === "prevendeur") {
         if (r.type === "tonnage") {
-          const ucmds = commandes.filter(c => c.commercialId === u.id && c.date?.startsWith(periode))
+          const ucmds = commandes.filter(c => (c as any).commercialId === u.id && c.date?.startsWith(periode))
           const tonnage = ucmds.reduce((s, c) => s + c.lignes.reduce((a, l) => a + (l.quantite ?? 0), 0), 0)
           montant = r.valeur * tonnage
           detail = `${tonnage.toFixed(1)} tonnes × ${r.valeur} DH`
         } else if (r.type === "visite") {
-          const nb = visites.filter(v => v.commercialId === u.id && v.date?.startsWith(periode)).length
+          const nb = visites.filter(v => (v as any).commercialId === u.id && v.date?.startsWith(periode)).length
           montant = r.valeur * nb
           detail = `${nb} visites × ${r.valeur} DH`
         } else if (r.type === "nouveau_client") {
-          const ucmds = commandes.filter(c => c.commercialId === u.id && c.date?.startsWith(periode))
-          const nb = new Set(ucmds.map(c => c.clientId)).size
+          const ucmds = commandes.filter(c => (c as any).commercialId === u.id && c.date?.startsWith(periode))
+          const nb = new Set(ucmds.map(c => (c as any).clientId)).size
           montant = r.valeur * nb
           detail = `${nb} clients × ${r.valeur} DH`
         } else if (r.type === "retour_client") {

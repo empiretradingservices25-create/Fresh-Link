@@ -167,10 +167,10 @@ export default function MobileCommercial({ user }: Props) {
 
   // My today's commandes (to detect duplicate + show edit/delete)
   const [myCommandes, setMyCommandes] = useState(
-    store.getCommandes().filter(c => c.commercialId === user.id && c.date === store.today())
+    store.getCommandes().filter(c => (c as any).commercialId === user.id && c.date === store.today())
   )
   const refreshMyCommandes = () =>
-    setMyCommandes(store.getCommandes().filter(c => c.commercialId === user.id && c.date === store.today()))
+    setMyCommandes(store.getCommandes().filter(c => (c as any).commercialId === user.id && c.date === store.today()))
 
   // Edit commande state — opens inline editor
   const [editCmd, setEditCmd] = useState<Commande | null>(null)
@@ -200,7 +200,7 @@ export default function MobileCommercial({ user }: Props) {
       return {
         articleId: l.articleId,
         quantite: inUMMode ? String(l.quantiteUM) : String(l.quantite),
-        prixVente: String(l.prixVente),
+        prixVente: String((l as any).prixVente),
         uniteMode: inUMMode ? (art?.um ?? "base") : "base",
       }
     }))
@@ -215,7 +215,7 @@ export default function MobileCommercial({ user }: Props) {
     if (idx >= 0) {
       const lignesData = editLignes.map(l => {
         const art = articles.find(a => a.id === l.articleId)!
-        const pv = Number(l.prixVente) || store.computePV(art)
+        const pv = Number((l as any).prixVente) || store.computePV(art)
         const inUMMode = !!(art.um && art.colisageParUM && l.uniteMode === art.um)
         const qtyUM = inUMMode ? Number(l.quantite) : undefined
         const qtyBase = inUMMode ? Number(l.quantite) * (art.colisageParUM ?? 1) : Number(l.quantite)
@@ -262,7 +262,7 @@ export default function MobileCommercial({ user }: Props) {
   // Compute article habits from past commandes for selected client
   useEffect(() => {
     if (!selectedClientId) { setClientHabits({}); return }
-    const pastCmds = store.getCommandes().filter(c => c.clientId === selectedClientId)
+    const pastCmds = store.getCommandes().filter(c => (c as any).clientId === selectedClientId)
     const habitsMap: Record<string, { count: number; lastDate: string }> = {}
     pastCmds.forEach(cmd => {
       cmd.lignes.forEach(l => {
@@ -388,8 +388,8 @@ export default function MobileCommercial({ user }: Props) {
   }
 
   const totalGeneral = lignes.reduce((sum, l) => {
-    if (!l.articleId || !l.quantite || !l.prixVente) return sum
-    return sum + baseQty(l) * Number(l.prixVente)
+    if (!l.articleId || !l.quantite || !(l as any).prixVente) return sum
+    return sum + baseQty(l) * Number((l as any).prixVente)
   }, 0)
 
   const totalTonnage = lignes.reduce((sum, l) => {
@@ -404,7 +404,7 @@ export default function MobileCommercial({ user }: Props) {
     const client = clients.find(c => c.id === selectedClientId)!
     const lignesData = lignes.map(l => {
       const art = articles.find(a => a.id === l.articleId)!
-      const pv = Number(l.prixVente) || store.computePV(art)
+      const pv = Number((l as any).prixVente) || store.computePV(art)
       const inUMMode = !!(art.um && art.colisageParUM && l.uniteMode === art.um)
       const qtyUM = inUMMode ? Number(l.quantite) : undefined
       const qtyBase = baseQty(l)   // always kg / base unit
@@ -508,7 +508,7 @@ export default function MobileCommercial({ user }: Props) {
   const autoFillPanier = () => {
     if (!selectedClientId) return
     const lastCmd = store.getCommandes()
-      .filter(c => c.clientId === selectedClientId)
+      .filter(c => (c as any).clientId === selectedClientId)
       .sort((a, b) => b.date.localeCompare(a.date))[0]
     if (!lastCmd) return
     const newLignes: LigneForm[] = lastCmd.lignes
@@ -518,7 +518,7 @@ export default function MobileCommercial({ user }: Props) {
         return {
           articleId: l.articleId,
           quantite: String(l.quantite),
-          prixVente: String(art ? store.computePV(art) : l.prixVente),
+          prixVente: String(art ? store.computePV(art) : (l as any).prixVente),
           uniteMode: "base",
         }
       })
@@ -905,7 +905,7 @@ export default function MobileCommercial({ user }: Props) {
       </div>
 
       {/* ── HABITUDES TAB ─────────────────────────────────────────────────── */}
-      {commTab === "habitudes" && (
+      {String(commTab) === "habitudes" && (
         <div className="flex flex-col gap-3">
           <div className="bg-card rounded-xl border border-border p-4 flex flex-col gap-3">
             <div className="flex items-center gap-2">
@@ -1214,7 +1214,7 @@ export default function MobileCommercial({ user }: Props) {
                   <label className="text-xs font-semibold text-foreground">
                     PV DH/{art?.unite || "unité"} / السعر
                   </label>
-                  <input type="number" min="0" step="0.01" value={ligne.prixVente} onChange={e => updateLigne(i, "prixVente", e.target.value)}
+                  <input type="number" min="0" step="0.01" value={(ligne as any).prixVente} onChange={e => updateLigne(i, "prixVente", e.target.value)}
                     className="px-3 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0.00" />
                 </div>
               </div>
@@ -1230,7 +1230,7 @@ export default function MobileCommercial({ user }: Props) {
                           {ok ? "Stock OK" : "Stock insuffisant"} — {bq.toFixed(1)} {art.unite} demandes
                         </span>
                         <span className="font-bold text-primary">
-                          {(bq * Number(ligne.prixVente || pvCalc)).toLocaleString("fr-MA", { minimumFractionDigits: 2 })} DH
+                          {(bq * Number((ligne as any).prixVente || pvCalc)).toLocaleString("fr-MA", { minimumFractionDigits: 2 })} DH
                         </span>
                       </>
                     )
@@ -1416,7 +1416,7 @@ export default function MobileCommercial({ user }: Props) {
                           </div>
                           <div className="flex flex-col gap-1">
                             <label className="text-xs text-muted-foreground">PV DH/{art?.unite}</label>
-                            <input type="number" min="0" step="0.01" value={ligne.prixVente}
+                            <input type="number" min="0" step="0.01" value={(ligne as any).prixVente}
                               onChange={e => { const u = [...editLignes]; u[i] = { ...u[i], prixVente: e.target.value }; setEditLignes(u) }}
                               className="px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
                           </div>

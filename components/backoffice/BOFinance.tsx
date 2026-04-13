@@ -174,7 +174,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
 
     const totalVente = commandes
       .filter(c => inPeriod(c.date) && ["valide","livre","en_transit"].includes(c.statut))
-      .reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
+      .reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
 
     const marge = totalVente - totalAchat
     const margePct = totalVente > 0 ? (marge / totalVente) * 100 : 0
@@ -221,7 +221,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
     commandes.forEach(c => {
       const ref = `CMD-${c.id}`
       if (!existingRefs.has(ref)) {
-        const montant = c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
+        const montant = c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0)
         store.addCaisseEntry({
           id: store.genId(), date: c.date, libelle: `Encaissement BL ${c.clientNom}`,
           type: "entree", categorie: "vente", montant, reference: ref, createdBy: user.id,
@@ -995,7 +995,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
             const plafond = c.plafondCredit ?? 0
             const delai = c.delaiRecouvrement ?? "a_definir"
             const delaiMs = DELAI_MS[delai] ?? Infinity
-            const clientBLs = bls.filter(b => b.clientId === c.id)
+            const clientBLs = bls.filter(b => (b as any).clientId === c.id)
             const lastBLDate = clientBLs.length > 0
               ? clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0].date
               : null
@@ -1393,7 +1393,7 @@ export default function BOFinance({ user }: { user: { id: string; name: string; 
                           <td colSpan={5} className="px-4 py-8 text-center text-sm text-muted-foreground">Aucun encours credit</td>
                         </tr>
                       ) : clients.filter(c => (c.creditSolde ?? 0) > 0).map(c => {
-                        const clientBLs = bls.filter(b => b.client === c.id)
+                        const clientBLs = bls.filter(b => (b as any).clientId === c.id)
                         const lastBL = clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0]
                         const ageMs = lastBL ? now - new Date(lastBL.date).getTime() : null
                         const ageDays = ageMs !== null ? Math.round(ageMs / (24 * 3600 * 1000)) : null

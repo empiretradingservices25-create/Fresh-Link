@@ -10,7 +10,7 @@ const workflows = [
 export default function ProcessManagement() {
   const [settings, setSettings] = useState<{ [key: string]: boolean }>({});
 
-  const handleToggle = key => {
+  const handleToggle = (key: string) => {
     setSettings(prev => ({
       ...prev,
       [key]: !prev[key],

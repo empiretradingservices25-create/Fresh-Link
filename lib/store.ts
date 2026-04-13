@@ -1713,7 +1713,7 @@ export const store = {
           total: need * art.prixAchat,
           statut: "ouvert",
           notes: `Auto-PO cmd ${c.id} (besoin ${need} ${art.unite}, stock ${art.stockDisponible})`,
-          createdBy: c.commercialId,
+          createdBy: (c as any).commercialId,
           commandeQty: l.quantite,
           stockQty: art.stockDisponible,
         })

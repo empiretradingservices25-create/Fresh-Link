@@ -1,7 +1,7 @@
 // Exemple de dashboard ERP affichant tous tes modules principaux
 import { ConnectionStatus } from "./ui/components/ConnectionStatus";
 import { AIConfig } from "./settings/AIConfig";
-import { ProcessSettings } from "./components/settings/ProcessManagement";
+import ProcessManagement from "./components/settings/ProcessManagement";
 import { MediaImport } from "./ui/components/MediaImport";
 import { MediaUploadSupabase } from "./ui/components/MediaUploadSupabase";
 import { MediaListSupabase } from "./ui/components/MediaListSupabase";
@@ -12,7 +12,7 @@ export default function App() {
       <h1>Fresh-Link ERP - Demo Dashboard</h1>
       <ConnectionStatus />
       <AIConfig />
-      <ProcessSettings />
+      <ProcessManagement />
       <MediaImport />
       <MediaUploadSupabase />
       <MediaListSupabase />

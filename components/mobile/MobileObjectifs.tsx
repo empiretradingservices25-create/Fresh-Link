@@ -75,17 +75,17 @@ export default function MobileObjectifs({ user }: Props) {
 
   useEffect(() => { setCommandes(store.getCommandes()) }, [])
 
-  const myCommandes = commandes.filter(c => c.commercialId === user.id)
+  const myCommandes = commandes.filter(c => (c as any).commercialId === user.id)
   const cdJ = myCommandes.filter(c => c.date === today)
   const cdW = myCommandes.filter(c => c.date >= week.start && c.date <= week.end)
   const cdM = myCommandes.filter(c => c.date >= month.start && c.date <= month.end)
 
-  const caJ = cdJ.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
-  const caW = cdW.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
-  const caM = cdM.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
-  const clientsJ = new Set(cdJ.map(c => c.clientId)).size
-  const clientsW = new Set(cdW.map(c => c.clientId)).size
-  const clientsM = new Set(cdM.map(c => c.clientId)).size
+  const caJ = cdJ.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
+  const caW = cdW.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
+  const caM = cdM.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
+  const clientsJ = new Set(cdJ.map(c => (c as any).clientId)).size
+  const clientsW = new Set(cdW.map(c => (c as any).clientId)).size
+  const clientsM = new Set(cdM.map(c => (c as any).clientId)).size
 
   const hasCA = (user.objectifJournalierCA ?? 0) > 0 || (user.objectifHebdomadaireCA ?? 0) > 0 || (user.objectifMensuelCA ?? 0) > 0
   const hasClients = (user.objectifJournalierClients ?? 0) > 0 || (user.objectifHebdomadaireClients ?? 0) > 0 || (user.objectifMensuelClients ?? 0) > 0
@@ -162,7 +162,7 @@ export default function MobileObjectifs({ user }: Props) {
           </div>
           <div className="divide-y divide-border max-h-60 overflow-y-auto">
             {[...cdM].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 15).map(c => {
-              const total = c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
+              const total = c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0)
               return (
                 <div key={c.id} className="flex items-center justify-between px-4 py-2.5">
                   <div>

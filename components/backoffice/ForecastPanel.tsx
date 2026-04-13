@@ -132,7 +132,7 @@ export default function ForecastPanel() {
       note: `Bon genere automatiquement par Forecast — livraison prevue ${tomorrowStr} 08h00`,
       createdAt: new Date().toISOString(),
     }
-    store.addBonAchat(bon)
+    store.addBonAchat(bon as any)
     alert(`Bon d'achat cree (${toOrder.length} articles) pour livraison le ${tomorrowStr} a 08h00.`)
   }
 

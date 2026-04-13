@@ -102,7 +102,7 @@ export default function BOCommercial({ user }: Props) {
     return true
   })
 
-  const totalCA = filtered.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
+  const totalCA = filtered.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
 
   const statutColor: Record<string, string> = {
     en_attente: "bg-yellow-100 text-yellow-800",
@@ -137,7 +137,7 @@ export default function BOCommercial({ user }: Props) {
   const boClients = store.getClients().filter(c => {
     // exclude portal-linked accounts — they have their own portal
     const users = store.getUsers()
-    const hasClientPortal = users.some(u => u.role === "client" && u.clientId === c.id)
+    const hasClientPortal = users.some(u => u.role === "client" && (u as any).clientId === c.id)
     return !hasClientPortal
   })
 
@@ -176,7 +176,7 @@ export default function BOCommercial({ user }: Props) {
               <div key={c.id} className="bg-white rounded-xl border border-orange-200 p-3 flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-sm text-foreground">{c.clientNom}</p>
-                  <p className="text-xs text-muted-foreground">{c.commercialNom} — {c.zone} — {c.date} — {c.lignes.reduce((s,l) => s + l.quantite * l.prixVente, 0).toLocaleString("fr-MA")} DH</p>
+                  <p className="text-xs text-muted-foreground">{c.commercialNom} — {c.zone} — {c.date} — {c.lignes.reduce((s,l) => s + l.quantite * (l as any).prixVente, 0).toLocaleString("fr-MA")} DH</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{c.lignes.map(l => `${l.articleNom} ×${l.quantite}`).join(", ")}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -317,7 +317,7 @@ export default function BOCommercial({ user }: Props) {
                     : `${l.articleNom} ×${l.quantite}${l.unite||""}`
                   ).join(", ")}
                 </td>
-                <td className="px-4 py-3 font-semibold text-primary whitespace-nowrap">{c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0).toLocaleString("fr-MA")} DH</td>
+                <td className="px-4 py-3 font-semibold text-primary whitespace-nowrap">{c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0).toLocaleString("fr-MA")} DH</td>
                 <td className="px-4 py-3 whitespace-nowrap">{c.heurelivraison}</td>
                 <td className="px-4 py-3">
                   {c.gpsLat ? (
@@ -359,7 +359,7 @@ export default function BOCommercial({ user }: Props) {
                 <div key={idx} className="py-2 border-b border-border/50 last:border-0">
                   <div className="flex items-center justify-between text-sm font-sans">
                     <span className="font-medium text-foreground">{l.articleNom}</span>
-                    <span className="font-bold text-primary">{(l.quantite * l.prixVente).toLocaleString("fr-MA")} DH</span>
+                    <span className="font-bold text-primary">{(l.quantite * (l as any).prixVente).toLocaleString("fr-MA")} DH</span>
                   </div>
                   <div className="flex items-center gap-3 mt-0.5 text-xs text-muted-foreground font-sans flex-wrap">
                     {l.quantiteUM && l.um ? (
@@ -372,7 +372,7 @@ export default function BOCommercial({ user }: Props) {
                       <span>{l.quantite} {l.unite}</span>
                     )}
                     <span>·</span>
-                    <span>PV: {l.prixVente} DH/{l.unite}</span>
+                    <span>PV: {(l as any).prixVente} DH/{l.unite}</span>
                   </div>
                 </div>
               ))}
@@ -383,7 +383,7 @@ export default function BOCommercial({ user }: Props) {
                     {selected.lignes.reduce((s, l) => s + l.quantite, 0).toFixed(1)} {selected.lignes[0]?.unite || "unités"} au total
                   </p>
                 </div>
-                <span className="font-bold text-xl text-primary font-sans">{selected.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0).toLocaleString("fr-MA")} DH</span>
+                <span className="font-bold text-xl text-primary font-sans">{selected.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0).toLocaleString("fr-MA")} DH</span>
               </div>
             </div>
           </div>

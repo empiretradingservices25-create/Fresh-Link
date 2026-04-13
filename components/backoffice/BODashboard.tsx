@@ -103,7 +103,7 @@ export default function BODashboard({ user }: Props) {
   const cmdsLastWeek = useMemo(() => commandes.filter(c => c.date >= lastWeekRange.start && c.date <= lastWeekRange.end), [commandes, lastWeekRange])
   const cmdsMonth    = useMemo(() => commandes.filter(c => c.date >= monthRange.start && c.date <= monthRange.end), [commandes, monthRange])
 
-  const caOf   = (arr: typeof commandes) => arr.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
+  const caOf   = (arr: typeof commandes) => arr.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
   const tonnOf = (arr: typeof commandes) => arr.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite, 0), 0)
 
   const caToday     = caOf(cmdsToday)
@@ -141,11 +141,11 @@ export default function BODashboard({ user }: Props) {
   // --- Top clients (CA) ---
   const clientsCA: Record<string, { nom: string; ca: number; cmds: number; tonnage: number }> = {}
   commandes.forEach(c => {
-    const ca = c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
-    if (!clientsCA[c.clientId]) clientsCA[c.clientId] = { nom: c.clientNom, ca: 0, cmds: 0, tonnage: 0 }
-    clientsCA[c.clientId].ca += ca
-    clientsCA[c.clientId].cmds++
-    clientsCA[c.clientId].tonnage += c.lignes.reduce((s, l) => s + l.quantite, 0)
+    const ca = c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0)
+    if (!clientsCA[(c as any).clientId]) clientsCA[(c as any).clientId] = { nom: c.clientNom, ca: 0, cmds: 0, tonnage: 0 }
+    clientsCA[(c as any).clientId].ca += ca
+    clientsCA[(c as any).clientId].cmds++
+    clientsCA[(c as any).clientId].tonnage += c.lignes.reduce((s, l) => s + l.quantite, 0)
   })
   const top10Clients = Object.entries(clientsCA).sort(([, a], [, b]) => b.ca - a.ca).slice(0, 10)
 
@@ -202,15 +202,15 @@ export default function BODashboard({ user }: Props) {
   // --- Prevendeurs stats ---
   const prevendeurs = users.filter(u => u.role === "prevendeur" && u.actif)
   const getPrevendeurStats = (pv: User) => {
-    const cdJ = commandes.filter(c => c.commercialId === pv.id && c.date === today)
-    const cdW = commandes.filter(c => c.commercialId === pv.id && c.date >= weekRange.start && c.date <= weekRange.end)
-    const cdM = commandes.filter(c => c.commercialId === pv.id && c.date >= monthRange.start && c.date <= monthRange.end)
+    const cdJ = commandes.filter(c => (c as any).commercialId === pv.id && c.date === today)
+    const cdW = commandes.filter(c => (c as any).commercialId === pv.id && c.date >= weekRange.start && c.date <= weekRange.end)
+    const cdM = commandes.filter(c => (c as any).commercialId === pv.id && c.date >= monthRange.start && c.date <= monthRange.end)
     return {
       caJ: caOf(cdJ), caW: caOf(cdW), caM: caOf(cdM),
       tonnageJ: tonnOf(cdJ), tonnageM: tonnOf(cdM),
-      clientsJ: new Set(cdJ.map(c => c.clientId)).size,
-      clientsW: new Set(cdW.map(c => c.clientId)).size,
-      clientsM: new Set(cdM.map(c => c.clientId)).size,
+      clientsJ: new Set(cdJ.map(c => (c as any).clientId)).size,
+      clientsW: new Set(cdW.map(c => (c as any).clientId)).size,
+      clientsM: new Set(cdM.map(c => (c as any).clientId)).size,
       nbCmdsJ: cdJ.length, nbCmdsM: cdM.length,
     }
   }
@@ -262,7 +262,7 @@ export default function BODashboard({ user }: Props) {
         const delaiMs = DELAI_MS[delai] ?? Infinity
 
         // Last invoice date: find the last BL date for this client
-        // Correction débutant : si BonLivraison n'a pas clientId mais a client, utilisez b.clientId
+        // Correction débutant : si BonLivraison n'a pas clientId mais a client, utilisez (b as any).clientId
         const clientBLs = bls.filter(b => (b as any).clientId === c.id || (b as any).clientId === c.id)
         const lastBLDate = clientBLs.length > 0
           ? clientBLs.sort((a, b2) => b2.date.localeCompare(a.date))[0].date
@@ -546,7 +546,7 @@ export default function BODashboard({ user }: Props) {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {[...commandes].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 10).map(c => {
-                    const total = c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
+                    const total = c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0)
                     const tonn = c.lignes.reduce((s, l) => s + l.quantite, 0)
                     return (
                       <tr key={c.id} className="hover:bg-muted/30 transition-colors">
@@ -607,18 +607,13 @@ export default function BODashboard({ user }: Props) {
                       <YAxis yAxisId="ca" orientation="left" tick={TICK} axisLine={false} tickLine={false} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
                       <YAxis yAxisId="ton" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={v => `${v}`} />
                       <Tooltip
-                        contentStyle={TT_STYLE}
-                        formatter={(
-                          value: number | string | undefined,
-                          name?: string,
-                          item?: any,
-                          index?: number
-                        ) => {
-                          if (typeof value !== "number") return "";
-                          if (name === "ca") return DH(value);
-                          return KG(value);
-                        }}
-                      />
+  contentStyle={TT_STYLE}
+  formatter={(value) => {
+    if (typeof value !== "number") return null;
+    // Pour détecter "ca" tu peux utiliser un hack externe si besoin
+    return KG(value);
+  }}
+/>
                       <Legend wrapperStyle={{ fontSize: 12, color: "oklch(0.62 0.008 145)" }} />
                       <Line yAxisId="ca" type="monotone" dataKey="ca" stroke="#10b981" strokeWidth={2.5} dot={false} name="CA (DH)" />
                       <Line yAxisId="ton" type="monotone" dataKey="tonnage" stroke="#f59e0b" strokeWidth={2} dot={false} strokeDasharray="5 3" name="Tonnage (kg)" />
@@ -636,16 +631,14 @@ export default function BODashboard({ user }: Props) {
                         <XAxis dataKey="name" tick={TICK} axisLine={{ stroke: GRID }} tickLine={false} />
                         <YAxis yAxisId="ca" orientation="left" tick={TICK} axisLine={false} tickLine={false} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
                         <YAxis yAxisId="ton" orientation="right" tick={TICK} axisLine={false} tickLine={false} />
-                        <Tooltip contentStyle={TT_STYLE} formatter={(
-                          value: number | string | undefined,
-                          name?: string,
-                          item?: any,
-                          index?: number
-                        ) => {
-                          if (typeof value !== "number") return "";
-                          if (name === "ca") return DH(value);
-                          return KG(value);
-                        }} />
+                        <Tooltip
+  contentStyle={TT_STYLE}
+  formatter={(value) => {
+    if (typeof value !== "number") return null;
+    // Pour détecter "ca" tu peux utiliser un hack externe si besoin
+    return KG(value);
+  }}
+/>
                         <Legend wrapperStyle={{ fontSize: 12, color: "oklch(0.62 0.008 145)" }} />
                         <Bar yAxisId="ca" dataKey="ca" fill="#10b981" name="CA (DH)" radius={[6, 6, 0, 0]} />
                         <Bar yAxisId="ton" dataKey="tonnage" fill="#f59e0b" name="Tonnage (kg)" radius={[6, 6, 0, 0]} />
@@ -663,12 +656,7 @@ export default function BODashboard({ user }: Props) {
                         <CartesianGrid strokeDasharray="4 3" stroke={GRID} horizontal={false} />
                         <XAxis type="number" tick={TICK_SM} axisLine={{ stroke: GRID }} tickLine={false} tickFormatter={v => `${v}kg`} />
                         <YAxis type="category" dataKey="name" tick={TICK_SM} axisLine={false} tickLine={false} width={70} />
-                        <Tooltip contentStyle={TT_STYLE} formatter={(
-                          value: number | string | undefined,
-                          name?: string,
-                          item?: any,
-                          index?: number
-                        ) => (typeof value === "number" ? KG(value) : "")} />
+                        <Tooltip contentStyle={TT_STYLE} formatter={(value) => String(Array.isArray(value) ? value.join(', ') : value ?? "")} />
                         <Bar dataKey="kg" name="Tonnage" radius={[0, 6, 6, 0]}>
                           {artChartData.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                         </Bar>
@@ -687,12 +675,7 @@ export default function BODashboard({ user }: Props) {
                           <CartesianGrid strokeDasharray="4 3" stroke={GRID} horizontal={false} />
                           <XAxis type="number" tick={TICK_SM} axisLine={{ stroke: GRID }} tickLine={false} tickFormatter={v => `${(v / 1000).toFixed(0)}k`} />
                           <YAxis type="category" dataKey="name" tick={TICK_SM} axisLine={false} tickLine={false} width={70} />
-                          <Tooltip contentStyle={TT_STYLE} formatter={(
-                            value: number | string | undefined,
-                            name?: string,
-                            item?: any,
-                            index?: number
-                          ) => (typeof value === "number" ? DH(value) : "")} />
+                          <Tooltip contentStyle={TT_STYLE} formatter={(value) => String(Array.isArray(value) ? value.join(', ') : value ?? "")} />
                           <Bar dataKey="ca" name="CA" radius={[0, 6, 6, 0]}>
                             {secteurChartData.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                           </Bar>
@@ -709,12 +692,7 @@ export default function BODashboard({ user }: Props) {
                             labelLine={false} fontSize={9}>
                             {top10Clients.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                           </Pie>
-                          <Tooltip contentStyle={TT_STYLE} formatter={(
-                            value: number | string | undefined,
-                            name?: string,
-                            item?: any,
-                            index?: number
-                          ) => (typeof value === "number" ? DH(value) : "")} />
+                          <Tooltip contentStyle={TT_STYLE} formatter={(value) => String(Array.isArray(value) ? value.join(', ') : value ?? "")} />
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
@@ -728,6 +706,10 @@ export default function BODashboard({ user }: Props) {
 
       {/* == RETOURS == */}
       {dashTab === "retours" && (
+        // Define TT_STYLE for retours tab charts
+        (() => {
+          const TT_STYLE = { background: "oklch(0.12 0.010 145)", border: "1px solid oklch(0.22 0.012 145)", borderRadius: "0.75rem", fontSize: 12, color: "oklch(0.88 0.006 100)" };
+          return (
         <div className="flex flex-col gap-5">
           {/* Retour KPIs */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -852,27 +834,51 @@ export default function BODashboard({ user }: Props) {
           )}
 
           {/* Retour chart */}
-          {topArticlesRetour.length > 0 && (
-            <div className="bg-card rounded-xl border border-border p-4">
-              <h3 className="text-sm font-bold text-foreground mb-4">Articles retournes — Tonnage (kg)</h3>
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={topArticlesRetour.map(([, a]) => ({ name: a.nom, kg: Math.round(a.kg) }))}
-                  layout="vertical" margin={{ top: 4, right: 48, left: 80, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.88 0.01 240)" />
-                  <XAxis type="number" tick={{ fontSize: 10 }} tickFormatter={v => `${v}kg`} />
-                  <YAxis type="category" dataKey="name" tick={{ fontSize: 10 }} width={80} />
-                  <Tooltip formatter={(
-                    value: number | string | undefined,
-                    name?: string,
-                    item?: any,
-                    index?: number
-                  ) => (typeof value === "number" ? KG(value) : "")} />
-                  <Bar dataKey="kg" fill="#ef4444" name="Retour (kg)" radius={[0, 4, 4, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          )}
+{topArticlesRetour.length > 0 && (
+  <div className="bg-card rounded-xl border border-border p-4">
+    <h3 className="text-sm font-bold text-foreground mb-4">
+      Articles retournés — Tonnage (kg)
+    </h3>
+    <ResponsiveContainer width="100%" height={200}>
+      <BarChart
+        data={topArticlesRetour.map(([, a]) => ({
+          name: a.nom,
+          kg: Math.round(a.kg)
+        }))}
+        layout="vertical"
+        margin={{ top: 4, right: 48, left: 80, bottom: 0 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.88 0.01 240)" />
+        <XAxis
+          type="number"
+          tick={{ fontSize: 10 }}
+          tickFormatter={v => `${v}kg`}
+        />
+        <YAxis
+          type="category"
+          dataKey="name"
+          tick={{ fontSize: 10 }}
+          width={80}
+        />
+        <Tooltip
+          contentStyle={TT_STYLE}
+          formatter={(value) =>
+            String(Array.isArray(value) ? value.join(', ') : value ?? "")
+          }
+        />
+        <Bar
+          dataKey="kg"
+          fill="#ef4444"
+          name="Retour (kg)"
+          radius={[0, 4, 4, 0]}
+        />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+)}
         </div>
+          )
+        })()
       )}
 
       {/* == OBJECTIFS == */}

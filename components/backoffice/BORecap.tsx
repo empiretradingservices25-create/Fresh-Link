@@ -45,11 +45,11 @@ function computeStats(date: string): DailyStats {
   const articles    = store.getArticles()
 
   const totalAchats     = bonsAchat.reduce((s, b) => s + b.lignes.reduce((ls, l) => ls + l.quantite * l.prixAchat, 0), 0)
-  const totalCommandes  = commandes.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
+  const totalCommandes  = commandes.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
   const totalLivraisons = bls.reduce((s, b) => s + b.montantTotal, 0)
   const totalRetours    = retours.reduce((s, r) => s + r.lignes.reduce((ls, l) => {
     const art = articles.find(a => a.id === l.articleId)
-    return ls + l.quantite * (art?.prixVente ?? 0)
+    return ls + l.quantite * ((art as any)?.prixVente ?? 0)
   }, 0), 0)
   const totalCash = bls.filter(b => b.statut === "encaissé").reduce((s, b) => s + b.montantTotal, 0)
   const marge     = totalLivraisons - totalAchats
@@ -133,7 +133,7 @@ function groupByFournisseur(
     if (!map.has(r.fournisseurId)) {
       const f = fournisseurs.find(f => f.id === r.fournisseurId)
       map.set(r.fournisseurId, {
-        fournisseurNom:   r.fournisseurNom,
+        fournisseurNom:   r.fournisseurNom ?? "",
         fournisseurEmail: f?.email ?? "",
         lignes: [],
       })

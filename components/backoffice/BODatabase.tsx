@@ -485,7 +485,7 @@ export default function BODatabase({ user }: { user: { id: string; role?: string
                   if (b.retours) { store.saveRetours(b.retours); }
                   if (b.trips) { store.saveTrips(b.trips); }
                   if (b.articles) { store.saveArticles(b.articles); }
-                  if (b.clientIds) { store.saveClients(b.clientIds); }
+                  if ((b as any).clientIds) { store.saveClients((b as any).clientIds); }
                   if (b.fournisseurs) { store.saveFournisseurs(b.fournisseurs); }
                   if (b.livreurs) { store.saveLivreurs(b.livreurs); }
                   alert("Backup importé avec succès. Rechargez la page pour voir les données.")

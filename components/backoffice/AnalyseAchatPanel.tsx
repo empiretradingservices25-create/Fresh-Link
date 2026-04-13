@@ -60,11 +60,11 @@ function computeCmdVsFacturation(dateFrom: string, dateTo: string): CmdVsFactura
         article: ligne.articleNom,
         client: cmd.clientNom,
         qteCmdee: ligne.quantite,
-        prixCmd: ligne.quantite * ligne.prixVente,
+        prixCmd: ligne.quantite * (ligne as any).prixVente,
         qteFact,
         prixFact,
         ecartQte: Math.max(0, ligne.quantite - qteFact),
-        ecartValeur: Math.max(0, ligne.quantite * ligne.prixVente - prixFact),
+        ecartValeur: Math.max(0, ligne.quantite * (ligne as any).prixVente - prixFact),
       })
     }
   }

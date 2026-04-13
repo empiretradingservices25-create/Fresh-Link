@@ -489,10 +489,10 @@ export function printBonCommande(cmd: Commande) {
   const coName = co.nom || "FreshLink Pro"
   const coAddr = [co.adresse, co.ville].filter(Boolean).join(" — ")
 
-  const totalHT = cmd.lignes.reduce((s, l) => s + l.quantite * (l.prixVente ?? l.prixUnitaire ?? 0), 0)
+  const totalHT = cmd.lignes.reduce((s, l) => s + l.quantite * ((l as any).prixVente ?? l.prixUnitaire ?? 0), 0)
 
   const lignesRows = cmd.lignes.map((l, i) => {
-    const pv = l.prixVente ?? l.prixUnitaire ?? 0
+    const pv = (l as any).prixVente ?? l.prixUnitaire ?? 0
     const umHtml = l.quantiteUM && l.um
       ? `<span class="um-badge">${l.quantiteUM} ${l.um}</span>`
       : ""

@@ -47,7 +47,7 @@ export default function MobileDashboard({ user }: Props) {
   const yesterday = dateOffset(1)
   const wStart = weekStart()
 
-  const myCommandes = commandes.filter(c => c.commercialId === user.id)
+  const myCommandes = commandes.filter(c => (c as any).commercialId === user.id)
 
   const forPeriod = myCommandes.filter(c => {
     if (period === "jour") return c.date === today
@@ -57,9 +57,9 @@ export default function MobileDashboard({ user }: Props) {
   })
 
   // Stats
-  const totalCA = forPeriod.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * l.prixVente, 0), 0)
+  const totalCA = forPeriod.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite * (l as any).prixVente, 0), 0)
   const totalTonnage = forPeriod.reduce((s, c) => s + c.lignes.reduce((ls, l) => ls + l.quantite, 0), 0)
-  const uniqueClients = new Set(forPeriod.map(c => c.clientId)).size
+  const uniqueClients = new Set(forPeriod.map(c => (c as any).clientId)).size
   const uniqueSKUs = new Set(forPeriod.flatMap(c => c.lignes.map(l => l.articleId))).size
 
   // Objectifs (user params)
@@ -74,7 +74,7 @@ export default function MobileDashboard({ user }: Props) {
   forPeriod.forEach(c => c.lignes.forEach(l => {
     if (!skuBreakdown[l.articleId]) skuBreakdown[l.articleId] = { nom: l.articleNom, quantite: 0, ca: 0 }
     skuBreakdown[l.articleId].quantite += l.quantite
-    skuBreakdown[l.articleId].ca += l.quantite * l.prixVente
+    skuBreakdown[l.articleId].ca += l.quantite * (l as any).prixVente
   }))
 
   const sendMessage = () => {
@@ -207,7 +207,7 @@ export default function MobileDashboard({ user }: Props) {
             ) : (
               <div className="flex flex-col gap-2">
                 {forPeriod.map(c => {
-                  const total = c.lignes.reduce((s, l) => s + l.quantite * l.prixVente, 0)
+                  const total = c.lignes.reduce((s, l) => s + l.quantite * (l as any).prixVente, 0)
                   const tonnage = c.lignes.reduce((s, l) => s + l.quantite, 0)
                   return (
                     <div key={c.id} className="bg-card rounded-xl border border-border p-3">

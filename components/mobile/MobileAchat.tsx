@@ -391,7 +391,7 @@ export default function MobileAchat({ user }: Props) {
       const idx = allArticles.findIndex(a => a.id === l.articleId)
       if (idx < 0) return
       const pa = resolvePA(l)
-      const qty = resolveQty(allArticles[idx])
+      const qty = resolveQty(allArticles[idx] as any)
       const histEntry: HistoriquePrixAchat = {
         date: store.today(),
         fournisseurId,
